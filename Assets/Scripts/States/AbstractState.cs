@@ -1,4 +1,4 @@
-﻿namespace RCG.State
+﻿namespace RCG.States
 {
     abstract class AbstractState : IState
     {

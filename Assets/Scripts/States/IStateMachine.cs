@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RCG.State
+namespace RCG.States
 {
     interface IStateMachine
     {

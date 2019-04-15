@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RCG.State
+namespace RCG.States
 {
     class StateMachine : IStateMachine
     {
