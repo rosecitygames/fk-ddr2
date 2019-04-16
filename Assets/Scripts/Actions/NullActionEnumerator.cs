@@ -30,7 +30,7 @@
         void IActionEnumerator.AddAction(IAction action) { }
         void IActionEnumerator.AddAction(IAction action, int index) { }
         void IActionEnumerator.RemoveAction(IAction action) { }
-        int IActionEnumerator.GetIndexOfAction(IAction action) { return -1; }
+        bool IActionEnumerator.HasAction(IAction action) { return false; }
         void IActionEnumerator.HandleCompletedAction(IAction action) { }
 
         public static IActionEnumerator Create()

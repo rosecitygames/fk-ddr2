@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace RCG.Actions
 {
@@ -73,8 +71,8 @@ namespace RCG.Actions
         {
             foreach (IActionEnumerator layer in layers)
             {
-                int index = layer.GetIndexOfAction(action);
-                if (index >= 0)
+                bool hasAction = layer.HasAction(action);
+                if (hasAction)
                 {
                     layer.RemoveAction(action);
                     break;
@@ -87,17 +85,18 @@ namespace RCG.Actions
             selectedLayer.RemoveAction(action);
         }
 
-        int IActionEnumerator.GetIndexOfAction(IAction action)
+        public bool HasAction(IAction action)
         {
-            foreach(IActionEnumerator layer in layers)
+            foreach (IActionEnumerator layer in layers)
             {
-                int index = layer.GetIndexOfAction(action);
-                if (index > 0)
+                bool hasAction = layer.HasAction(action);
+                if (hasAction)
                 {
-                    return index;
+                    return true;
                 }
             }
-            return -1;
+
+            return false;
         }
 
         public IActionEnumerator CreateLayer()

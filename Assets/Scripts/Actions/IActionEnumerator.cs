@@ -9,6 +9,6 @@
         void AddAction(IAction action, int index);
         void RemoveAction(IAction action);
         void HandleCompletedAction(IAction action);
-        int GetIndexOfAction(IAction action);
+        bool HasAction(IAction action);
     }
 }

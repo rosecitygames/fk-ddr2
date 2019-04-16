@@ -90,13 +90,14 @@ namespace RCG.Actions
             actions.Remove(action);
         }
 
-        int IActionEnumerator.GetIndexOfAction(IAction action)
+        bool IActionEnumerator.HasAction(IAction action)
         {
-            return IndexOfAction(action);
+            return HasAction(action);
         }
-        protected virtual int IndexOfAction(IAction action)
+        protected virtual bool HasAction(IAction action)
         {
-            return actions.IndexOf(action);
+            int actionIndex = actions.IndexOf(action);
+            return actionIndex >= 0;
         }
 
         void IActionEnumerator.HandleCompletedAction(IAction action)
@@ -105,7 +106,7 @@ namespace RCG.Actions
         }
         protected virtual void HandleCompletedAction(IAction action) { }
 
-        protected bool GetIsActionComplete(IAction action)
+        protected bool GetIsActionCompleted(IAction action)
         {
             return action.IsCompleted;
         }

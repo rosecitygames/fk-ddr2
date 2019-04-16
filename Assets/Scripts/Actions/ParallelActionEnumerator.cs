@@ -46,10 +46,12 @@ namespace RCG.Actions
                 int index = actions.IndexOf(action);
                 if (index >= 0)
                 {
-                    bool isAllActionsComplete = actions.TrueForAll(GetIsActionComplete);
-                    if (isAllActionsComplete)
+                    bool isAllActionsCompleted = actions.TrueForAll(GetIsActionCompleted);
+                    if (isAllActionsCompleted)
                     {
-                        if (currentLoop < loopCount - 1 || loopCount < 0)
+                        bool isLoopsRemaining = currentLoop < loopCount - 1;
+                        bool isInfiniteLooping = loopCount < 0;
+                        if (isLoopsRemaining || isInfiniteLooping)
                         {
                             int nextLoop = currentLoop + 1;
                             OnStart();

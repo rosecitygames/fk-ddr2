@@ -20,6 +20,7 @@ namespace RCG.Actions
             currentLoop = 0;
             isCompleted = false;
             isStarted = true;
+
             if (ActionsCount > 0)
             {
                 CurrentAction.Start();
@@ -57,12 +58,16 @@ namespace RCG.Actions
 
         protected void StartNextAction()
         {
-            if (currentIndex < ActionsCount - 1)
+            bool isActionsRemaining = currentIndex < ActionsCount - 1;
+            bool isLoopsRemaining = currentLoop < loopCount;
+            bool isInfiniteLooping = loopCount < 0;
+
+            if (isActionsRemaining)
             {
                 currentIndex += 1;
                 CurrentAction.Start();
             }
-            else if (currentLoop < loopCount || loopCount < 0)
+            else if (isLoopsRemaining || isInfiniteLooping)
             {
                 int nextLoop = currentLoop + 1;
                 OnStart();
