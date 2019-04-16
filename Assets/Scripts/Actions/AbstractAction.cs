@@ -5,34 +5,49 @@ namespace RCG.Actions
 {
     abstract public class AbstractAction : IAction
     {
-        public virtual bool IsCompleted { get; protected set; }
-
-        public virtual IActionEnumerator Parent { get; set; }
-
-        public virtual void Start()
+        protected bool isCompleted;
+        bool IAction.IsCompleted
         {
-            IsCompleted = false;
+            get
+            {
+                return isCompleted;
+            }
+        }
+
+        protected IActionEnumerator parent = NullActionEnumerator.Create();
+        IActionEnumerator IAction.Parent
+        {
+            get
+            {
+                return parent;
+            }
+            set
+            {
+                parent = value;
+            }
+        }
+
+        void IAction.Start()
+        {
+            isCompleted = false;
             OnStart();
         }
 
-        public virtual void Stop()
+        void IAction.Stop()
         {
             OnStop();
             Complete();
         }
 
-        public virtual void Destroy()
+        void IAction.Destroy()
         {
             OnDestroy();
         }
 
         protected virtual void Complete()
         {
-            IsCompleted = true;
-            if (Parent != null)
-            {
-                Parent.CompleteAction(this);
-            }
+            isCompleted = true;
+            parent.HandleCompletedAction(this);
         }
 
         protected virtual void OnStart() { }

@@ -4,22 +4,8 @@ using System.Collections.Generic;
 
 namespace RCG.Actions
 {
-    public class SerialActionEnumerator : AbstractAction, IActionEnumerator
+    public class SerialActionEnumerator : AbstractActionEnumerator
     {
-
-
-        protected List<IAction> actions = new List<IAction>();
-
-        protected bool isStarted = false;
-
-        public int LoopCount { get; set; }
-
-        public int CurrentLoop { get; protected set; }
-
-        public int ActionsCount
-        {
-            get { return actions.Count; }
-        }
 
         protected int currentIndex = 0;
 
@@ -28,38 +14,11 @@ namespace RCG.Actions
             get { return actions[currentIndex]; }
         }
 
-        public void AddAction(IAction action)
-        {
-            AddAction(action, -1);
-        }
-        public void AddAction(IAction action, int index)
-        {
-            if (index < 0)
-            {
-                actions.Add(action);
-            }
-            else
-            {
-                actions.Insert(index, action);
-            }
-            action.Parent = this;
-        }
-
-        public void RemoveAction(IAction action)
-        {
-            actions.Remove(action);
-        }
-
-        public int IndexOfAction(IAction action)
-        {
-            return actions.IndexOf(action);
-        }
-
-        override public void Start()
+        override protected void OnStart()
         {
             currentIndex = 0;
-            CurrentLoop = 0;
-            IsCompleted = false;
+            currentLoop = 0;
+            isCompleted = false;
             isStarted = true;
             if (ActionsCount > 0)
             {
@@ -67,17 +26,18 @@ namespace RCG.Actions
             }
         }
 
-        override public void Stop()
+        override protected void OnStop()
         {
             isStarted = false;
-            if (ActionsCount > 0)
-            {
-                CurrentAction.Stop();
-            }
+            actions.ForEach(StopAction);
             Complete();
         }
+        protected void StopAction(IAction action)
+        {
+            action.Stop();
+        }
 
-        override public void Destroy()
+        override protected void OnDestroy()
         {
             actions.ForEach(DestroyAction);
             actions.Clear();
@@ -87,9 +47,9 @@ namespace RCG.Actions
             action.Destroy();
         }
 
-        public void CompleteAction(IAction action)
+        override protected void HandleCompletedAction(IAction action)
         {
-            if (IsCompleted == false && action == CurrentAction)
+            if (isCompleted == false && action == CurrentAction)
             {
                 StartNextAction();
             }
@@ -102,17 +62,16 @@ namespace RCG.Actions
                 currentIndex += 1;
                 CurrentAction.Start();
             }
-            else if (CurrentLoop < LoopCount || LoopCount < 0)
+            else if (currentLoop < loopCount || loopCount < 0)
             {
-                int nextLoop = CurrentLoop + 1;
-                Start();
-                CurrentLoop = nextLoop;
+                int nextLoop = currentLoop + 1;
+                OnStart();
+                currentLoop = nextLoop;
             }
             else
             {
                 Complete();
             }
         }
-
     }
 }
