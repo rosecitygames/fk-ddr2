@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b646c421174a244fb9a4d30663cab83, type: 3}
+  m_Name: Miner
+  m_EditorClassIdentifier: 
+  displayName: Miner
+  description: Just a lonely old miner looking for gold
+  stats:
+    attributes:
+    - attribute: {fileID: 11400000, guid: 6f475d2e5f9ad884eaa1dfefe7ab7e64, type: 2}
+      quantity: 2
+    - attribute: {fileID: 11400000, guid: d4d1bddaf6246fa4189a61f605fc28df, type: 2}
+      quantity: 10
+  desires:
+    attributes:
+    - attribute: {fileID: 11400000, guid: 77ed10d593676dd418e4ada5115f951f, type: 2}
+      quantity: 10

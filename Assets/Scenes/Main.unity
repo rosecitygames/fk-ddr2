@@ -223,13 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 372c893995c50a24bafccf95659b6ec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayName: Miner
-  description: Just a lonely old miner looking for gold
-  attributeDatas:
-  - attribute: {fileID: 11400000, guid: 6f475d2e5f9ad884eaa1dfefe7ab7e64, type: 2}
-    quantity: 2
-  - attribute: {fileID: 11400000, guid: d4d1bddaf6246fa4189a61f605fc28df, type: 2}
-    quantity: 10
+  data: {fileID: 0}
 --- !u!4 &474167891
 Transform:
   m_ObjectHideFlags: 0
