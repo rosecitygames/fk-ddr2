@@ -225,6 +225,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: 
   description: 
+  attributeDatas:
+  - attribute: {fileID: 11400000, guid: cba0d75bc9ccb9c4995f88561fe10206, type: 2}
+    quantity: 3
 --- !u!4 &474167891
 Transform:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 {
     public interface IAttribute : IDescribable
     {
-        string Id { get; set; }
+        string Id { get;}
         int Quantity { get; set; }
     }
 }

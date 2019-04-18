@@ -2,7 +2,7 @@
 {
     public interface IDescribable 
     {
-        string DisplayName { get; set; }
-        string Description { get; set; }
+        string DisplayName { get; }
+        string Description { get; }
     }
 }

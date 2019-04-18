@@ -7,61 +7,63 @@ namespace RCG
     public class Agent : MonoBehaviour, IDescribable, IAttributable, ILocatable
     {
         [SerializeField]
-        string displayName;
+        string displayName = "";
         string IDescribable.DisplayName
         {
             get
             {
                 return displayName;
             }
-            set
-            {
-                displayName = value;
-            }
         }
 
         [SerializeField]
-        string description;
+        string description = "";
         string IDescribable.Description
         {
             get
             {
                 return description;
             }
-            set
-            {
-                description = value;
-            }
         }
 
         [SerializeField]
-        List<Attribute> attributes = new List<Attribute>();
+        List<AttributeData> attributeDatas = new List<AttributeData>();      
         List<IAttribute> IAttributable.Attributes
         {
             get
             {
-                List<IAttribute> iattributes = new List<IAttribute>();
-                foreach(IAttribute attribute in attributes)
-                {
-                    iattributes.Add(attribute);
-                }
-                return iattributes;
+                return Attributes;
             }
         }
-
-        void IAttributable.AddAttribute(IAttribute value)
+        List<IAttribute> attributes = new List<IAttribute>();
+        List<IAttribute> Attributes
         {
-            // TODO: Check if id exists -- see twnd linq
-           attributes.Add(Attribute.Create(value));
+            get
+            {
+                if (attributes == null)
+                {
+                    attributes = new List<IAttribute>();
+                    foreach (IAttribute attribute in attributeDatas)
+                    {
+                        attributes.Add(attribute);
+                    }
+                }
+                return attributes;
+            }
+        }
+        
+        void IAttributable.AddAttribute(IAttribute attribute)
+        {
+            Attributes.Add(attribute);
         }
 
         void IAttributable.RemoveAttribute(IAttribute value)
         {
-            foreach(Attribute attribute in attributes)
+            foreach(IAttribute attribute in Attributes)
             {
-                if ((attribute as IAttribute).Id == value.Id)
+                if (attribute.Id == value.Id)
                 {
-                    attributes.Remove(attribute);
+                    Attributes.Remove(attribute);
                     break;
                 }
             }         
