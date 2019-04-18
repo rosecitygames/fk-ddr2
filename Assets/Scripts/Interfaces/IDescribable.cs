@@ -1,8 +1,8 @@
 ﻿namespace RCG
 {
-    interface IDescribable 
+    public interface IDescribable 
     {
         string DisplayName { get; set; }
-        string Descriptions { get; set; }
+        string Description { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace RCG
 {
-    interface ILocatable
+    public interface ILocatable
     {
-        Vector2 Location { get; set; }
+        Vector2 Location { get; }
     }
 }

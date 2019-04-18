@@ -1,6 +1,6 @@
 ﻿namespace RCG
 {
-    interface IInventoryItem : IDescribable
+    public interface IInventoryItem : IDescribable
     {
         string Id { get; set; }
         int Quantity { get; set; }

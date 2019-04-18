@@ -1,8 +1,8 @@
 ﻿namespace RCG
 {
-    interface IAttribute : IDescribable
+    public interface IAttribute : IDescribable
     {
         string Id { get; set; }
-        int Value { get; set; }
+        int Quantity { get; set; }
     }
 }

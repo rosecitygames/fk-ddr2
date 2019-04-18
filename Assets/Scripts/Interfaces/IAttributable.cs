@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RCG
 {
-    interface IAttributable
+    public interface IAttributable
     {
         List<IAttribute> Attributes { get; }
         void AddAttribute(IAttribute attribute);
