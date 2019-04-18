@@ -18,7 +18,7 @@ namespace RCG
                 {
                     if (attribute == null)
                     {
-                        //data = new NullAttribute();
+                        data = new NullAttribute();
                     }
                     else
                     {
@@ -72,5 +72,7 @@ namespace RCG
             data = source;
             this.quantity = quantity;
         }
+
+        public AttributeData() { }
     }
 }

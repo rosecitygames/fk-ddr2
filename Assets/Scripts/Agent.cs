@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RCG
@@ -17,6 +18,7 @@ namespace RCG
         }
 
         [SerializeField]
+        [TextArea]
         string description = "";
         string IDescribable.Description
         {
@@ -51,22 +53,38 @@ namespace RCG
                 return attributes;
             }
         }
-        
-        void IAttributable.AddAttribute(IAttribute attribute)
+
+        IAttribute IAttributable.GetAttribute(string id)
         {
-            Attributes.Add(attribute);
+            return GetAttribute(id);
+        }
+        IAttribute GetAttribute(string id)
+        {
+            return Attributes.Find(p => p.Id == id);
+        }
+        
+        void IAttributable.AddAttribute(IAttribute value)
+        {
+            if (value == null) return;
+
+            IAttribute attribute = GetAttribute(value.Id);
+            bool hasAttribute = attribute != null;
+            if (hasAttribute == false)
+            {
+                Attributes.Add(attribute);
+            }        
         }
 
         void IAttributable.RemoveAttribute(IAttribute value)
         {
-            foreach(IAttribute attribute in Attributes)
+            if (value == null) return;
+
+            IAttribute attribute = GetAttribute(value.Id);
+            bool hasAttribute = attribute != null;
+            if (hasAttribute)
             {
-                if (attribute.Id == value.Id)
-                {
-                    Attributes.Remove(attribute);
-                    break;
-                }
-            }         
+                Attributes.Remove(attribute);
+            }
         }
 
         Vector2 ILocatable.Location
