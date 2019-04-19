@@ -1,14 +1,10 @@
 ﻿namespace RCG.Actions
 {
-    public interface IActionEnumerator : IAction
+    public interface IActionEnumerator : IAction, IActionCollection
     {
         int LoopCount { get; set; }
         int CurrentLoop { get; }
-        
-        void AddAction(IAction action);
-        void AddAction(IAction action, int index);
-        void RemoveAction(IAction action);
+
         void HandleCompletedAction(IAction action);
-        bool HasAction(IAction action);
     }
 }

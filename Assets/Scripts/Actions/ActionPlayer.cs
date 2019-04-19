@@ -39,15 +39,17 @@ namespace RCG.Actions
             get { return layers.Count; }
         }
 
-        public void AddAction(IAction action)
+        void IActionCollection.AddAction(IAction action)
         {
             AddAction(action, -1);
         }
-        public void AddAction(IAction action, int index)
+
+        void IActionCollection.AddAction(IAction action, int layer)
         {
-            AddAction(action, -1, -1);
+            AddAction(action, layer);
         }
-        public void AddAction(IAction action, int index, int layer)
+
+        void AddAction(IAction action, int layer)
         {
             if (layer < 0)
             {
@@ -63,11 +65,11 @@ namespace RCG.Actions
             if (layer < LayersCount)
             {
                 IActionEnumerator actionQueue = layers[layer];
-                actionQueue.AddAction(action, index);
+                actionQueue.AddAction(action);
             }
         }
 
-        public void RemoveAction(IAction action)
+        void IActionCollection.RemoveAction(IAction action)
         {
             foreach (IActionEnumerator layer in layers)
             {
@@ -79,13 +81,13 @@ namespace RCG.Actions
                 }
             }
         }
-        public void RemoveAction(IAction action, int layer)
+        void IActionCollection.RemoveAction(IAction action, int layer)
         {
             IActionEnumerator selectedLayer = layers[layer];
             selectedLayer.RemoveAction(action);
         }
 
-        public bool HasAction(IAction action)
+        bool IActionCollection.HasAction(IAction action)
         {
             foreach (IActionEnumerator layer in layers)
             {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG
+namespace RCG.Agents
 {
     public interface IAgentData : IDescribable, IStatsCollection, IDesiresCollection
     {

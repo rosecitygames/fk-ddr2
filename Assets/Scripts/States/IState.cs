@@ -1,6 +1,6 @@
 ﻿namespace RCG.States
 {
-    interface IState
+    public interface IState
     {
         string StateName { get; }
 

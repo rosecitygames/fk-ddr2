@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace RCG.States
 {
-    class StateMachine : IStateMachine
+    public class StateMachine : IStateMachine
     {
         public event Action<string> OnStateChange;
 

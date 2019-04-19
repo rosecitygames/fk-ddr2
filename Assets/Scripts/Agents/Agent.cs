@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using RCG.Advertisements;
+using RCG.States;
 
-namespace RCG
+namespace RCG.Agents
 {
-    public class Agent : MonoBehaviour, IDescribable, IStatsCollection, IDesiresCollection, ILocatable
+    public class Agent : MonoBehaviour, IDescribable, IStatsCollection, IDesiresCollection, ILocatable, IAdvertisementHandler
     {
         [SerializeField]
         ScriptableAgentData data = null;
@@ -21,6 +23,39 @@ namespace RCG
             }
         }
 
+        IDescribable DescribableAgentData { get { return AgentData as IDescribable; } }
+        string IDescribable.DisplayName { get { return DescribableAgentData.DisplayName; } }
+        string IDescribable.Description { get { return DescribableAgentData.Description; } }
+
+        IStatsCollection StatsAgentData { get { return AgentData as IStatsCollection; } }
+        List<IAttribute> IStatsCollection.Stats { get { return StatsAgentData.Stats; } }
+        IAttribute IStatsCollection.GetStat(string id) { return StatsAgentData.GetStat(id); }
+
+        IDesiresCollection DesiresAgentData { get { return AgentData as IDesiresCollection; } }
+        List<IAttribute> IDesiresCollection.Desires { get { return DesiresAgentData.Desires; } }
+        IAttribute IDesiresCollection.GetDesire(string id) { return DesiresAgentData.GetDesire(id); }
+
+        Vector2 ILocatable.Location
+        {
+            get
+            {
+                return transform.position; // TODO: Eventually maps to map grid
+            }
+        }
+
+        void Start()
+        {
+            Init();
+        }
+
+
+        void Init()
+        {
+            InitAgentData();
+            InitStateMachine();
+            //InitAdvertiser();
+        }
+
         void InitAgentData()
         {
             if (agentData == null)
@@ -36,25 +71,39 @@ namespace RCG
             }
         }
 
-        string IDescribable.DisplayName { get { return (AgentData as IDescribable).DisplayName; } }
-        string IDescribable.Description { get { return (AgentData as IDescribable).Description; } }
+        IStateMachine stateMachine;
 
-        List<IAttribute> IStatsCollection.Stats { get { return (AgentData as IStatsCollection).Stats; } }
-        IAttribute IStatsCollection.GetStat(string id) { return (AgentData as IStatsCollection).GetStat(id); }
-
-        List<IAttribute> IDesiresCollection.Desires { get { return (AgentData as IDesiresCollection).Desires; } }
-        IAttribute IDesiresCollection.GetDesire(string id) { return (AgentData as IDesiresCollection).GetDesire(id); }
-
-        Vector2 ILocatable.Location
+        void InitStateMachine()
         {
-            get
-            {
-                return transform.position; // TODO: Eventually maps to map grid
-            }
+            stateMachine = StateMachine.Create();
+
+            /*
+            IState initState = PlayerControllerState.Create(PlayerControllerStateType.Init, this);
+		    initState.AddTransition(PlayerControllerStateEventType.ActionComplete.ToString(), PlayerControllerStateType.Default.ToString());
+		    initState.actionPlayer.AddAction(PlayerControllerNPCInitAction.Create(this));
+		    initState.actionPlayer.AddAction(PauseAction.Create(1.5f));
+		    initState.actionPlayer.AddAction( CallEventAction.Create(initState, PlayerAnimatorStateEventType.ActionComplete.ToString()) );
+		    AddState(initState); 
+            */
+
+            ActionableState roamingState = ActionableState.Create("roaming");
+            //roamingState.AddAction(RoamingAction.Create());
+            stateMachine.AddState(roamingState);
         }
 
-        // Has State Machine
+        void IAdvertisementHandler.HandleAdvertisement(IAdvertisement advertisement)
+        {
+            //stateMachine.currentState.HandleAdvertisement(advertisement);
+        }
 
-        // Has Advertiser
+        IAdvertiser advertiser = null;
+
+        void InitAdvertiser()
+        {
+            //advertiser = advertiser.Create();
+            advertiser.SignalStrength = StatsAgentData.GetStat("signalStrength").Quantity;
+            advertiser.SignalRate = StatsAgentData.GetStat("signalRate").Quantity;
+            advertiser.SignalDecay = StatsAgentData.GetStat("signalDecay").Quantity;
+        }
     }
 }

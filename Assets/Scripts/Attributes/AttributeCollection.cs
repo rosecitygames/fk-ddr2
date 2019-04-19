@@ -4,11 +4,11 @@ using UnityEngine;
 namespace RCG
 {
     [System.Serializable]
-    public class AttributeCollection : IAttributable
+    public class AttributeCollection : IAttributeCollection
     {
         [SerializeField]
         List<Attribute> attributes = new List<Attribute>();
-        List<IAttribute> IAttributable.Attributes
+        List<IAttribute> IAttributeCollection.Attributes
         {
             get
             {
@@ -32,7 +32,7 @@ namespace RCG
             }
         }
 
-        IAttribute IAttributable.GetAttribute(string id)
+        IAttribute IAttributeCollection.GetAttribute(string id)
         {
             IAttribute attribute = GetAttribute(id);
             if (attribute == null)
@@ -46,7 +46,7 @@ namespace RCG
             return Collection.Find(p => p.Id == id);
         }
 
-        void IAttributable.AddAttribute(IAttribute value)
+        void IAttributeCollection.AddAttribute(IAttribute value)
         {
             if (value == null) return;
 
@@ -58,7 +58,7 @@ namespace RCG
             }
         }
 
-        void IAttributable.RemoveAttribute(IAttribute value)
+        void IAttributeCollection.RemoveAttribute(IAttribute value)
         {
             if (value == null) return;
 
@@ -70,9 +70,14 @@ namespace RCG
             }
         }
 
-        IAttributable IAttributable.Copy()
+        void IAttributeCollection.Clear()
         {
-            IAttributable copy = new AttributeCollection();
+            Collection.Clear();
+        }
+
+        IAttributeCollection IAttributeCollection.Copy()
+        {
+            IAttributeCollection copy = new AttributeCollection();
             foreach(IAttribute attribute in Collection)
             {
                 copy.AddAttribute(attribute.Copy());
@@ -80,7 +85,7 @@ namespace RCG
             return copy;
         }
 
-        public AttributeCollection(IAttributable source)
+        public AttributeCollection(IAttributeCollection source)
         {
             foreach (IAttribute attribute in source.Attributes)
             {

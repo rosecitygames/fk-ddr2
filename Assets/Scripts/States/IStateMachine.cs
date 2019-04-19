@@ -2,7 +2,7 @@
 
 namespace RCG.States
 {
-    interface IStateMachine
+    public interface IStateMachine
     {
         event Action<string> OnStateChange;
 

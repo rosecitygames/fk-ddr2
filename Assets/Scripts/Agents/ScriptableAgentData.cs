@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG
+namespace RCG.Agents
 {
     [CreateAssetMenu(fileName = "AgentData", menuName = "RCG/Agent Data")]
     public class ScriptableAgentData : ScriptableObject, IAgentData
@@ -30,11 +30,11 @@ namespace RCG
 
         [SerializeField]
         AttributeCollection stats = new AttributeCollection();
-        IAttributable Stats
+        IAttributeCollection Stats
         {
             get
             {
-                return stats as IAttributable;
+                return stats as IAttributeCollection;
             }
         }
 
@@ -53,11 +53,11 @@ namespace RCG
 
         [SerializeField]
         AttributeCollection desires = new AttributeCollection();
-        IAttributable Desires
+        IAttributeCollection Desires
         {
             get
             {
-                return desires as IAttributable;
+                return desires as IAttributeCollection;
             }
         }
 

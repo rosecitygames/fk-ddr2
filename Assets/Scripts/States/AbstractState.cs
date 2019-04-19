@@ -1,6 +1,6 @@
 ﻿namespace RCG.States
 {
-    abstract class AbstractState : IState
+    public abstract class AbstractState : IState
     {
         protected string stateName;
         public virtual string StateName

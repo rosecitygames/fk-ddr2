@@ -1,6 +1,6 @@
 ﻿namespace RCG.Actions
 {
-    public class NullActionEnumerator : IAction, IActionEnumerator
+    public class NullActionEnumerator : IActionEnumerator
     {
         IActionEnumerator parent = Create();
         IActionEnumerator IAction.Parent
@@ -26,12 +26,13 @@
 
         int IActionEnumerator.LoopCount { get { return 0; } set { } }
         int IActionEnumerator.CurrentLoop { get { return -1; } }
-
-        void IActionEnumerator.AddAction(IAction action) { }
-        void IActionEnumerator.AddAction(IAction action, int index) { }
-        void IActionEnumerator.RemoveAction(IAction action) { }
-        bool IActionEnumerator.HasAction(IAction action) { return false; }
         void IActionEnumerator.HandleCompletedAction(IAction action) { }
+
+        void IActionCollection.AddAction(IAction action) { }
+        void IActionCollection.AddAction(IAction action, int layer) { }
+        void IActionCollection.RemoveAction(IAction action) { }
+        void IActionCollection.RemoveAction(IAction action, int layer) { }
+        bool IActionCollection.HasAction(IAction action) { return false; }
 
         public static IActionEnumerator Create()
         {

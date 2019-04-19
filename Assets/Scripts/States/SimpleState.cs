@@ -1,6 +1,6 @@
 ﻿namespace RCG.States
 {
-    class SimpleState : AbstractState
+    public class SimpleState : AbstractState
     {
         public static IState Create(string name)
         {

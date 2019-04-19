@@ -54,33 +54,25 @@ namespace RCG.Actions
         }
         protected int currentLoop;
 
-        void IActionEnumerator.AddAction(IAction action)
+        void IActionCollection.AddAction(IAction action)
+        {
+            AddAction(action);
+        }
+        void IActionCollection.AddAction(IAction action, int layer)
         {
             AddAction(action);
         }
         protected virtual void AddAction(IAction action)
         {
-            AddAction(action, -1);
-        }
-
-        void IActionEnumerator.AddAction(IAction action, int index)
-        {
-            AddAction(action, index);
-        }
-        protected virtual void AddAction(IAction action, int index)
-        {
-            if (index < 0)
-            {
-                actions.Add(action);
-            }
-            else
-            {
-                actions.Insert(index, action);
-            }
+            actions.Add(action);
             action.Parent = this;
         }
 
-        void IActionEnumerator.RemoveAction(IAction action)
+        void IActionCollection.RemoveAction(IAction action)
+        {
+            RemoveAction(action);
+        }
+        void IActionCollection.RemoveAction(IAction action, int layer)
         {
             RemoveAction(action);
         }
@@ -90,7 +82,7 @@ namespace RCG.Actions
             actions.Remove(action);
         }
 
-        bool IActionEnumerator.HasAction(IAction action)
+        bool IActionCollection.HasAction(IAction action)
         {
             return HasAction(action);
         }

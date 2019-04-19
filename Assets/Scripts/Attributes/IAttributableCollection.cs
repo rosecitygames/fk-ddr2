@@ -2,14 +2,15 @@
 
 namespace RCG
 {
-    public interface IAttributable
+    public interface IAttributeCollection
     {
         List<IAttribute> Attributes { get; }
         IAttribute GetAttribute(string id);
 
         void AddAttribute(IAttribute attribute);
         void RemoveAttribute(IAttribute attribute);
+        void Clear();
 
-        IAttributable Copy();
+        IAttributeCollection Copy();
     }
 }
