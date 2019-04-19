@@ -16,5 +16,7 @@ namespace RCG
         IAttributable desires = new AttributeCollection();
         List<IAttribute> IDesiresCollection.Desires { get { return desires.Attributes; } }
         IAttribute IDesiresCollection.GetDesire(string id) { return desires.GetAttribute(id); }
+
+        IAgentData IAgentData.Copy() { return new NullAgentData(); }
     }
 }

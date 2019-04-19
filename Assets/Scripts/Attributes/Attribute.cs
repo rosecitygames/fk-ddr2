@@ -4,48 +4,86 @@ using UnityEngine;
 
 namespace RCG
 {
-
-    [CreateAssetMenu(fileName = "Attribute", menuName = "RCG/Attribute")]
-    public class Attribute : ScriptableObject, IAttribute
+    [System.Serializable]
+    public class Attribute : IAttribute
     {
         [SerializeField]
-        string id = "";
+        ScriptableAttribute attribute = null;
+        IAttribute data;
+        IAttribute Data
+        {
+            get
+            {
+                InitData();
+                return data;
+            }
+        }
+
+        void InitData()
+        {
+            if (data == null)
+            {
+                if (attribute == null)
+                {
+                    data = new NullAttribute();
+                }
+                else
+                {
+                    data = attribute;
+                }
+            }
+        }
+
         string IAttribute.Id
         {
             get
             {
-                return id;
+                return Data.Id;
             }
         }
 
+        [SerializeField]
+        int quantity;
         int IAttribute.Quantity
         {
             get
             {
-                return 0;
+                return quantity;
             }
-            set { }
+            set
+            {
+                quantity = value;
+            }
         }
 
-        [SerializeField]
-        string displayName = "";
         string IDescribable.DisplayName
         {
             get
             {
-                return displayName;
+                return Data.DisplayName;
             }
         }
 
-        [SerializeField]
-        [TextArea]
-        string description = "";
         string IDescribable.Description
         {
             get
             {
-                return description;
+                return Data.Description;
             }
         }
+
+        IAttribute IAttribute.Copy()
+        {
+            IAttribute copy = new Attribute(this, quantity);
+            return copy;
+        }
+
+        public Attribute (IAttribute source, int quantity = 0)
+        {
+            data = source;
+            this.quantity = quantity;
+        }
+
+        public Attribute() { }
     }
 }

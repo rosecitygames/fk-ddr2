@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace RCG
 {
-    [System.Serializable]
-    public class AgentData : IAgentData
+    [CreateAssetMenu(fileName = "AgentData", menuName = "RCG/Agent Data")]
+    public class ScriptableAgentData : ScriptableObject, IAgentData
     {
         [SerializeField]
         string displayName = "";
@@ -78,15 +78,5 @@ namespace RCG
         {
             return new AgentData(this);
         }
-
-        public AgentData(IAgentData source)
-        {
-            displayName = source.DisplayName;
-            description = source.Description;
-            stats = new AttributeCollection(source.Stats);
-            desires = new AttributeCollection(source.Desires);
-        }
-
-        public AgentData() { }
     }
 }

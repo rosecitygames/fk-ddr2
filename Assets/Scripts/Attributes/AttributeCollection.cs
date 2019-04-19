@@ -7,7 +7,7 @@ namespace RCG
     public class AttributeCollection : IAttributable
     {
         [SerializeField]
-        List<AttributeData> attributes = new List<AttributeData>();
+        List<Attribute> attributes = new List<Attribute>();
         List<IAttribute> IAttributable.Attributes
         {
             get
@@ -69,5 +69,34 @@ namespace RCG
                 Collection.Remove(attribute);
             }
         }
+
+        IAttributable IAttributable.Copy()
+        {
+            IAttributable copy = new AttributeCollection();
+            foreach(IAttribute attribute in Collection)
+            {
+                copy.AddAttribute(attribute.Copy());
+            }
+            return copy;
+        }
+
+        public AttributeCollection(IAttributable source)
+        {
+            foreach (IAttribute attribute in source.Attributes)
+            {
+                Collection.Add(attribute.Copy());
+            }
+        }
+
+        public AttributeCollection(List<IAttribute> source)
+        {
+            foreach (IAttribute attribute in source)
+            {
+                Collection.Add(attribute.Copy());
+            }
+        }
+
+        public AttributeCollection() { }
+
     }
 }

@@ -6,6 +6,6 @@ namespace RCG
 {
     public interface IAgentData : IDescribable, IStatsCollection, IDesiresCollection
     {
-
+        IAgentData Copy();
     }
 }

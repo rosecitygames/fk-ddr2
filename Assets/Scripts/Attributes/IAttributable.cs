@@ -8,6 +8,8 @@ namespace RCG
         IAttribute GetAttribute(string id);
 
         void AddAttribute(IAttribute attribute);
-        void RemoveAttribute(IAttribute attribute);       
+        void RemoveAttribute(IAttribute attribute);
+
+        IAttributable Copy();
     }
 }

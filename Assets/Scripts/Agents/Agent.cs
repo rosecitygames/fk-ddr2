@@ -6,18 +6,44 @@ namespace RCG
     public class Agent : MonoBehaviour, IDescribable, IStatsCollection, IDesiresCollection, ILocatable
     {
         [SerializeField]
-        AgentData data = null;
-        IAgentData nullData = new NullAgentData();
-        IAgentData Data { get { return data ?? nullData; } }
+        ScriptableAgentData data = null;
+        IAgentData agentData;
+        public IAgentData AgentData
+        {
+            get
+            {
+                InitAgentData();
+                return agentData;
+            }
+            set
+            {
+                agentData = value;
+            }
+        }
 
-        string IDescribable.DisplayName { get { return (Data as IDescribable).DisplayName; } }
-        string IDescribable.Description { get { return (Data as IDescribable).Description; } }
+        void InitAgentData()
+        {
+            if (agentData == null)
+            {
+                if (data == null)
+                {
+                    agentData = new NullAgentData();
+                }
+                else
+                {
+                    agentData = (data as IAgentData).Copy();
+                }
+            }
+        }
 
-        List<IAttribute> IStatsCollection.Stats { get { return (Data as IStatsCollection).Stats; } }
-        IAttribute IStatsCollection.GetStat(string id) { return (Data as IStatsCollection).GetStat(id); }
+        string IDescribable.DisplayName { get { return (AgentData as IDescribable).DisplayName; } }
+        string IDescribable.Description { get { return (AgentData as IDescribable).Description; } }
 
-        List<IAttribute> IDesiresCollection.Desires { get { return (Data as IDesiresCollection).Desires; } }
-        IAttribute IDesiresCollection.GetDesire(string id) { return (Data as IDesiresCollection).GetDesire(id); }
+        List<IAttribute> IStatsCollection.Stats { get { return (AgentData as IStatsCollection).Stats; } }
+        IAttribute IStatsCollection.GetStat(string id) { return (AgentData as IStatsCollection).GetStat(id); }
+
+        List<IAttribute> IDesiresCollection.Desires { get { return (AgentData as IDesiresCollection).Desires; } }
+        IAttribute IDesiresCollection.GetDesire(string id) { return (AgentData as IDesiresCollection).GetDesire(id); }
 
         Vector2 ILocatable.Location
         {
