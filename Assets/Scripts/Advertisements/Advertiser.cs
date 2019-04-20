@@ -15,5 +15,10 @@ namespace RCG.Advertisements
         {
 
         }
+
+        public static IAdvertiser Create()
+        {
+            return new Advertiser();
+        }
     }
 }

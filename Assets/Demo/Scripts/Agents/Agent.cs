@@ -12,8 +12,8 @@ namespace RCG.Demo.Simulator
         {
             ActionableState wanderState = ActionableState.Create("wander");
             wanderState.AddAction(MoveAgentToRandomLocation.Create(this));
+            wanderState.AddAction(DefaultAdvertisementHandler.Create(this));
             stateMachine.AddState(wanderState);
         }
-
     }
 }

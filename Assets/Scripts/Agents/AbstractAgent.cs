@@ -5,7 +5,7 @@ using RCG.States;
 
 namespace RCG.Agents
 {
-    public abstract class AbstractAgent : MonoBehaviour, IDescribable, IStatsCollection, IDesiresCollection, ILocatable
+    public abstract class AbstractAgent : MonoBehaviour, IAgent
     {
         [SerializeField]
         ScriptableAgentData data = null;
@@ -49,16 +49,42 @@ namespace RCG.Agents
             }
         }
 
+        protected IAdvertiser advertiser = Advertiser.Create();
+
+        void IAdvertiser.PublishAdvertisement(IAdvertisement advertisement)
+        {
+            advertiser.PublishAdvertisement(advertisement);
+        }
+
+        void IAdvertisementReceiver.Receive(IAdvertisement advertisement)
+        {
+            OnAdvertisementReceived?.Invoke(advertisement);
+        }
+
+        event System.Action<IAdvertisement> IAgent.OnAdvertisementReceived
+        {
+            add
+            {
+                OnAdvertisementReceived += value;
+            }
+            remove
+            {
+                OnAdvertisementReceived -= value;
+            }
+        }
+
+        System.Action<IAdvertisement> OnAdvertisementReceived;
+
+        protected IStateMachine stateMachine = StateMachine.Create();
+
         void Start()
         {
             Init();
         }
 
-
         void Init()
         {
             InitAgentData();
-            InitAdvertiser();
             InitStateMachine();
         }
 
@@ -77,20 +103,6 @@ namespace RCG.Agents
             }
         }
 
-        protected IAdvertiser advertiser = null;
-
-        void InitAdvertiser()
-        {
-            return;
-            //advertiser = advertiser.Create();
-            advertiser.SignalStrength = StatsAgentData.GetStat("signalStrength").Quantity;
-            advertiser.SignalRate = StatsAgentData.GetStat("signalRate").Quantity;
-            advertiser.SignalDecay = StatsAgentData.GetStat("signalDecay").Quantity;
-        }
-
-        protected IStateMachine stateMachine = StateMachine.Create();
-
         protected virtual void InitStateMachine() { }
-
     }
 }

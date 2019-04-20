@@ -34,16 +34,11 @@ namespace RCG
 
         IAttribute IAttributeCollection.GetAttribute(string id)
         {
-            IAttribute attribute = GetAttribute(id);
-            if (attribute == null)
-            {
-                return new NullAttribute();
-            }
-            return attribute;
+            return GetAttribute(id);
         }
         IAttribute GetAttribute(string id)
         {
-            return Collection.Find(p => p.Id == id);
+            return Collection.Find(attribute => attribute.Id == id);
         }
 
         void IAttributeCollection.AddAttribute(IAttribute value)
