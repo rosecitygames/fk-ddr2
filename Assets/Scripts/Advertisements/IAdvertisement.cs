@@ -1,7 +1,6 @@
 ﻿namespace RCG.Advertisements
 {
-    public interface IAdvertisement : IAttributeCollection
+    public interface IAdvertisement : IAttributeCollection, ILocatable
     {
-         
     }
 }

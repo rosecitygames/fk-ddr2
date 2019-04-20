@@ -6,10 +6,7 @@ namespace RCG.Advertisements
 {
     public interface IAdvertiser
     {
-        IAdvertisement Advertisement { get; set; }
-        int SignalStrength { get; set; }
-        float SignalRate { get; set; }
-        float SignalDecay { get; set; }
+        void PublishAdvertisement(IAdvertisement advertisement);
     }
 }
 
