@@ -6,6 +6,10 @@
 
         IStateMachine StateMachine { get; set; }
 
+        void AddTransition(string transitionName, string toStateName);
+        void RemoveTransition(string transitionName);
+        void HandleTransition(string transitionName);
+
         void EnterState();
         void ExitState();
     }
