@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Actions;
+using RCG.Commands;
 using RCG.Agents;
 
 namespace RCG.Demo.Simulator
 {
-    public class MoveAgentToLocation : AbstractAction
+    public class MoveAgentToLocation : AbstractCommand
     {
         AbstractAgent agent = null;
 
@@ -72,8 +72,8 @@ namespace RCG.Demo.Simulator
 
         IEnumerator Move()
         {
-            bool isLoactionReached = false;
-            while(isLoactionReached == false)
+            bool isLocationReached = false;
+            while(isLocationReached == false)
             {
                 yield return new WaitForSeconds(MoveIntervalSeconds);
                 // TODO Move towards location
@@ -82,7 +82,7 @@ namespace RCG.Demo.Simulator
             Complete();
         }
 
-        public static IAction Create(AbstractAgent agent, Vector2 targetLocation)
+        public static ICommand Create(AbstractAgent agent, Vector2 targetLocation)
         {
             return new MoveAgentToLocation
             {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using RCG.Advertisements;
 using RCG.States;
@@ -61,7 +62,7 @@ namespace RCG.Agents
             OnAdvertisementReceived?.Invoke(advertisement);
         }
 
-        event System.Action<IAdvertisement> IAgent.OnAdvertisementReceived
+        event Action<IAdvertisement> IAgent.OnAdvertisementReceived
         {
             add
             {
@@ -73,7 +74,7 @@ namespace RCG.Agents
             }
         }
 
-        System.Action<IAdvertisement> OnAdvertisementReceived;
+        Action<IAdvertisement> OnAdvertisementReceived;
 
         protected IStateMachine stateMachine = StateMachine.Create();
 

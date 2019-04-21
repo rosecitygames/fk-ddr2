@@ -10,9 +10,9 @@ namespace RCG.Demo.Simulator
     {
         protected override void InitStateMachine()
         {
-            ActionableState wanderState = ActionableState.Create("wander");
-            wanderState.AddAction(MoveAgentToRandomLocation.Create(this));
-            wanderState.AddAction(DefaultAdvertisementHandler.Create(this));
+            CommandableState wanderState = CommandableState.Create("wander");
+            wanderState.AddCommand(MoveAgentToRandomLocation.Create(this));
+            wanderState.AddCommand(DefaultAdvertisementHandler.Create(this));
             stateMachine.AddState(wanderState);
         }
     }

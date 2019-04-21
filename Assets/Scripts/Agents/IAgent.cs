@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using RCG.Advertisements;
+﻿using RCG.Advertisements;
+using System;
 
 namespace RCG.Agents
 {
     public interface IAgent : IDescribable, IStatsCollection, IDesiresCollection, ILocatable, IAdvertiser, IAdvertisementReceiver
     {
-        event System.Action<IAdvertisement> OnAdvertisementReceived;
+        event Action<IAdvertisement> OnAdvertisementReceived;
     }
 }
 

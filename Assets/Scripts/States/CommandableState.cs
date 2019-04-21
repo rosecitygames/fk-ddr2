@@ -1,0 +1,57 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using RCG.Commands;
+
+namespace RCG.States
+{
+    public class CommandableState : AbstractState, ICommandCollection
+    {
+        CommandPlayer commandPlayer;
+        ICommandEnumerator CommandPlayer
+        {
+            get
+            {
+                if (commandPlayer == null)
+                {
+                    commandPlayer = new CommandPlayer();
+                }
+                return commandPlayer;
+            }
+        }
+
+        public void AddCommand(ICommand command)
+        {
+            CommandPlayer.AddCommand(command);
+        }
+
+        public void AddCommand(ICommand command, int layer)
+        {
+            CommandPlayer.AddCommand(command, layer);
+        }
+
+        public void RemoveCommand(ICommand command)
+        {
+            CommandPlayer.RemoveCommand(command);
+        }
+
+        public void RemoveCommand(ICommand command, int layer)
+        {
+            CommandPlayer.RemoveCommand(command, layer);
+        }
+
+        public bool HasCommand(ICommand command)
+        {
+            return CommandPlayer.HasCommand(command);
+        }
+
+        public static CommandableState Create(string name)
+        {
+            CommandableState state = new CommandableState
+            {
+                stateName = name
+            };
+            return state;
+        } 
+    }
+}

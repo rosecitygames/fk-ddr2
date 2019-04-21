@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Actions;
+using RCG.Commands;
 using RCG.Agents;
 
 namespace RCG.Demo.Simulator
 {
-    public class MoveAgentToRandomLocation : AbstractAction
+    public class MoveAgentToRandomLocation : AbstractCommand
     {
         AbstractAgent agent;
 
@@ -30,14 +30,14 @@ namespace RCG.Demo.Simulator
             yield return null;
         }
 
-        public static IAction Create(AbstractAgent agent)
+        public static ICommand Create(AbstractAgent agent)
         {
-            MoveAgentToRandomLocation action = new MoveAgentToRandomLocation
+            MoveAgentToRandomLocation command = new MoveAgentToRandomLocation
             {
                 agent = agent
             };
 
-            return action;
+            return command;
         }
     }
 }

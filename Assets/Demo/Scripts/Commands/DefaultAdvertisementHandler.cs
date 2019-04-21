@@ -1,13 +1,13 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using RCG.Actions;
+using RCG.Commands;
 using RCG.Agents;
 using RCG.Advertisements;
 using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {
-    public class DefaultAdvertisementHandler : AbstractAction
+    public class DefaultAdvertisementHandler : AbstractCommand
     {
         IAgent agent = null;
 
@@ -68,7 +68,7 @@ namespace RCG.Demo.Simulator
             */
         }
 
-        public static IAction Create(IAgent agent)
+        public static ICommand Create(IAgent agent)
         {
             return new DefaultAdvertisementHandler
             {

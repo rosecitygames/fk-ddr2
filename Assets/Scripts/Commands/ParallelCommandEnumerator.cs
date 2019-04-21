@@ -2,52 +2,52 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace RCG.Actions
+namespace RCG.Commands
 {
-    public class ParallelActionEnumerator : AbstractActionEnumerator
+    public class ParallelCommandEnumerator : AbstractCommandEnumerator
     {
         override protected void OnStart()
         {
             currentLoop = 0;
             isCompleted = false;
             isStarted = true;
-            actions.ForEach(StartAction);
+            commands.ForEach(StartCommand);
         }
-        protected void StartAction(IAction action)
+        protected void StartCommand(ICommand command)
         {
-            action.Start();
+            command.Start();
         }
 
         override protected void OnStop()
         {
             isStarted = false;
-            actions.ForEach(StopAction);
+            commands.ForEach(StopCommand);
             Complete();
         }
-        protected void StopAction(IAction action)
+        protected void StopCommand(ICommand command)
         {
-            action.Stop();
+            command.Stop();
         }
 
         override protected void OnDestroy()
         {
-            actions.ForEach(DestroyAction);
-            actions.Clear();
+            commands.ForEach(DestoryCommand);
+            commands.Clear();
         }
-        protected void DestroyAction(IAction action)
+        protected void DestoryCommand(ICommand command)
         {
-            action.Destroy();
+            command.Destroy();
         }
 
-        override protected void HandleCompletedAction(IAction action)
+        override protected void HandleCompletedCommand(ICommand command)
         {
             if (isCompleted == false)
             {
-                int index = actions.IndexOf(action);
+                int index = commands.IndexOf(command);
                 if (index >= 0)
                 {
-                    bool isAllActionsCompleted = actions.TrueForAll(GetIsActionCompleted);
-                    if (isAllActionsCompleted)
+                    bool isAllCommandsCompleted = commands.TrueForAll(GetIsCommandCompleted);
+                    if (isAllCommandsCompleted)
                     {
                         bool isLoopsRemaining = currentLoop < loopCount - 1;
                         bool isInfiniteLooping = loopCount < 0;

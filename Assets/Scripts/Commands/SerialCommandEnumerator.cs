@@ -2,16 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace RCG.Actions
+namespace RCG.Commands
 {
-    public class SerialActionEnumerator : AbstractActionEnumerator
+    public class SerialCommandEnumerator : AbstractCommandEnumerator
     {
 
         protected int currentIndex = 0;
 
-        protected IAction CurrentAction
+        protected ICommand CurrentCommand
         {
-            get { return actions[currentIndex]; }
+            get { return commands[currentIndex]; }
         }
 
         override protected void OnStart()
@@ -21,51 +21,51 @@ namespace RCG.Actions
             isCompleted = false;
             isStarted = true;
 
-            if (ActionsCount > 0)
+            if (CommandsCount > 0)
             {
-                CurrentAction.Start();
+                CurrentCommand.Start();
             }
         }
 
         override protected void OnStop()
         {
             isStarted = false;
-            actions.ForEach(StopAction);
+            commands.ForEach(StopCommand);
             Complete();
         }
-        protected void StopAction(IAction action)
+        protected void StopCommand(ICommand command)
         {
-            action.Stop();
+            command.Stop();
         }
 
         override protected void OnDestroy()
         {
-            actions.ForEach(DestroyAction);
-            actions.Clear();
+            commands.ForEach(DestroyCommand);
+            commands.Clear();
         }
-        protected void DestroyAction(IAction action)
+        protected void DestroyCommand(ICommand command)
         {
-            action.Destroy();
+            command.Destroy();
         }
 
-        override protected void HandleCompletedAction(IAction action)
+        override protected void HandleCompletedCommand(ICommand command)
         {
-            if (isCompleted == false && action == CurrentAction)
+            if (isCompleted == false && command == CurrentCommand)
             {
-                StartNextAction();
+                StartNextCommand();
             }
         }
 
-        protected void StartNextAction()
+        protected void StartNextCommand()
         {
-            bool isActionsRemaining = currentIndex < ActionsCount - 1;
+            bool isCommandsRemaining = currentIndex < CommandsCount - 1;
             bool isLoopsRemaining = currentLoop < loopCount;
             bool isInfiniteLooping = loopCount < 0;
 
-            if (isActionsRemaining)
+            if (isCommandsRemaining)
             {
                 currentIndex += 1;
-                CurrentAction.Start();
+                CurrentCommand.Start();
             }
             else if (isLoopsRemaining || isInfiniteLooping)
             {

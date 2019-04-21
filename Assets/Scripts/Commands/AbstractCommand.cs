@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace RCG.Actions
+namespace RCG.Commands
 {
-    abstract public class AbstractAction : IAction
+    abstract public class AbstractCommand : ICommand
     {
         protected bool isCompleted;
-        bool IAction.IsCompleted
+        bool ICommand.IsCompleted
         {
             get
             {
@@ -14,8 +14,8 @@ namespace RCG.Actions
             }
         }
 
-        protected IActionEnumerator parent = NullActionEnumerator.Create();
-        IActionEnumerator IAction.Parent
+        protected ICommandEnumerator parent = NullCommandEnumerator.Create();
+        ICommandEnumerator ICommand.Parent
         {
             get
             {
@@ -27,19 +27,19 @@ namespace RCG.Actions
             }
         }
 
-        void IAction.Start()
+        void ICommand.Start()
         {
             isCompleted = false;
             OnStart();
         }
 
-        void IAction.Stop()
+        void ICommand.Stop()
         {
             OnStop();
             Complete();
         }
 
-        void IAction.Destroy()
+        void ICommand.Destroy()
         {
             OnDestroy();
         }
@@ -47,7 +47,7 @@ namespace RCG.Actions
         protected virtual void Complete()
         {
             isCompleted = true;
-            parent.HandleCompletedAction(this);
+            parent.HandleCompletedCommand(this);
         }
 
         protected virtual void OnStart() { }

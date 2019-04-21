@@ -1,8 +1,8 @@
-﻿namespace RCG.Actions
+﻿namespace RCG.Commands
 {
-    public interface IAction
+    public interface ICommand
     {
-        IActionEnumerator Parent { get; set; }
+        ICommandEnumerator Parent { get; set; }
         bool IsCompleted { get; }
         
         void Start();
