@@ -2,7 +2,7 @@
 
 namespace RCG.Commands
 {
-    public class CommandPlayer : AbstractCommand, ICommandEnumerator
+    public class CommandPlayer : AbstractCommand, ICommandPlayer
     {
 
         private ICommandEnumerator parallelCommandEnumerator;
@@ -44,7 +44,7 @@ namespace RCG.Commands
             AddCommand(command, -1);
         }
 
-        void ICommandCollection.AddCommand(ICommand command, int layer)
+        void ICommandLayerCollection.AddCommand(ICommand command, int layer)
         {
             AddCommand(command, layer);
         }
@@ -81,10 +81,14 @@ namespace RCG.Commands
                 }
             }
         }
-        void ICommandCollection.RemoveCommand(ICommand command, int layerIndex)
+
+        void ICommandLayerCollection.RemoveCommand(ICommand command, int layerIndex)
         {
-            ICommandEnumerator layer = layers[layerIndex];
-            layer.RemoveCommand(command);
+            if (ContainsLayer(layerIndex))
+            {
+                ICommandEnumerator layer = layers[layerIndex];
+                layer.RemoveCommand(command);
+            }
         }
 
         bool ICommandCollection.HasCommand(ICommand command)
@@ -99,6 +103,30 @@ namespace RCG.Commands
             }
 
             return false;
+        }
+
+        int ICommandLayerCollection.GetLayerLoopCount(int layerIndex)
+        {
+            if (ContainsLayer(layerIndex))
+            {
+                ICommandEnumerator layer = layers[layerIndex];
+                return layer.LoopCount;
+            }
+            return 0;
+        }
+
+        void ICommandLayerCollection.SetLayerLoopCount(int layerIndex, int loopCount)
+        {
+            if (ContainsLayer(layerIndex))
+            {
+                ICommandEnumerator layer = layers[layerIndex];
+                layer.LoopCount = loopCount;
+            }
+        }
+
+        bool ContainsLayer(int layerIndex)
+        {
+            return (layerIndex >= 0 && layerIndex < layers.Count);
         }
 
         public ICommandEnumerator CreateLayer()

@@ -2,7 +2,7 @@
 {
     public class NullCommandEnumerator : ICommandEnumerator
     {
-        ICommandEnumerator parent = Create();
+        ICommandEnumerator parent = null;
         ICommandEnumerator ICommand.Parent
         {
             get
@@ -29,9 +29,7 @@
         void ICommandEnumerator.HandleCompletedCommand(ICommand command) { }
 
         void ICommandCollection.AddCommand(ICommand command) { }
-        void ICommandCollection.AddCommand(ICommand command, int layer) { }
         void ICommandCollection.RemoveCommand(ICommand command) { }
-        void ICommandCollection.RemoveCommand(ICommand command, int layer) { }
         bool ICommandCollection.HasCommand(ICommand command) { return false; }
 
         public static ICommandEnumerator Create()

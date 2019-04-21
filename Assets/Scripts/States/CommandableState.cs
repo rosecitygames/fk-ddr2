@@ -5,10 +5,10 @@ using RCG.Commands;
 
 namespace RCG.States
 {
-    public class CommandableState : AbstractState, ICommandCollection
+    public class CommandableState : AbstractState, ICommandLayerCollection
     {
         CommandPlayer commandPlayer;
-        ICommandEnumerator CommandPlayer
+        ICommandPlayer CommandPlayer
         {
             get
             {
@@ -38,6 +38,16 @@ namespace RCG.States
         public void RemoveCommand(ICommand command, int layer)
         {
             CommandPlayer.RemoveCommand(command, layer);
+        }
+
+        public int GetLayerLoopCount(int layer)
+        {
+            return CommandPlayer.GetLayerLoopCount(layer);
+        }
+
+        public void SetLayerLoopCount(int layer, int loopCount)
+        {
+            CommandPlayer.SetLayerLoopCount(layer, loopCount);
         }
 
         public bool HasCommand(ICommand command)

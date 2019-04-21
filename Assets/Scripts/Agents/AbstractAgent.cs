@@ -11,7 +11,18 @@ namespace RCG.Agents
         [SerializeField]
         ScriptableAgentData data = null;
         IAgentData agentData;
-        public IAgentData AgentData
+        IAgentData IAgent.AgentData
+        {
+            get
+            {
+                return AgentData;
+            }
+            set
+            {
+                AgentData = value;
+            }
+        }
+        protected IAgentData AgentData
         {
             get
             {
@@ -36,25 +47,31 @@ namespace RCG.Agents
         List<IAttribute> IDesiresCollection.Desires { get { return DesiresAgentData.Desires; } }
         IAttribute IDesiresCollection.GetDesire(string id) { return DesiresAgentData.GetDesire(id); }
 
-        Vector2 ILocatable.Location { get { return Location; } }
+        [SerializeField]
+        ScriptableAdvertisementBroadcaster broadcaster;
 
-        protected virtual Vector2 Location
+        IAdvertiser advertiser = null;
+        protected IAdvertiser Advertiser
         {
             get
             {
-                return transform.position;
+                InitAdvertiser();
+                return advertiser;
             }
             set
             {
-                transform.position = value;
+                advertiser = value;
             }
         }
 
-        protected IAdvertiser advertiser = Advertiser.Create();
-
-        void IAdvertiser.PublishAdvertisement(IAdvertisement advertisement)
+        void IAdvertiser.SetBroadcaster(IAdvertisementBroadcaster broadcaster)
         {
-            advertiser.PublishAdvertisement(advertisement);
+            advertiser.SetBroadcaster(broadcaster);
+        }
+
+        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement)
+        {
+            advertiser.BroadcastAdvertisement(advertisement);
         }
 
         void IAdvertisementReceiver.Receive(IAdvertisement advertisement)
@@ -76,6 +93,20 @@ namespace RCG.Agents
 
         Action<IAdvertisement> OnAdvertisementReceived;
 
+        Vector2 ILocatable.Location { get { return Location; } }
+
+        protected virtual Vector2 Location
+        {
+            get
+            {
+                return transform.position;
+            }
+            set
+            {
+                transform.position = value;
+            }
+        }
+
         protected IStateMachine stateMachine = StateMachine.Create();
 
         void Start()
@@ -86,6 +117,7 @@ namespace RCG.Agents
         void Init()
         {
             InitAgentData();
+            InitAdvertiser();
             InitStateMachine();
         }
 
@@ -101,6 +133,14 @@ namespace RCG.Agents
                 {
                     agentData = (data as IAgentData).Copy();
                 }
+            }
+        }
+
+        void InitAdvertiser()
+        {
+            if (advertiser == null)
+            {
+                advertiser = Advertisements.Advertiser.Create(broadcaster);
             }
         }
 

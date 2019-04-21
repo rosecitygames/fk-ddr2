@@ -58,10 +58,6 @@ namespace RCG.Commands
         {
             AddCommand(command);
         }
-        void ICommandCollection.AddCommand(ICommand command, int layer)
-        {
-            AddCommand(command);
-        }
         protected virtual void AddCommand(ICommand command)
         {
             commands.Add(command);
@@ -69,10 +65,6 @@ namespace RCG.Commands
         }
 
         void ICommandCollection.RemoveCommand(ICommand command)
-        {
-            RemoveCommand(command);
-        }
-        void ICommandCollection.RemoveCommand(ICommand command, int layer)
         {
             RemoveCommand(command);
         }
@@ -101,7 +93,6 @@ namespace RCG.Commands
         protected bool GetIsCommandCompleted(ICommand command)
         {
             return command.IsCompleted;
-        }
-        
+        }        
     }
 }

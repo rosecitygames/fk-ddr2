@@ -47,9 +47,9 @@ namespace RCG.Demo.Simulator
 
             /*
               
-            What about rank attribute? or does it simply boost ad quantity?
+            What about rank attribute? or does it simply boost ad quantity? yes
             
-            What about team attribute?
+            What about team attribute? check it
 
             If at location, call transition "OnMoveToAdvertisementCompleted_X"
 

@@ -6,14 +6,30 @@ namespace RCG.Advertisements
 {
     public class Advertiser : IAdvertiser
     {
-        void IAdvertiser.PublishAdvertisement(IAdvertisement advertisement)
+        protected IAdvertisementBroadcaster Broadcaster { get; set; }
+
+        void IAdvertiser.SetBroadcaster(IAdvertisementBroadcaster broadcaster)
         {
-            PublishAdvertisement(advertisement);
+            Broadcaster = broadcaster;
         }
 
-        protected void PublishAdvertisement(IAdvertisement advertisement)
+        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement)
         {
+            BroadcastAdvertisement(advertisement);
+        }
 
+        protected void BroadcastAdvertisement(IAdvertisement advertisement)
+        {
+            if (Broadcaster == null) return;
+            Broadcaster.Broadcast(advertisement);
+        }
+
+        public static IAdvertiser Create(IAdvertisementBroadcaster broadcaster)
+        {
+            return new Advertiser
+            {
+                Broadcaster = broadcaster
+            };
         }
 
         public static IAdvertiser Create()

@@ -6,7 +6,8 @@ namespace RCG.Advertisements
 {
     public interface IAdvertiser
     {
-        void PublishAdvertisement(IAdvertisement advertisement);
+        void SetBroadcaster(IAdvertisementBroadcaster broadcaster);
+        void BroadcastAdvertisement(IAdvertisement advertisement);
     }
 }
 
