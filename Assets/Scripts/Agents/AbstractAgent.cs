@@ -49,15 +49,15 @@ namespace RCG.Agents
         IAttribute IDesiresCollection.GetDesire(string id) { return DesiresAgentData.GetDesire(id); }
 
         [SerializeField]
+        ScriptableAdvertisementBroadcaster broadcaster = null;
+
+        [SerializeField]
         float broadcastDistance;
         float IAdvertisementBroadcastData.BroadcastDistance { get { return AgentData.BroadcastDistance; } }
 
         [SerializeField]
         float broadcastInterval;
         float IAdvertisementBroadcastData.BroadcastInterval { get { return AgentData.BroadcastInterval; } }
-
-        [SerializeField]
-        ScriptableAdvertisementBroadcaster broadcaster = null;
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser

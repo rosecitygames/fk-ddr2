@@ -10,5 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73768e456843d0048b6aa10887985680, type: 3}
-  m_Name: ItemData
+  m_Name: GoldItemData
   m_EditorClassIdentifier: 
+  displayName: Gold
+  description: Glittery and valuable
+  desirableAttributes:
+    attributes:
+    - attribute: {fileID: 11400000, guid: 77ed10d593676dd418e4ada5115f951f, type: 2}
+      quantity: 10

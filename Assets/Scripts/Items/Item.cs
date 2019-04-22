@@ -50,6 +50,9 @@ namespace RCG.Items
         }
 
         [SerializeField]
+        ScriptableAdvertisementBroadcaster broadcaster = null;
+
+        [SerializeField]
         float broadcastDistance = 0;
         float IAdvertisementBroadcastData.BroadcastDistance
         {
@@ -68,9 +71,6 @@ namespace RCG.Items
                 return broadcastDistance;
             }
         }
-
-        [SerializeField]
-        ScriptableAdvertisementBroadcaster broadcaster = null;
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser

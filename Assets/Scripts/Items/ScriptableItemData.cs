@@ -29,8 +29,8 @@ namespace RCG.Items
         }
 
         [SerializeField]
-        AttributeCollection attributes = new AttributeCollection();
-        IAttributeCollection attributeCollection { get { return attributes as IAttributeCollection; } }
+        AttributeCollection desirableAttributes = new AttributeCollection();
+        IAttributeCollection attributeCollection { get { return desirableAttributes as IAttributeCollection; } }
         List<IAttribute> IAttributeCollection.Attributes { get { return attributeCollection.Attributes; } }
         IAttribute IAttributeCollection.GetAttribute(string id) { return attributeCollection.GetAttribute(id); }
         void IAttributeCollection.AddAttribute(IAttribute attribute) { attributeCollection.AddAttribute(attribute); }
