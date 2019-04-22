@@ -1,4 +1,6 @@
-﻿namespace RCG
+﻿using RCG.Attributes;
+
+namespace RCG
 {
     public interface IInventoryItem : IDescribable
     {

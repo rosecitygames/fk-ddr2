@@ -1,4 +1,4 @@
-﻿namespace RCG
+﻿namespace RCG.Attributes
 {
     public interface IDescribable 
     {

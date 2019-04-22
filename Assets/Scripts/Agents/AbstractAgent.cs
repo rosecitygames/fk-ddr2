@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RCG.Advertisements;
+using RCG.Attributes;
 using RCG.States;
 
 namespace RCG.Agents
@@ -48,7 +49,15 @@ namespace RCG.Agents
         IAttribute IDesiresCollection.GetDesire(string id) { return DesiresAgentData.GetDesire(id); }
 
         [SerializeField]
-        ScriptableAdvertisementBroadcaster broadcaster;
+        float broadcastDistance;
+        float IAdvertisementBroadcastData.BroadcastDistance { get { return AgentData.BroadcastDistance; } }
+
+        [SerializeField]
+        float broadcastInterval;
+        float IAdvertisementBroadcastData.BroadcastInterval { get { return AgentData.BroadcastInterval; } }
+
+        [SerializeField]
+        ScriptableAdvertisementBroadcaster broadcaster = null;
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser

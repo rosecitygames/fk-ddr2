@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG
+namespace RCG.Attributes
 {
     [System.Serializable]
     public class NullAttribute : IAttribute

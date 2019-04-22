@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RCG.Advertisements;
+using RCG.Attributes;
 
 namespace RCG.Agents
 {
@@ -74,12 +76,46 @@ namespace RCG.Agents
             return Desires.GetAttribute(id);
         }
 
+        [SerializeField]
+        float broadcastDistance = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastDistance
+        {
+            get
+            {
+                return broadcastDistance;
+            }
+        }
+
+        [SerializeField]
+        float broadcastInterval = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastInterval
+        {
+            get
+            {
+                return broadcastInterval;
+            }
+        }
+
         IAgentData IAgentData.Copy()
         {
             return new AgentData(this);
         }
 
-        public AgentData(IAgentData source)
+        public static IAgentData Create(IAgentData source)
+        {
+            if (source == null)
+            {
+                return new AgentData();
+            }
+            return new AgentData(source);
+        }
+
+        public static IAgentData Create()
+        {
+            return new AgentData();
+        }
+
+        AgentData(IAgentData source)
         {
             displayName = source.DisplayName;
             description = source.Description;
@@ -87,6 +123,6 @@ namespace RCG.Agents
             desires = new AttributeCollection(source.Desires);
         }
 
-        public AgentData() { }
+        AgentData() { }
     }
 }

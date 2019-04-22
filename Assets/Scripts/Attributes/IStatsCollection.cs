@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RCG
+namespace RCG.Attributes
 {
     public interface IStatsCollection
     {

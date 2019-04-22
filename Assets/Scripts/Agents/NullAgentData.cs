@@ -1,6 +1,6 @@
-﻿using System.Collections;
+﻿using RCG.Advertisements;
+using RCG.Attributes;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace RCG.Agents
 {
@@ -16,6 +16,9 @@ namespace RCG.Agents
         IAttributeCollection desires = new AttributeCollection();
         List<IAttribute> IDesiresCollection.Desires { get { return desires.Attributes; } }
         IAttribute IDesiresCollection.GetDesire(string id) { return desires.GetAttribute(id); }
+
+        float IAdvertisementBroadcastData.BroadcastDistance { get { return 0; } }
+        float IAdvertisementBroadcastData.BroadcastInterval { get { return 0; } }
 
         IAgentData IAgentData.Copy() { return new NullAgentData(); }
     }

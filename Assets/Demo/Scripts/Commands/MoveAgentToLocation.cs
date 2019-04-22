@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using RCG.Agents;
+using RCG.Attributes;
 using RCG.Commands;
-using RCG.Agents;
+using System.Collections;
+using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {

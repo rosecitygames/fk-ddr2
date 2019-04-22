@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using RCG.Advertisements;
+using RCG.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -74,9 +75,29 @@ namespace RCG.Agents
             return Desires.GetAttribute(id);
         }
 
+        [SerializeField]
+        float broadcastDistance = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastDistance
+        {
+            get
+            {
+                return broadcastDistance;
+            }
+        }
+
+        [SerializeField]
+        float broadcastInterval = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastInterval
+        {
+            get
+            {
+                return broadcastInterval;
+            }
+        }
+
         IAgentData IAgentData.Copy()
         {
-            return new AgentData(this);
+            return AgentData.Create(this);
         }
     }
 }

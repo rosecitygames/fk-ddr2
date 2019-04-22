@@ -10,7 +10,7 @@ namespace RCG.Advertisements
 
         void IAdvertiser.SetBroadcaster(IAdvertisementBroadcaster broadcaster)
         {
-            Broadcaster = broadcaster;
+            Broadcaster = broadcaster ?? NullAdvertisementBroadcaster.Create();
         }
 
         void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement)
@@ -20,7 +20,6 @@ namespace RCG.Advertisements
 
         protected void BroadcastAdvertisement(IAdvertisement advertisement)
         {
-            if (Broadcaster == null) return;
             Broadcaster.Broadcast(advertisement);
         }
 
@@ -28,13 +27,16 @@ namespace RCG.Advertisements
         {
             return new Advertiser
             {
-                Broadcaster = broadcaster
+                Broadcaster = broadcaster ?? NullAdvertisementBroadcaster.Create()
             };
         }
 
         public static IAdvertiser Create()
         {
-            return new Advertiser();
+            return new Advertiser
+            {
+                Broadcaster = NullAdvertisementBroadcaster.Create()
+            };
         }
     }
 }

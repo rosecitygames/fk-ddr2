@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using RCG.Advertisements;
+using RCG.Attributes;
 
 namespace RCG.Agents
 {
-    public interface IAgentData : IDescribable, IStatsCollection, IDesiresCollection
+    public interface IAgentData : IDescribable, IStatsCollection, IDesiresCollection, IAdvertisementBroadcastData
     {
         IAgentData Copy();
     }

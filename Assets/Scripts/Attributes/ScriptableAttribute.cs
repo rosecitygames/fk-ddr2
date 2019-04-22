@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG
+namespace RCG.Attributes
 {
 
     [CreateAssetMenu(fileName = "Attribute", menuName = "RCG/Attribute")]
