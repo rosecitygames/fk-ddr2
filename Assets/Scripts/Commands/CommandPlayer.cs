@@ -53,20 +53,37 @@ namespace RCG.Commands
         {
             if (layerIndex < 0)
             {
-                if (LayersCount <= 0)
-                {
-                    ICommandEnumerator layer = new SerialCommandEnumerator();
-                    ParallelCommandEnumerator.AddCommand(layer);
-                    layers.Add(layer);
-                }
-                layerIndex = LayersCount - 1;
+                AddCommandToLastLayer(command);
             }
-
-            if (layerIndex < LayersCount)
+            else
             {
+                while (LayersCount <= layerIndex)
+                {
+                    AddLayer();
+                }
+
                 ICommandEnumerator layer = layers[layerIndex];
                 layer.AddCommand(command);
+            }      
+        }
+
+        void AddCommandToLastLayer(ICommand command)
+        {
+            if (LayersCount <= 0)
+            {
+                AddLayer();
             }
+
+            int layerIndex = LayersCount - 1;
+            ICommandEnumerator layer = layers[layerIndex];
+            layer.AddCommand(command);
+        }
+
+        void AddLayer()
+        {
+            ICommandEnumerator layer = new SerialCommandEnumerator();
+            ParallelCommandEnumerator.AddCommand(layer);
+            layers.Add(layer);
         }
 
         void ICommandCollection.RemoveCommand(ICommand command)

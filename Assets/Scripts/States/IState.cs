@@ -12,5 +12,7 @@
 
         void EnterState();
         void ExitState();
+
+        void Destroy();
     }
 }

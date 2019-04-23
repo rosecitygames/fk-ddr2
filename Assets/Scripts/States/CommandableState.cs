@@ -55,6 +55,21 @@ namespace RCG.States
             return CommandPlayer.HasCommand(command);
         }
 
+        public override void EnterState()
+        {
+            CommandPlayer.Start();
+        }
+
+        public override void ExitState()
+        {
+            CommandPlayer.Stop();
+        }
+
+        public override void Destroy()
+        {
+            CommandPlayer.Destroy();
+        }
+
         public static CommandableState Create(string name)
         {
             CommandableState state = new CommandableState

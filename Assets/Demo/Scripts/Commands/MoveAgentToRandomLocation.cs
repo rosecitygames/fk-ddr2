@@ -12,7 +12,7 @@ namespace RCG.Demo.Simulator
 
         protected override void OnStart()
         {
-            
+
         }
 
         protected override void OnStop()

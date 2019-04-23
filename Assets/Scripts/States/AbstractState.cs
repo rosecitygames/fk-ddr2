@@ -61,5 +61,8 @@ namespace RCG.States
 
         public virtual void EnterState() { }
         public virtual void ExitState() { }
+
+        public virtual void Destroy() { }
+
     }
 }

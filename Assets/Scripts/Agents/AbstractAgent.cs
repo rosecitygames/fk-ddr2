@@ -36,17 +36,14 @@ namespace RCG.Agents
             }
         }
 
-        protected IDescribable DescribableAgentData { get { return AgentData as IDescribable; } }
-        string IDescribable.DisplayName { get { return DescribableAgentData.DisplayName; } }
-        string IDescribable.Description { get { return DescribableAgentData.Description; } }
+        string IDescribable.DisplayName { get { return AgentData.DisplayName; } }
+        string IDescribable.Description { get { return AgentData.Description; } }
 
-        protected IStatsCollection StatsAgentData { get { return AgentData as IStatsCollection; } }
-        List<IAttribute> IStatsCollection.Stats { get { return StatsAgentData.Stats; } }
-        IAttribute IStatsCollection.GetStat(string id) { return StatsAgentData.GetStat(id); }
+        List<IAttribute> IStatsCollection.Stats { get { return AgentData.Stats; } }
+        IAttribute IStatsCollection.GetStat(string id) { return AgentData.GetStat(id); }
 
-        protected IDesiresCollection DesiresAgentData { get { return AgentData as IDesiresCollection; } }
-        List<IAttribute> IDesiresCollection.Desires { get { return DesiresAgentData.Desires; } }
-        IAttribute IDesiresCollection.GetDesire(string id) { return DesiresAgentData.GetDesire(id); }
+        List<IAttribute> IDesiresCollection.Desires { get { return AgentData.Desires; } }
+        IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
 
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
@@ -149,6 +146,10 @@ namespace RCG.Agents
         {
             if (advertiser == null)
             {
+                if (broadcaster != null)
+                {
+                    (broadcaster as IAdvertisementBroadcaster).AddReceiver(this);
+                }
                 advertiser = Advertisements.Advertiser.Create(broadcaster);
             }
         }

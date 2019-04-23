@@ -101,6 +101,17 @@ namespace RCG.Items
 
         void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement)
         {
+            BroadcastAdvertisement(advertisement);
+        }
+
+        void BroadcastAdvertisement()
+        {
+            IAdvertisement advertisement = Advertisement.Create(ItemData.Attributes, Location, broadcastDistance);
+            Advertiser.BroadcastAdvertisement(advertisement);
+        }
+
+        void BroadcastAdvertisement(IAdvertisement advertisement)
+        {
             advertiser.BroadcastAdvertisement(advertisement);
         }
 
@@ -116,6 +127,11 @@ namespace RCG.Items
             {
                 transform.position = value;
             }
+        }
+
+        void Start()
+        {
+            InvokeRepeating("BroadcastAdvertisement", broadcastInterval, broadcastInterval);
         }
 
     }

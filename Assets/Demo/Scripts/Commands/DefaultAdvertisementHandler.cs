@@ -3,7 +3,6 @@ using RCG.Agents;
 using RCG.Attributes;
 using RCG.Commands;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace RCG.Demo.Simulator
@@ -40,17 +39,35 @@ namespace RCG.Demo.Simulator
 
         void HandleAdvertisement(IAdvertisement advertisement)
         {
-            List<IAttribute> desires = (agent as IDesiresCollection).Desires;
+             List<IAttribute> desires = agent.Desires;
             List<IAttribute> ads = advertisement.Attributes;
-            IAttribute mostDesireableAd = ads.Where(ad => desires.All(desire => ad.Id == desire.Id)).OrderByDescending(ad => ad.Quantity).Last();
 
-            Debug.Log("mostDesireableAd = " + mostDesireableAd.DisplayName);
+            IAttribute highestRankedAd = null;
+            int highestAdRank = 1;
+            foreach(IAttribute ad in ads)
+            {
+                foreach(IAttribute desire in desires)
+                {
+                    if (ad.Id == desire.Id)
+                    {
+                        int rank = ad.Quantity * desire.Quantity;
+                        if (rank >= highestAdRank)
+                        {
+                            highestAdRank = rank;
+                            highestRankedAd = ad;                     
+                        }
+                    }
+                }
+            }
+
+            if (highestRankedAd == null) return;
+            Debug.Log(agent.DisplayName + " found " + highestRankedAd.DisplayName+"!");
 
             /*
               
             What about rank attribute? or does it simply boost ad quantity? yes
             
-            What about team attribute? check it
+            What about team attribute? Agent -> TeamItem -> MapItem
 
             If at location, call transition "OnMoveToAdvertisementCompleted_X"
 

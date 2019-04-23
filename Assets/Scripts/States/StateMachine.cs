@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace RCG.States
 {
@@ -22,26 +23,35 @@ namespace RCG.States
             return state;
         }
 
+        public void SetState(IState state)
+        {
+            if (stateDictionary.ContainsValue(state))
+            {
+                SetCurrentState(state);
+            }
+        }
+
         public void SetState(string stateName)
         {
             if (stateDictionary.ContainsKey(stateName))
             {
-                IState newState = stateDictionary[stateName];
-                if (currentState != newState)
-                {
-                    if (currentState != null)
-                    {
-                        currentState.ExitState();
-                    }
-                    currentState = newState;
-
-                    if (OnStateChange != null)
-                    {
-                        OnStateChange(stateName);
-                    }
-                }
-                currentState.EnterState();
+                IState state = stateDictionary[stateName];
+                SetCurrentState(state);
             }
+        }
+
+        void SetCurrentState(IState state)
+        {
+            if (currentState != state)
+            {
+                if (currentState != null)
+                {
+                    currentState.ExitState();
+                }
+                currentState = state;
+                OnStateChange?.Invoke(state.StateName);
+            }
+            currentState.EnterState();
         }
 
         public void AddState(IState state)

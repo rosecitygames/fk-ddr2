@@ -17,6 +17,8 @@ namespace RCG.Demo.Simulator
             wanderState.AddCommand(MoveAgentToRandomLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(DefaultAdvertisementHandler.Create(this), CommandLayer1);
             stateMachine.AddState(wanderState);
+
+            stateMachine.SetState(wanderState);
         }
 
         public static IAgent Create(GameObject gameObject, IAgentData agentData, IAdvertisementBroadcaster broadcaster)

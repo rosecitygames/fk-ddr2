@@ -16,7 +16,7 @@ namespace RCG
                 return Collection;
             }
         }
-        List<IAttribute> collection = new List<IAttribute>();
+        List<IAttribute> collection = null;
         List<IAttribute> Collection
         {
             get
