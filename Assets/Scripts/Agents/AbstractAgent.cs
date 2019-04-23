@@ -46,6 +46,48 @@ namespace RCG.Agents
         List<IAttribute> IDesiresCollection.Desires { get { return AgentData.Desires; } }
         IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
 
+        protected IMap Map { get; set; }
+        IMap IMapElement.Map
+        {
+            get
+            {
+                return Map;
+            }
+            set
+            {
+                Map = value;
+            }
+        }
+        
+        void IMapElement.AddToMap(IMap map)
+        {
+            Map.AddElement(this);
+        }
+
+        void IMapElement.RemoveFromMap()
+        {
+            Map.RemoveElement(this);
+        }
+
+        float IMapElement.Distance(IMapElement otherMapElement)
+        {
+            return Vector2.Distance(otherMapElement.Location, Location);
+        }
+
+        protected virtual int GroupId { get; set; }
+        int IGroupMember.GroupId
+        {
+            get
+            {
+                return GroupId;
+            }
+            set
+            {
+                GroupId = value;
+            }
+        }
+        
+
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
@@ -102,8 +144,6 @@ namespace RCG.Agents
 
         IRankedAdvertisement IAgent.TargetAdvertisement { get; set; }
 
-        Vector2 ILocatable.Location { get { return Location; } }
-
         protected virtual Vector2 Location
         {
             get
@@ -115,6 +155,7 @@ namespace RCG.Agents
                 transform.position = value;
             }
         }
+        Vector2 ILocatable.Location { get { return Location; } }
 
         protected IStateMachine stateMachine = StateMachine.Create();
 

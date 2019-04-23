@@ -5,11 +5,11 @@ using RCG.Attributes;
 
 namespace RCG.Maps
 {
-    public interface IMapElement : ILocatable, IDescribable, IStatsCollection
+    public interface IMapElement : ILocatable, IDescribable, IStatsCollection, IGroupMember
     {
-        IMap Map { get; }
+        IMap Map { get; set; }
         void AddToMap(IMap map);
         void RemoveFromMap();
-        float Distance(IMapElement otherMapElement);
+        float Distance(IMapElement otherMapElement);     
     }
 }

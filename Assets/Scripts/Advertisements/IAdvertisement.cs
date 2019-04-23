@@ -3,7 +3,7 @@ using RCG.Maps;
 
 namespace RCG.Advertisements
 {
-    public interface IAdvertisement : IAttributeCollection, ILocatable
+    public interface IAdvertisement : IAttributeCollection, ILocatable, IGroupMember
     {
         float BroadcastDistance { get; }
     }

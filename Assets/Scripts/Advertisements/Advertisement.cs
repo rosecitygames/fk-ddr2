@@ -8,41 +8,54 @@ namespace RCG.Advertisements
 {
     public class Advertisement : IAdvertisement
     {
-        protected IAttributeCollection attributeCollection = null;
-        List<IAttribute> IAttributeCollection.Attributes { get { return attributeCollection.Attributes; } }
-        IAttribute IAttributeCollection.GetAttribute(string id) { return attributeCollection.GetAttribute(id); }
-        void IAttributeCollection.AddAttribute(IAttribute attribute) { attributeCollection.AddAttribute(attribute); }
-        void IAttributeCollection.RemoveAttribute(IAttribute attribute) { attributeCollection.RemoveAttribute(attribute); }
-        void IAttributeCollection.Clear() { attributeCollection.Clear(); }
-        IAttributeCollection IAttributeCollection.Copy() { return attributeCollection.Copy(); }
+        protected IAttributeCollection AttributeCollection { get; set; }
+        List<IAttribute> IAttributeCollection.Attributes { get { return AttributeCollection.Attributes; } }
+        IAttribute IAttributeCollection.GetAttribute(string id) { return AttributeCollection.GetAttribute(id); }
+        void IAttributeCollection.AddAttribute(IAttribute attribute) { AttributeCollection.AddAttribute(attribute); }
+        void IAttributeCollection.RemoveAttribute(IAttribute attribute) { AttributeCollection.RemoveAttribute(attribute); }
+        void IAttributeCollection.Clear() { AttributeCollection.Clear(); }
+        IAttributeCollection IAttributeCollection.Copy() { return AttributeCollection.Copy(); }
 
-        protected Vector2 location;
+        protected Vector2 Location { get; set; }
         Vector2 ILocatable.Location
         {
             get
             {
-                return location;
+                return Location;
             }          
         }
 
-        protected float broadcastDistance;
+        protected int GroupId { get; set; }
+        int IGroupMember.GroupId
+        {
+            get
+            {
+                return GroupId;
+            }
+            set
+            {
+                GroupId = value;
+            }
+        }
+ 
+        protected float BroadcastDistance { get; set; }
         float IAdvertisement.BroadcastDistance
         {
             get
             {
-                return broadcastDistance;
+                return BroadcastDistance;
             }
         }
 
-        public static IAdvertisement Create(List<IAttribute> attributes, Vector2 location, float broadcastDistance)
+        public static IAdvertisement Create(List<IAttribute> attributes, Vector2 location, float broadcastDistance, int groupId = 0)
         {
             Advertisement advertisement = new Advertisement
             {
-                attributeCollection = new AttributeCollection(attributes),
-                location = location,
-                broadcastDistance = broadcastDistance
+                AttributeCollection = new AttributeCollection(attributes),
+                Location = location,
+                BroadcastDistance = broadcastDistance,
+                GroupId = groupId
             };
-
             return advertisement;
         }
     }
