@@ -42,62 +42,66 @@ namespace RCG.Demo.Simulator
 
         void HandleAdvertisement(IAdvertisement advertisement)
         {
+            int rank = GetAdvertisementRank(advertisement);
+            bool isRankGreater = GetIsAdRankGreaterThanTarget(advertisement, rank);
+
+            if (isRankGreater)
+            {
+                agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, rank);             
+            }
+
+            state.HandleTransition("OnTargetAdFound");
+        }
+
+        int GetAdvertisementRank(IAdvertisement advertisement)
+        {
             List<IAttribute> desires = agent.Desires;
             List<IAttribute> ads = advertisement.Attributes;
 
-            int adRank = 0;
-            foreach(IAttribute ad in ads)
+            int rank = 0;
+            foreach (IAttribute attribute in ads)
             {
-                foreach(IAttribute desire in desires)
+                foreach (IAttribute desire in desires)
                 {
-                    if (ad.Id == desire.Id)
+                    if (attribute.Id == desire.Id)
                     {
-                        int rank = ad.Quantity * desire.Quantity;
-                        if (rank >= adRank)
+                        int attributeRank = attribute.Quantity * desire.Quantity;
+                        if (attributeRank >= rank)
                         {
-                            adRank = rank;                    
+                            rank = attributeRank;
                         }
                     }
-                }   
+                }
             }
+            return rank;
+        }
 
-            bool isNewTargetAd = false;
-            if (adRank > 0)
+        bool GetIsAdRankGreaterThanTarget(IAdvertisement advertisement, int rank)
+        {
+            bool isRankGreater = false;
+            if (rank > 0)
             {
                 bool hasTargetAdvertisement = agent.TargetAdvertisement != null;
                 if (hasTargetAdvertisement)
                 {
-                    if (agent.TargetAdvertisement.Rank < adRank)
+                    if (agent.TargetAdvertisement.Rank < rank)
                     {
-                        isNewTargetAd = true;
+                        isRankGreater = true;
                     }
-                    else if (agent.TargetAdvertisement.Rank == adRank)
+                    else if (agent.TargetAdvertisement.Rank == rank)
                     {
                         float targetAdDistance = Vector2.Distance(agent.Location, agent.TargetAdvertisement.Location);
                         float adDistance = Vector2.Distance(agent.Location, advertisement.Location);
-                        isNewTargetAd = targetAdDistance > adDistance;
+                        isRankGreater = targetAdDistance > adDistance;
                     }
                 }
                 else
                 {
-                    isNewTargetAd = true;
+                    isRankGreater = true;
                 }
             }
 
-            if (isNewTargetAd)
-            {
-                agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, adRank);             
-            }
-
-            state.HandleTransition("OnTargetAdFound");
-
-            /*
-
-            What about agent rank attribute? or does it simply boost ad quantity? yes
-            
-            What about team attribute? Agent -> TeamItem -> MapItem
-
-            */
+            return isRankGreater;
         }
 
         public static ICommand Create(IState state, IAgent agent)
