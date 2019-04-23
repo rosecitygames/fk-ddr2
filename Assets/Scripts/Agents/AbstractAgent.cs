@@ -99,6 +99,8 @@ namespace RCG.Agents
 
         Action<IAdvertisement> OnAdvertisementReceived;
 
+        IRankedAdvertisement IAgent.DesiredAdvertisement { get; set; }
+
         Vector2 ILocatable.Location { get { return Location; } }
 
         protected virtual Vector2 Location

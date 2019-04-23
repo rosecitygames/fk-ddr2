@@ -42,8 +42,7 @@ namespace RCG.Demo.Simulator
              List<IAttribute> desires = agent.Desires;
             List<IAttribute> ads = advertisement.Attributes;
 
-            IAttribute highestRankedAd = null;
-            int highestAdRank = 1;
+            int adRank = 0;
             foreach(IAttribute ad in ads)
             {
                 foreach(IAttribute desire in desires)
@@ -51,37 +50,30 @@ namespace RCG.Demo.Simulator
                     if (ad.Id == desire.Id)
                     {
                         int rank = ad.Quantity * desire.Quantity;
-                        if (rank >= highestAdRank)
+                        if (rank >= adRank)
                         {
-                            highestAdRank = rank;
-                            highestRankedAd = ad;                     
+                            adRank = rank;                    
                         }
                     }
                 }
             }
 
-            if (highestRankedAd == null) return;
-            Debug.Log(agent.DisplayName + " found " + highestRankedAd.DisplayName+"!");
+            if (adRank <= 0) return;
 
+            if (agent.DesiredAdvertisement == null || agent.DesiredAdvertisement.Rank < adRank)
+            {
+                agent.DesiredAdvertisement = RankedAdvertisement.Create(advertisement, adRank);
+            }
+
+            Debug.Log(agent.DisplayName + " seeking " + agent.DesiredAdvertisement + "!");
+
+            // SWITCH STATE to MoveToDesiredAdvertisement
+           
             /*
-              
-            What about rank attribute? or does it simply boost ad quantity? yes
+
+            What about agent rank attribute? or does it simply boost ad quantity? yes
             
             What about team attribute? Agent -> TeamItem -> MapItem
-
-            If at location, call transition "OnMoveToAdvertisementCompleted_X"
-
-            Else, call transition "OnMoveToAdvertisement_X"
-
-            OR
-
-            set agent.currentDesiredAdvertisement
-
-            the, call transition MoveToCurrentDesiredAdvertisement
-
-            OR
-
-
 
             */
         }

@@ -68,7 +68,7 @@ namespace RCG.Items
         {
             get
             {
-                return broadcastDistance;
+                return broadcastInterval;
             }
         }
 
