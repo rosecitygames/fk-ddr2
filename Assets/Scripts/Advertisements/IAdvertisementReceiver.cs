@@ -1,4 +1,6 @@
-﻿namespace RCG.Advertisements
+﻿using RCG.Maps;
+
+namespace RCG.Advertisements
 {
     public interface IAdvertisementReceiver: ILocatable
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RCG.Advertisements;
+using RCG.Maps;
 
 namespace RCG.Items
 {
@@ -63,7 +64,7 @@ namespace RCG.Items
         }
 
         [SerializeField]
-        float broadcastInterval;
+        float broadcastInterval = 0.0f;
         float IAdvertisementBroadcastData.BroadcastInterval
         {
             get

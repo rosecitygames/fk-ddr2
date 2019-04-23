@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using RCG.Attributes;
+using RCG.Maps;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Attributes;
 
 namespace RCG.Advertisements
 {

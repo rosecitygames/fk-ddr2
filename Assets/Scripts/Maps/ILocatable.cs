@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace RCG
+namespace RCG.Maps
 {
     public interface ILocatable
     {

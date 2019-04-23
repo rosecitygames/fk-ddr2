@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RCG.Advertisements;
 using RCG.Attributes;
+using RCG.Maps;
 using RCG.States;
 
 namespace RCG.Agents

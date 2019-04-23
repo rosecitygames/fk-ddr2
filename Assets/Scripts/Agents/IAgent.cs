@@ -1,5 +1,6 @@
 ﻿using RCG.Advertisements;
 using RCG.Attributes;
+using RCG.Maps;
 using System;
 
 namespace RCG.Agents
