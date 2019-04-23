@@ -2,6 +2,7 @@
 using RCG.Agents;
 using RCG.Attributes;
 using RCG.Commands;
+using RCG.States;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace RCG.Demo.Simulator
 {
     public class DefaultAdvertisementHandler : AbstractCommand
     {
+        IState state = null;
+
         IAgent agent = null;
 
         protected override void OnStart()
@@ -39,7 +42,7 @@ namespace RCG.Demo.Simulator
 
         void HandleAdvertisement(IAdvertisement advertisement)
         {
-             List<IAttribute> desires = agent.Desires;
+            List<IAttribute> desires = agent.Desires;
             List<IAttribute> ads = advertisement.Attributes;
 
             int adRank = 0;
@@ -55,20 +58,39 @@ namespace RCG.Demo.Simulator
                             adRank = rank;                    
                         }
                     }
+                }   
+            }
+
+            bool isNewTargetAd = false;
+            if (adRank > 0)
+            {
+                bool hasTargetAdvertisement = agent.TargetAdvertisement != null;
+                if (hasTargetAdvertisement)
+                {
+                    if (agent.TargetAdvertisement.Rank < adRank)
+                    {
+                        isNewTargetAd = true;
+                    }
+                    else if (agent.TargetAdvertisement.Rank == adRank)
+                    {
+                        float targetAdDistance = Vector2.Distance(agent.Location, agent.TargetAdvertisement.Location);
+                        float adDistance = Vector2.Distance(agent.Location, advertisement.Location);
+                        isNewTargetAd = targetAdDistance > adDistance;
+                    }
+                }
+                else
+                {
+                    isNewTargetAd = true;
                 }
             }
 
-            if (adRank <= 0) return;
-
-            if (agent.DesiredAdvertisement == null || agent.DesiredAdvertisement.Rank < adRank)
+            if (isNewTargetAd)
             {
-                agent.DesiredAdvertisement = RankedAdvertisement.Create(advertisement, adRank);
+                agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, adRank);             
             }
 
-            Debug.Log(agent.DisplayName + " seeking " + agent.DesiredAdvertisement + "!");
+            state.HandleTransition("OnTargetAdFound");
 
-            // SWITCH STATE to MoveToDesiredAdvertisement
-           
             /*
 
             What about agent rank attribute? or does it simply boost ad quantity? yes
@@ -78,10 +100,11 @@ namespace RCG.Demo.Simulator
             */
         }
 
-        public static ICommand Create(IAgent agent)
+        public static ICommand Create(IState state, IAgent agent)
         {
             return new DefaultAdvertisementHandler
             {
+                state = state,
                 agent = agent
             };
         }

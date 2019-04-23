@@ -66,6 +66,14 @@ namespace RCG.States
             stateDictionary.Remove(state.StateName);
         }
 
+        public void HandleTransition(string transitionName)
+        {
+            if (currentState != null)
+            {
+                currentState.HandleTransition(transitionName);
+            }
+        }
+
         public static StateMachine Create()
         {
             return new StateMachine();

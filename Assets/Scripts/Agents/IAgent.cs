@@ -8,7 +8,7 @@ namespace RCG.Agents
     {
         IAgentData AgentData { get; set; }
         event Action<IAdvertisement> OnAdvertisementReceived;
-        IRankedAdvertisement DesiredAdvertisement { get; set; }
+        IRankedAdvertisement TargetAdvertisement { get; set; }
     }
 }
 

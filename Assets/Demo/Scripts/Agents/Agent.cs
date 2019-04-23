@@ -13,10 +13,16 @@ namespace RCG.Demo.Simulator
 
         protected override void InitStateMachine()
         {
-            CommandableState wanderState = CommandableState.Create("wander");
+            CommandableState wanderState = CommandableState.Create("Wander");
+            wanderState.AddTransition("OnTargetAdFound", "AcquireDesire");
             wanderState.AddCommand(MoveAgentToRandomLocation.Create(this), CommandLayer0);
-            wanderState.AddCommand(DefaultAdvertisementHandler.Create(this), CommandLayer1);
+            wanderState.AddCommand(DefaultAdvertisementHandler.Create(wanderState, this), CommandLayer1);
             stateMachine.AddState(wanderState);
+
+            CommandableState acquireDesireState = CommandableState.Create("AcquireDesire");
+            acquireDesireState.AddCommand(MoveAgentToTargetAdLocation.Create(this), CommandLayer0);
+            acquireDesireState.AddCommand(DefaultAdvertisementHandler.Create(acquireDesireState, this), CommandLayer1);
+            stateMachine.AddState(acquireDesireState);
 
             stateMachine.SetState(wanderState);
         }
@@ -27,6 +33,21 @@ namespace RCG.Demo.Simulator
             agent.AgentData = agentData;
             agent.SetBroadcaster(broadcaster);
             return agent;
+        }
+
+        private void OnDrawGizmos()
+        {
+            DrawGizmoLineToTargetAdvertisement();
+        }
+
+        void DrawGizmoLineToTargetAdvertisement()
+        {
+            IAgent agent = this as IAgent;
+            if (agent.TargetAdvertisement != null)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(agent.Location, agent.TargetAdvertisement.Location);
+            }     
         }
     }
 }

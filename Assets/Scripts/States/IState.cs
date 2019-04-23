@@ -1,6 +1,6 @@
 ﻿namespace RCG.States
 {
-    public interface IState
+    public interface IState : IStateTransitionHandler
     {
         string StateName { get; }
 
@@ -8,7 +8,6 @@
 
         void AddTransition(string transitionName, string toStateName);
         void RemoveTransition(string transitionName);
-        void HandleTransition(string transitionName);
 
         void EnterState();
         void ExitState();
