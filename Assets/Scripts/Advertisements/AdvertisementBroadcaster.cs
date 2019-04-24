@@ -20,7 +20,7 @@ namespace RCG.Advertisements
 
         void BroadcastToReceiver(IAdvertisementReceiver receiver, IAdvertisement advertisement)
         {
-            float distance = Vector2.Distance(receiver.Location, advertisement.Location);
+            float distance = Vector3.Distance(receiver.Location, advertisement.Location);
             if (distance <= advertisement.BroadcastDistance)
             {
                 receiver.Receive(advertisement);

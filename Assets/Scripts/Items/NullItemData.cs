@@ -8,14 +8,10 @@ namespace RCG.Items
         string IDescribable.DisplayName { get { return ""; } }
         string IDescribable.Description {  get { return ""; } }
 
-        AttributeCollection attributes = new AttributeCollection();
-        IAttributeCollection attributeCollection { get { return attributes as IAttributeCollection; } }
-        List<IAttribute> IAttributeCollection.Attributes { get { return attributeCollection.Attributes; } }
-        IAttribute IAttributeCollection.GetAttribute(string id) { return attributeCollection.GetAttribute(id); }
-        void IAttributeCollection.AddAttribute(IAttribute attribute) { }
-        void IAttributeCollection.RemoveAttribute(IAttribute attribute) { }
-        void IAttributeCollection.Clear() { }
-        IAttributeCollection IAttributeCollection.Copy() { return attributeCollection.Copy(); }
+        AttributeCollection stats = new AttributeCollection();
+        IStatsCollection statsCollection { get { return stats as IStatsCollection; } }
+        List<IAttribute> IStatsCollection.Stats { get { return statsCollection.Stats; } }
+        IAttribute IStatsCollection.GetStat(string id) { return statsCollection.GetStat(id); }
 
         IItemData IItemData.Copy() { return new NullItemData(); }
     }

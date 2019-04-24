@@ -4,6 +4,7 @@ using RCG.Attributes;
 using RCG.Commands;
 using System.Collections;
 using UnityEngine;
+using RCG.Maps;
 
 namespace RCG.Demo.Simulator
 {
@@ -11,7 +12,7 @@ namespace RCG.Demo.Simulator
     {
         AbstractAgent agent;
 
-        Vector2 AgentLocation
+        Vector3Int AgentLocation
         {
             get
             {
@@ -113,20 +114,28 @@ namespace RCG.Demo.Simulator
                 //yield return new WaitForSeconds(MoveIntervalSeconds);
                 yield return new WaitForEndOfFrame();
 
+
+                Grid grid = agent.transform.parent.GetComponent<Grid>();
+                Vector3Int cellPosition = grid.LocalToCell(agent.transform.localPosition);
+                Vector3 localPosition = grid.CellToLocal(cellPosition);
+                Debug.Log("CellPosition = " + cellPosition);
+                
                 if (TargetAdvertisement == null)
                 {
                     isLocationReached = true;
                 }
                 else
                 {
-                    float targetDistance = Vector2.Distance(AgentLocation, TargetAdvertisement.Location);
-                    if (targetDistance < 0.01f)
+                    float targetDistance = Vector3Int.Distance(AgentLocation, TargetAdvertisement.Location);
+                    if (targetDistance == 0)
                     {
                         isLocationReached = true;
                     }
                     else
                     {
-                       agent.transform.position =  Vector2.MoveTowards(AgentLocation, TargetAdvertisement.Location, moveSpeed);
+                        Vector3 location = Vector3.MoveTowards(AgentLocation, TargetAdvertisement.Location, moveSpeed);
+                        Vector3Int mapLocation = new Vector3Int(Mathf.RoundToInt(location.x), Mathf.RoundToInt(location.y), 0);
+                        //AgentLocation = mapLocation;
                     }
                 }
             }

@@ -16,8 +16,8 @@ namespace RCG.Advertisements
         void IAttributeCollection.Clear() { AttributeCollection.Clear(); }
         IAttributeCollection IAttributeCollection.Copy() { return AttributeCollection.Copy(); }
 
-        protected Vector2 Location { get; set; }
-        Vector2 ILocatable.Location
+        protected Vector3Int Location { get; set; }
+        Vector3Int ILocatable.Location
         {
             get
             {
@@ -47,7 +47,7 @@ namespace RCG.Advertisements
             }
         }
 
-        public static IAdvertisement Create(List<IAttribute> attributes, Vector2 location, float broadcastDistance, int groupId = 0)
+        public static IAdvertisement Create(List<IAttribute> attributes, Vector3Int location, float broadcastDistance, int groupId = 0)
         {
             Advertisement advertisement = new Advertisement
             {

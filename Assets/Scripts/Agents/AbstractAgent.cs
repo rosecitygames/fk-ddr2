@@ -46,7 +46,38 @@ namespace RCG.Agents
         List<IAttribute> IDesiresCollection.Desires { get { return AgentData.Desires; } }
         IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
 
-        protected IMap Map { get; set; }
+        [SerializeField]
+        protected int GroupId { get; set; }
+        int IGroupMember.GroupId
+        {
+            get
+            {
+                return GroupId;
+            }
+            set
+            {
+                GroupId = value;
+            }
+        }
+
+        [SerializeField]
+        AbstractMap map;
+        IMap imap;
+        protected IMap Map
+        {
+            get
+            {
+                if (imap == null)
+                {
+                    imap = map ?? NullMap.Create();
+                }
+                return imap;
+            }
+            set
+            {
+                imap = value;
+            }
+        }
         IMap IMapElement.Map
         {
             get
@@ -58,7 +89,7 @@ namespace RCG.Agents
                 Map = value;
             }
         }
-        
+
         void IMapElement.AddToMap(IMap map)
         {
             Map.AddElement(this);
@@ -71,22 +102,22 @@ namespace RCG.Agents
 
         float IMapElement.Distance(IMapElement otherMapElement)
         {
-            return Vector2.Distance(otherMapElement.Location, Location);
+            return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        protected virtual int GroupId { get; set; }
-        int IGroupMember.GroupId
+        Vector3Int ILocatable.Location { get { return Location; } }
+
+        protected virtual Vector3Int Location
         {
             get
             {
-                return GroupId;
+                return Map.LocalToCell(transform.position);
             }
             set
             {
-                GroupId = value;
+                transform.position = Map.CellToLocal(value);
             }
         }
-        
 
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
@@ -143,19 +174,6 @@ namespace RCG.Agents
         Action<IAdvertisement> OnAdvertisementReceived;
 
         IRankedAdvertisement IAgent.TargetAdvertisement { get; set; }
-
-        protected virtual Vector2 Location
-        {
-            get
-            {
-                return transform.position;
-            }
-            set
-            {
-                transform.position = value;
-            }
-        }
-        Vector2 ILocatable.Location { get { return Location; } }
 
         protected IStateMachine stateMachine = StateMachine.Create();
 

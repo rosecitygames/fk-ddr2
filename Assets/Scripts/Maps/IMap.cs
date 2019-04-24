@@ -1,13 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RCG.Attributes;
 using UnityEngine;
-using RCG.Attributes;
 
 namespace RCG.Maps
 {
     public interface IMap : IDescribable
     {
-        float CellSize { get; }
+        Vector3Int LocalToCell(Vector3 localPosition);
+        Vector3 CellToLocal(Vector3Int cellPosition);
+
         void AddElement(IMapElement element);
         void RemoveElement(IMapElement element);
     }

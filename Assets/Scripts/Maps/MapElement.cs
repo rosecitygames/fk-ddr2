@@ -33,7 +33,7 @@ namespace RCG.Maps
 
         float IMapElement.Distance(IMapElement otherMapElement)
         {
-            return Vector2.Distance(otherMapElement.Location, Location);
+            return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
         int IGroupMember.GroupId
@@ -49,14 +49,14 @@ namespace RCG.Maps
         }
         protected int GroupId { get; set; }
 
-        Vector2 ILocatable.Location
+        Vector3Int ILocatable.Location
         {
             get
             {
                 return Location;
             }
         }
-        protected Vector2 Location { get; set; }
+        protected Vector3Int Location { get; set; }
 
         string IDescribable.DisplayName
         {

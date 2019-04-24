@@ -16,7 +16,7 @@ namespace RCG.Advertisements
         void IAttributeCollection.RemoveAttribute(IAttribute attribute) { Advertisement.RemoveAttribute(attribute); }
         void IAttributeCollection.Clear() { Advertisement.Clear(); }
         IAttributeCollection IAttributeCollection.Copy() { return Advertisement.Copy(); }
-        Vector2 ILocatable.Location { get{ return Advertisement.Location; } }
+        Vector3Int ILocatable.Location { get{ return Advertisement.Location; } }
         int IGroupMember.GroupId { get { return Advertisement.GroupId; } set { Advertisement.GroupId = value; } }
         float IAdvertisement.BroadcastDistance { get { return Advertisement.BroadcastDistance; } }
 

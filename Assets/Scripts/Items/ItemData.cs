@@ -30,14 +30,10 @@ namespace RCG.Items
         }
 
         [SerializeField]
-        AttributeCollection attributes = new AttributeCollection();
-        IAttributeCollection attributeCollection { get { return attributes as IAttributeCollection; } }
-        List<IAttribute> IAttributeCollection.Attributes { get { return attributeCollection.Attributes; } }
-        IAttribute IAttributeCollection.GetAttribute(string id) { return attributeCollection.GetAttribute(id); }
-        void IAttributeCollection.AddAttribute(IAttribute attribute) { attributeCollection.AddAttribute(attribute); }
-        void IAttributeCollection.RemoveAttribute(IAttribute attribute) { attributeCollection.RemoveAttribute(attribute); }
-        void IAttributeCollection.Clear() { attributeCollection.Clear(); }
-        IAttributeCollection IAttributeCollection.Copy() { return attributeCollection.Copy(); }
+        AttributeCollection stats = new AttributeCollection();
+        IStatsCollection statsCollection { get { return stats as IStatsCollection; } }
+        List<IAttribute> IStatsCollection.Stats { get { return statsCollection.Stats; } }
+        IAttribute IStatsCollection.GetStat(string id) { return statsCollection.GetStat(id); }
 
         IItemData IItemData.Copy()
         {
@@ -62,7 +58,7 @@ namespace RCG.Items
         {
             displayName = source.DisplayName;
             description = source.Description;
-            attributes = new AttributeCollection(source.Attributes);
+            stats = new AttributeCollection(source.Stats);
         }
 
         public ItemData() { }

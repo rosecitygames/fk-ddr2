@@ -2,8 +2,8 @@
 
 namespace RCG.Items
 { 
-    public interface IItemData : IDescribable, IAttributeCollection
+    public interface IItemData : IDescribable, IStatsCollection
     {
-        new IItemData Copy();
+        IItemData Copy();
     }
 }
