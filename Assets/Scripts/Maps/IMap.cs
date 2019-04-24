@@ -1,4 +1,5 @@
 ﻿using RCG.Attributes;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RCG.Maps
@@ -10,5 +11,7 @@ namespace RCG.Maps
 
         void AddElement(IMapElement element);
         void RemoveElement(IMapElement element);
+
+        List<IMapElement> GetMapElementsAtCell(Vector3Int cell);
     }
 }

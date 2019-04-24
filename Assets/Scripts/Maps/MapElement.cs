@@ -55,6 +55,10 @@ namespace RCG.Maps
             {
                 return Location;
             }
+            set
+            {
+                Location = value;
+            }
         }
         protected Vector3Int Location { get; set; }
 

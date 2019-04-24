@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using RCG.Advertisements;
+﻿using RCG.Advertisements;
 using RCG.Attributes;
 using RCG.Maps;
 using RCG.States;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace RCG.Agents
 {
@@ -135,7 +135,7 @@ namespace RCG.Agents
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        Vector3Int ILocatable.Location { get { return Location; } }
+        Vector3Int ILocatable.Location { get { return Location; } set { Location = value; } }
 
         protected virtual Vector3Int Location
         {
@@ -145,7 +145,7 @@ namespace RCG.Agents
             }
             set
             {
-                transform.position = Map.CellToLocal(value);
+                Map.AddElement(this);
             }
         }
 

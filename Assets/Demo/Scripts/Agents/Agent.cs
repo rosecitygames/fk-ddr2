@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using RCG.Advertisements;
+﻿using RCG.Advertisements;
 using RCG.Agents;
-using RCG.Maps;
 using RCG.States;
+using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {

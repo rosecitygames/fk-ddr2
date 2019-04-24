@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace RCG.Maps
@@ -11,6 +10,7 @@ namespace RCG.Maps
 
         public virtual void AddElement(IMapElement element) { }
         public virtual void RemoveElement(IMapElement element) { }
+        public virtual List<IMapElement> GetMapElementsAtCell(Vector3Int cell) { return new List<IMapElement>(); }
 
         public virtual string DisplayName { get; }
         public virtual string Description { get; }

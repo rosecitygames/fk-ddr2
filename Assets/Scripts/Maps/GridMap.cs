@@ -4,10 +4,10 @@ using UnityEngine;
 using RCG.Maps;
 using RCG.Attributes;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Maps
 {
     [RequireComponent(typeof(Grid))]
-    public class Map : AbstractMap
+    public class GridMap : AbstractMap
     {
         [SerializeField]
         string displayName = "";
@@ -58,7 +58,12 @@ namespace RCG.Demo.Simulator
         int GetHashId(IMapElement mapElement)
         {
             Vector3Int location = mapElement.Location;
-            return (location.x * primeX) ^ (location.y * primeY);
+            return GetHashId(location);
+        }
+
+        int GetHashId(Vector3Int cell)
+        {
+            return (cell.x * primeX) ^ (cell.y * primeY);
         }
 
         public override void AddElement(IMapElement mapElement)
@@ -68,17 +73,17 @@ namespace RCG.Demo.Simulator
                 hashIdToMapElement[mapElementToHashId[mapElement]].Remove(mapElement);
             }
 
-            int key = GetHashId(mapElement);
-            if (hashIdToMapElement.ContainsKey(key))
+            int cellHashId = GetHashId(mapElement);
+            if (hashIdToMapElement.ContainsKey(cellHashId))
             {
-                hashIdToMapElement[key].Add(mapElement);
+                hashIdToMapElement[cellHashId].Add(mapElement);
             }
             else
             {
-                hashIdToMapElement[key] = new List<IMapElement> { mapElement };
+                hashIdToMapElement[cellHashId] = new List<IMapElement> { mapElement };
             }
 
-            mapElementToHashId[mapElement] = key;
+            mapElementToHashId[mapElement] = cellHashId;
         }
         
         public override void RemoveElement(IMapElement mapElement)
@@ -91,7 +96,18 @@ namespace RCG.Demo.Simulator
             mapElementToHashId.Remove(mapElement);
         }
 
-        
+        public override List<IMapElement> GetMapElementsAtCell(Vector3Int cell)
+        {
+            int cellHashId = GetHashId(cell);
+            if (hashIdToMapElement.ContainsKey(cellHashId))
+            {
+                return hashIdToMapElement[cellHashId];
+            }
+            else
+            {
+                return new List<IMapElement>();
+            }
+        }
     }
 }
 

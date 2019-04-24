@@ -125,7 +125,7 @@ namespace RCG.Items
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        Vector3Int ILocatable.Location { get { return Location; } }
+        Vector3Int ILocatable.Location { get { return Location; } set { Location = value; } }
 
         protected virtual Vector3Int Location
         {
@@ -135,9 +135,10 @@ namespace RCG.Items
             }
             set
             {
-                transform.position = Map.CellToLocal(value);
+                Map.AddElement(this);
             }
         }
+
 
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
