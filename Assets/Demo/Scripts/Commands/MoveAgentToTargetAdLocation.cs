@@ -2,9 +2,9 @@
 using RCG.Agents;
 using RCG.Attributes;
 using RCG.Commands;
+using RCG.Maps;
 using System.Collections;
 using UnityEngine;
-using RCG.Maps;
 
 namespace RCG.Demo.Simulator
 {
@@ -55,7 +55,7 @@ namespace RCG.Demo.Simulator
         }
 
         const float minMoveSpeed = 0.0f;
-        const float maxMoveSpeed = 0.1f;
+        const float maxMoveSpeed = 0.05f;
 
         float MoveSpeed
         {
@@ -108,17 +108,16 @@ namespace RCG.Demo.Simulator
         {
             float moveSpeed = MoveSpeed;
 
+            IMap map = (agent as IMapElement).Map;
+
+            Vector3 targetAdvertisementPosition = map.CellToLocal(TargetAdvertisement.Location);
+
             bool isLocationReached = false;
             while (isLocationReached == false)
             {
                 //yield return new WaitForSeconds(MoveIntervalSeconds);
                 yield return new WaitForEndOfFrame();
 
-
-                Grid grid = agent.transform.parent.GetComponent<Grid>();
-                Vector3Int cellPosition = grid.LocalToCell(agent.transform.localPosition);
-                Vector3 localPosition = grid.CellToLocal(cellPosition);
-                Debug.Log("CellPosition = " + cellPosition);
                 
                 if (TargetAdvertisement == null)
                 {
@@ -126,17 +125,17 @@ namespace RCG.Demo.Simulator
                 }
                 else
                 {
-                    float targetDistance = Vector3Int.Distance(AgentLocation, TargetAdvertisement.Location);
-                    if (targetDistance == 0)
+                   
+                    float targetDistance = Vector2.Distance(agent.transform.localPosition, targetAdvertisementPosition);
+                    if (targetDistance < 0.01f)
                     {
                         isLocationReached = true;
                     }
                     else
                     {
-                        Vector3 location = Vector3.MoveTowards(AgentLocation, TargetAdvertisement.Location, moveSpeed);
-                        Vector3Int mapLocation = new Vector3Int(Mathf.RoundToInt(location.x), Mathf.RoundToInt(location.y), 0);
-                        //AgentLocation = mapLocation;
+                       agent.transform.position =  Vector2.MoveTowards(agent.transform.localPosition, targetAdvertisementPosition, moveSpeed);
                     }
+                    
                 }
             }
 

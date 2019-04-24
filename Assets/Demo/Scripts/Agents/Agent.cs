@@ -2,6 +2,7 @@
 using UnityEngine;
 using RCG.Advertisements;
 using RCG.Agents;
+using RCG.Maps;
 using RCG.States;
 
 namespace RCG.Demo.Simulator
@@ -46,7 +47,7 @@ namespace RCG.Demo.Simulator
             if (agent.TargetAdvertisement != null)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(agent.Location, agent.TargetAdvertisement.Location);
+                Gizmos.DrawLine(transform.localPosition, Map.CellToLocal(agent.TargetAdvertisement.Location));
             }     
         }
     }
