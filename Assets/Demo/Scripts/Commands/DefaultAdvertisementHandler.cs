@@ -11,7 +11,6 @@ namespace RCG.Demo.Simulator
     public class DefaultAdvertisementHandler : AbstractCommand
     {
         IState state = null;
-
         IAgent agent = null;
 
         protected override void OnStart()

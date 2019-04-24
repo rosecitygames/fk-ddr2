@@ -189,10 +189,17 @@ namespace RCG.Items
 
         private void OnDrawGizmos()
         {
+            float broadcastDistance = (data as IItemData).BroadcastDistance * 0.2f;
+
             Color gizmoColor = Color.yellow;
+
+            gizmoColor.a = 0.2f;
+            Gizmos.color = gizmoColor;          
+            Gizmos.DrawWireSphere(transform.position, broadcastDistance);
+
             gizmoColor.a = 0.1f;
             Gizmos.color = gizmoColor;
-            Gizmos.DrawSphere(transform.position, BroadcastDistance * 0.2f);
+            Gizmos.DrawSphere(transform.position, broadcastDistance);
         }
 
     }

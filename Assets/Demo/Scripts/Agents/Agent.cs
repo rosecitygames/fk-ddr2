@@ -15,15 +15,16 @@ namespace RCG.Demo.Simulator
         protected override void InitStateMachine()
         {
             CommandableState wanderState = CommandableState.Create("Wander");
-            wanderState.AddTransition("OnTargetAdFound", "AcquireDesire");
+            wanderState.AddTransition("OnTargetAdFound", "EngageTarget");
             wanderState.AddCommand(MoveAgentToRandomLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(DefaultAdvertisementHandler.Create(wanderState, this), CommandLayer1);
             stateMachine.AddState(wanderState);
 
-            CommandableState acquireDesireState = CommandableState.Create("AcquireDesire");
-            acquireDesireState.AddCommand(MoveAgentToTargetAdLocation.Create(this), CommandLayer0);
-            acquireDesireState.AddCommand(DefaultAdvertisementHandler.Create(acquireDesireState, this), CommandLayer1);
-            stateMachine.AddState(acquireDesireState);
+            CommandableState engageTargetState = CommandableState.Create("EngageTarget");
+            engageTargetState.AddCommand(MoveAgentToTargetAdLocation.Create(this), CommandLayer0);
+            engageTargetState.AddCommand(EngageMapCell.Create(engageTargetState, this), CommandLayer0);
+            engageTargetState.AddCommand(DefaultAdvertisementHandler.Create(engageTargetState, this), CommandLayer1);
+            stateMachine.AddState(engageTargetState);
 
             stateMachine.SetState(wanderState);
         }
