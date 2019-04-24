@@ -14,6 +14,7 @@ namespace RCG.Agents
         [SerializeField]
         ScriptableAgentData data = null;
         IAgentData agentData;
+
         IAgentData IAgent.AgentData
         {
             get
@@ -79,21 +80,7 @@ namespace RCG.Agents
 
         // Map implementations
         IMap map;
-        protected IMap Map
-        {
-            get
-            {
-                if (map == null)
-                {
-                    map = GetComponentInParent<IMap>() ?? NullMap.Create();
-                }
-                return map;
-            }
-            set
-            {
-                map = value;
-            }
-        }
+
         IMap IMapElement.Map
         {
             get
@@ -106,9 +93,34 @@ namespace RCG.Agents
             }
         }
 
+        protected IMap Map
+        {
+            get
+            {
+                InitMap();
+                return map;
+            }
+            set
+            {
+                map = value;
+            }
+        }
+
+        void InitMap()
+        {
+            if (map == null)
+            {
+                map = GetComponentInParent<IMap>() ?? NullMap.Create();
+                map.AddElement(this);
+            }
+        }
+        
         void IMapElement.AddToMap(IMap map)
         {
-            Map.RemoveElement(this);
+            if(map != null)
+            {
+                Map.RemoveElement(this);
+            }         
             this.map = map;
             Map.AddElement(this);
         }
@@ -222,6 +234,7 @@ namespace RCG.Agents
         {
             InitAgentData();
             InitAdvertiser();
+            InitMap();
             InitStateMachine();
         }
     }

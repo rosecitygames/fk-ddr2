@@ -71,22 +71,9 @@ namespace RCG.Items
             }
         }
 
+        // Map implementations
         IMap map;
-        protected IMap Map
-        {
-            get
-            {
-                if (map == null)
-                {
-                    map = GetComponentInParent<IMap>() ?? NullMap.Create();
-                }
-                return map;
-            }
-            set
-            {
-                map = value;
-            }
-        }
+
         IMap IMapElement.Map
         {
             get
@@ -96,6 +83,28 @@ namespace RCG.Items
             set
             {
                 Map = value;
+            }
+        }
+
+        protected IMap Map
+        {
+            get
+            {
+                InitMap();
+                return map;
+            }
+            set
+            {
+                map = value;
+            }
+        }
+
+        void InitMap()
+        {
+            if (map == null)
+            {
+                map = GetComponentInParent<IMap>() ?? NullMap.Create();
+                map.AddElement(this);
             }
         }
 
@@ -183,6 +192,19 @@ namespace RCG.Items
         }
 
         void Start()
+        {
+            Init();
+        }
+
+        void Init()
+        {
+            InitItemData();
+            InitAdvertiser();
+            InitMap();
+            StartBroadcastingAdvertisement();
+        }
+
+        void StartBroadcastingAdvertisement()
         {
             InvokeRepeating("BroadcastAdvertisement", BroadcastInterval, BroadcastInterval);
         }
