@@ -60,22 +60,20 @@ namespace RCG.Agents
             }
         }
 
-        [SerializeField]
-        AbstractMap map;
-        IMap imap;
+        IMap map;
         protected IMap Map
         {
             get
             {
-                if (imap == null)
+                if (map == null)
                 {
-                    imap = map ?? NullMap.Create();
+                    map = GetComponentInParent<IMap>() ?? NullMap.Create();
                 }
-                return imap;
+                return map;
             }
             set
             {
-                imap = value;
+                map = value;
             }
         }
         IMap IMapElement.Map
@@ -92,6 +90,8 @@ namespace RCG.Agents
 
         void IMapElement.AddToMap(IMap map)
         {
+            Map.RemoveElement(this);
+            this.map = map;
             Map.AddElement(this);
         }
 
@@ -122,12 +122,7 @@ namespace RCG.Agents
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
-        [SerializeField]
-        float broadcastDistance;
         float IAdvertisementBroadcastData.BroadcastDistance { get { return AgentData.BroadcastDistance; } }
-
-        [SerializeField]
-        float broadcastInterval;
         float IAdvertisementBroadcastData.BroadcastInterval { get { return AgentData.BroadcastInterval; } }
 
         IAdvertiser advertiser = null;

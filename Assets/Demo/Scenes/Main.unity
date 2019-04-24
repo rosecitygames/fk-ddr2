@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 147044310}
   - component: {fileID: 147044312}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -288,10 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a118f5f6885ce10419e2bf94468c553f, type: 2}
-  map: {fileID: 147044312}
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
-  broadcastDistance: 1
-  broadcastInterval: 1
 --- !u!4 &474167891
 Transform:
   m_ObjectHideFlags: 0
@@ -547,10 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 90f96f43f8f554649b55a3f33aa39ab6, type: 2}
-  map: {fileID: 147044312}
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
-  broadcastDistance: 3
-  broadcastInterval: 1
 --- !u!4 &1003775235
 Transform:
   m_ObjectHideFlags: 0
@@ -644,10 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 90f96f43f8f554649b55a3f33aa39ab6, type: 2}
-  map: {fileID: 147044312}
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
-  broadcastDistance: 3
-  broadcastInterval: 1
 --- !u!4 &1275850814
 Transform:
   m_ObjectHideFlags: 0
@@ -693,10 +684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 90f96f43f8f554649b55a3f33aa39ab6, type: 2}
-  map: {fileID: 147044312}
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
-  broadcastDistance: 3
-  broadcastInterval: 1
 --- !u!212 &1843318556
 SpriteRenderer:
   m_ObjectHideFlags: 0

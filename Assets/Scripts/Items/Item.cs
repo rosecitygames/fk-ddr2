@@ -71,22 +71,20 @@ namespace RCG.Items
             }
         }
 
-        [SerializeField]
-        AbstractMap map;
-        IMap imap;
+        IMap map;
         protected IMap Map
         {
             get
             {
-                if (imap == null)
+                if (map == null)
                 {
-                    imap = map ?? NullMap.Create();
+                    map = GetComponentInParent<IMap>() ?? NullMap.Create();
                 }
-                return imap;
+                return map;
             }
             set
             {
-                imap = value;
+                map = value;
             }
         }
         IMap IMapElement.Map
@@ -103,6 +101,8 @@ namespace RCG.Items
 
         void IMapElement.AddToMap(IMap map)
         {
+            Map.RemoveElement(this);
+            this.map = map;
             Map.AddElement(this);
         }
 
@@ -133,25 +133,11 @@ namespace RCG.Items
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
-        [SerializeField]
-        float broadcastDistance = 0;
-        float IAdvertisementBroadcastData.BroadcastDistance
-        {
-            get
-            {
-                return broadcastDistance;
-            }
-        }
+        float IAdvertisementBroadcastData.BroadcastDistance { get { return BroadcastDistance; } }
+        float BroadcastDistance { get { return ItemData.BroadcastDistance; } }
 
-        [SerializeField]
-        float broadcastInterval = 0.0f;
-        float IAdvertisementBroadcastData.BroadcastInterval
-        {
-            get
-            {
-                return broadcastInterval;
-            }
-        }
+        float IAdvertisementBroadcastData.BroadcastInterval { get { return BroadcastInterval; } }
+        float BroadcastInterval { get { return ItemData.BroadcastInterval; } }
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser
@@ -187,7 +173,7 @@ namespace RCG.Items
 
         void BroadcastAdvertisement()
         {
-            IAdvertisement advertisement = Advertisement.Create(ItemData.Stats, Location, broadcastDistance);
+            IAdvertisement advertisement = Advertisement.Create(ItemData.Stats, Location, BroadcastDistance);
             Advertiser.BroadcastAdvertisement(advertisement);
         }
 
@@ -198,7 +184,15 @@ namespace RCG.Items
 
         void Start()
         {
-            InvokeRepeating("BroadcastAdvertisement", broadcastInterval, broadcastInterval);
+            InvokeRepeating("BroadcastAdvertisement", BroadcastInterval, BroadcastInterval);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Color gizmoColor = Color.yellow;
+            gizmoColor.a = 0.1f;
+            Gizmos.color = gizmoColor;
+            Gizmos.DrawSphere(transform.position, BroadcastDistance * 0.2f);
         }
 
     }

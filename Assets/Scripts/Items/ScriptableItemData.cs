@@ -1,4 +1,5 @@
-﻿using RCG.Attributes;
+﻿using RCG.Advertisements;
+using RCG.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,26 @@ namespace RCG.Items
             get
             {
                 return description;
+            }
+        }
+
+        [SerializeField]
+        float broadcastDistance = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastDistance
+        {
+            get
+            {
+                return broadcastDistance;
+            }
+        }
+
+        [SerializeField]
+        float broadcastInterval = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastInterval
+        {
+            get
+            {
+                return broadcastInterval;
             }
         }
 

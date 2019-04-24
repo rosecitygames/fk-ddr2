@@ -30,6 +30,26 @@ namespace RCG.Agents
         }
 
         [SerializeField]
+        float broadcastDistance = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastDistance
+        {
+            get
+            {
+                return broadcastDistance;
+            }
+        }
+
+        [SerializeField]
+        float broadcastInterval = 0.0f;
+        float IAdvertisementBroadcastData.BroadcastInterval
+        {
+            get
+            {
+                return broadcastInterval;
+            }
+        }
+
+        [SerializeField]
         AttributeCollection stats = new AttributeCollection();
         IAttributeCollection Stats
         {
@@ -73,27 +93,7 @@ namespace RCG.Agents
         IAttribute IDesiresCollection.GetDesire(string id)
         {
             return Desires.GetAttribute(id);
-        }
-
-        [SerializeField]
-        float broadcastDistance = 0.0f;
-        float IAdvertisementBroadcastData.BroadcastDistance
-        {
-            get
-            {
-                return broadcastDistance;
-            }
-        }
-
-        [SerializeField]
-        float broadcastInterval = 0.0f;
-        float IAdvertisementBroadcastData.BroadcastInterval
-        {
-            get
-            {
-                return broadcastInterval;
-            }
-        }
+        }    
 
         IAgentData IAgentData.Copy()
         {
