@@ -43,7 +43,10 @@ namespace RCG.Demo.Simulator
 
         public override Vector3 CellToLocal(Vector3Int cellPosition)
         {
-            return grid.CellToLocal(cellPosition);
+            Vector3 localPosition = grid.CellToLocal(cellPosition);
+            localPosition.x += grid.cellSize.x * 0.5f;
+            localPosition.y += grid.cellSize.y * 0.5f;
+            return localPosition;
         }
 
         private Dictionary<int, List<IMapElement>> hashIdToMapElement = new Dictionary<int, List<IMapElement>>();

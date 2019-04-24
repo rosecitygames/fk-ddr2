@@ -65,19 +65,6 @@ namespace RCG.Demo.Simulator
             }
         }
 
-        const float minMoveIntervalSeconds = 0.0f;
-        const float maxMoveIntervalSeconds = 2.0f;
-
-        float MoveIntervalSeconds
-        {
-            get
-            {
-                float lerpPercentage = 1.0f - SpeedPercentage;
-                float moveIntervalSeconds = Mathf.Lerp(minMoveIntervalSeconds, maxMoveIntervalSeconds, lerpPercentage);
-                return moveIntervalSeconds;
-            }
-        }
-
         protected override void OnStart()
         {
             StartMove();
@@ -108,14 +95,9 @@ namespace RCG.Demo.Simulator
         {
             float moveSpeed = MoveSpeed;
 
-            IMap map = (agent as IMapElement).Map;
-
-            Vector3 targetAdvertisementPosition = map.CellToLocal(TargetAdvertisement.Location);
-
             bool isLocationReached = false;
             while (isLocationReached == false)
             {
-                //yield return new WaitForSeconds(MoveIntervalSeconds);
                 yield return new WaitForEndOfFrame();
 
                 
@@ -125,9 +107,9 @@ namespace RCG.Demo.Simulator
                 }
                 else
                 {
-                   
+                    Vector3 targetAdvertisementPosition = GetTargetAdvertisementPosition();
                     float targetDistance = Vector2.Distance(agent.transform.localPosition, targetAdvertisementPosition);
-                    if (targetDistance < 0.01f)
+                    if (targetDistance < 0.001f)
                     {
                         isLocationReached = true;
                     }
@@ -140,6 +122,12 @@ namespace RCG.Demo.Simulator
             }
 
             Complete();
+        }
+
+        Vector3 GetTargetAdvertisementPosition()
+        {
+            IMap map = (agent as IMapElement).Map;
+            return map.CellToLocal(TargetAdvertisement.Location);
         }
 
         public static ICommand Create(AbstractAgent agent)

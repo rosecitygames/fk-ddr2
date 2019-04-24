@@ -10,6 +10,7 @@ namespace RCG.Agents
 {
     public abstract class AbstractAgent : MonoBehaviour, IAgent
     {
+        // Agent Data implementations
         [SerializeField]
         ScriptableAgentData data = null;
         IAgentData agentData;
@@ -37,6 +38,21 @@ namespace RCG.Agents
             }
         }
 
+        void InitAgentData()
+        {
+            if (agentData == null)
+            {
+                if (data == null)
+                {
+                    agentData = new NullAgentData();
+                }
+                else
+                {
+                    agentData = (data as IAgentData).Copy();
+                }
+            }
+        }
+
         string IDescribable.DisplayName { get { return AgentData.DisplayName; } }
         string IDescribable.Description { get { return AgentData.Description; } }
 
@@ -46,6 +62,7 @@ namespace RCG.Agents
         List<IAttribute> IDesiresCollection.Desires { get { return AgentData.Desires; } }
         IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
 
+        // Group Member implementations
         [SerializeField]
         protected int GroupId { get; set; }
         int IGroupMember.GroupId
@@ -60,6 +77,7 @@ namespace RCG.Agents
             }
         }
 
+        // Map implementations
         IMap map;
         protected IMap Map
         {
@@ -119,6 +137,7 @@ namespace RCG.Agents
             }
         }
 
+        // Broadcaster & Advertiser implementations
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
@@ -136,6 +155,18 @@ namespace RCG.Agents
             set
             {
                 advertiser = value;
+            }
+        }
+
+        void InitAdvertiser()
+        {
+            if (advertiser == null)
+            {
+                if (broadcaster != null)
+                {
+                    (broadcaster as IAdvertisementBroadcaster).AddReceiver(this);
+                }
+                advertiser = Advertisements.Advertiser.Create(broadcaster);
             }
         }
 
@@ -170,8 +201,18 @@ namespace RCG.Agents
 
         IRankedAdvertisement IAgent.TargetAdvertisement { get; set; }
 
+        // State Machine implementations
+
         protected IStateMachine stateMachine = StateMachine.Create();
 
+        protected virtual void InitStateMachine() { }
+
+        void IStateTransitionHandler.HandleTransition(string transitionName)
+        {
+            stateMachine.HandleTransition(transitionName);
+        }
+
+        // Initialization
         void Start()
         {
             Init();
@@ -183,34 +224,5 @@ namespace RCG.Agents
             InitAdvertiser();
             InitStateMachine();
         }
-
-        void InitAgentData()
-        {
-            if (agentData == null)
-            {
-                if (data == null)
-                {
-                    agentData = new NullAgentData();
-                }
-                else
-                {
-                    agentData = (data as IAgentData).Copy();
-                }
-            }
-        }
-
-        void InitAdvertiser()
-        {
-            if (advertiser == null)
-            {
-                if (broadcaster != null)
-                {
-                    (broadcaster as IAdvertisementBroadcaster).AddReceiver(this);
-                }
-                advertiser = Advertisements.Advertiser.Create(broadcaster);
-            }
-        }
-
-        protected virtual void InitStateMachine() { }
     }
 }

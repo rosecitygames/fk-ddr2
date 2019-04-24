@@ -10,7 +10,6 @@ namespace RCG.Demo.Simulator
 {
     public class DefaultAdvertisementHandler : AbstractCommand
     {
-        IState state = null;
         IAgent agent = null;
 
         protected override void OnStart()
@@ -49,7 +48,7 @@ namespace RCG.Demo.Simulator
                 agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, rank);             
             }
 
-            state.HandleTransition("OnTargetAdFound");
+            agent.HandleTransition("OnTargetAdFound");
         }
 
         int GetAdvertisementRank(IAdvertisement advertisement)
@@ -103,11 +102,10 @@ namespace RCG.Demo.Simulator
             return isRankGreater;
         }
 
-        public static ICommand Create(IState state, IAgent agent)
+        public static ICommand Create(IAgent agent)
         {
             return new DefaultAdvertisementHandler
             {
-                state = state,
                 agent = agent
             };
         }

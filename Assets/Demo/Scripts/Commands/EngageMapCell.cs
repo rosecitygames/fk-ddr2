@@ -10,7 +10,6 @@ namespace RCG.Demo.Simulator
 {
     public class EngageMapCell : AbstractCommand
     {
-        IState state = null;
         IAgent agent = null;
 
         protected override void OnStart()
@@ -23,11 +22,10 @@ namespace RCG.Demo.Simulator
             
         }
 
-        public static ICommand Create(IState state, IAgent agent)
+        public static ICommand Create(IAgent agent)
         {
             return new EngageMapCell
             {
-                state = state,
                 agent = agent
             };
         }
