@@ -19,7 +19,7 @@ namespace RCG.Commands
             currentIndex = 0;
             currentLoop = 0;
             isCompleted = false;
-            isStarted = true;
+            isActive = true;
 
             if (CommandsCount > 0)
             {
@@ -29,7 +29,7 @@ namespace RCG.Commands
 
         override protected void OnStop()
         {
-            isStarted = false;
+            isActive = false;
             commands.ForEach(StopCommand);
             Complete();
         }
@@ -50,7 +50,7 @@ namespace RCG.Commands
 
         override protected void HandleCompletedCommand(ICommand command)
         {
-            if (isCompleted == false && command == CurrentCommand)
+            if (isActive && isCompleted == false && command == CurrentCommand)
             {
                 StartNextCommand();
             }

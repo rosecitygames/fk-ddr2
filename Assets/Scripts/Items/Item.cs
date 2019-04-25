@@ -118,6 +118,8 @@ namespace RCG.Items
         void IMapElement.RemoveFromMap()
         {
             Map.RemoveElement(this);
+            StopBroadcastingAdvertisement();
+            Destroy(gameObject); // TODO : Make this an abstract class and let concrete implementation handle. Will want animation or sound.
         }
 
         float IMapElement.Distance(IMapElement otherMapElement)
@@ -224,6 +226,11 @@ namespace RCG.Items
         void StartBroadcastingAdvertisement()
         {
             InvokeRepeating("BroadcastAdvertisement", BroadcastInterval, BroadcastInterval);
+        }
+
+        void StopBroadcastingAdvertisement()
+        {
+            CancelInvoke("BroadcastAdvertisement");
         }
 
         private void OnDrawGizmos()

@@ -19,6 +19,12 @@ namespace RCG.States
 
         protected Dictionary<string, string> transitionNamesToStateNames = new Dictionary<string, string>();
 
+        public virtual void AddTransition(string transitionName, IState toState)
+        {
+            if (toState == null) return;
+            AddTransition(transitionName, toState.StateName);
+        }
+
         public virtual void AddTransition(string transitionName, string toStateName)
         {
             if (string.IsNullOrEmpty(transitionName) || string.IsNullOrEmpty(toStateName)) return;

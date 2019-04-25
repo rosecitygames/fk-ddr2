@@ -12,7 +12,7 @@ namespace RCG.Commands
             get { return commands.Count; }
         }
 
-        protected bool isStarted = false;
+        protected bool isActive = false;
 
         int ICommandEnumerator.LoopCount
         {

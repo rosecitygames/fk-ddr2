@@ -10,35 +10,10 @@ namespace RCG.Demo.Simulator
 {
     public class MoveAgentToTargetAdLocation : AbstractCommand
     {
-        AbstractAgent agent;
+        IAgent agent;
+        MonoBehaviour monoBehaviour;
 
-        Vector3Int AgentLocation
-        {
-            get
-            {
-                return (agent as IAgent).Location;
-            }
-        }
-
-        Vector3 AgentPosition
-        {
-            get
-            {
-                return (agent as IAgent).Position;
-            }
-            set
-            {
-                (agent as IAgent).Position = value;
-            }
-        }
-
-        IAdvertisement TargetAdvertisement
-        {
-            get
-            {
-                return (agent as IAgent).TargetAdvertisement;
-            }
-        }
+        Coroutine moveCoroutine;
 
         const float minSpeed = 0.0f;
         const float maxSpeed = 10.0f;
@@ -49,7 +24,7 @@ namespace RCG.Demo.Simulator
         {
             get
             {
-                IAttribute attribute = (agent as IStatsCollection).GetStat(speedAttributeId);
+                IAttribute attribute = agent.GetStat(speedAttributeId);
                 if (attribute == null)
                 {
                     return defaultSpeed;
@@ -95,12 +70,15 @@ namespace RCG.Demo.Simulator
         void StartMove()
         {
             StopMove();
-            agent.StartCoroutine(Move());
+            moveCoroutine = monoBehaviour.StartCoroutine(Move());
         }
 
         void StopMove()
         {
-            agent.StopCoroutine(Move());
+            if (moveCoroutine != null)
+            {
+                monoBehaviour.StopCoroutine(moveCoroutine);
+            }
         }
 
         IEnumerator Move()
@@ -112,22 +90,19 @@ namespace RCG.Demo.Simulator
                 yield return new WaitForEndOfFrame();
 
                 
-                if (TargetAdvertisement == null)
+                if (agent.TargetAdvertisement == null)
                 {
                     isLocationReached = true;
                 }
                 else
                 {
-                    Vector3 targetAdvertisementPosition = GetTargetAdvertisementPosition();
-                    float targetDistance = Vector2.Distance(AgentPosition, targetAdvertisementPosition);
-                    if (targetDistance < 0.001f)
+                    Vector3 targetPosition = GetTargetAdvertisementPosition();
+                    float targetDistance = Vector2.Distance(agent.Position, targetPosition);
+                    isLocationReached = (targetDistance < 0.001f);
+                    if (isLocationReached == false)
                     {
-                        isLocationReached = true;
+                        agent.Position = Vector2.MoveTowards(agent.Position, targetPosition, moveSpeed);
                     }
-                    else
-                    {
-                        AgentPosition =  Vector2.MoveTowards(AgentPosition, targetAdvertisementPosition, moveSpeed);                      
-                    }              
                 }
             }
 
@@ -136,15 +111,15 @@ namespace RCG.Demo.Simulator
 
         Vector3 GetTargetAdvertisementPosition()
         {
-            IMap map = (agent as IMapElement).Map;
-            return map.CellToLocal(TargetAdvertisement.Location);
+            return agent.Map.CellToLocal(agent.TargetAdvertisement.Location);
         }
 
         public static ICommand Create(AbstractAgent agent)
         {
             MoveAgentToTargetAdLocation command = new MoveAgentToTargetAdLocation
             {
-                agent = agent
+                agent = agent,
+                monoBehaviour = agent
             };
 
             return command;
