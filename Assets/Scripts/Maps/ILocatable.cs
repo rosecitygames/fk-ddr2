@@ -4,6 +4,6 @@ namespace RCG.Maps
 {
     public interface ILocatable
     {
-        Vector3Int Location { get; set; }
+        Vector3Int Location { get; }
     }
 }

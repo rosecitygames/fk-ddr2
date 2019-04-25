@@ -23,10 +23,6 @@ namespace RCG.Advertisements
             {
                 return Location;
             } 
-            set
-            {
-                Location = value;
-            }
         }
 
         protected int GroupId { get; set; }

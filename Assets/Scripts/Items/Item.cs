@@ -125,7 +125,7 @@ namespace RCG.Items
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        Vector3Int ILocatable.Location { get { return Location; } set { Location = value; } }
+        Vector3Int ILocatable.Location { get { return Location; } }
 
         protected virtual Vector3Int Location
         {
@@ -133,9 +133,25 @@ namespace RCG.Items
             {
                 return Map.LocalToCell(transform.position);
             }
+        }
+
+        Vector3 IPositionable.Position { get { return Position; } set { Position = value; } }
+        protected virtual Vector3 Position
+        {
+            get
+            {
+                return transform.localPosition;
+            }
             set
             {
-                Map.AddElement(this);
+                Vector3Int newLocation = Map.LocalToCell(value);
+
+                transform.localPosition = value;
+
+                if (Location != newLocation)
+                {
+                    Map.AddElement(this);
+                }
             }
         }
 

@@ -5,7 +5,7 @@ using RCG.Attributes;
 
 namespace RCG.Maps
 {
-    public interface IMapElement : ILocatable, IDescribable, IStatsCollection, IGroupMember
+    public interface IMapElement : ILocatable, IPositionable, IDescribable, IStatsCollection, IGroupMember
     {
         IMap Map { get; set; }
         void AddToMap(IMap map);

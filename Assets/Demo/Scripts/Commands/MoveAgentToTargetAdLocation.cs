@@ -20,17 +20,15 @@ namespace RCG.Demo.Simulator
             }
         }
 
-        Vector3 AgentLocalPosition
+        Vector3 AgentPosition
         {
             get
             {
-                return agent.transform.localPosition;
+                return (agent as IAgent).Position;
             }
             set
             {
-                agent.transform.localPosition = value;
-                Vector3Int mapLocation = (agent as IAgent).Map.LocalToCell(agent.transform.position);
-                (agent as IAgent).Location = mapLocation;
+                (agent as IAgent).Position = value;
             }
         }
 
@@ -108,8 +106,6 @@ namespace RCG.Demo.Simulator
         IEnumerator Move()
         {
             float moveSpeed = MoveSpeed;
-            Vector3Int currentAgentLocation = AgentLocation;
-
             bool isLocationReached = false;
             while (isLocationReached == false)
             {
@@ -123,14 +119,14 @@ namespace RCG.Demo.Simulator
                 else
                 {
                     Vector3 targetAdvertisementPosition = GetTargetAdvertisementPosition();
-                    float targetDistance = Vector2.Distance(AgentLocalPosition, targetAdvertisementPosition);
+                    float targetDistance = Vector2.Distance(AgentPosition, targetAdvertisementPosition);
                     if (targetDistance < 0.001f)
                     {
                         isLocationReached = true;
                     }
                     else
                     {
-                        AgentLocalPosition =  Vector2.MoveTowards(AgentLocalPosition, targetAdvertisementPosition, moveSpeed);                      
+                        AgentPosition =  Vector2.MoveTowards(AgentPosition, targetAdvertisementPosition, moveSpeed);                      
                     }              
                 }
             }

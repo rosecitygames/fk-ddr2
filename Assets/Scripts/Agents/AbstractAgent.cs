@@ -135,17 +135,33 @@ namespace RCG.Agents
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        Vector3Int ILocatable.Location { get { return Location; } set { Location = value; } }
-
+        Vector3Int ILocatable.Location { get { return Location; } }
         protected virtual Vector3Int Location
         {
             get
             {
-                return Map.LocalToCell(transform.position);
+                return Map.LocalToCell(Position);
+            }
+        }
+
+        Vector3 IPositionable.Position { get { return Position; } set { Position = value; } }
+        protected virtual Vector3 Position
+        {
+            get
+            {
+                return transform.localPosition;
             }
             set
             {
-                Map.AddElement(this);
+                Vector3Int currentLocation = Location;
+                Vector3Int newLocation = Map.LocalToCell(value);
+
+                transform.localPosition = value;
+
+                if (currentLocation != newLocation)
+                {
+                    Map.AddElement(this);
+                }
             }
         }
 

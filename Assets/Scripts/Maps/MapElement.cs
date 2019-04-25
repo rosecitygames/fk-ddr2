@@ -55,10 +55,6 @@ namespace RCG.Maps
             {
                 return Location;
             }
-            set
-            {
-                Location = value;
-            }
         }
         protected Vector3Int Location { get; set; }
 
@@ -69,6 +65,24 @@ namespace RCG.Maps
                 return DisplayName;
             }
         }
+
+        Vector3 IPositionable.Position { get { return Position; } set { Position = value; } }
+        protected virtual Vector3 Position
+        {
+            get
+            {
+                return Map.CellToLocal(Location);
+            }
+            set
+            {
+                Vector3Int newLocation = Map.LocalToCell(value);
+                if (Location != newLocation)
+                {
+                    Map.AddElement(this);
+                }
+            }
+        }
+
         protected string DisplayName { get; set; }
 
 
