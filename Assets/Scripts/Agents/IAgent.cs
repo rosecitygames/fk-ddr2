@@ -3,6 +3,7 @@ using RCG.Attributes;
 using RCG.Maps;
 using RCG.States;
 using System;
+using UnityEngine;
 
 namespace RCG.Agents
 {
@@ -11,6 +12,8 @@ namespace RCG.Agents
         IAgentData AgentData { get; set; }
         event Action<IAdvertisement> OnAdvertisementReceived;
         IRankedAdvertisement TargetAdvertisement { get; set; }
+        IAgent TargetAgent { get; set; }
+        Vector3Int TargetLocation { get; set; }
     }
 }
 

@@ -46,7 +46,8 @@ namespace RCG.Demo.Simulator
 
             if (isRankGreater)
             {
-                agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, rank);             
+                agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, rank);
+                agent.TargetLocation = advertisement.Location;
             }
 
             if (string.IsNullOrEmpty(completedTransition) == false)

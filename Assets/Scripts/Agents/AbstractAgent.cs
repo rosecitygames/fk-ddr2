@@ -63,21 +63,6 @@ namespace RCG.Agents
         List<IAttribute> IDesiresCollection.Desires { get { return AgentData.Desires; } }
         IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
 
-        // Group Member implementations
-        [SerializeField]
-        protected int GroupId { get; set; }
-        int IGroupMember.GroupId
-        {
-            get
-            {
-                return GroupId;
-            }
-            set
-            {
-                GroupId = value;
-            }
-        }
-
         // Map implementations
         IMap map;
 
@@ -229,8 +214,27 @@ namespace RCG.Agents
 
         IRankedAdvertisement IAgent.TargetAdvertisement { get; set; }
 
-        // State Machine implementations
+        IAgent IAgent.TargetAgent { get; set; }
 
+        Vector3Int IAgent.TargetLocation { get; set; }
+
+        // Group Member implementations
+        [SerializeField]
+        int groupId;
+        protected int GroupId { get { return groupId; } set { groupId = value; } }
+        int IGroupMember.GroupId
+        {
+            get
+            {
+                return GroupId;
+            }
+            set
+            {
+                GroupId = value;
+            }
+        }
+
+        // State Machine implementations
         protected IStateMachine stateMachine = StateMachine.Create();
 
         protected virtual void InitStateMachine() { }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {
-    public class MoveAgentToRandomLocation : AbstractCommand
+    public class MoveToTargetLocation : AbstractCommand
     {
         IAgent agent;
         MonoBehaviour monoBehaviour;
@@ -76,12 +76,12 @@ namespace RCG.Demo.Simulator
             if (moveCoroutine != null)
             {
                 monoBehaviour.StopCoroutine(moveCoroutine);
-            }   
+            }
         }
 
         IEnumerator Move()
         {
-            Vector3 targetPosition = GetRandomTargetPosition();
+            Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetLocation);
             float moveSpeed = MoveSpeed;
             bool isLocationReached = false;
             while (isLocationReached == false)
@@ -98,17 +98,9 @@ namespace RCG.Demo.Simulator
             Complete();
         }
 
-        Vector3 GetRandomTargetPosition()
-        {
-            Vector3Int location = agent.Location;
-            location.x += Random.Range(-1, 2);
-            location.y += Random.Range(-1, 2);
-            return agent.Map.CellToLocal(location);
-        }
-
         public static ICommand Create(AbstractAgent agent)
         {
-            MoveAgentToRandomLocation command = new MoveAgentToRandomLocation
+            MoveToTargetLocation command = new MoveToTargetLocation
             {
                 agent = agent,
                 monoBehaviour = agent

@@ -17,14 +17,15 @@ namespace RCG.Demo.Simulator
 
             CommandableState wanderState = CommandableState.Create("Wander");
             wanderState.AddTransition(onTargetFoundTransition, "EngageTarget");
-            wanderState.AddCommand(MoveAgentToRandomLocation.Create(this), CommandLayer0);
+            wanderState.AddCommand(ChooseAdjacentLocation.Create(this), CommandLayer0);
+            wanderState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
             wanderState.SetLayerLoopCount(CommandLayer0, -1);
             wanderState.AddCommand(DefaultAdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer1);
             stateMachine.AddState(wanderState);
 
             CommandableState engageTargetState = CommandableState.Create("EngageTarget");
             engageTargetState.AddTransition(onEngagementCompletedTransition, wanderState);
-            engageTargetState.AddCommand(MoveAgentToTargetAdLocation.Create(this), CommandLayer0);
+            engageTargetState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
             engageTargetState.AddCommand(EngageMapCell.Create(this, onEngagementCompletedTransition), CommandLayer0);
             engageTargetState.AddCommand(DefaultAdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer1);
             stateMachine.AddState(engageTargetState);
