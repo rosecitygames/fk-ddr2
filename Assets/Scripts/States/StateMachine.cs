@@ -74,6 +74,11 @@ namespace RCG.States
             }
         }
 
+        public void Destroy()
+        {
+            // TODO DESTROY ALL STATES IN DICTIONARY
+        }
+
         public static StateMachine Create()
         {
             return new StateMachine();

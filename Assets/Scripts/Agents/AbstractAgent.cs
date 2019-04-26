@@ -102,15 +102,23 @@ namespace RCG.Agents
         
         void IMapElement.AddToMap(IMap map)
         {
-            if(map != null)
+            AddToMap(map);
+        }
+        protected virtual void AddToMap(IMap map)
+        {
+            if (map != null)
             {
                 Map.RemoveElement(this);
-            }         
+            }
             this.map = map;
             Map.AddElement(this);
         }
 
         void IMapElement.RemoveFromMap()
+        {
+            RemoveFromMap();
+        }
+        protected virtual void RemoveFromMap()
         {
             Map.RemoveElement(this);
         }
@@ -154,8 +162,11 @@ namespace RCG.Agents
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
-        float IAdvertisementBroadcastData.BroadcastDistance { get { return AgentData.BroadcastDistance; } }
-        float IAdvertisementBroadcastData.BroadcastInterval { get { return AgentData.BroadcastInterval; } }
+        float IAdvertisementBroadcastData.BroadcastDistance { get { return BroadcastDistance; } }
+        protected float BroadcastDistance { get { return AgentData.BroadcastDistance; } }
+
+        float IAdvertisementBroadcastData.BroadcastInterval { get { return BroadcastInterval; } }
+        protected float BroadcastInterval { get { return AgentData.BroadcastInterval; } }
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser
@@ -193,7 +204,7 @@ namespace RCG.Agents
             advertiser.BroadcastAdvertisement(advertisement);
         }
 
-        void IAdvertisementReceiver.Receive(IAdvertisement advertisement)
+        void IAdvertisementReceiver.ReceiveAdvertisement(IAdvertisement advertisement)
         {
             OnAdvertisementReceived?.Invoke(advertisement);
         }
@@ -244,6 +255,14 @@ namespace RCG.Agents
             stateMachine.HandleTransition(transitionName);
         }
 
+        void OnDestroy()
+        {
+            if (stateMachine != null)
+            {
+                stateMachine.Destroy();
+            }
+        }
+
         // Initialization
         void Start()
         {
@@ -256,6 +275,33 @@ namespace RCG.Agents
             InitAdvertiser();
             InitMap();
             InitStateMachine();
+        }
+
+        protected void DrawLineToTargetAdvertisementGizmo(Color color)
+        {
+            IAgent agent = this as IAgent;
+            if (agent.TargetAdvertisement != null)
+            {
+                Gizmos.color = color;
+                Gizmos.DrawLine(transform.localPosition, Map.CellToLocal(agent.TargetAdvertisement.Location));
+            }
+        }
+
+        protected void DrawBroadcastDistanceGizmo(Color baseColor)
+        {
+            if (data == null) return;
+
+            float broadcastDistance = (data as IAgentData).BroadcastDistance * 0.2f;
+
+            Color gizmoColor = baseColor;
+
+            gizmoColor.a = baseColor.a * 0.2f;
+            Gizmos.color = gizmoColor;
+            Gizmos.DrawWireSphere(transform.position, broadcastDistance);
+
+            gizmoColor.a = baseColor.a * 0.1f;
+            Gizmos.color = gizmoColor;
+            Gizmos.DrawSphere(transform.position, broadcastDistance);
         }
     }
 }

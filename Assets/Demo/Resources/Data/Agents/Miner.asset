@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Miner
   description: An old and lonely miner looking for gold
-  broadcastDistance: 3
+  broadcastDistance: 4
   broadcastInterval: 1
   stats:
     attributes:

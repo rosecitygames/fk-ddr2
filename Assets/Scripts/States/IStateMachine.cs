@@ -12,5 +12,7 @@ namespace RCG.States
 
         void AddState(IState state);
         void RemoveState(IState state);
+
+        void Destroy();
     }
 }
