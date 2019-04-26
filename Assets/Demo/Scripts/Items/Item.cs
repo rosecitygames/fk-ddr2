@@ -1,11 +1,11 @@
 ﻿using RCG.Advertisements;
-using RCG.Agents;
+using RCG.Items;
 using RCG.States;
 using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {
-    public class ItemAgent : AbstractAgent
+    public class Item : AbstractItem
     {
 
         protected override void InitStateMachine()
@@ -23,18 +23,13 @@ namespace RCG.Demo.Simulator
             Destroy(gameObject);
         }
 
-        public static IAgent Create(GameObject gameObject, IAgentData agentData, IAdvertisementBroadcaster broadcaster)
+        public static IItem Create(GameObject gameObject, IItemData itemData, IAdvertisementBroadcaster broadcaster)
         {
-            IAgent agent = gameObject.AddComponent<ItemAgent>();
-            agent.AgentData = agentData;
+            IItem agent = gameObject.AddComponent<Item>();
+            agent.ItemData = itemData;
             agent.SetBroadcaster(broadcaster);
             return agent;
         }
 
-        void OnDrawGizmos()
-        {
-            DrawBroadcastDistanceGizmo(Color.yellow);
-        }
-    
     }
 }

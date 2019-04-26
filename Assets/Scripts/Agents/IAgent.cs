@@ -7,14 +7,14 @@ using UnityEngine;
 
 namespace RCG.Agents
 {
-    public interface IAgent : IMapElement, IDesiresCollection, IAdvertiser, IAdvertisementReceiver, IAdvertisementBroadcastData, IStateTransitionHandler
+    public interface IAgent : IAdvertisingMapElement, IAdvertisementReceiver, IStateTransitionHandler, IDesiresCollection
     {
         IAgentData AgentData { get; set; }
 
         event Action<IAdvertisement> OnAdvertisementReceived;
 
         IRankedAdvertisement TargetAdvertisement { get; set; }
-        IAgent TargetAgent { get; set; }
+        IMapElement TargetMapElement { get; set; }
         Vector3Int TargetLocation { get; set; }
     }
 }

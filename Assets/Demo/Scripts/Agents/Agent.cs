@@ -39,8 +39,8 @@ namespace RCG.Demo.Simulator
             inspectTargetLocationState.AddTransition(onItemFoundTransition, pickupItemState);
             inspectTargetLocationState.AddTransition(onNothingFoundTransition, wanderState);
             inspectTargetLocationState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
-            inspectTargetLocationState.AddCommand(ChooseTargetAgentAtLocation.Create(this), CommandLayer0);
-            inspectTargetLocationState.AddCommand(InspectTargetAgent.Create(this, onEnemeyFoundTransition, onItemFoundTransition, onNothingFoundTransition), CommandLayer0);
+            inspectTargetLocationState.AddCommand(ChooseTargetMapElmentAtLocation.Create(this), CommandLayer0);
+            inspectTargetLocationState.AddCommand(InspectTargetMapElement.Create(this, onEnemeyFoundTransition, onItemFoundTransition, onNothingFoundTransition), CommandLayer0);
             inspectTargetLocationState.AddCommand(DefaultAdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer1);
             stateMachine.AddState(inspectTargetLocationState);
 
@@ -70,12 +70,5 @@ namespace RCG.Demo.Simulator
             agent.SetBroadcaster(broadcaster);
             return agent;
         }
-
-        private void OnDrawGizmos()
-        {
-            DrawLineToTargetAdvertisementGizmo(Color.blue);
-            DrawBroadcastDistanceGizmo(Color.green);
-        }
-   
     }
 }

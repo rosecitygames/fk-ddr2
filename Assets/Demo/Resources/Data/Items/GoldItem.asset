@@ -9,16 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2a80bee6d49c794ca6cf808d4e97463, type: 3}
+  m_Script: {fileID: 11500000, guid: 73768e456843d0048b6aa10887985680, type: 3}
   m_Name: GoldItem
   m_EditorClassIdentifier: 
-  displayName: 
-  description: 
-  broadcastDistance: 3
+  displayName: Gold
+  description: Glittery and valuable!
+  broadcastDistance: 4
   broadcastInterval: 1
   stats:
     attributes:
     - attribute: {fileID: 11400000, guid: 77ed10d593676dd418e4ada5115f951f, type: 2}
       quantity: 10
-  desires:
-    attributes: []

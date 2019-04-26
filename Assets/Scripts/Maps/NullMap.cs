@@ -6,6 +6,8 @@ namespace RCG.Maps
 {
     public class NullMap : IMap
     {
+        Vector3 IMap.CellSize { get { return Vector3.zero; } }
+
         Vector3Int IMap.LocalToCell(Vector3 localPosition) { return Vector3Int.zero; }
         Vector3 IMap.CellToLocal(Vector3Int cellPosition) { return Vector3.zero; }
 

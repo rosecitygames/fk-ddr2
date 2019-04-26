@@ -13,10 +13,10 @@ namespace RCG.Demo.Simulator
 
         protected override void OnStart()
         {
-            if (agent.TargetAgent != null)
+            if (agent.TargetMapElement != null)
             {
-                agent.TargetAgent.RemoveFromMap();
-                agent.TargetAgent = null;
+                agent.TargetMapElement.RemoveFromMap();
+                agent.TargetMapElement = null;
             }
 
             Complete();

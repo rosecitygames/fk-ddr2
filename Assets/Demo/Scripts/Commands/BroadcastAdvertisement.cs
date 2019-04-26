@@ -8,14 +8,14 @@ namespace RCG.Demo.Simulator
 {
     public class BroadcastAdvertisement : AbstractCommand
     {
-        IAgent agent;
+        IAdvertisingMapElement advertisingMapElement;
         MonoBehaviour monoBehaviour;
 
         Coroutine broadcastCoroutine;
 
         protected override void OnStart()
         {
-            bool isBroadcastable = (agent.BroadcastDistance > 0) && (agent.BroadcastInterval > 0);
+            bool isBroadcastable = (advertisingMapElement.BroadcastDistance > 0) && (advertisingMapElement.BroadcastInterval > 0);
             if (isBroadcastable)
             {
                 StartBroadcast();
@@ -55,22 +55,27 @@ namespace RCG.Demo.Simulator
             while (isCompleted == false)
             {
                 CreateAndBroadcastAdvertisement();
-                yield return new WaitForSeconds(agent.BroadcastInterval);
+                yield return new WaitForSeconds(advertisingMapElement.BroadcastInterval);
             }
         }
 
         void CreateAndBroadcastAdvertisement()
         {
-            IAdvertisement advertisement = Advertisement.Create(agent.Stats, agent.Location, agent.BroadcastDistance);
-            agent.BroadcastAdvertisement(advertisement);
+            IAdvertisement advertisement = Advertisement.Create(advertisingMapElement.Stats, advertisingMapElement.Location, advertisingMapElement.BroadcastDistance);
+            advertisingMapElement.BroadcastAdvertisement(advertisement);
         }
 
-        public static ICommand Create(AbstractAgent agent)
+        public static ICommand Create(IAdvertisingMapElement advertisingMapElement)
+        {
+            return Create(advertisingMapElement, advertisingMapElement as MonoBehaviour);
+        }
+
+        public static ICommand Create(IAdvertisingMapElement advertisingMapElement, MonoBehaviour monoBehaviour)
         {
             BroadcastAdvertisement command = new BroadcastAdvertisement
             {
-                agent = agent,
-                monoBehaviour = agent
+                advertisingMapElement = advertisingMapElement,
+                monoBehaviour = monoBehaviour
             };
 
             return command;

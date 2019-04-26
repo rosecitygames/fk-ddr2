@@ -6,6 +6,8 @@ namespace RCG.Maps
 {
     public interface IMap : IDescribable
     {
+        Vector3 CellSize { get; }
+
         Vector3Int LocalToCell(Vector3 localPosition);
         Vector3 CellToLocal(Vector3Int cellPosition);
 

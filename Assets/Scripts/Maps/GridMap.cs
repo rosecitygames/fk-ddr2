@@ -11,7 +11,7 @@ namespace RCG.Maps
     {
         [SerializeField]
         string displayName = "";
-        public override string DisplayName
+        protected override string DisplayName
         {
             get
             {
@@ -22,7 +22,7 @@ namespace RCG.Maps
         [SerializeField]
         [TextArea]
         string description = "";
-        public override string Description
+        protected override string Description
         {
             get
             {
@@ -36,17 +36,39 @@ namespace RCG.Maps
             grid = GetComponent<Grid>();
         }
 
-        public override Vector3Int LocalToCell(Vector3 localPosition)
+        protected override Vector3 CellSize
         {
-            return grid.LocalToCell(localPosition);
+            get
+            {
+                return grid.cellSize;
+            }
         }
 
-        public override Vector3 CellToLocal(Vector3Int cellPosition)
+        protected override Vector3Int LocalToCell(Vector3 localPosition)
         {
-            Vector3 localPosition = grid.CellToLocal(cellPosition);
-            localPosition.x += grid.cellSize.x * 0.5f;
-            localPosition.y += grid.cellSize.y * 0.5f;
-            return localPosition;
+            if (grid != null)
+            {
+                return grid.LocalToCell(localPosition);
+            }
+            else
+            {
+                return Vector3Int.zero;
+            }
+        }
+
+        protected override Vector3 CellToLocal(Vector3Int cellPosition)
+        {
+            if (grid != null)
+            {
+                Vector3 localPosition = grid.CellToLocal(cellPosition);
+                localPosition.x += grid.cellSize.x * 0.5f;
+                localPosition.y += grid.cellSize.y * 0.5f;
+                return localPosition;
+            }
+            else
+            {
+                return Vector3Int.zero;
+            }
         }
 
         private Dictionary<int, List<IMapElement>> hashIdToMapElement = new Dictionary<int, List<IMapElement>>();
@@ -66,7 +88,7 @@ namespace RCG.Maps
             return (cell.x * primeX) ^ (cell.y * primeY);
         }
 
-        public override void AddElement(IMapElement mapElement)
+        protected override void AddElement(IMapElement mapElement)
         {
             if (mapElementToHashId.ContainsKey(mapElement))
             {
@@ -85,8 +107,8 @@ namespace RCG.Maps
 
             mapElementToHashId[mapElement] = cellHashId;
         }
-        
-        public override void RemoveElement(IMapElement mapElement)
+
+        protected override void RemoveElement(IMapElement mapElement)
         {
             if (mapElementToHashId.ContainsKey(mapElement))
             {
@@ -96,7 +118,7 @@ namespace RCG.Maps
             mapElementToHashId.Remove(mapElement);
         }
 
-        public override List<IMapElement> GetMapElementsAtCell(Vector3Int cell)
+        protected override List<IMapElement> GetMapElementsAtCell(Vector3Int cell)
         {
             int cellHashId = GetHashId(cell);
             if (hashIdToMapElement.ContainsKey(cellHashId))

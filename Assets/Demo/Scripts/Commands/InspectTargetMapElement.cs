@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {
-    public class InspectTargetAgent : AbstractCommand
+    public class InspectTargetMapElement : AbstractCommand
     {
         IAgent agent = null;
 
@@ -19,18 +19,18 @@ namespace RCG.Demo.Simulator
         protected override void OnStart()
         {
             agent.TargetAdvertisement = null;
-            HandleMapCellMapElements();
+            Inspect();
             Complete();
         }
 
-        void HandleMapCellMapElements()
+        void Inspect()
         {
-            IAgent targetAgent = agent.TargetAgent;
+            IMapElement targetMapElement = agent.TargetMapElement;
 
-            bool isNotNullAgent = targetAgent != null;
-            if (isNotNullAgent)
+            bool isNotNullMapElement = targetMapElement != null;
+            if (isNotNullMapElement)
             {
-                bool isEnemy = GetIsEnemy(targetAgent);
+                bool isEnemy = GetIsEnemy(targetMapElement);
                 if (isEnemy)
                 {
                     agent.HandleTransition(enemyFoundTransition);
@@ -46,21 +46,15 @@ namespace RCG.Demo.Simulator
             }
         }
 
-        bool GetIsEnemy(IAgent otherAgent)
+        bool GetIsEnemy(IMapElement mapElement)
         {
-            return (otherAgent.GroupId != 0 && otherAgent.GroupId != agent.GroupId);
-        }
-
-        const string healthAttributeId = "health";
-        bool GetIsItem(IAgent otherAgent)
-        {
-            IAttribute healthAttribute = otherAgent.GetStat(healthAttributeId);
-            return (healthAttribute == null || healthAttribute.Quantity == 0);
+            bool isAttackable = (mapElement as IAttackReceiver) != null;
+            return (isAttackable && mapElement.GroupId != agent.GroupId);
         }
 
         public static ICommand Create(IAgent agent, string handleEnemeyTransition = "", string handleItemTransition = "", string handleNothingTransition = "")
         {
-            return new InspectTargetAgent
+            return new InspectTargetMapElement
             {
                 agent = agent,
                 enemyFoundTransition = handleEnemeyTransition,

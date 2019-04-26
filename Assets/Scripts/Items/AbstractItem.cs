@@ -3,66 +3,74 @@ using RCG.Attributes;
 using RCG.Maps;
 using RCG.States;
 using RCG.Utils;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Agents
+namespace RCG.Items
 {
-    public abstract class AbstractAgent : MonoBehaviour, IAgent
+    public abstract class AbstractItem : MonoBehaviour, IItem
     {
-        // Agent Data implementations
         [SerializeField]
-        ScriptableAgentData data = null;
-        IAgentData agentData;
-
-        IAgentData IAgent.AgentData
+        ScriptableItemData data = null;
+        IItemData itemData;
+        IItemData IItem.ItemData
         {
             get
             {
-                return AgentData;
+                return ItemData;
             }
             set
             {
-                AgentData = value;
+                ItemData = value;
             }
         }
-        protected IAgentData AgentData
+        protected IItemData ItemData
         {
             get
             {
-                if (agentData == null)
+                if (itemData == null)
                 {
-                    InitAgentData();
-                }             
-                return agentData;
+                    InitItemData();
+                }
+                return itemData;
             }
             set
             {
-                agentData = value;
+                itemData = value;
             }
         }
 
-        protected virtual void InitAgentData()
+        protected virtual void InitItemData()
         {
             if (data == null)
             {
-                agentData = new NullAgentData();
+                itemData = new NullItemData();
             }
             else
             {
-                agentData = (data as IAgentData).Copy();
+                itemData = (data as IItemData).Copy();
             }
         }
 
-        string IDescribable.DisplayName { get { return AgentData.DisplayName; } }
-        string IDescribable.Description { get { return AgentData.Description; } }
+        string IDescribable.DisplayName { get { return ItemData.DisplayName; } }
+        string IDescribable.Description { get { return ItemData.Description; } }
 
-        List<IAttribute> IStatsCollection.Stats { get { return AgentData.Stats; } }
-        IAttribute IStatsCollection.GetStat(string id) { return AgentData.GetStat(id); }
+        List<IAttribute> IStatsCollection.Stats { get { return ItemData.Stats; } }
+        IAttribute IStatsCollection.GetStat(string id) { return ItemData.GetStat(id); }
 
-        List<IAttribute> IDesiresCollection.Desires { get { return AgentData.Desires; } }
-        IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
+
+        protected int GroupId { get; set; }
+        int IGroupMember.GroupId
+        {
+            get
+            {
+                return GroupId;
+            }
+            set
+            {
+                GroupId = value;
+            }
+        }
 
         // Map implementations
         IMap map;
@@ -100,7 +108,7 @@ namespace RCG.Agents
             map = GetComponentInParent<IMap>() ?? NullMap.Create();
             map.AddElement(this);
         }
-        
+
         void IMapElement.AddToMap(IMap map)
         {
             AddToMap(map);
@@ -159,15 +167,14 @@ namespace RCG.Agents
             }
         }
 
-        // Broadcaster & Advertiser implementations
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
         float IAdvertisementBroadcastData.BroadcastDistance { get { return BroadcastDistance; } }
-        protected float BroadcastDistance { get { return AgentData.BroadcastDistance; } }
+        protected float BroadcastDistance { get { return ItemData.BroadcastDistance; } }
 
         float IAdvertisementBroadcastData.BroadcastInterval { get { return BroadcastInterval; } }
-        protected float BroadcastInterval { get { return AgentData.BroadcastInterval; } }
+        protected float BroadcastInterval { get { return ItemData.BroadcastInterval; } }
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser
@@ -188,16 +195,7 @@ namespace RCG.Agents
 
         protected virtual void InitAdvertiser()
         {
-            InitBroadcaster();
             advertiser = Advertisements.Advertiser.Create(broadcaster);
-        }
-
-        void InitBroadcaster()
-        {
-            if (broadcaster != null)
-            {
-                (broadcaster as IAdvertisementBroadcaster).AddReceiver(this);
-            }
         }
 
         IAdvertisementBroadcaster IAdvertiser.GetBroadcaster()
@@ -212,48 +210,18 @@ namespace RCG.Agents
 
         void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement)
         {
+            BroadcastAdvertisement(advertisement);
+        }
+
+        void BroadcastAdvertisement()
+        {
+            IAdvertisement advertisement = Advertisement.Create(ItemData.Stats, Location, BroadcastDistance);
+            Advertiser.BroadcastAdvertisement(advertisement);
+        }
+
+        void BroadcastAdvertisement(IAdvertisement advertisement)
+        {
             advertiser.BroadcastAdvertisement(advertisement);
-        }
-
-        void IAdvertisementReceiver.ReceiveAdvertisement(IAdvertisement advertisement)
-        {
-            OnAdvertisementReceived?.Invoke(advertisement);
-        }
-
-        event Action<IAdvertisement> IAgent.OnAdvertisementReceived
-        {
-            add
-            {
-                OnAdvertisementReceived += value;
-            }
-            remove
-            {
-                OnAdvertisementReceived -= value;
-            }
-        }
-
-        Action<IAdvertisement> OnAdvertisementReceived;
-
-        IRankedAdvertisement IAgent.TargetAdvertisement { get; set; }
-
-        IMapElement IAgent.TargetMapElement { get; set; }
-
-        Vector3Int IAgent.TargetLocation { get; set; }
-
-        // Group Member implementations
-        [SerializeField]
-        int groupId;
-        protected int GroupId { get { return groupId; } set { groupId = value; } }
-        int IGroupMember.GroupId
-        {
-            get
-            {
-                return GroupId;
-            }
-            set
-            {
-                GroupId = value;
-            }
         }
 
         // State Machine implementations
@@ -274,7 +242,7 @@ namespace RCG.Agents
 
         protected virtual void Init()
         {
-            InitAgentData();
+            InitItemData();
             InitAdvertiser();
             InitMap();
             InitStateMachine();
@@ -290,11 +258,6 @@ namespace RCG.Agents
         {
             RemoveFromMap();
 
-            IAdvertisementBroadcaster advertisementBroadcaster = Advertiser.GetBroadcaster();
-            if (advertisementBroadcaster != null)
-            {
-                advertisementBroadcaster.RemoveReceiver(this);
-            }
 
             if (stateMachine != null)
             {
@@ -304,18 +267,12 @@ namespace RCG.Agents
 
         void OnDrawGizmos()
         {
-            IAgent agent = this as IAgent;
-            if (agent.TargetAdvertisement != null)
-            {
-                Vector3 adPosition = Map.CellToLocal(agent.TargetAdvertisement.Location);
-                DrawGizmosUtil.DrawTargetAdvertisementLine(Position, adPosition, Color.blue);
-            }
-
             if (data != null && Map != null)
             {
-                float broadcastDistance = (data as IAgentData).BroadcastDistance * 0.2f;
-                DrawGizmosUtil.DrawBroadcastDistanceSphere(Position, broadcastDistance, Color.green);
+                float broadcastDistance = (data as IItemData).BroadcastDistance * 0.2f;
+                DrawGizmosUtil.DrawBroadcastDistanceSphere(Position, broadcastDistance, Color.yellow);
             }
         }
+
     }
 }
