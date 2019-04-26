@@ -76,7 +76,12 @@ namespace RCG.States
 
         public void Destroy()
         {
-            // TODO DESTROY ALL STATES IN DICTIONARY
+            foreach (IState state in stateDictionary.Values)
+            {
+                state.Destroy();
+            }
+
+            stateDictionary.Clear();
         }
 
         public static StateMachine Create()

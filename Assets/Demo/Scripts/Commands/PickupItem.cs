@@ -1,18 +1,33 @@
-﻿using System.Collections;
+﻿using RCG.Agents;
+using RCG.Attributes;
+using RCG.Commands;
+using RCG.Maps;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickupItem : MonoBehaviour
+namespace RCG.Demo.Simulator
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PickupItem : AbstractCommand
     {
-        
-    }
+        IAgent agent = null;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        protected override void OnStart()
+        {
+            if (agent.TargetAgent != null)
+            {
+                agent.TargetAgent.RemoveFromMap();
+                agent.TargetAgent = null;
+            }
+
+            Complete();
+        }
+
+        public static ICommand Create(IAgent agent)
+        {
+            return new PickupItem
+            {
+                agent = agent
+            };
+        }
     }
 }

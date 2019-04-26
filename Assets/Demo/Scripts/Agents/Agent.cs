@@ -44,6 +44,15 @@ namespace RCG.Demo.Simulator
             inspectTargetLocationState.AddCommand(DefaultAdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer1);
             stateMachine.AddState(inspectTargetLocationState);
 
+            // Pickup Item state
+
+            string onPickupCompleted = "OnPickupCompleted";
+
+            pickupItemState.AddTransition(onPickupCompleted, wanderState);
+            pickupItemState.AddCommand(PickupItem.Create(this));
+            pickupItemState.AddCommand(CallTransition.Create(this, onPickupCompleted));
+            stateMachine.AddState(pickupItemState);
+
             stateMachine.SetState(wanderState);
         }
 

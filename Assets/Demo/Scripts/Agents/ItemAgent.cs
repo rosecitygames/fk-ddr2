@@ -19,6 +19,7 @@ namespace RCG.Demo.Simulator
         protected override void RemoveFromMap()
         {
             base.RemoveFromMap();
+            StopAllCoroutines();
             Destroy(gameObject);
         }
 

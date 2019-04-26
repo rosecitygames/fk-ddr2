@@ -186,12 +186,22 @@ namespace RCG.Agents
         {
             if (advertiser == null)
             {
-                if (broadcaster != null)
-                {
-                    (broadcaster as IAdvertisementBroadcaster).AddReceiver(this);
-                }
+                InitBroadcaster();
                 advertiser = Advertisements.Advertiser.Create(broadcaster);
             }
+        }
+
+        void InitBroadcaster()
+        {
+            if (broadcaster != null)
+            {
+                (broadcaster as IAdvertisementBroadcaster).AddReceiver(this);
+            }
+        }
+
+        IAdvertisementBroadcaster IAdvertiser.GetBroadcaster()
+        {
+            return advertiser.GetBroadcaster();
         }
 
         void IAdvertiser.SetBroadcaster(IAdvertisementBroadcaster broadcaster)
@@ -257,6 +267,14 @@ namespace RCG.Agents
 
         void OnDestroy()
         {
+            RemoveFromMap();
+
+            IAdvertisementBroadcaster advertisementBroadcaster = Advertiser.GetBroadcaster();
+            if (advertisementBroadcaster != null)
+            {
+                advertisementBroadcaster.RemoveReceiver(this);
+            }
+
             if (stateMachine != null)
             {
                 stateMachine.Destroy();

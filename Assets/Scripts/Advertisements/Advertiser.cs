@@ -8,6 +8,11 @@ namespace RCG.Advertisements
     {
         protected IAdvertisementBroadcaster Broadcaster { get; set; }
 
+        IAdvertisementBroadcaster IAdvertiser.GetBroadcaster()
+        {
+            return Broadcaster;
+        }
+
         void IAdvertiser.SetBroadcaster(IAdvertisementBroadcaster broadcaster)
         {
             Broadcaster = broadcaster ?? NullAdvertisementBroadcaster.Create();

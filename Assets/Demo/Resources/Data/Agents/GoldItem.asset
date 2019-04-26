@@ -19,6 +19,6 @@ MonoBehaviour:
   stats:
     attributes:
     - attribute: {fileID: 11400000, guid: 77ed10d593676dd418e4ada5115f951f, type: 2}
-      quantity: 0
+      quantity: 10
   desires:
     attributes: []
