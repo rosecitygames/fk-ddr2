@@ -1,8 +1,7 @@
 ﻿using RCG.Agents;
-using RCG.Attributes;
 using RCG.Commands;
+using RCG.Items;
 using RCG.Maps;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RCG.Demo.Simulator
@@ -28,16 +27,27 @@ namespace RCG.Demo.Simulator
             IMapElement targetMapElement = agent.TargetMapElement;
 
             bool isNotNullMapElement = targetMapElement != null;
-            if (isNotNullMapElement)
+            bool isNotSelf = targetMapElement != agent;
+            if (isNotNullMapElement && isNotSelf)
             {
                 bool isEnemy = GetIsEnemy(targetMapElement);
                 if (isEnemy)
                 {
+                    Debug.Log(agent + " found enemy " + targetMapElement);
                     agent.HandleTransition(enemyFoundTransition);
                 }
                 else
                 {
-                    agent.HandleTransition(itemFoundTransition);
+                    bool isItem = GetIsItem(targetMapElement);
+                    if (isItem)
+                    {
+                        Debug.Log(agent + " found some " + targetMapElement);
+                        agent.HandleTransition(itemFoundTransition);
+                    }
+                    else
+                    {
+                        agent.HandleTransition(nothingFoundTransition);
+                    }
                 }
             }
             else
@@ -50,6 +60,11 @@ namespace RCG.Demo.Simulator
         {
             bool isAttackable = (mapElement as IAttackReceiver) != null;
             return (isAttackable && mapElement.GroupId != agent.GroupId);
+        }
+
+        bool GetIsItem(IMapElement mapElement)
+        {
+            return (mapElement as IItem) != null;
         }
 
         public static ICommand Create(IAgent agent, string handleEnemeyTransition = "", string handleItemTransition = "", string handleNothingTransition = "")

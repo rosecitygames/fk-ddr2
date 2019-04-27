@@ -12,7 +12,7 @@ namespace RCG.Demo.Simulator
         {
             if (agent.TargetMapElement != null)
             {
-                Debug.Log("Picking up " + agent.DisplayName);
+                Debug.Log(agent.DisplayName + " picking up " + agent.TargetMapElement.DisplayName);
                 agent.TargetMapElement.RemoveFromMap();
                 agent.TargetMapElement = null;
             }

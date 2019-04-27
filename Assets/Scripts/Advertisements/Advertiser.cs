@@ -28,6 +28,16 @@ namespace RCG.Advertisements
             Broadcaster.Broadcast(advertisement);
         }
 
+        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver)
+        {
+            BroadcastAdvertisement(advertisement, excludeReceiver);
+        }
+
+        protected void BroadcastAdvertisement(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver)
+        {
+            Broadcaster.Broadcast(advertisement, excludeReceiver);
+        }
+
         public static IAdvertiser Create(IAdvertisementBroadcaster broadcaster)
         {
             return new Advertiser

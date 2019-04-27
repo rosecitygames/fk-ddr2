@@ -210,18 +210,12 @@ namespace RCG.Items
 
         void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement)
         {
-            BroadcastAdvertisement(advertisement);
-        }
-
-        void BroadcastAdvertisement()
-        {
-            IAdvertisement advertisement = Advertisement.Create(ItemData.Stats, Location, BroadcastDistance);
-            Advertiser.BroadcastAdvertisement(advertisement);
-        }
-
-        void BroadcastAdvertisement(IAdvertisement advertisement)
-        {
             advertiser.BroadcastAdvertisement(advertisement);
+        }
+
+        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver)
+        {
+            advertiser.BroadcastAdvertisement(advertisement, excludeReceiver);
         }
 
         // State Machine implementations

@@ -96,7 +96,7 @@ namespace RCG.Demo.Simulator
         public static void SetHealth(IStatsCollection statsCollection, int quantity)
         {
             IAttribute attribute = statsCollection.GetStat(healthAttributeId);
-            if (attribute == null)
+            if (attribute != null)
             {
                 attribute.Quantity = quantity;
             }

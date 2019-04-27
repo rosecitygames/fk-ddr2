@@ -10,13 +10,20 @@ namespace RCG.Advertisements
         {
             Broadcast(advertisement);
         }
-        protected void Broadcast(IAdvertisement advertisement)
+        void IAdvertisementBroadcaster.Broadcast(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver)
+        {
+            Broadcast(advertisement, excludeReceiver);
+        }
+        protected void Broadcast(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver = null)
         {
             foreach(IAdvertisementReceiver receiver in receivers)
             {
-                BroadcastToReceiver(receiver, advertisement);
+                if (receiver != excludeReceiver)
+                {
+                    BroadcastToReceiver(receiver, advertisement);
+                }
             }
-        }
+        }   
 
         void BroadcastToReceiver(IAdvertisementReceiver receiver, IAdvertisement advertisement)
         {

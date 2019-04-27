@@ -57,8 +57,8 @@ namespace RCG.Demo.Simulator
                 AttributesUtil.SetHealth(soldier, health);
             }
 
-            Debug.Log(attackAgent.DisplayName + " attacks " + soldier.DisplayName + "!" + " attackStrength = "+attackStrength+", defenseStrength = "+defenseStrength+", remaining health = " + health);
-            if (health < 0)
+            Debug.Log(attackAgent + " attacks " + soldier + "!" + " attackStrength = "+attackStrength+", defenseStrength = "+defenseStrength+", remaining health = " + health);
+            if (health <= 0)
             {
                 soldier.HandleTransition(onDeathTransition);
             }

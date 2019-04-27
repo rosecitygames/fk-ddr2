@@ -10,7 +10,6 @@ namespace RCG.Demo.Simulator
 
         protected override void OnStart()
         {
-            Debug.Log(agent.DisplayName+" health = "+ AttributesUtil.GetHealth(agent));
             agent.RemoveFromMap();
             Complete();
         }

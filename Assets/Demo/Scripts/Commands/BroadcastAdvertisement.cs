@@ -1,6 +1,7 @@
 ﻿using RCG.Agents;
 using RCG.Advertisements;
 using RCG.Commands;
+using RCG.Items;
 using System.Collections;
 using UnityEngine;
 
@@ -8,7 +9,9 @@ namespace RCG.Demo.Simulator
 {
     public class BroadcastAdvertisement : AbstractCommand
     {
-        IAdvertisingMapElement advertisingMapElement;
+        IAdvertisingMapElement advertisingMapElement = null;
+        IAdvertisementReceiver excludeReceiver = null;
+
         MonoBehaviour monoBehaviour;
 
         Coroutine broadcastCoroutine;
@@ -61,21 +64,28 @@ namespace RCG.Demo.Simulator
 
         void CreateAndBroadcastAdvertisement()
         {
-            IAdvertisement advertisement = Advertisement.Create(advertisingMapElement.Stats, advertisingMapElement.Location, advertisingMapElement.BroadcastDistance);
-            advertisingMapElement.BroadcastAdvertisement(advertisement);
+            IAdvertisement advertisement = Advertisement.Create(advertisingMapElement.Stats, advertisingMapElement.Location, advertisingMapElement.BroadcastDistance, advertisingMapElement.GroupId);
+            advertisingMapElement.BroadcastAdvertisement(advertisement, excludeReceiver);
         }
 
-        public static ICommand Create(IAdvertisingMapElement advertisingMapElement)
-        {
-            return Create(advertisingMapElement, advertisingMapElement as MonoBehaviour);
-        }
-
-        public static ICommand Create(IAdvertisingMapElement advertisingMapElement, MonoBehaviour monoBehaviour)
+        public static ICommand Create(AbstractItem item)
         {
             BroadcastAdvertisement command = new BroadcastAdvertisement
             {
-                advertisingMapElement = advertisingMapElement,
-                monoBehaviour = monoBehaviour
+                advertisingMapElement = item,
+                monoBehaviour = item
+            };
+
+            return command;
+        }
+
+        public static ICommand Create(AbstractAgent agent)
+        {
+            BroadcastAdvertisement command = new BroadcastAdvertisement
+            {
+                advertisingMapElement = agent,
+                excludeReceiver = agent,
+                monoBehaviour = agent
             };
 
             return command;

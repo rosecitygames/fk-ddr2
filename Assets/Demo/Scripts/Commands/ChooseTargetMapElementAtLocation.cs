@@ -31,6 +31,8 @@ namespace RCG.Demo.Simulator
             List<IMapElement> mapElements = agent.Map.GetMapElementsAtCell(agent.Location);
             foreach (IMapElement mapElement in mapElements)
             {
+                if (mapElement == agent) continue;
+
                 bool isEnemy = GetIsEnemy(mapElement);
                 if (isEnemy)
                 {

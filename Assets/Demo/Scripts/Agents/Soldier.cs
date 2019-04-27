@@ -47,6 +47,7 @@ namespace RCG.Demo.Simulator
             wanderState.AddTransition(onDeathTransition, deathState);
             wanderState.AddCommand(ChooseAdjacentLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
+            wanderState.AddCommand(WaitForTime.Create(this, 0.25f), CommandLayer0);
             wanderState.SetLayerLoopCount(CommandLayer0, -1);
             wanderState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
             wanderState.AddCommand(AdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer2);
@@ -59,10 +60,11 @@ namespace RCG.Demo.Simulator
             inspectTargetLocationState.AddTransition(onAttackedTransition, attackEnemyState);
             inspectTargetLocationState.AddTransition(onDeathTransition, deathState);
             inspectTargetLocationState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
+            inspectTargetLocationState.AddCommand(WaitForTime.Create(this, 0.25f), CommandLayer0);
             inspectTargetLocationState.AddCommand(ChooseTargetMapElmentAtLocation.Create(this), CommandLayer0);
             inspectTargetLocationState.AddCommand(InspectTargetMapElement.Create(this, onEnemeyFoundTransition, onItemFoundTransition, onNothingFoundTransition), CommandLayer0);
             inspectTargetLocationState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
-            inspectTargetLocationState.AddCommand(AdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer2);
+            inspectTargetLocationState.AddCommand(AdvertisementHandler.Create(this), CommandLayer2);
             inspectTargetLocationState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer3);
 
             // Attack Enemey state
@@ -79,9 +81,13 @@ namespace RCG.Demo.Simulator
 
             // Pickup Item state
             pickupItemState.AddTransition(onPickupCompleted, wanderState);
+            pickupItemState.AddTransition(onAttackedTransition, attackEnemyState);
+            pickupItemState.AddTransition(onDeathTransition, deathState);
             pickupItemState.AddCommand(PickupItem.Create(this));
-            pickupItemState.AddCommand(CallTransition.Create(this, onPickupCompleted));
-            
+            pickupItemState.AddCommand(WaitForTime.Create(this, 0.5f), CommandLayer0);
+            pickupItemState.AddCommand(CallTransition.Create(this, onPickupCompleted), CommandLayer0);
+            pickupItemState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer1);
+
             stateMachine.SetState(wanderState);
         }
 

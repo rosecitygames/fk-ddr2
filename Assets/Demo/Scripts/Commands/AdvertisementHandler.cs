@@ -11,7 +11,7 @@ namespace RCG.Demo.Simulator
     public class AdvertisementHandler : AbstractCommand
     {
         IAgent agent = null;
-        string completedTransition;
+        string targetFoundTransition;
 
         protected override void OnStart()
         {
@@ -49,17 +49,19 @@ namespace RCG.Demo.Simulator
                 {
                     agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, rank);
                     agent.TargetLocation = advertisement.Location;
-                }
-            }
 
-            if (string.IsNullOrEmpty(completedTransition) == false)
-            {
-                agent.HandleTransition(completedTransition);
+                    if (string.IsNullOrEmpty(targetFoundTransition) == false)
+                    {
+                        agent.HandleTransition(targetFoundTransition);
+                    }
+                }
             }       
         }
 
         int GetAdvertisementRank(IAdvertisement advertisement)
         {
+            if (advertisement.GroupId == agent.GroupId) return 0;
+
             List<IAttribute> desires = agent.Desires;
             List<IAttribute> ads = advertisement.Attributes;
 
@@ -114,7 +116,7 @@ namespace RCG.Demo.Simulator
             return new AdvertisementHandler
             {
                 agent = agent,
-                completedTransition = completedTransition
+                targetFoundTransition = completedTransition
             };
         }
     }

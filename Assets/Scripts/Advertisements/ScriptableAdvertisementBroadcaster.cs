@@ -15,6 +15,11 @@ namespace RCG.Advertisements
             broadcaster.Broadcast(advertisement);
         }
 
+        void IAdvertisementBroadcaster.Broadcast(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver)
+        {
+            broadcaster.Broadcast(advertisement, excludeReceiver);
+        }
+
         void IAdvertisementBroadcaster.AddReceiver(IAdvertisementReceiver receiver)
         {
             broadcaster.AddReceiver(receiver);

@@ -44,6 +44,7 @@ namespace RCG.Demo.Simulator
         IEnumerator Wait()
         {
             yield return new WaitForSeconds(seconds);
+            Complete();
         }
 
         public static ICommand Create(MonoBehaviour monoBehaviour, float seconds)

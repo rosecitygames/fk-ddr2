@@ -13,6 +13,7 @@ namespace RCG.Demo.Simulator
 
         protected override void OnStart()
         {
+            agent.TargetAdvertisement = null;
             AttackTarget();
             Complete();
         }
@@ -21,21 +22,21 @@ namespace RCG.Demo.Simulator
         {
             if (agent.TargetMapElement == null)
             {
-                CallTargetDeathTransition();
+                CallTargetKilledTransition();
                 return;
             }
 
             IAttackReceiver attackReceiver = agent.TargetMapElement as IAttackReceiver;
             if (attackReceiver == null)
             {
-                CallTargetDeathTransition();
+                CallTargetKilledTransition();
                 return;
             }
 
             int targetHealth = AttributesUtil.GetHealth(agent.TargetMapElement);
             if (targetHealth <= 0)
             {
-                CallTargetDeathTransition();
+                CallTargetKilledTransition();
             }
             else
             {
@@ -43,7 +44,7 @@ namespace RCG.Demo.Simulator
             }        
         }
 
-        void CallTargetDeathTransition()
+        void CallTargetKilledTransition()
         {
             if (string.IsNullOrEmpty(onTargetKilledTransition) == false)
             {
