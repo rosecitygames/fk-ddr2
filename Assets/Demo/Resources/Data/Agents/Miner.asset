@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Miner
   description: An old and lonely miner looking for gold
-  broadcastDistance: 5
-  broadcastInterval: 0.2
+  broadcastDistance: 6
+  broadcastInterval: 0.1
   stats:
     attributes:
     - attribute: {fileID: 11400000, guid: 6f475d2e5f9ad884eaa1dfefe7ab7e64, type: 2}
@@ -29,7 +29,7 @@ MonoBehaviour:
     - attribute: {fileID: 11400000, guid: 039cb5dbc88691d479561fca68d788d6, type: 2}
       quantity: 7
     - attribute: {fileID: 11400000, guid: 026f228a9fdeed646b6d28832b661e7c, type: 2}
-      quantity: 8
+      quantity: 5
   desires:
     attributes:
     - attribute: {fileID: 11400000, guid: 77ed10d593676dd418e4ada5115f951f, type: 2}

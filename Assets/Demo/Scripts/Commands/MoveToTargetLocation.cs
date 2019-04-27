@@ -51,7 +51,7 @@ namespace RCG.Demo.Simulator
             {
                 yield return new WaitForEndOfFrame();
                 float targetDistance = Vector2.Distance(agent.Position, targetPosition);
-                isLocationReached = (targetDistance < 0.001f);
+                isLocationReached = (targetDistance < (agent.Map.CellSize.x * 0.5f));
                 if (isLocationReached == false)
                 {
                     agent.Position = Vector2.MoveTowards(agent.Position, targetPosition, moveSpeed);
