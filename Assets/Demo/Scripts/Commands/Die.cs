@@ -4,25 +4,20 @@ using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {
-    public class PickupItem : AbstractCommand
+    public class Die : AbstractCommand
     {
         IAgent agent = null;
 
         protected override void OnStart()
         {
-            if (agent.TargetMapElement != null)
-            {
-                Debug.Log("Picking up " + agent.DisplayName);
-                agent.TargetMapElement.RemoveFromMap();
-                agent.TargetMapElement = null;
-            }
-
+            Debug.Log(agent.DisplayName+" health = "+ AttributesUtil.GetHealth(agent));
+            agent.RemoveFromMap();
             Complete();
         }
 
         public static ICommand Create(IAgent agent)
         {
-            return new PickupItem
+            return new Die
             {
                 agent = agent
             };

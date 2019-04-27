@@ -15,11 +15,11 @@ namespace RCG.Utils
         public static void DrawBroadcastDistanceSphere(Vector3 position, float broadcastDistance, Color baseColor)
         {
             Color gizmoColor = baseColor;
-
+            /*
             gizmoColor.a = baseColor.a * 0.2f;
             Gizmos.color = gizmoColor;
             Gizmos.DrawWireSphere(position, broadcastDistance);
-
+            */
             gizmoColor.a = baseColor.a * 0.1f;
             Gizmos.color = gizmoColor;
             Gizmos.DrawSphere(position, broadcastDistance);

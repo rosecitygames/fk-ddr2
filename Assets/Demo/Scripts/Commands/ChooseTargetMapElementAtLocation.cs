@@ -63,7 +63,7 @@ namespace RCG.Demo.Simulator
 
         int GetEnemyRank(IMapElement agentElement)
         {
-            return 0;
+            return 1000;
         }
 
         int GetItemRank(IMapElement itemElement)

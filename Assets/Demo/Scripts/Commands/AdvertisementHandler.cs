@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace RCG.Demo.Simulator
 {
-    public class DefaultAdvertisementHandler : AbstractCommand
+    public class AdvertisementHandler : AbstractCommand
     {
         IAgent agent = null;
         string completedTransition;
@@ -42,12 +42,14 @@ namespace RCG.Demo.Simulator
         void HandleAdvertisement(IAdvertisement advertisement)
         {
             int rank = GetAdvertisementRank(advertisement);
-            bool isRankGreater = GetIsAdRankGreaterThanTarget(advertisement, rank);
-
-            if (isRankGreater)
+            if (rank > 0)
             {
-                agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, rank);
-                agent.TargetLocation = advertisement.Location;
+                bool isRankGreater = GetIsAdRankGreaterThanTarget(advertisement, rank);
+                if (isRankGreater)
+                {
+                    agent.TargetAdvertisement = RankedAdvertisement.Create(advertisement, rank);
+                    agent.TargetLocation = advertisement.Location;
+                }
             }
 
             if (string.IsNullOrEmpty(completedTransition) == false)
@@ -109,7 +111,7 @@ namespace RCG.Demo.Simulator
 
         public static ICommand Create(IAgent agent, string completedTransition = "")
         {
-            return new DefaultAdvertisementHandler
+            return new AdvertisementHandler
             {
                 agent = agent,
                 completedTransition = completedTransition

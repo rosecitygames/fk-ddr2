@@ -1,18 +1,58 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RCG.Agents;
+using RCG.Commands;
+using System.Collections;
 using UnityEngine;
 
-public class WaitForTime : MonoBehaviour
+namespace RCG.Demo.Simulator
 {
-    // Start is called before the first frame update
-    void Start()
+    public class WaitForTime : AbstractCommand
     {
-        
-    }
+        MonoBehaviour monoBehaviour;
+        float seconds;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Coroutine coroutine;
+
+        protected override void OnStart()
+        {
+            StartWait();
+        }
+
+        protected override void OnStop()
+        {
+            StopWait();
+        }
+
+        protected override void OnDestroy()
+        {
+            StopWait();
+        }
+
+        void StartWait()
+        {
+            StopWait();
+            coroutine = monoBehaviour.StartCoroutine(Wait());
+        }
+
+        void StopWait()
+        {
+            if (coroutine != null)
+            {
+                monoBehaviour.StopCoroutine(coroutine);
+            }
+        }
+
+        IEnumerator Wait()
+        {
+            yield return new WaitForSeconds(seconds);
+        }
+
+        public static ICommand Create(MonoBehaviour monoBehaviour, float seconds)
+        {
+            return new WaitForTime
+            {
+                monoBehaviour = monoBehaviour,
+                seconds = seconds
+            };
+        }
     }
 }
