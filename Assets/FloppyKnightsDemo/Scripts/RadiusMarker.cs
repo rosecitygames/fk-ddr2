@@ -44,6 +44,9 @@ namespace RCG.Demo.FloppyKnights
         }
 
         [SerializeField]
+        int orderInLayer = 1;
+
+        [SerializeField]
         SpriteRenderer cellPrefab;
 
         IMap map;
@@ -112,6 +115,7 @@ namespace RCG.Demo.FloppyKnights
                 SpriteRenderer cellSpriteRenderer = Instantiate(cellPrefab, transform);
                 cellSpriteRenderer.transform.localPosition = cellPosition;
                 cellSpriteRenderer.color = MarkerColor;
+                cellSpriteRenderer.sortingOrder = orderInLayer;
             }
         }
 
