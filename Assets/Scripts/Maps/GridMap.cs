@@ -151,9 +151,9 @@ namespace RCG.Maps
         {
             Gizmos.color = Color.red;
             Vector3 bounds = GetComponent<Grid>().cellSize;
-            bounds.x *= Size.x;
-            bounds.y *= Size.y;
-            bounds.z *= Size.z;
+            bounds.x *= Size.x * transform.lossyScale.x;
+            bounds.y *= Size.y * transform.lossyScale.y;
+            bounds.z *= Size.z * transform.lossyScale.z;
             Gizmos.DrawWireCube(transform.position, bounds);
         }
     }
