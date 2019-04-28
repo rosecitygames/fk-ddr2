@@ -31,9 +31,16 @@ namespace RCG.Maps
         }
 
         Grid grid;
-        private void Awake()
+        Grid Grid
         {
-            grid = GetComponent<Grid>();
+            get
+            {
+                if (grid == null)
+                {
+                    grid = GetComponent<Grid>();
+                }
+                return grid;
+            }
         }
 
 
@@ -51,35 +58,21 @@ namespace RCG.Maps
         {
             get
             {
-                return grid.cellSize;
+                return Grid.cellSize;
             }
         }
 
         protected override Vector3Int LocalToCell(Vector3 localPosition)
         {
-            if (grid != null)
-            {
-                return grid.LocalToCell(localPosition);
-            }
-            else
-            {
-                return Vector3Int.zero;
-            }
+            return Grid.LocalToCell(localPosition);
         }
 
         protected override Vector3 CellToLocal(Vector3Int cellPosition)
         {
-            if (grid != null)
-            {
-                Vector3 localPosition = grid.CellToLocal(cellPosition);
-                localPosition.x += grid.cellSize.x * 0.5f;
-                localPosition.y += grid.cellSize.y * 0.5f;
-                return localPosition;
-            }
-            else
-            {
-                return Vector3Int.zero;
-            }
+            Vector3 localPosition = Grid.CellToLocal(cellPosition);
+            localPosition.x += Grid.cellSize.x * 0.5f;
+            localPosition.y += Grid.cellSize.y * 0.5f;
+            return localPosition;
         }
 
         protected override int CellToSortingOrder(Vector3Int cellPosition)
