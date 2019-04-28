@@ -19,7 +19,7 @@ namespace RCG.Maps
                 Map = value;
             }
         }
-        IMap Map { get; set; }
+        protected IMap Map { get; set; }
 
         void IMapElement.AddToMap(IMap map)
         {
@@ -35,6 +35,9 @@ namespace RCG.Maps
         {
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
+
+        int IMapElement.SortingOrder { get { return SortingOrder; } }
+        protected int SortingOrder { get; }
 
         int IGroupMember.GroupId
         {

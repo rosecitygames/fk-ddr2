@@ -37,6 +37,18 @@ namespace RCG.Demo.Simulator
             return Mathf.Clamp(attribute.Quantity * 1.0f, minSpeed, maxSpeed);
         }
 
+        // Move Radius
+        const string moveRadiusAttributeId = "moveRadius";
+        public static int GetMoveRadius(IStatsCollection statsCollection)
+        {
+            IAttribute attribute = statsCollection.GetStat(moveRadiusAttributeId);
+            if (attribute == null)
+            {
+                return 0;
+            }
+            return attribute.Quantity;
+        }
+
         // Attack Strength
         const int minAttackStrength = 0;
         const int maxAttackStrength = 10;

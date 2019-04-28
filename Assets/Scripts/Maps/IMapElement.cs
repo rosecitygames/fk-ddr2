@@ -10,6 +10,7 @@ namespace RCG.Maps
         IMap Map { get; set; }
         void AddToMap(IMap map);
         void RemoveFromMap();
-        float Distance(IMapElement otherMapElement);     
+        float Distance(IMapElement otherMapElement);
+        int SortingOrder { get; }
     }
 }

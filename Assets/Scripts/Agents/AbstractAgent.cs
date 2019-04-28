@@ -129,14 +129,11 @@ namespace RCG.Agents
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
+        int IMapElement.SortingOrder { get { return SortingOrder; } }
+        protected virtual int SortingOrder { get { return Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); } }
+
         Vector3Int ILocatable.Location { get { return Location; } }
-        protected virtual Vector3Int Location
-        {
-            get
-            {
-                return Map.LocalToCell(Position);
-            }
-        }
+        protected virtual Vector3Int Location { get { return Map.LocalToCell(Position); } }
 
         Vector3 IPositionable.Position { get { return Position; } set { Position = value; } }
         protected virtual Vector3 Position
@@ -307,8 +304,12 @@ namespace RCG.Agents
             }
         }
 
+        protected bool isDrawingGizmos = true;
+
         void OnDrawGizmos()
         {
+            if (isDrawingGizmos == false) return;
+
             IAgent agent = this as IAgent;
             if (agent.TargetAdvertisement != null)
             {

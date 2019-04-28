@@ -13,8 +13,11 @@ namespace RCG.Demo.Simulator
 
         Coroutine coroutine;
 
+        SpriteRenderer spriteRenderer;
+
         protected override void OnStart()
         {
+            spriteRenderer = monoBehaviour.GetComponentInChildren<SpriteRenderer>();
             StartMove();
         }
 
@@ -56,9 +59,16 @@ namespace RCG.Demo.Simulator
                 {
                     agent.Position = Vector2.MoveTowards(agent.Position, targetPosition, moveSpeed);
                 }
+                UpdateSortingOrder();
             }
 
             Complete();
+        }
+
+        void UpdateSortingOrder()
+        {
+            if (spriteRenderer == null) return;
+            spriteRenderer.sortingOrder = agent.SortingOrder;
         }
 
         public static ICommand Create(AbstractAgent agent)

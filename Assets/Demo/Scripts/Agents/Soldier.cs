@@ -8,6 +8,16 @@ namespace RCG.Demo.Simulator
 {
     public class Soldier : AbstractAgent, ISoldier
     {
+        protected override void Init()
+        {
+            base.Init();
+            SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.sortingOrder = SortingOrder;
+            }
+        }
+
         const int CommandLayer0 = 0;
         const int CommandLayer1 = 1;
         const int CommandLayer2 = 2;
@@ -45,7 +55,7 @@ namespace RCG.Demo.Simulator
             wanderState.AddTransition(onTargetFoundTransition, inspectTargetLocationState);
             wanderState.AddTransition(onAttackedTransition, attackEnemyState);
             wanderState.AddTransition(onDeathTransition, deathState);
-            wanderState.AddCommand(ChooseAdjacentLocation.Create(this), CommandLayer0);
+            wanderState.AddCommand(ChooseNewLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(WaitForTime.Create(this, 0.25f), CommandLayer0);
             wanderState.SetLayerLoopCount(CommandLayer0, -1);
@@ -114,7 +124,16 @@ namespace RCG.Demo.Simulator
         {
             base.RemoveFromMap();
             StopAllCoroutines();
-            Destroy(gameObject);
+
+            isDrawingGizmos = false;
+
+            SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                Color deadColor = spriteRenderer.color;
+                deadColor.a = 0.1f;
+                spriteRenderer.color = deadColor;
+            }
         }
 
         public static IAgent Create(GameObject gameObject, IAgentData agentData, IAdvertisementBroadcaster broadcaster)

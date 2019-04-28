@@ -7,6 +7,15 @@ namespace RCG.Demo.Simulator
 {
     public class Item : AbstractItem
     {
+        protected override void Init()
+        {
+            base.Init();
+            SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.sortingOrder = SortingOrder;
+            }
+        }
 
         protected override void InitStateMachine()
         {

@@ -36,6 +36,17 @@ namespace RCG.Maps
             grid = GetComponent<Grid>();
         }
 
+
+        [SerializeField]
+        Vector3Int size = new Vector3Int(10, 10, 0);
+        protected override Vector3Int Size
+        {
+            get
+            {
+                return size;
+            }
+        }
+
         protected override Vector3 CellSize
         {
             get
@@ -69,6 +80,11 @@ namespace RCG.Maps
             {
                 return Vector3Int.zero;
             }
+        }
+
+        protected override int CellToSortingOrder(Vector3Int cellPosition)
+        {
+            return cellPosition.y * -100;
         }
 
         private Dictionary<int, List<IMapElement>> hashIdToMapElement = new Dictionary<int, List<IMapElement>>();
@@ -129,6 +145,16 @@ namespace RCG.Maps
             {
                 return new List<IMapElement>();
             }
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Vector3 bounds = GetComponent<Grid>().cellSize;
+            bounds.x *= Size.x;
+            bounds.y *= Size.y;
+            bounds.z *= Size.z;
+            Gizmos.DrawWireCube(transform.position, bounds);
         }
     }
 }

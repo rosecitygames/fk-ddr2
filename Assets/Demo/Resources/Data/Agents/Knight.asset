@@ -28,6 +28,8 @@ MonoBehaviour:
       quantity: 3
     - attribute: {fileID: 11400000, guid: 026f228a9fdeed646b6d28832b661e7c, type: 2}
       quantity: 10
+    - attribute: {fileID: 11400000, guid: cca7ce18c37bb75459117db0b3c38301, type: 2}
+      quantity: 5
   desires:
     attributes:
     - attribute: {fileID: 11400000, guid: 026f228a9fdeed646b6d28832b661e7c, type: 2}

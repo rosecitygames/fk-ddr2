@@ -6,6 +6,9 @@ namespace RCG.Maps
 {
     public abstract class AbstractMap : MonoBehaviour, IMap
     {
+        Vector3Int IMap.Size { get { return Size; } }
+        protected virtual Vector3Int Size { get; }
+
         Vector3 IMap.CellSize { get { return CellSize; } }
         protected virtual Vector3 CellSize { get; }
 
@@ -14,6 +17,9 @@ namespace RCG.Maps
 
         Vector3 IMap.CellToLocal(Vector3Int cellPosition) { return CellToLocal(cellPosition); }
         protected virtual Vector3 CellToLocal(Vector3Int cellPosition) { return Vector3.zero; }
+
+        int IMap.CellToSortingOrder(Vector3Int cellPosition) { return CellToSortingOrder(cellPosition); }
+        protected virtual int CellToSortingOrder(Vector3Int cellPosition) { return 0; }
 
         void IMap.AddElement(IMapElement element) { AddElement(element); }
         protected virtual void AddElement(IMapElement element) { }

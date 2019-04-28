@@ -134,8 +134,15 @@ namespace RCG.Items
 
         float IMapElement.Distance(IMapElement otherMapElement)
         {
+            return Distance(otherMapElement);
+        }
+        protected virtual float Distance(IMapElement otherMapElement)
+        {
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
+
+        int IMapElement.SortingOrder {  get { return SortingOrder; } }
+        protected virtual int SortingOrder { get { return Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); } }
 
         Vector3Int ILocatable.Location { get { return Location; } }
         protected virtual Vector3Int Location
