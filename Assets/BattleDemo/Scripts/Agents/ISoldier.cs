@@ -1,7 +1,7 @@
 ﻿using RCG.Agents;
 using System;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public interface ISoldier : IAgent, IAttackReceiver
     {

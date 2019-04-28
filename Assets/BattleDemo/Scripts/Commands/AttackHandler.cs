@@ -6,7 +6,7 @@ using RCG.States;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class AttackHandler : AbstractCommand
     {

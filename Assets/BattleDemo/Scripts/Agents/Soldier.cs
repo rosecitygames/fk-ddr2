@@ -4,7 +4,7 @@ using RCG.States;
 using System;
 using UnityEngine;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class Soldier : AbstractAgent, ISoldier
     {

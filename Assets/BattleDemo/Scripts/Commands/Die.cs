@@ -2,7 +2,7 @@
 using RCG.Commands;
 using UnityEngine;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class Die : AbstractCommand
     {

@@ -3,7 +3,7 @@ using RCG.Items;
 using RCG.States;
 using UnityEngine;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class Item : AbstractItem
     {

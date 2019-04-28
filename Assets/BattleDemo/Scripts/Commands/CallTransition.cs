@@ -2,7 +2,7 @@
 using RCG.Commands;
 using RCG.States;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class CallTransition : AbstractCommand
     {

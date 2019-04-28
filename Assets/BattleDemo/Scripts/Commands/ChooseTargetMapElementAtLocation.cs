@@ -5,7 +5,7 @@ using RCG.Maps;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class ChooseTargetMapElmentAtLocation : AbstractCommand
     {

@@ -4,7 +4,7 @@ using RCG.Commands;
 using RCG.Utils;
 using UnityEngine;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class AttackTargetMapElement : AbstractCommand
     {

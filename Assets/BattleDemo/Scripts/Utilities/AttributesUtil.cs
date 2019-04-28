@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RCG.Attributes;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public static class AttributesUtil
     {

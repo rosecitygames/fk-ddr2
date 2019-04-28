@@ -3,7 +3,7 @@ using RCG.Commands;
 using System.Collections;
 using UnityEngine;
 
-namespace RCG.Demo.Simulator
+namespace RCG.Demo.BattleSimulator
 {
     public class WaitForTime : AbstractCommand
     {
