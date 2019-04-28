@@ -313,8 +313,7 @@ namespace RCG.Agents
             IAgent agent = this as IAgent;
             if (agent.TargetAdvertisement != null)
             {
-                Vector3 adPosition = Map.CellToLocal(agent.TargetAdvertisement.Location);
-                DrawGizmosUtil.DrawTargetAdvertisementLine(Position, adPosition, Color.blue);
+                DrawGizmosUtil.DrawTargetLocationLine(this, Color.blue);
             }
 
             if (data != null && Map != null)
