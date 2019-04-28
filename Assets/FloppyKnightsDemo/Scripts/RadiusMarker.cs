@@ -17,7 +17,7 @@ namespace RCG.Demo.FloppyKnights
             }
             set
             {
-                if (radius != value && value > 0)
+                if (radius != value && value >= 0)
                 {
                     radius = value;
                     Draw();
@@ -26,7 +26,25 @@ namespace RCG.Demo.FloppyKnights
         }
 
         [SerializeField]
-        GameObject cellPrefab;
+        Color color = Color.white;
+        Color MarkerColor
+        {
+            get
+            {
+                return color;
+            }
+            set
+            {
+                if (color != value)
+                {
+                    color = value;
+                    Recolor();
+                }
+            }
+        }
+
+        [SerializeField]
+        SpriteRenderer cellPrefab;
 
         IMap map;
 
@@ -91,8 +109,9 @@ namespace RCG.Demo.FloppyKnights
                 cellPosition.x -= transform.localPosition.x;
                 cellPosition.y -= transform.localPosition.y;
 
-                GameObject cellGameObject = Instantiate(cellPrefab, transform);
-                cellGameObject.transform.localPosition = cellPosition;
+                SpriteRenderer cellSpriteRenderer = Instantiate(cellPrefab, transform);
+                cellSpriteRenderer.transform.localPosition = cellPosition;
+                cellSpriteRenderer.color = MarkerColor;
             }
         }
 
@@ -100,7 +119,48 @@ namespace RCG.Demo.FloppyKnights
         {
             foreach (Transform child in transform)
             {
-                GameObject.Destroy(child.gameObject);
+                Destroy(child.gameObject);
+            }
+        }
+
+        void Recolor()
+        {
+            foreach (Transform child in transform)
+            {
+                SpriteRenderer spriteRenderer = child.GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.color = MarkerColor;
+                }
+            }
+        }
+
+        void Animate(int startRadius, int endRadius, float intervalSeconds = 0.25f)
+        {
+            StopAllCoroutines();
+            StartCoroutine(AnimateCoroutine(startRadius, endRadius, intervalSeconds));
+        }
+
+        IEnumerator AnimateCoroutine(int startRadius, int endRadius, float intervalSeconds = 0.25f, bool isResettingOnComplete = true)
+        {
+            int initialRadius = Radius;
+
+            startRadius = Mathf.Max(0, startRadius);
+            endRadius = Mathf.Max(0, endRadius);
+            intervalSeconds = Mathf.Max(0, intervalSeconds);
+
+            int increment = (startRadius < endRadius) ? 1 : -1;
+
+            do
+            {
+                Radius = startRadius;
+                startRadius += increment;
+                yield return new WaitForSeconds(intervalSeconds);
+            } while (startRadius <= endRadius);
+
+            if (isResettingOnComplete)
+            {
+                Radius = initialRadius;
             }
         }
 
@@ -114,6 +174,12 @@ namespace RCG.Demo.FloppyKnights
         void IncreaseRadius()
         {
             Radius += 1;
+        }
+
+        [ContextMenu("Animation Test")]
+        void AnimationTest()
+        {
+            Animate(0, map.Size.x);
         }
     }
 }
