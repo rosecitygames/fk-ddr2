@@ -7994,5 +7994,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   color: {r: 1, g: 1, b: 1, a: 0.5019608}
+  orderInLayer: 1
   cellPrefab: {fileID: 6727487747952781938, guid: a94354e0a7fe22b48831d40e8dcbd5bd,
     type: 3}

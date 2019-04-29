@@ -188,5 +188,19 @@ namespace RCG.Demo.FloppyKnights
         {
             Animate(0, map.Size.x);
         }
+
+        private void OnDrawGizmosSelected()
+        {
+            float gizmoRadius = radius;
+
+            Grid grid = GetComponentInParent<Grid>();
+            if (grid != null)
+            {
+                gizmoRadius *= grid.cellSize.x * grid.transform.localScale.x;
+            }
+
+            Gizmos.color = color;
+            Gizmos.DrawWireSphere(transform.position, gizmoRadius);
+        }
     }
 }
