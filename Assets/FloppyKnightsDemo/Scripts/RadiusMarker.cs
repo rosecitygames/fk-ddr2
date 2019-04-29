@@ -47,7 +47,7 @@ namespace RCG.Demo.FloppyKnights
         int orderInLayer = 1;
 
         [SerializeField]
-        SpriteRenderer cellPrefab;
+        SpriteRenderer cellPrefab = null;
 
         IMap map;
 
@@ -70,6 +70,9 @@ namespace RCG.Demo.FloppyKnights
         void Draw()
         {
             Clear();
+
+            if (cellPrefab == null) return;
+
             Vector3Int mapSize = map.Size;
 
             Vector3Int center = map.LocalToCell(transform.localPosition);
