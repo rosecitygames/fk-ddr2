@@ -31,6 +31,29 @@ namespace FloppyKnights.Cards
         }
 
         [SerializeField]
+        AttributeCollection stats = new AttributeCollection();
+        IAttributeCollection Stats
+        {
+            get
+            {
+                return stats as IAttributeCollection;
+            }
+        }
+
+        List<IAttribute> IStatsCollection.Stats
+        {
+            get
+            {
+                return Stats.Attributes;
+            }
+        }
+
+        IAttribute IStatsCollection.GetStat(string id)
+        {
+            return Stats.GetAttribute(id);
+        }
+
+        [SerializeField]
         List<ScriptableCardAction> cardActions = new List<ScriptableCardAction>();
 
         List<ICardAction> ICardActionCollection.CardActions

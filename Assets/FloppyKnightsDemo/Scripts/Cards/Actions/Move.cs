@@ -9,6 +9,17 @@ namespace FloppyKnights.Cards
     [System.Serializable]
     public class Move : AbstractCardAction
     {
+        [SerializeField]
+        int radius = 1;
+
+        public int Radius
+        {
+            get
+            {
+                return radius;
+            }
+        }
+
         ICardAgent targetAgent;
 
         protected override void StartAction(ICardPlayer cardPlayer)

@@ -2,7 +2,7 @@
 
 namespace FloppyKnights.Cards
 {
-    public interface ICardData : IDescribable, ICardActionCollection
+    public interface ICardData : IDescribable, IStatsCollection, ICardActionCollection
     {
         ICardData Copy();
     }

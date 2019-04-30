@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab03d21e34c50034aa96a7021d51cdce, type: 3}
-  m_Name: Move
+  m_Script: {fileID: 11500000, guid: 5b1f3088c8a90374884eb63f5caf6dfa, type: 3}
+  m_Name: Move1
   m_EditorClassIdentifier: 
-  cardAction:
-    displayName: Move
-    description: Move to a new location
+  displayName: Move (1)
+  description: Move unit one space on the map
+  stats:
+    attributes: []
+  cardActions:
+  - {fileID: 11400000, guid: cdb6fa9873a5fd149a99690ddfd120f2, type: 2}

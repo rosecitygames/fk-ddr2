@@ -28,6 +28,21 @@ namespace FloppyKnights.Cards
 
         protected string Description { get; set; }
 
+        List<IAttribute> IStatsCollection.Stats
+        {
+            get
+            {
+                return Stats.Attributes;
+            }
+        }
+
+        IAttributeCollection Stats { get; set; }
+
+        IAttribute IStatsCollection.GetStat(string id)
+        {
+            return Stats.GetAttribute(id);
+        }
+
         List<ICardAction> ICardActionCollection.CardActions
         {
             get
@@ -50,6 +65,7 @@ namespace FloppyKnights.Cards
             {
                 Displayname = Displayname,
                 Description = Description,
+                Stats = Stats,
                 CardActions = CardActions
             };
         }
@@ -60,6 +76,7 @@ namespace FloppyKnights.Cards
             {
                 Displayname = sourceData.DisplayName,
                 Description = sourceData.Description,
+                Stats = new AttributeCollection(sourceData.Stats),
                 CardActions = sourceData.CardActions
             };
         }
