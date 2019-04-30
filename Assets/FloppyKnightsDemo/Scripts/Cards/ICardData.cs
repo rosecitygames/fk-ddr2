@@ -7,6 +7,7 @@ namespace RCG.Demo.FloppyKnights.Cards
 {
     public interface ICardData : IDescribable
     {
-        List<AbstractCardAction> CardActions { get; }
+        List<ICardAction> CardActions { get; }
+        ICardData Copy();
     }
 }
