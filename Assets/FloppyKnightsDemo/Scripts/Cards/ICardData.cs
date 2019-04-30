@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using RCG.Attributes;
+﻿using RCG.Attributes;
 
 namespace RCG.Demo.FloppyKnights.Cards
 {
-    public interface ICardData : IDescribable
+    public interface ICardData : IDescribable, ICardActionCollection
     {
-        List<ICardAction> CardActions { get; }
         ICardData Copy();
     }
 }

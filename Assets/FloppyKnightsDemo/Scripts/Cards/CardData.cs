@@ -5,35 +5,19 @@ using RCG.Attributes;
 
 namespace RCG.Demo.FloppyKnights.Cards
 {
-    [System.Serializable]
     public class CardData : ICardData
     {
-        [SerializeField]
-        string displayName;
-
+        
         string IDescribable.DisplayName
         {
             get
             {
-                return DisplayName;
+                return Displayname;
             }
         }
 
-        protected string DisplayName
-        {
-            get
-            {
-                return displayName;
-            }
-            set
-            {
-                displayName = value;
-            }
-        }
+        protected string Displayname { get; set; }
 
-        [SerializeField]
-        [TextArea]
-        string description;
         string IDescribable.Description
         {
             get
@@ -42,35 +26,14 @@ namespace RCG.Demo.FloppyKnights.Cards
             }
         }
 
-        protected string Description
-        {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = value;
-            }
-        }
+        protected string Description { get; set; }
 
-        [SerializeField]
-        List<AbstractCardAction> cardActions = new List<AbstractCardAction>();
-
-        List<ICardAction> ICardData.CardActions
-        {
-            get
-            {
-                return CardActions;
-            }
-        }
-
-        List<ICardAction> CardActions
+        List<ICardAction> ICardActionCollection.CardActions
         {
             get
             {
                 List<ICardAction> cardActionsCopy = new List<ICardAction>();
-                foreach(ICardAction cardAction in cardActions)
+                foreach (ICardAction cardAction in CardActions)
                 {
                     cardActionsCopy.Add(cardAction.Copy());
                 }
@@ -78,14 +41,27 @@ namespace RCG.Demo.FloppyKnights.Cards
             }
         }
 
+        List<ICardAction> CardActions { get; set; }
+
 
         ICardData ICardData.Copy()
         {
             return new CardData
             {
-                cardActions = cardActions
+                Displayname = Displayname,
+                Description = Description,
+                CardActions = CardActions
             };
         }
 
+        public static ICardData Create(ICardData sourceData)
+        {
+            return new CardData
+            {
+                Displayname = sourceData.DisplayName,
+                Description = sourceData.Description,
+                CardActions = sourceData.CardActions
+            };
+        }
     }
 }
