@@ -9,7 +9,7 @@ namespace FloppyKnights.Agents
     {
         protected virtual IBrain GetBrain() { return null; }
 
-        void IBrain.Init(ICardAgent cardAgent) { }
+        void IBrain.Init(AbstractCardAgent cardAgent) { }
 
         void IBrain.Destroy() { }
 

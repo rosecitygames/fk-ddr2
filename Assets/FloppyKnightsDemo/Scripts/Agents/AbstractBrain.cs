@@ -7,7 +7,7 @@ namespace FloppyKnights.Agents
 {
     public class AbstractBrain : IBrain
     {
-        void IBrain.Init(ICardAgent cardAgent)
+        void IBrain.Init(AbstractCardAgent cardAgent)
         {
             CardAgent = cardAgent;
             InitStateMachine();
@@ -36,7 +36,7 @@ namespace FloppyKnights.Agents
             return new NullBrain();
         }
 
-        protected ICardAgent CardAgent { get; set; }
+        protected AbstractCardAgent CardAgent { get; set; }
 
         protected IStateMachine stateMachine = StateMachine.Create();
 

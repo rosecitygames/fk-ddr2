@@ -8,7 +8,7 @@ namespace FloppyKnights.Agents
 {
     public class NullBrain : IBrain
     {
-        void IBrain.Init(ICardAgent cardAgent) { }
+        void IBrain.Init(AbstractCardAgent cardAgent) { }
         void IBrain.Destroy() { }
         IBrain IBrain.Copy() { return new NullBrain(); }
         void IStateTransitionHandler.HandleTransition(string transitionName) { }   

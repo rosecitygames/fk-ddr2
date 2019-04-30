@@ -4,7 +4,7 @@ namespace FloppyKnights.Agents
 {
     public interface IBrain : IStateTransitionHandler
     {
-        void Init(ICardAgent cardAgent);
+        void Init(AbstractCardAgent cardAgent);
         void Destroy();
         IBrain Copy();
     }

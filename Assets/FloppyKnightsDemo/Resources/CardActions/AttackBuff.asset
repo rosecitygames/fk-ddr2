@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: AttackBuff
   m_EditorClassIdentifier: 
   cardAction:
-    displayName: 
-    description: 
+    displayName: Attack Buff
+    description: Adds one attack point to unit
     buffs:
-      attributes: []
+      attributes:
+      - attribute: {fileID: 11400000, guid: a7cf9d85add1d1649902e34c932da0ce, type: 2}
+        quantity: 1

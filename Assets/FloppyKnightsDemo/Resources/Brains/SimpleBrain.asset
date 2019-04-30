@@ -9,9 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7ae5ce942b6d0419b8ac1722074c2d, type: 3}
-  m_Name: ATK
+  m_Script: {fileID: 11500000, guid: f6f26860d81a8344fa3f54432cd16ebf, type: 3}
+  m_Name: SimpleBrain
   m_EditorClassIdentifier: 
-  id: attack
-  displayName: Attack
-  description: How much damage a unit inflicts when attacking
