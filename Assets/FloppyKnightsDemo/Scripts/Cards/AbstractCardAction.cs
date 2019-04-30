@@ -4,7 +4,7 @@ using UnityEngine;
 using RCG.Attributes;
 using System;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     [System.Serializable]
     public class AbstractCardAction : ICardAction

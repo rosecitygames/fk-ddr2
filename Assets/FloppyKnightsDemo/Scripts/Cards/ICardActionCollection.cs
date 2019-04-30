@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     public interface ICardActionCollection
     {

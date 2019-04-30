@@ -1,7 +1,7 @@
 ﻿using RCG.Attributes;
 using System.Collections.Generic;
 
-namespace RCG.Demo.FloppyKnights
+namespace FloppyKnights
 {
     public interface ITeam : IDescribable, IGroupMember, ITurnTaker
     {

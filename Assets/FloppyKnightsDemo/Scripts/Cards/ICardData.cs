@@ -1,6 +1,6 @@
 ﻿using RCG.Attributes;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     public interface ICardData : IDescribable, ICardActionCollection
     {

@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.FloppyKnights
+namespace FloppyKnights.Agents
 {
     public interface IUnitAgent : IAgent, IAttackReceiver
     {

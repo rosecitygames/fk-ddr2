@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RCG.Attributes;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     public interface ICardAction : IDescribable
     {

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RCG.Agents;
+using FloppyKnights.Agents;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     [System.Serializable]
     public class Attack : AbstractCardAction
     {
-        IUnitAgent targetAgent;
+        ICardAgent targetAgent;
 
         protected override void StartAction(ICardPlayer cardPlayer)
         {

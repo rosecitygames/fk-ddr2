@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using RCG.Agents;
+﻿using RCG.Agents;
 
-namespace RCG.Demo.FloppyKnights
+namespace FloppyKnights.Agents
 {
     public interface IAttackReceiver
     {
-        void ReceiveAttack(IAgent attackingAgent);
+        void ReceiveAttack(ICardAgent attackingAgent);
     }
 }

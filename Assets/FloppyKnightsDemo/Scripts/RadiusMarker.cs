@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RCG.Maps;
 
-namespace RCG.Demo.FloppyKnights
+namespace FloppyKnights
 {
     public class RadiusMarker : MonoBehaviour
     {

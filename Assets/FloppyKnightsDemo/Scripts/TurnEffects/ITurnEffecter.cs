@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.FloppyKnights.TurnEffects
+namespace FloppyKnights.TurnEffects
 {
     public interface ITurnEffecter
     {

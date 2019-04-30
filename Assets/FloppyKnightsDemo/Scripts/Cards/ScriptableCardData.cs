@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using RCG.Attributes;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     [CreateAssetMenu(fileName = "CardData", menuName = "Floppy Knights/Card Data")]
     public class ScriptableCardData : ScriptableObject, ICardData
     {
         [SerializeField]
-        string displayName;
+        string displayName = "";
 
         string IDescribable.DisplayName
         {
@@ -21,7 +21,7 @@ namespace RCG.Demo.FloppyKnights.Cards
 
         [SerializeField]
         [TextArea]
-        string description;
+        string description = "";
         string IDescribable.Description
         {
             get

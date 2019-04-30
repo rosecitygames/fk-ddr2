@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RCG.Agents;
+using RCG.Attributes;
+using FloppyKnights.Agents;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     [System.Serializable]
     public class Buff : AbstractCardAction
@@ -11,7 +13,7 @@ namespace RCG.Demo.FloppyKnights.Cards
         [SerializeField]
         AttributeCollection buffs = new AttributeCollection();
 
-        IUnitAgent targetAgent;
+        ICardAgent targetAgent;
 
         protected override void StartAction(ICardPlayer cardPlayer)
         {

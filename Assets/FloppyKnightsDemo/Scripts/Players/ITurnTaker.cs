@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RCG.Demo.FloppyKnights
+namespace FloppyKnights
 {
     public interface ITurnTaker
     {

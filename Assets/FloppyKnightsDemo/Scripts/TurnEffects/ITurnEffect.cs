@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Demo.FloppyKnights.Cards;
+using FloppyKnights.Cards;
 
-namespace RCG.Demo.FloppyKnights.TurnEffects
+namespace FloppyKnights.TurnEffects
 {
     public interface ITurnEffect
     {

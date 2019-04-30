@@ -5,7 +5,7 @@ using RCG.Agents;
 using RCG.Attributes;
 using System;
 
-namespace RCG.Demo.FloppyKnights.Cards
+namespace FloppyKnights.Cards
 {
     [CreateAssetMenu(fileName = "Buff", menuName = "Floppy Knights/Actions/Buff")]
     public class ScriptableBuff : ScriptableCardAction
