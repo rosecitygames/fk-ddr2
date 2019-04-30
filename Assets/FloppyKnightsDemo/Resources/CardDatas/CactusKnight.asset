@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1f3088c8a90374884eb63f5caf6dfa, type: 3}
   m_Name: CactusKnight
   m_EditorClassIdentifier: 
-  displayName: 
-  description: 
-  agentBrain: {fileID: 0}
-  agentSprite: {fileID: 0}
+  displayName: Cactus Knight
+  description: A prickly knight
+  agentBrain: {fileID: 11400000, guid: c309733f99d7b374f87a2c1583503eb5, type: 2}
+  agentSprite: {fileID: 21300000, guid: 48762719509e6b74586c91d3909f9ee3, type: 3}
   stats:
     attributes: []
   cardActions: []
