@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RCG.Attributes;
+using FloppyKnights.Agents;
 
 namespace FloppyKnights.Cards
 {
@@ -27,6 +28,33 @@ namespace FloppyKnights.Cards
             get
             {
                 return description;
+            }
+        }
+
+        [SerializeField]
+        ScriptableBrain agentBrain = null;
+        IBrain ICardData.AgentBrain
+        {
+            get
+            {
+                if (agentBrain == null)
+                {
+                    return new NullBrain();
+                }
+                else
+                {
+                    return (agentBrain as IBrain).Copy();
+                }
+            }
+        }
+
+        [SerializeField]
+        Sprite agentSprite = null;
+        Sprite ICardData.AgentSprite
+        {
+            get
+            {
+                return agentSprite;
             }
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RCG.Attributes;
+using FloppyKnights.Agents;
 
 namespace FloppyKnights.Cards
 {
@@ -58,6 +59,24 @@ namespace FloppyKnights.Cards
 
         List<ICardAction> CardActions { get; set; }
 
+        IBrain ICardData.AgentBrain
+        {
+            get
+            {
+                return AgentBrain;
+            }
+        }
+
+        IBrain AgentBrain { get; set; }
+        
+        Sprite ICardData.AgentSprite
+        {
+            get
+            {
+                return AgentSprite;
+            }
+        }
+        Sprite AgentSprite { get; set; }
 
         ICardData ICardData.Copy()
         {
@@ -77,7 +96,9 @@ namespace FloppyKnights.Cards
                 Displayname = sourceData.DisplayName,
                 Description = sourceData.Description,
                 Stats = new AttributeCollection(sourceData.Stats),
-                CardActions = sourceData.CardActions
+                CardActions = sourceData.CardActions,
+                AgentBrain = sourceData.AgentBrain,
+                AgentSprite = sourceData.AgentSprite
             };
         }
     }

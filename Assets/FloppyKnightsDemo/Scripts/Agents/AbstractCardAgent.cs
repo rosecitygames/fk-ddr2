@@ -356,15 +356,13 @@ namespace FloppyKnights.Agents
         }
 
         // State Machine implementations
-        // TODO : Will probably want to pass "brains" state machine via card data.
-        // That way card data can be swapped seamlessly without needing to create multiple
-        // concrete implementations of card agents.
-        //
-        // New brain state machine should still handle the transition.
+        protected IBrain Brain { get; set; }
 
-        protected IStateMachine stateMachine = StateMachine.Create();
-
-        protected virtual void InitStateMachine() { }
+        protected virtual void InitBrain()
+        {
+            Brain = CardData.AgentBrain;
+            Brain.Init(this);
+        }
 
         void IStateTransitionHandler.HandleTransition(string transitionName)
         {
@@ -372,14 +370,20 @@ namespace FloppyKnights.Agents
         }
         protected virtual void HandleTransition(string transitionName)
         {
-            stateMachine.HandleTransition(transitionName);
+            Brain.HandleTransition(transitionName);
         }
 
         // Sprite implementations
         protected virtual void SetSprite()
         {
-            // TODO : Set sprite renderer component sprite value from CardData sprite value
             // TODO : If you want something fancier than a sprite, then I recommend making a separate component for that and pass data and call methods on it via commands
+            if (CardData.AgentSprite == null) return;
+
+            SpriteRenderer spriteRender = GetComponentInChildren<SpriteRenderer>();
+            if (spriteRender != null)
+            {
+                spriteRender.sprite = CardData.AgentSprite;
+            }
         }
 
         // Initialization
@@ -392,7 +396,7 @@ namespace FloppyKnights.Agents
         {
             InitCardData();
             InitMap();
-            InitStateMachine();
+            InitBrain();
         }
 
         // Cleanup
@@ -404,11 +408,7 @@ namespace FloppyKnights.Agents
         protected virtual void Cleanup()
         {
             RemoveFromMap();
-
-            if (stateMachine != null)
-            {
-                stateMachine.Destroy();
-            }
+            Brain.Destroy();
         }
     }
 }
