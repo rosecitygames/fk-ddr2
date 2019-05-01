@@ -45,7 +45,7 @@ namespace FloppyKnights.Agents
                 if (cardData != value)
                 {
                     cardData = value;
-                    SetSprite();
+                    InitSprite();
                 }          
             }
         }
@@ -263,7 +263,7 @@ namespace FloppyKnights.Agents
             }
         }
 
-        Action OnIdleStarted;
+        protected Action OnIdleStarted;
 
         void ICardAgent.Move(Vector3Int location)
         {
@@ -365,13 +365,19 @@ namespace FloppyKnights.Agents
             HandleTransition(transitionName);
         }
 
-        void HandleTransition(string transitionName)
+        protected virtual void HandleTransition(string transitionName)
         {
             stateMachine.HandleTransition(transitionName);
+
+            // TODO: Probably a better way to call this
+            if (transitionName == "IdleStarted")
+            {
+                OnIdleStarted?.Invoke();
+            }
         }
 
         // Sprite implementations
-        protected virtual void SetSprite()
+        protected virtual void InitSprite()
         {
             // TODO : If you want something fancier than a sprite, then I recommend making a separate component for that and pass data and call methods on it via commands
             if (CardData.AgentSprite == null) return;
@@ -394,6 +400,7 @@ namespace FloppyKnights.Agents
             InitCardData();
             InitMap();
             InitStateMachine();
+            InitSprite();
         }
 
         // Cleanup

@@ -8086,8 +8086,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2132979596}
+  - component: {fileID: 2132979598}
+  - component: {fileID: 2132979597}
   m_Layer: 0
-  m_Name: CardAgent
+  m_Name: Goblin Grunt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8108,3 +8110,30 @@ Transform:
   m_Father: {fileID: 147044311}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2132979597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132979595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e06fbdbc2b54f374a99a30d577e98917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: 40c48c7e46fb7824b8b2451f4332bdba, type: 2}
+  groupId: 1
+--- !u!114 &2132979598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2132979595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a46ae122ec8b8540aaa3a48e47cd876, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groupId: 2
