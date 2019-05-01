@@ -32,23 +32,6 @@ namespace FloppyKnights.Cards
         }
 
         [SerializeField]
-        ScriptableBrain agentBrain = null;
-        IBrain ICardData.AgentBrain
-        {
-            get
-            {
-                if (agentBrain == null)
-                {
-                    return new NullBrain();
-                }
-                else
-                {
-                    return (agentBrain as IBrain).Copy();
-                }
-            }
-        }
-
-        [SerializeField]
         Sprite agentSprite = null;
         Sprite ICardData.AgentSprite
         {

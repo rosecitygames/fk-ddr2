@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b1f3088c8a90374884eb63f5caf6dfa, type: 3}
-  m_Name: Move1
+  m_Name: Move3
   m_EditorClassIdentifier: 
   displayName: Move (1)
-  description: Move unit one space on the map
+  description: Move unit three spaces on the map
   agentBrain: {fileID: 0}
   agentSprite: {fileID: 0}
   stats:
     attributes: []
   cardActions:
-  - {fileID: 11400000, guid: cdb6fa9873a5fd149a99690ddfd120f2, type: 2}
+  - {fileID: 11400000, guid: 08d2492b2fdece34b9258a302b7b0fbe, type: 2}

@@ -18,9 +18,6 @@ namespace FloppyKnights.Cards
         List<ICardAction> cardActions = new List<ICardAction>();
         List<ICardAction> ICardActionCollection.CardActions { get { return cardActions; } }
 
-        IBrain agentBrain = new NullBrain();
-        IBrain ICardData.AgentBrain { get { return agentBrain; } }
-
         Sprite ICardData.AgentSprite { get { return null; } }
 
         ICardData ICardData.Copy() { return new NullCardData(); }

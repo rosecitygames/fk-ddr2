@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3240292b5dc5e3b418013dd71032f1cc, type: 3}
-  m_Name: AddCardMove
+  m_Name: AddCardMove3
   m_EditorClassIdentifier: 
   cardAction:
-    displayName: 
-    description: 
-    cardData: {fileID: 11400000, guid: 635c337b38509664a930aa19fe295990, type: 2}
+    displayName: Add Move (3) Card
+    description: Adds a Move (3) card to the player's discard pile
+    cardData: {fileID: 11400000, guid: 097e9942dffea5b48be78777dfb8142d, type: 2}

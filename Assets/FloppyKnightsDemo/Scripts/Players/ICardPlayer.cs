@@ -13,6 +13,5 @@ namespace FloppyKnights
         Vector3Int TargetLocation { get; }
 
         void AddCardToDiscardDeck(ICardData cardData);
-
     }
 }

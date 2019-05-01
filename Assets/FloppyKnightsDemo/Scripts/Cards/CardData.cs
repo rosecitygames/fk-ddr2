@@ -59,16 +59,6 @@ namespace FloppyKnights.Cards
 
         List<ICardAction> CardActions { get; set; }
 
-        IBrain ICardData.AgentBrain
-        {
-            get
-            {
-                return AgentBrain;
-            }
-        }
-
-        IBrain AgentBrain { get; set; }
-        
         Sprite ICardData.AgentSprite
         {
             get
@@ -97,7 +87,6 @@ namespace FloppyKnights.Cards
                 Description = sourceData.Description,
                 Stats = new AttributeCollection(sourceData.Stats),
                 CardActions = sourceData.CardActions,
-                AgentBrain = sourceData.AgentBrain,
                 AgentSprite = sourceData.AgentSprite
             };
         }

@@ -356,21 +356,18 @@ namespace FloppyKnights.Agents
         }
 
         // State Machine implementations
-        protected IBrain Brain { get; set; }
+        protected IStateMachine stateMachine = StateMachine.Create();
 
-        protected virtual void InitBrain()
-        {
-            Brain = CardData.AgentBrain;
-            Brain.Init(this);
-        }
+        protected virtual void InitStateMachine() { }
 
         void IStateTransitionHandler.HandleTransition(string transitionName)
         {
             HandleTransition(transitionName);
         }
-        protected virtual void HandleTransition(string transitionName)
+
+        void HandleTransition(string transitionName)
         {
-            Brain.HandleTransition(transitionName);
+            stateMachine.HandleTransition(transitionName);
         }
 
         // Sprite implementations
@@ -396,7 +393,7 @@ namespace FloppyKnights.Agents
         {
             InitCardData();
             InitMap();
-            InitBrain();
+            InitStateMachine();
         }
 
         // Cleanup
@@ -408,7 +405,11 @@ namespace FloppyKnights.Agents
         protected virtual void Cleanup()
         {
             RemoveFromMap();
-            Brain.Destroy();
+
+            if (stateMachine != null)
+            {
+                stateMachine.Destroy();
+            }
         }
     }
 }
