@@ -7,12 +7,12 @@ namespace RCG.Attributes
     [System.Serializable]
     public class NullAttribute : IAttribute
     {
-        string IAttribute.Id {  get { return ""; } }
-        int IAttribute.Quantity { get { return 0; } set { } }
+        string IAttribute.Id { get => ""; }
+        int IAttribute.Quantity { get => 0; set { } }
 
         IAttribute IAttribute.Copy() { return new NullAttribute(); }
 
-        string IDescribable.DisplayName { get { return ""; } }
-        string IDescribable.Description { get { return ""; } }
+        string IDescribable.DisplayName { get => ""; }
+        string IDescribable.Description { get => ""; }
     }
 }

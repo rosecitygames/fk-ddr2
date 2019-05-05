@@ -11,7 +11,7 @@ namespace RCG.States
         protected Dictionary<string, IState> stateDictionary = new Dictionary<string, IState>();
 
         protected IState currentState;
-        public IState CurrentState { get { return currentState; } }
+        public IState CurrentState { get => currentState; }
 
         public IState GetState(string stateType)
         {

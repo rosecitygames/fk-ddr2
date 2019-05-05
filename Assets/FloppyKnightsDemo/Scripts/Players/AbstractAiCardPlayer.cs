@@ -6,10 +6,10 @@ using FloppyKnights.Agents;
 using FloppyKnights.Cards;
 using RCG.Attributes;
 
-namespace FloppyKnights.Agents
+namespace FloppyKnights.CardPlayers
 {
     [RequireComponent(typeof(ICardAgent))]
-    public class AbstractAiCardPlayer : MonoBehaviour, ICardPlayer
+    public class AbstractAiCardPlayer : AbstractCardPlayer, ICardPlayer
     {
         ICardAgent cardAgent = null;
         
@@ -25,100 +25,14 @@ namespace FloppyKnights.Agents
             }           
         }
 
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return CardAgent.DisplayName;
-            }
-        }
+        protected override string DisplayName { get => CardAgent.DisplayName; }
 
-        string IDescribable.Description
-        {
-            get
-            {
-                return CardAgent.Description;
-            }
-        }
+        protected override string Description { get => CardAgent.Description; }
 
         [SerializeField]
         int groupId;
+        protected override int GroupId { get => groupId; set => groupId = value; }
 
-        int IGroupMember.GroupId
-        {
-            get
-            {
-                return GroupId;
-            }
-            set
-            {
-                GroupId = value;
-            }         
-        }
-
-        int GroupId
-        {
-            get
-            {
-                return groupId;
-            }
-
-            set
-            {
-                groupId = value;
-            }
-        }
-
-        void ITurnTaker.StartTurn()
-        {
-            StarTurn();
-        }
-
-        protected virtual void StarTurn() { }
-
-        event Action<ITurnTaker> ITurnTaker.OnTurnCompleted
-        {
-            add
-            {
-                OnTurnCompleted += value;
-            }
-            remove
-            {
-                OnTurnCompleted -= value;
-            }
-        }
-
-        protected Action<ITurnTaker> OnTurnCompleted;
-
-        protected virtual void CallOnTurnCompleted()
-        {
-            OnTurnCompleted?.Invoke(this);
-        }
-
-        ICardAgent ICardPlayer.TargetAgent
-        {
-            get
-            {
-                return TargetAgent;
-            }
-        }
-
-        protected ICardAgent TargetAgent { get; set; }
-
-        Vector3Int ICardPlayer.TargetLocation
-        {
-            get
-            {
-                return TargetLocation;
-            }
-        }
-
-        protected Vector3Int TargetLocation { get; set; }
-
-        void ICardPlayer.AddCardToDiscardDeck(ICardData cardData)
-        {
-
-        }
     }
 }
 

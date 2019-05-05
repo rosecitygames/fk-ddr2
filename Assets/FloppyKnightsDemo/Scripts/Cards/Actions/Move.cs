@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using FloppyKnights.Agents;
+using FloppyKnights.CardPlayers;
 using UnityEngine;
-using RCG.Agents;
-using FloppyKnights.Agents;
 
 namespace FloppyKnights.Cards
 {

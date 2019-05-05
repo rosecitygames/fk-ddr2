@@ -6,10 +6,10 @@ namespace RCG.Maps
 {
     public abstract class AbstractMap : MonoBehaviour, IMap
     {
-        Vector3Int IMap.Size { get { return Size; } }
+        Vector3Int IMap.Size { get => Size; }
         protected virtual Vector3Int Size { get; }
 
-        Vector3 IMap.CellSize { get { return CellSize; } }
+        Vector3 IMap.CellSize { get => CellSize; }
         protected virtual Vector3 CellSize { get; }
 
         Vector3Int IMap.LocalToCell(Vector3 localPosition) { return LocalToCell(localPosition); }
@@ -30,10 +30,10 @@ namespace RCG.Maps
         List<IMapElement> IMap.GetMapElementsAtCell(Vector3Int cell) { return GetMapElementsAtCell(cell); }
         protected virtual List<IMapElement> GetMapElementsAtCell(Vector3Int cell) { return new List<IMapElement>(); }
 
-        string IDescribable.DisplayName { get { return DisplayName; } }
+        string IDescribable.DisplayName { get => DisplayName; }
         protected virtual string DisplayName { get; }
 
-        string IDescribable.Description { get { return Description; } }
+        string IDescribable.Description { get => Description; }
         protected virtual string Description { get; }
     }
 }

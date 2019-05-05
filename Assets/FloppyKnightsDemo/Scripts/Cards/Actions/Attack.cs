@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using FloppyKnights.Agents;
+﻿using FloppyKnights.Agents;
+using FloppyKnights.CardPlayers;
 
 namespace FloppyKnights.Cards
 {

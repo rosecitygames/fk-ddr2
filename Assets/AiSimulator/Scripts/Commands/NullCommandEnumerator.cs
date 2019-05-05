@@ -24,8 +24,8 @@
         void ICommand.Stop() { }
         void ICommand.Destroy() { }
 
-        int ICommandEnumerator.LoopCount { get { return 0; } set { } }
-        int ICommandEnumerator.CurrentLoop { get { return -1; } }
+        int ICommandEnumerator.LoopCount { get => 0; set { } }
+        int ICommandEnumerator.CurrentLoop { get => -1; }
         void ICommandEnumerator.HandleCompletedCommand(ICommand command) { }
 
         void ICommandCollection.AddCommand(ICommand command) { }

@@ -4,7 +4,7 @@ using UnityEngine;
 using FloppyKnights.Agents;
 using FloppyKnights.Cards;
 
-namespace FloppyKnights
+namespace FloppyKnights.CardPlayers
 {
     public interface ICardPlayer : IDescribable, IGroupMember, ITurnTaker
     {

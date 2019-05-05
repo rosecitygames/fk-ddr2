@@ -9,7 +9,7 @@ namespace RCG.Advertisements
     public class Advertisement : IAdvertisement
     {
         protected IAttributeCollection AttributeCollection { get; set; }
-        List<IAttribute> IAttributeCollection.Attributes { get { return AttributeCollection.Attributes; } }
+        List<IAttribute> IAttributeCollection.Attributes { get => AttributeCollection.Attributes; }
         IAttribute IAttributeCollection.GetAttribute(string id) { return AttributeCollection.GetAttribute(id); }
         void IAttributeCollection.AddAttribute(IAttribute attribute) { AttributeCollection.AddAttribute(attribute); }
         void IAttributeCollection.RemoveAttribute(IAttribute attribute) { AttributeCollection.RemoveAttribute(attribute); }

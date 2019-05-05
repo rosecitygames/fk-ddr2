@@ -52,8 +52,8 @@ namespace RCG.Items
 
         [SerializeField]
         AttributeCollection stats = new AttributeCollection();
-        IAttributeCollection Stats { get { return stats as IAttributeCollection; } }
-        List<IAttribute> IStatsCollection.Stats { get { return Stats.Attributes; } }
+        IAttributeCollection Stats { get => stats as IAttributeCollection; }
+        List<IAttribute> IStatsCollection.Stats { get => Stats.Attributes; }
         IAttribute IStatsCollection.GetStat(string id) { return Stats.GetAttribute(id); }
 
         IItemData IItemData.Copy()

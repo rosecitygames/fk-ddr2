@@ -55,30 +55,18 @@ namespace RCG.Agents
             }
         }
 
-        string IDescribable.DisplayName { get { return AgentData.DisplayName; } }
-        string IDescribable.Description { get { return AgentData.Description; } }
+        string IDescribable.DisplayName { get => AgentData.DisplayName; }
+        string IDescribable.Description { get => AgentData.Description; }
 
-        List<IAttribute> IStatsCollection.Stats { get { return AgentData.Stats; } }
+        List<IAttribute> IStatsCollection.Stats { get => AgentData.Stats; }
         IAttribute IStatsCollection.GetStat(string id) { return AgentData.GetStat(id); }
 
-        List<IAttribute> IDesiresCollection.Desires { get { return AgentData.Desires; } }
+        List<IAttribute> IDesiresCollection.Desires { get => AgentData.Desires; }
         IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
 
         // Map implementations
         IMap map;
-
-        IMap IMapElement.Map
-        {
-            get
-            {
-                return Map;
-            }
-            set
-            {
-                Map = value;
-            }
-        }
-
+        IMap IMapElement.Map { get => Map; set => Map = value; }
         protected IMap Map
         {
             get
@@ -245,7 +233,7 @@ namespace RCG.Agents
         // Group Member implementations
         [SerializeField]
         int groupId;
-        protected int GroupId { get { return groupId; } set { groupId = value; } }
+        protected int GroupId { get => groupId; set => groupId = value; }
         int IGroupMember.GroupId
         {
             get

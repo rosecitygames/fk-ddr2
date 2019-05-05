@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using RCG.Agents;
+﻿using FloppyKnights.CardPlayers;
 using RCG.Attributes;
 using System;
+using UnityEngine;
 
 namespace FloppyKnights.Cards
 {
@@ -11,8 +9,8 @@ namespace FloppyKnights.Cards
     {
         protected virtual ICardAction GetCardAction() { return null; }
 
-        string IDescribable.DisplayName { get { return GetCardAction().DisplayName; } }
-        string IDescribable.Description { get { return GetCardAction().Description; } }
+        string IDescribable.DisplayName { get => GetCardAction().DisplayName; }
+        string IDescribable.Description { get => GetCardAction().Description; }
 
         event Action<ICardAction> ICardAction.OnActionCompleted { add { } remove { } }
 

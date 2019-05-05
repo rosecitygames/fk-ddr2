@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FloppyKnights
+namespace FloppyKnights.CardPlayers
 {
     public interface ITurnTaker
     {

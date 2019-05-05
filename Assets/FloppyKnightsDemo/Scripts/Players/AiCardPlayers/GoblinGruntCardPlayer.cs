@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace FloppyKnights.Agents
+namespace FloppyKnights.CardPlayers
 {
     public class GoblinGruntCardPlayer : AbstractAiCardPlayer
     {
@@ -16,8 +16,7 @@ namespace FloppyKnights.Agents
             AddCardAgentEventHandlers();
 
             // Tell your agent to do something
-            CardAgent.Move(TargetLocation);
-            
+            CardAgent.Move(TargetLocation);            
         }
 
         void AddCardAgentEventHandlers()

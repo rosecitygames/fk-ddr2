@@ -196,13 +196,13 @@ namespace FloppyKnights.Agents
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        int IMapElement.SortingOrder { get { return SortingOrder; } }
-        protected virtual int SortingOrder { get { return Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); } }
+        int IMapElement.SortingOrder { get => SortingOrder; }
+        protected virtual int SortingOrder { get => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); }
 
-        Vector3Int ILocatable.Location { get { return Location; } }
-        protected virtual Vector3Int Location { get { return Map.LocalToCell(Position); } }
+        Vector3Int ILocatable.Location { get => Location; }
+        protected virtual Vector3Int Location { get => Map.LocalToCell(Position); }
 
-        Vector3 IPositionable.Position { get { return Position; } set { Position = value; } }
+        Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
         {
             get
@@ -225,31 +225,11 @@ namespace FloppyKnights.Agents
 
         // Card Agent implementations
 
-        IMapElement ICardAgent.TargetMapElement
-        {
-            get
-            {
-                return TargetMapElement;
-            }
-            set
-            {
-                TargetMapElement = value;
-            }
-        }
-        protected IMapElement TargetMapElement { get; set; }
+        IMapElement ICardAgent.TargetMapElement { get => TargetMapElement; set => TargetMapElement = value; }
+        protected virtual IMapElement TargetMapElement { get; set; }
 
-        Vector3Int ICardAgent.TargetLocation
-        {
-            get
-            {
-                return TargetLocation;
-            }
-            set
-            {
-                TargetLocation = value;
-            }
-        }
-        protected Vector3Int TargetLocation { get; set; }
+        Vector3Int ICardAgent.TargetLocation { get => TargetLocation; set => TargetLocation = value; }
+        protected virtual Vector3Int TargetLocation { get; set; }
 
         event Action ICardAgent.OnIdleStarted
         {
@@ -295,29 +275,12 @@ namespace FloppyKnights.Agents
         // Group Member implementations
         [SerializeField]
         int groupId;
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
         protected int GroupId { get { return groupId; } set { groupId = value; } }
-        int IGroupMember.GroupId
-        {
-            get
-            {
-                return GroupId;
-            }
-            set
-            {
-                GroupId = value;
-            }
-        }
-
+        
         // Turn effect implementations
         // How this agent effects other agent turns
-        List<ITurnEffect> ITurnEffecter.TurnEffects
-        {
-            get
-            {
-                return TurnEffects;
-            }
-        }
-
+        List<ITurnEffect> ITurnEffecter.TurnEffects { get => TurnEffects; }
         protected List<ITurnEffect> TurnEffects { get; set; }
 
         // Turn effect collector implementations
