@@ -11,49 +11,21 @@ namespace FloppyKnights.CardPlayers
     {
         [SerializeField]
         string displayName = "";
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return displayName;
-            }
-        }
+        string IDescribable.DisplayName { get => displayName; }
 
         [SerializeField]
         [TextArea]
         string description = "";
-        string IDescribable.Description
-        {
-            get
-            {
-                return description;
-            }
-        }
+        string IDescribable.Description{ get => description; }
 
         [SerializeField]
         int groupId = 0;
-
-        int IGroupMember.GroupId
-        {
-            get
-            {
-                return groupId;
-            }
-            set
-            {
-                groupId = value;
-            }
-        }
+        int IGroupMember.GroupId{get => groupId; set => groupId = value; }
 
         [SerializeField]
         List<AbstractCardPlayer> teamMembers = new List<AbstractCardPlayer>();
-        List<ICardPlayer> ITeam.TeamMembers
-        {
-            get
-            {
-                return TeamMembers;
-            }
-        }
+        List<ICardPlayer> iTeamMembers = null;
+        List<ICardPlayer> ITeam.TeamMembers { get => TeamMembers; }
         List<ICardPlayer> TeamMembers
         {
             get
@@ -63,13 +35,13 @@ namespace FloppyKnights.CardPlayers
                     iTeamMembers = new List<ICardPlayer>();
                     foreach (ICardPlayer teamMember in teamMembers)
                     {
+                        teamMember.GroupId = groupId;
                         iTeamMembers.Add(teamMember);
                     }
                 }
                 return iTeamMembers;
             }
-        }
-        List<ICardPlayer> iTeamMembers = null;
+        }      
 
         void ITurnTaker.StartTurn()
         {
