@@ -15,21 +15,8 @@ namespace FloppyKnights.Agents
         // CardData implementations
         [SerializeField]
         ScriptableCardData data = null;
-
         ICardData cardData;
-
-        ICardData ICardAgent.CardData
-        {
-            get
-            {
-                return CardData;
-            }
-            set
-            {
-                CardData = value;
-            }
-        }
-
+        ICardData ICardAgent.CardData { get => CardData; set => CardData = value; }
         protected ICardData CardData
         {
             get
@@ -62,46 +49,14 @@ namespace FloppyKnights.Agents
             }
         }
 
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return DisplayName;
-            }
-        }
+        string IDescribable.DisplayName { get => DisplayName; }
+        protected string DisplayName { get => CardData.DisplayName; }
 
-        protected string DisplayName
-        {
-            get
-            {
-                return CardData.DisplayName;
-            }
-        }
+        string IDescribable.Description { get => Description; }
+        protected string Description { get => CardData.Description; }
 
-        string IDescribable.Description
-        {
-            get
-            {
-                return Description;
-            }
-        }
-
-        protected string Description
-        {
-            get
-            {
-                return CardData.Description;
-            }
-        }
-
-        List<IAttribute> IStatsCollection.Stats
-        {
-            get
-            {
-                return Stats;
-            }
-        }
-
+        List<IAttribute> IStatsCollection.Stats { get => Stats; }
+        protected List<IAttribute> Stats { get => StatsCollection.Attributes; }
         IAttributeCollection StatsCollection
         {
             get
@@ -110,15 +65,7 @@ namespace FloppyKnights.Agents
                 // TODO return new list that combines base CardData stats with temp buff stats and turn effect stats
                 return statsCollection;
             }
-        }
-
-        protected List<IAttribute> Stats
-        {
-            get
-            {
-                return StatsCollection.Attributes;          
-            }
-        }
+        } 
 
         IAttribute IStatsCollection.GetStat(string id)
         {
@@ -132,19 +79,7 @@ namespace FloppyKnights.Agents
 
         // Map implementations
         IMap map;
-
-        IMap IMapElement.Map
-        {
-            get
-            {
-                return Map;
-            }
-            set
-            {
-                Map = value;
-            }
-        }
-
+        IMap IMapElement.Map { get => Map; set => Map = value; }
         protected IMap Map
         {
             get
@@ -331,9 +266,8 @@ namespace FloppyKnights.Agents
         protected virtual void HandleTransition(string transitionName)
         {
             stateMachine.HandleTransition(transitionName);
-
             // TODO: Probably a better way to call this
-            if (transitionName == "IdleStarted")
+            if (transitionName == "Idle")
             {
                 OnIdleStarted?.Invoke();
             }

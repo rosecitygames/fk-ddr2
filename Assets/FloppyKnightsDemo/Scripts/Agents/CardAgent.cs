@@ -15,12 +15,24 @@ namespace FloppyKnights.Agents
         protected override void InitStateMachine()
         {
             // State objects
+            CommandableState idleState = CommandableState.Create("Idle");
+            stateMachine.AddState(idleState);
+
             CommandableState moveState = CommandableState.Create("Move");
             stateMachine.AddState(moveState);
 
             CommandableState atackState = CommandableState.Create("Attack");
             stateMachine.AddState(atackState);
 
+            // Commands
+            idleState.AddTransition("Move", moveState);
+
+            moveState.AddTransition("Idle", idleState);
+            moveState.AddCommand(WaitForTime.Create(this, 1.0f));
+            moveState.AddCommand(CallTransition.Create(this, "Idle"));
+
+            // Start
+            stateMachine.SetState(idleState);
         }
     }
 }

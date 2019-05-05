@@ -48,8 +48,10 @@ namespace FloppyKnights.CardPlayers
             StarTurn();
         }
 
+        [ContextMenu("Start Turn")]
         void StarTurn()
         {
+            Debug.Log("Team "+displayName + " is starting turn");
             bool isNoTeamMembers = TeamMembers.Count <= 0;
             if (isNoTeamMembers)
             {
@@ -63,6 +65,7 @@ namespace FloppyKnights.CardPlayers
 
         void StartTeamMemberTurn(ICardPlayer teamMember)
         {
+            Debug.Log(teamMember.DisplayName + " is starting turn");
             AddTeamMemberEventHandlers(teamMember);
             teamMember.StartTurn();
         }
@@ -114,6 +117,7 @@ namespace FloppyKnights.CardPlayers
 
         void CallOnTurnCompleted()
         {
+            Debug.Log("Team " + displayName + " has completed turn");
             OnTurnCompleted?.Invoke(this);
         }
     }
