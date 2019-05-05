@@ -2,6 +2,7 @@
 using RCG.States;
 using System;
 using UnityEngine;
+using FloppyKnights.Commands;
 
 namespace FloppyKnights.Agents
 {
@@ -28,7 +29,7 @@ namespace FloppyKnights.Agents
             idleState.AddTransition("Move", moveState);
 
             moveState.AddTransition("Idle", idleState);
-            moveState.AddCommand(WaitForTime.Create(this, 1.0f));
+            moveState.AddCommand(MoveToTargetLocation.Create(this));
             moveState.AddCommand(CallTransition.Create(this, "Idle"));
 
             // Start

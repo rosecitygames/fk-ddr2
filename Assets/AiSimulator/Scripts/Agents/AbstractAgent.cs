@@ -117,13 +117,13 @@ namespace RCG.Agents
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        int IMapElement.SortingOrder { get { return SortingOrder; } }
-        protected virtual int SortingOrder { get { return Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); } }
+        int IMapElement.SortingOrder { get => SortingOrder; }
+        protected virtual int SortingOrder { get => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); }
 
-        Vector3Int ILocatable.Location { get { return Location; } }
-        protected virtual Vector3Int Location { get { return Map.LocalToCell(Position); } }
+        Vector3Int ILocatable.Location { get => Location; }
+        protected virtual Vector3Int Location { get => Map.LocalToCell(Position); }
 
-        Vector3 IPositionable.Position { get { return Position; } set { Position = value; } }
+        Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
         {
             get
@@ -148,11 +148,11 @@ namespace RCG.Agents
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
-        float IAdvertisementBroadcastData.BroadcastDistance { get { return BroadcastDistance; } }
-        protected float BroadcastDistance { get { return AgentData.BroadcastDistance; } }
+        float IAdvertisementBroadcastData.BroadcastDistance { get => BroadcastDistance; }
+        protected float BroadcastDistance { get => AgentData.BroadcastDistance; }
 
-        float IAdvertisementBroadcastData.BroadcastInterval { get { return BroadcastInterval; } }
-        protected float BroadcastInterval { get { return AgentData.BroadcastInterval; } }
+        float IAdvertisementBroadcastData.BroadcastInterval { get => BroadcastInterval; }
+        protected float BroadcastInterval { get => AgentData.BroadcastInterval; }
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser
