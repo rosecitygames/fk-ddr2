@@ -7,24 +7,31 @@ namespace FloppyKnights.CardPlayers
 {
     public class GoblinGruntCardPlayer : AbstractAiCardPlayer
     {
-        const string moveCardActionPath = "CardActions/Move1";
-        ICardAction moveCardAction = null;
-        ICardAction MoveCardAction
+        const string move1CardDataPath = "CardDatas/Move1";
+        ICardData move1CardData = null;
+        ICardData Move1CardData
         {
             get
             {
-                if (moveCardAction == null)
+                if (move1CardData == null)
                 {
-                    ICardAction scriptableMoveCardAction = Resources.Load(moveCardActionPath) as ICardAction;
-                    moveCardAction = scriptableMoveCardAction.Copy();
+                    ICardData scriptableMove1CardData = Resources.Load(move1CardDataPath) as ICardData;
+                    move1CardData = scriptableMove1CardData.Copy();
                 }
-                return moveCardAction;
+                return move1CardData;
             }
         }
 
+        ICardData currentCardData = null;
+        int currentCardActionIndex = -1;
+
         protected override void StarTurn()
         {
+
             // Examine map
+
+            // Choose a card from deck. in this case, move 1
+            ICardData chosenCardData = Move1CardData;
 
             // Select target agent and/or location
             TargetAgent = CardAgent;
@@ -34,9 +41,75 @@ namespace FloppyKnights.CardPlayers
             AddCardAgentEventHandlers();
 
             // Play a card
-            MoveCardAction.StartAction(this);
+            PlayCard(chosenCardData);
+
             // or call on the agent directly (although less synergistic)
             // CardAgent.Move(TargetLocation);    
+        }
+
+        void PlayCard(ICardData cardData)
+        {
+            Debug.Log("Playing Card : " + cardData.DisplayName);
+
+            RemoveCurrentCardDataEventHandlers();
+
+            currentCardData = cardData;
+            
+            bool hasCardActions = currentCardData.CardActions.Count > 0;
+            if (hasCardActions)
+            {
+                AddCurrentCardDataEventHandlers();
+                currentCardActionIndex = -1;
+                PlayNextCardAction();
+            }
+            else
+            {
+                // TODO : Play next card
+            }
+        }
+
+        void PlayNextCardAction()
+        {
+            bool hasRemainingCardActions = currentCardActionIndex < currentCardData.CardActions.Count -1;
+            if (hasRemainingCardActions)
+            {
+                currentCardActionIndex += 1;
+                ICardAction cardAction = currentCardData.CardActions[currentCardActionIndex];
+                cardAction.StartAction(this);
+            }
+            else
+            {
+                RemoveCardAgentEventHandlers();
+                AddCardToDiscardDeck(currentCardData); // TODO : not needed for npc?
+                // TODO : Play next card
+                CallOnTurnCompleted(); // For now
+            }
+        }
+
+        void AddCurrentCardDataEventHandlers()
+        {
+            if (currentCardData == null) return;
+
+            RemoveCurrentCardDataEventHandlers();
+            
+            foreach (ICardAction cardAction in currentCardData.CardActions)
+            {
+                cardAction.OnActionCompleted += CardAction_OnActionCompleted;
+            }
+        }
+
+        void RemoveCurrentCardDataEventHandlers()
+        {
+            if (currentCardData == null) return;
+            foreach(ICardAction cardAction in currentCardData.CardActions)
+            {
+                cardAction.OnActionCompleted -= CardAction_OnActionCompleted;
+            }
+        }
+
+        private void CardAction_OnActionCompleted(ICardAction obj)
+        {
+            PlayNextCardAction();
         }
 
         Vector3Int GetNewLocation(int moveRadius)

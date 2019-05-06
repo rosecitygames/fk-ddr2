@@ -8,35 +8,13 @@ namespace FloppyKnights.Cards
 {
     public class CardData : ICardData
     {
-        
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return Displayname;
-            }
-        }
-
+        string IDescribable.DisplayName { get => Displayname; }
         protected string Displayname { get; set; }
 
-        string IDescribable.Description
-        {
-            get
-            {
-                return Description;
-            }
-        }
-
+        string IDescribable.Description { get => Description; }
         protected string Description { get; set; }
 
-        List<IAttribute> IStatsCollection.Stats
-        {
-            get
-            {
-                return Stats.Attributes;
-            }
-        }
-
+        List<IAttribute> IStatsCollection.Stats { get => Stats.Attributes; }
         IAttributeCollection Stats { get; set; }
 
         IAttribute IStatsCollection.GetStat(string id)
@@ -59,13 +37,7 @@ namespace FloppyKnights.Cards
 
         List<ICardAction> CardActions { get; set; }
 
-        Sprite ICardData.AgentSprite
-        {
-            get
-            {
-                return AgentSprite;
-            }
-        }
+        Sprite ICardData.AgentSprite { get => AgentSprite; }
         Sprite AgentSprite { get; set; }
 
         ICardData ICardData.Copy()

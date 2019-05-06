@@ -56,7 +56,7 @@ namespace FloppyKnights.Commands
             {
                 yield return new WaitForEndOfFrame();
                 float targetDistance = Vector2.Distance(agent.Position, targetPosition);
-                isLocationReached = (targetDistance < (agent.Map.CellSize.x * 0.5f));
+                isLocationReached = targetDistance < 0.001f;
                 if (isLocationReached == false)
                 {
                     agent.Position = Vector2.MoveTowards(agent.Position, targetPosition, moveSpeed);

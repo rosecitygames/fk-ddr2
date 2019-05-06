@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b1f3088c8a90374884eb63f5caf6dfa, type: 3}
   m_Name: GoblinGrunt
   m_EditorClassIdentifier: 
+  id: goblinGrunt
   displayName: Goblin Grunt
   description: Grrrr
   agentSprite: {fileID: 21300000, guid: 48762719509e6b74586c91d3909f9ee3, type: 3}
