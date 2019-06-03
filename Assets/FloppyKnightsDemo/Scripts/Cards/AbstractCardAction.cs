@@ -7,49 +7,17 @@ namespace FloppyKnights.Cards
 {
     [System.Serializable]
     public class AbstractCardAction : ICardAction
-    {
+    {     
+        string IDescribable.DisplayName => DisplayName;
+        protected string DisplayName { get => displayName; set => displayName = value; }
         [SerializeField]
         string displayName = "";
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return DisplayName;
-            }
-        }
-        protected string DisplayName
-        {
-            get
-            {
-                return displayName;
-            }
-            set
-            {
-                displayName = value;
-            }
-        }
-
+     
+        string IDescribable.Description => Description;
+        protected string Description { get => description; set => description = value; }
         [SerializeField]
         [TextArea]
         string description = "";
-        string IDescribable.Description
-        {
-            get
-            {
-                return Description;
-            }
-        }
-        protected string Description
-        {
-            get
-            {
-                return description;
-            }
-            set
-            {
-                description = value;
-            }
-        }
 
         event Action<ICardAction> ICardAction.OnActionCompleted
         {

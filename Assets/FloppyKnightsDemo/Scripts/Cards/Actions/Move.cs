@@ -4,8 +4,20 @@ using UnityEngine;
 
 namespace FloppyKnights.Cards
 {
+    [CreateAssetMenu(fileName = "Move", menuName = "Floppy Knights/Actions/Move")]
+    public class Move : ScriptableCardAction
+    {
+        [SerializeField]
+        MoveAction cardAction = new MoveAction();
+
+        protected override ICardAction GetCardAction()
+        {
+            return cardAction as ICardAction;
+        }
+    }
+
     [System.Serializable]
-    public class Move : AbstractCardAction
+    public class MoveAction : AbstractCardAction
     {
         [SerializeField]
         int radius = 1;
@@ -27,7 +39,7 @@ namespace FloppyKnights.Cards
             {
                 targetAgent = cardPlayer.TargetAgent;
                 targetAgent.OnIdleStarted += TargetAgent_OnIdleStarted;
-                targetAgent.Move(cardPlayer.TargetLocation);            
+                targetAgent.Move(cardPlayer.TargetLocation);
             }
         }
 
@@ -39,7 +51,7 @@ namespace FloppyKnights.Cards
 
         protected override ICardAction Copy()
         {
-            return new Move
+            return new MoveAction
             {
                 DisplayName = DisplayName,
                 Description = Description

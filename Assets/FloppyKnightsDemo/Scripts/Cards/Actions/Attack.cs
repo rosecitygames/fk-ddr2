@@ -1,10 +1,23 @@
 ﻿using FloppyKnights.Agents;
 using FloppyKnights.CardPlayers;
+using UnityEngine;
 
 namespace FloppyKnights.Cards
 {
+    [CreateAssetMenu(fileName = "Attack", menuName = "Floppy Knights/Actions/Attack")]
+    public class Attack :ScriptableCardAction
+    {
+        [SerializeField]
+        AttackAction cardAction = new AttackAction();
+
+        protected override ICardAction GetCardAction()
+        {
+            return cardAction as ICardAction;
+        }
+    }
+
     [System.Serializable]
-    public class Attack : AbstractCardAction
+    public class AttackAction : AbstractCardAction
     {
         ICardAgent targetAgent;
 
@@ -27,7 +40,7 @@ namespace FloppyKnights.Cards
 
         protected override ICardAction Copy()
         {
-            return new Attack
+            return new AttackAction
             {
                 DisplayName = DisplayName,
                 Description = Description

@@ -5,8 +5,20 @@ using UnityEngine;
 
 namespace FloppyKnights.Cards
 {
+    [CreateAssetMenu(fileName = "Buff", menuName = "Floppy Knights/Actions/Buff")]
+    public class Buff : ScriptableCardAction
+    {
+        [SerializeField]
+        BuffAction cardAction = new BuffAction();
+
+        protected override ICardAction GetCardAction()
+        {
+            return cardAction as ICardAction;
+        }
+    }
+
     [System.Serializable]
-    public class Buff : AbstractCardAction
+    public class BuffAction : AbstractCardAction
     {
         [SerializeField]
         AttributeCollection buffs = new AttributeCollection();
@@ -32,7 +44,7 @@ namespace FloppyKnights.Cards
 
         protected override ICardAction Copy()
         {
-            return new Buff
+            return new BuffAction
             {
                 DisplayName = DisplayName,
                 Description = Description,
@@ -41,4 +53,3 @@ namespace FloppyKnights.Cards
         }
     }
 }
-
