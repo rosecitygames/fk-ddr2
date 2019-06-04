@@ -13,17 +13,7 @@ namespace RCG.Items
         [SerializeField]
         ScriptableItemData data = null;
         IItemData itemData;
-        IItemData IItem.ItemData
-        {
-            get
-            {
-                return ItemData;
-            }
-            set
-            {
-                ItemData = value;
-            }
-        }
+        IItemData IItem.ItemData { get => ItemData; set => ItemData = value; }
         protected IItemData ItemData
         {
             get
@@ -52,11 +42,11 @@ namespace RCG.Items
             }
         }
 
-        string IDescribable.DisplayName { get => ItemData.DisplayName; }
-        string IDescribable.Description { get => ItemData.Description; }
+        string IDescribable.DisplayName => ItemData.DisplayName;
+        string IDescribable.Description => ItemData.Description;
 
-        List<IAttribute> IStatsCollection.Stats { get => ItemData.Stats; }
-        IAttribute IStatsCollection.GetStat(string id) { return ItemData.GetStat(id); }
+        List<IAttribute> IStatsCollection.Stats => ItemData.Stats;
+        IAttribute IStatsCollection.GetStat(string id) => ItemData.GetStat(id);
 
         int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
         protected virtual int GroupId { get; set; }     
@@ -118,11 +108,13 @@ namespace RCG.Items
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        int IMapElement.SortingOrder {  get => SortingOrder; }
-        protected virtual int SortingOrder { get => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); }
+        int IMapElement.InstanceId => gameObject.GetInstanceID();
 
-        Vector3Int ILocatable.Location { get => Location; }
-        protected virtual Vector3Int Location { get => Map.LocalToCell(Position); }
+        int IMapElement.SortingOrder => SortingOrder;
+        protected virtual int SortingOrder => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f);
+
+        Vector3Int ILocatable.Location => Location;
+        protected virtual Vector3Int Location => Map.LocalToCell(Position);
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
@@ -148,11 +140,11 @@ namespace RCG.Items
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
-        float IAdvertisementBroadcastData.BroadcastDistance { get => BroadcastDistance; }
-        protected float BroadcastDistance { get => ItemData.BroadcastDistance; }
+        float IAdvertisementBroadcastData.BroadcastDistance => BroadcastDistance;
+        protected float BroadcastDistance => ItemData.BroadcastDistance;
 
-        float IAdvertisementBroadcastData.BroadcastInterval { get => BroadcastInterval; }
-        protected float BroadcastInterval { get => ItemData.BroadcastInterval; }
+        float IAdvertisementBroadcastData.BroadcastInterval => BroadcastInterval;
+        protected float BroadcastInterval => ItemData.BroadcastInterval;
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser

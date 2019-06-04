@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RCG.Demo.BattleSimulator
 {
-    public class MoveToTargetLocation : AbstractCommand
+    public class OffsetPositionFromTargetMapElement : AbstractCommand
     {
         IAgent agent;
         MonoBehaviour monoBehaviour;
@@ -18,7 +18,15 @@ namespace RCG.Demo.BattleSimulator
         protected override void OnStart()
         {
             spriteRenderer = monoBehaviour.GetComponentInChildren<SpriteRenderer>();
-            StartMove();
+
+            if (agent.TargetMapElement != null && agent.Location == agent.TargetMapElement.Location)
+            {
+                StartMove();
+            }
+            else
+            {
+                Complete();
+            }
         }
 
         protected override void OnStop()
@@ -48,6 +56,15 @@ namespace RCG.Demo.BattleSimulator
         IEnumerator Move()
         {
             Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetLocation);
+
+            float offsetX = agent.Map.CellSize.x * 0.25f;
+            if (agent.InstanceId < agent.TargetMapElement.InstanceId)
+            {
+                offsetX *= -1.0f;
+            }
+
+            targetPosition.x += offsetX;
+
             float moveSpeed = AttributesUtil.GetMoveSpeed(agent);
             bool isLocationReached = false;
             while (isLocationReached == false)
@@ -73,7 +90,7 @@ namespace RCG.Demo.BattleSimulator
 
         public static ICommand Create(AbstractAgent agent)
         {
-            MoveToTargetLocation command = new MoveToTargetLocation
+            OffsetPositionFromTargetMapElement command = new OffsetPositionFromTargetMapElement
             {
                 agent = agent,
                 monoBehaviour = agent

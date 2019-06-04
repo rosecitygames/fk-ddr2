@@ -26,6 +26,9 @@ namespace RCG.Maps
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
+        int IMapElement.InstanceId => InstanceId;
+        protected int InstanceId { get; }
+
         int IMapElement.SortingOrder { get => SortingOrder; }
         protected int SortingOrder { get; }
 

@@ -58,7 +58,7 @@ namespace RCG.Demo.BattleSimulator
             wanderState.AddTransition(onDeathTransition, deathState);
             wanderState.AddCommand(ChooseNewLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
-            wanderState.AddCommand(WaitForTime.Create(this, 0.25f), CommandLayer0);
+            wanderState.AddCommand(WaitForRandomTime.Create(this, 0.25f, 0.5f), CommandLayer0);
             wanderState.SetLayerLoopCount(CommandLayer0, -1);
             wanderState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
             wanderState.AddCommand(AdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer2);
@@ -71,7 +71,7 @@ namespace RCG.Demo.BattleSimulator
             inspectTargetLocationState.AddTransition(onAttackedTransition, attackEnemyState);
             inspectTargetLocationState.AddTransition(onDeathTransition, deathState);
             inspectTargetLocationState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
-            inspectTargetLocationState.AddCommand(WaitForTime.Create(this, 0.25f), CommandLayer0);
+            inspectTargetLocationState.AddCommand(WaitForRandomTime.Create(this, 0.25f, 0.5f), CommandLayer0);
             inspectTargetLocationState.AddCommand(ChooseTargetMapElmentAtLocation.Create(this), CommandLayer0);
             inspectTargetLocationState.AddCommand(InspectTargetMapElement.Create(this, onEnemeyFoundTransition, onItemFoundTransition, onNothingFoundTransition), CommandLayer0);
             inspectTargetLocationState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
@@ -81,8 +81,9 @@ namespace RCG.Demo.BattleSimulator
             // Attack Enemey state
             attackEnemyState.AddTransition(onEnemyKilledTransition, wanderState);
             attackEnemyState.AddTransition(onDeathTransition, deathState);
+            attackEnemyState.AddCommand(OffsetPositionFromTargetMapElement.Create(this), CommandLayer0);
             attackEnemyState.AddCommand(AttackTargetMapElement.Create(this, onEnemyKilledTransition), CommandLayer0);
-            attackEnemyState.AddCommand(WaitForTime.Create(this, 0.5f), CommandLayer0);
+            attackEnemyState.AddCommand(WaitForRandomTime.Create(this, 0.5f, 0.75f), CommandLayer0);
             attackEnemyState.SetLayerLoopCount(CommandLayer0, -1);
             attackEnemyState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
             attackEnemyState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer2);
@@ -95,7 +96,7 @@ namespace RCG.Demo.BattleSimulator
             pickupItemState.AddTransition(onAttackedTransition, attackEnemyState);
             pickupItemState.AddTransition(onDeathTransition, deathState);
             pickupItemState.AddCommand(PickupItem.Create(this));
-            pickupItemState.AddCommand(WaitForTime.Create(this, 0.5f), CommandLayer0);
+            pickupItemState.AddCommand(WaitForRandomTime.Create(this, 0.5f, 0.1f), CommandLayer0);
             pickupItemState.AddCommand(CallTransition.Create(this, onPickupCompleted), CommandLayer0);
             pickupItemState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer1);
 

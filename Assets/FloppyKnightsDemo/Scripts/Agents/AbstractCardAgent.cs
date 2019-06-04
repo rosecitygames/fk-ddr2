@@ -131,6 +131,8 @@ namespace FloppyKnights.Agents
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
+        int IMapElement.InstanceId => gameObject.GetInstanceID();
+
         int IMapElement.SortingOrder { get => SortingOrder; }
         protected virtual int SortingOrder { get => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); }
 

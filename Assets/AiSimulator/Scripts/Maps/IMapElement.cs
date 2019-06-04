@@ -7,6 +7,7 @@ namespace RCG.Maps
 {
     public interface IMapElement : ILocatable, IPositionable, IDescribable, IStatsCollection, IGroupMember
     {
+        int InstanceId { get; }
         IMap Map { get; set; }
         void AddToMap(IMap map);
         void RemoveFromMap();

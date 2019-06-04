@@ -44,14 +44,14 @@ namespace RCG.Agents
             }
         }
 
-        string IDescribable.DisplayName { get => AgentData.DisplayName; }
-        string IDescribable.Description { get => AgentData.Description; }
+        string IDescribable.DisplayName => AgentData.DisplayName;
+        string IDescribable.Description => AgentData.Description;
 
-        List<IAttribute> IStatsCollection.Stats { get => AgentData.Stats; }
-        IAttribute IStatsCollection.GetStat(string id) { return AgentData.GetStat(id); }
+        List<IAttribute> IStatsCollection.Stats => AgentData.Stats;
+        IAttribute IStatsCollection.GetStat(string id) => AgentData.GetStat(id);
 
-        List<IAttribute> IDesiresCollection.Desires { get => AgentData.Desires; }
-        IAttribute IDesiresCollection.GetDesire(string id) { return AgentData.GetDesire(id); }
+        List<IAttribute> IDesiresCollection.Desires => AgentData.Desires;
+        IAttribute IDesiresCollection.GetDesire(string id) => AgentData.GetDesire(id);
 
         // Map implementations
         IMap map;
@@ -106,11 +106,13 @@ namespace RCG.Agents
             return Vector3Int.Distance(otherMapElement.Location, Location);
         }
 
-        int IMapElement.SortingOrder { get => SortingOrder; }
-        protected virtual int SortingOrder { get => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); }
+        int IMapElement.InstanceId => gameObject.GetInstanceID();
 
-        Vector3Int ILocatable.Location { get => Location; }
-        protected virtual Vector3Int Location { get => Map.LocalToCell(Position); }
+        int IMapElement.SortingOrder => SortingOrder;
+        protected virtual int SortingOrder => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f);
+
+        Vector3Int ILocatable.Location => Location;
+        protected virtual Vector3Int Location => Map.LocalToCell(Position);
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
@@ -137,11 +139,11 @@ namespace RCG.Agents
         [SerializeField]
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
-        float IAdvertisementBroadcastData.BroadcastDistance { get => BroadcastDistance; }
-        protected float BroadcastDistance { get => AgentData.BroadcastDistance; }
+        float IAdvertisementBroadcastData.BroadcastDistance => BroadcastDistance;
+        protected float BroadcastDistance => AgentData.BroadcastDistance;
 
-        float IAdvertisementBroadcastData.BroadcastInterval { get => BroadcastInterval; }
-        protected float BroadcastInterval { get => AgentData.BroadcastInterval; }
+        float IAdvertisementBroadcastData.BroadcastInterval => BroadcastInterval;
+        protected float BroadcastInterval => AgentData.BroadcastInterval;
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser
