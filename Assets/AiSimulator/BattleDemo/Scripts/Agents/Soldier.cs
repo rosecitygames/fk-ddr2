@@ -39,7 +39,7 @@ namespace RCG.Demo.BattleSimulator
             CommandableState deathState = CommandableState.Create("DeathState");
             stateMachine.AddState(deathState);
 
-            CommandableState pickupItemState = CommandableState.Create("pickupItem");
+            CommandableState pickupItemState = CommandableState.Create("PickupItem");
             stateMachine.AddState(pickupItemState);
 
             // Transitions strings

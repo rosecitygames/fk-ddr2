@@ -15,18 +15,7 @@ namespace RCG.Agents
         [SerializeField]
         ScriptableAgentData data = null;
         IAgentData agentData;
-
-        IAgentData IAgent.AgentData
-        {
-            get
-            {
-                return AgentData;
-            }
-            set
-            {
-                AgentData = value;
-            }
-        }
+        IAgentData IAgent.AgentData { get => AgentData; set => AgentData = value; }
         protected IAgentData AgentData
         {
             get
@@ -234,17 +223,7 @@ namespace RCG.Agents
         [SerializeField]
         int groupId;
         protected int GroupId { get => groupId; set => groupId = value; }
-        int IGroupMember.GroupId
-        {
-            get
-            {
-                return GroupId;
-            }
-            set
-            {
-                GroupId = value;
-            }
-        }
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
 
         // State Machine implementations
         protected IStateMachine stateMachine = StateMachine.Create();
@@ -306,8 +285,17 @@ namespace RCG.Agents
 
             if (data != null && Map != null)
             {
-                float broadcastDistance = (data as IAgentData).BroadcastDistance * 0.2f;
+                float broadcastDistance = (data as IAgentData).BroadcastDistance * Map.CellSize.x;
                 DrawGizmosUtil.DrawBroadcastDistanceSphere(Position, broadcastDistance, Color.green);
+            }
+        }
+
+        void OnDrawGizmosSelected()
+        {
+            if (data != null && Map != null)
+            {
+                float broadcastDistance = (data as IAgentData).BroadcastDistance * Map.CellSize.x;
+                DrawGizmosUtil.DrawBroadcastDistanceWireSphere(Position, broadcastDistance, Color.green);
             }
         }
     }

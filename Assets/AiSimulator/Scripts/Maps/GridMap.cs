@@ -11,24 +11,12 @@ namespace RCG.Maps
     {
         [SerializeField]
         string displayName = "";
-        protected override string DisplayName
-        {
-            get
-            {
-                return displayName;
-            }
-        }
+        protected override string DisplayName => displayName;
 
         [SerializeField]
         [TextArea]
         string description = "";
-        protected override string Description
-        {
-            get
-            {
-                return description;
-            }
-        }
+        protected override string Description => description;
 
         Grid grid;
         Grid Grid
@@ -46,21 +34,9 @@ namespace RCG.Maps
 
         [SerializeField]
         Vector3Int size = new Vector3Int(10, 10, 0);
-        protected override Vector3Int Size
-        {
-            get
-            {
-                return size;
-            }
-        }
+        protected override Vector3Int Size => size;
 
-        protected override Vector3 CellSize
-        {
-            get
-            {
-                return Grid.cellSize;
-            }
-        }
+        protected override Vector3 CellSize => Grid.cellSize;
 
         protected override Vector3Int LocalToCell(Vector3 localPosition)
         {
