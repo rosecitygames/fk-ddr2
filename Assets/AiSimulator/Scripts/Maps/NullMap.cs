@@ -18,6 +18,7 @@ namespace RCG.Maps
 
         void IMap.AddElement(IMapElement element) { }
         void IMap.RemoveElement(IMapElement element) { }
+        List<IMapElement> IMap.GetMapElementsAtCells(List<Vector3Int> cells) => new List<IMapElement>();
         List<IMapElement> IMap.GetMapElementsAtCell(Vector3Int cell) => new List<IMapElement>();
 
         string IDescribable.DisplayName { get; }

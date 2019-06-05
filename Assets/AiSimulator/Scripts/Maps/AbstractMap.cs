@@ -30,6 +30,9 @@ namespace RCG.Maps
         void IMap.RemoveElement(IMapElement element) => RemoveElement(element);
         protected virtual void RemoveElement(IMapElement element) { }
 
+        List<IMapElement> IMap.GetMapElementsAtCells(List<Vector3Int> cells) => GetMapElementsAtCells(cells);
+        protected virtual List<IMapElement> GetMapElementsAtCells(List<Vector3Int> cells) => new List<IMapElement>();
+
         List<IMapElement> IMap.GetMapElementsAtCell(Vector3Int cell) => GetMapElementsAtCell(cell);
         protected virtual List<IMapElement> GetMapElementsAtCell(Vector3Int cell) => new List<IMapElement>();
 

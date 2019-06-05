@@ -49,16 +49,22 @@ namespace RCG.Demo.BattleSimulator
         {
             Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetLocation);
             float moveSpeed = AttributesUtil.GetMoveSpeed(agent);
+
+            YieldInstruction yieldInstruction = new WaitForEndOfFrame();
+
             bool isLocationReached = false;
             while (isLocationReached == false)
             {
-                yield return new WaitForEndOfFrame();
+                yield return yieldInstruction;
+
                 float targetDistance = Vector2.Distance(agent.Position, targetPosition);
+
                 isLocationReached = targetDistance < 0.001f;
                 if (isLocationReached == false)
                 {
                     agent.Position = Vector2.MoveTowards(agent.Position, targetPosition, moveSpeed);
                 }
+
                 UpdateSortingOrder();
             }
 

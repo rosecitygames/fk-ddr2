@@ -17,6 +17,7 @@ namespace RCG.Maps
         void AddElement(IMapElement element);
         void RemoveElement(IMapElement element);
 
-        List<IMapElement> GetMapElementsAtCell(Vector3Int cell);
+        List<IMapElement> GetMapElementsAtCells(List<Vector3Int> cells);
+        List<IMapElement> GetMapElementsAtCell(Vector3Int cell);      
     }
 }

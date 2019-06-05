@@ -55,10 +55,12 @@ namespace RCG.Demo.BattleSimulator
 
         IEnumerator Broadcast()
         {
+            YieldInstruction yieldInstruction = new WaitForSeconds(advertisingMapElement.BroadcastInterval);
+
             while (isCompleted == false)
             {
                 CreateAndBroadcastAdvertisement();
-                yield return new WaitForSeconds(advertisingMapElement.BroadcastInterval);
+                yield return yieldInstruction;
             }
         }
 

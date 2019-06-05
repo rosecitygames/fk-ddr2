@@ -44,6 +44,9 @@ namespace FloppyKnights
         }
 
         [SerializeField]
+        bool isFilled = false;
+
+        [SerializeField]
         int orderInLayer = 1;
 
         [SerializeField]
@@ -68,6 +71,19 @@ namespace FloppyKnights
         }
 
         void Draw()
+        {
+            if (isFilled)
+            {
+                DrawFilledCircle();
+            }
+            else
+            {
+                DrawCircle();
+            }
+        }
+
+        [ContextMenu("Draw Circle")]
+        void DrawCircle()
         {
             Clear();
 
@@ -109,8 +125,71 @@ namespace FloppyKnights
                 x++;
             } while (x <= y);
 
-            foreach(Vector3Int cell in cells)
-            {      
+            DrawCells(cells);
+        }
+
+        [ContextMenu("Draw Filled Circle")]
+        void DrawFilledCircle() // TODO : Doesn't quite match above circle bounds.
+        {
+            Clear();
+
+            if (cellPrefab == null) return;
+
+            Vector3Int mapSize = map.Size;
+
+            Vector3Int center = map.LocalToCell(transform.localPosition);
+
+            Vector3Int offsetCenter = center;
+            offsetCenter.x += mapSize.x / 2;
+            offsetCenter.y += mapSize.y / 2;
+
+            HashSet<Vector3Int> cells = new HashSet<Vector3Int>();
+
+            int error = -Radius;
+            int x = Radius;
+            int y = 0;
+
+            while (x >= y)
+            {
+                int lastY = y;
+
+                error += y;
+                ++y;
+                error += y;
+
+                Plot4points(cells, center.x, center.y, x, lastY);
+
+                if (error >= 0)
+                {
+                    if (x != lastY)
+                        Plot4points(cells, center.x, center.y, lastY, x);
+
+                    error -= x;
+                    --x;
+                    error -= x;
+                }
+            }
+
+            DrawCells(cells);
+        }
+
+        void Plot4points(HashSet<Vector3Int> cells, int cx, int cy, int x, int y)
+        {
+            HorizontalLine(cells, cx - x, cy + y, cx + x);
+            if (y != 0)
+                HorizontalLine(cells, cx - x, cy - y, cx + x);
+        }
+
+        void HorizontalLine(HashSet<Vector3Int> cells, int x0, int y0, int x1)
+        {
+            for (int x = x0; x <= x1; ++x)
+                cells.Add(new Vector3Int(x, y0, 0));
+        }
+
+        void DrawCells(IEnumerable cells)
+        {
+            foreach (Vector3Int cell in cells)
+            {
                 Vector3 cellPosition = map.CellToLocal(cell);
                 cellPosition.x -= transform.localPosition.x;
                 cellPosition.y -= transform.localPosition.y;

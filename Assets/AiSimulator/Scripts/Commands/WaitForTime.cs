@@ -8,7 +8,7 @@ namespace RCG.Commands
     public class WaitForTime : AbstractCommand
     {
         MonoBehaviour monoBehaviour;
-        float seconds;
+        YieldInstruction yieldInstruction;
 
         Coroutine coroutine;
 
@@ -43,7 +43,7 @@ namespace RCG.Commands
 
         IEnumerator Wait()
         {
-            yield return new WaitForSeconds(seconds);
+            yield return yieldInstruction;
             Complete();
         }
 
@@ -52,7 +52,7 @@ namespace RCG.Commands
             return new WaitForTime
             {
                 monoBehaviour = monoBehaviour,
-                seconds = seconds
+                yieldInstruction = new WaitForSeconds(seconds)
             };
         }
     }

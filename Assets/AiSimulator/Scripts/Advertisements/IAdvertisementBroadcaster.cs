@@ -8,6 +8,8 @@ namespace RCG.Advertisements
     {
         void Broadcast(IAdvertisement advertisement);
         void Broadcast(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver);
+        void BroadcastToReceivers(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers);
+        void BroadcastToReceiver(IAdvertisement advertisement, IAdvertisementReceiver receiver);
 
         void AddReceiver(IAdvertisementReceiver receiver);
         void RemoveReceiver(IAdvertisementReceiver receiver);

@@ -20,18 +20,39 @@ namespace RCG.Advertisements
             {
                 if (receiver != excludeReceiver)
                 {
-                    BroadcastToReceiver(receiver, advertisement);
+                    BroadcastToReceiverAtDistance(advertisement, receiver);
                 }
             }
-        }   
+        }
 
-        void BroadcastToReceiver(IAdvertisementReceiver receiver, IAdvertisement advertisement)
+        void BroadcastToReceiverAtDistance(IAdvertisement advertisement, IAdvertisementReceiver receiver)
         {
             float distance = Vector3.Distance(receiver.Location, advertisement.Location);
             if (distance <= advertisement.BroadcastDistance)
             {
                 receiver.ReceiveAdvertisement(advertisement);
             }
+        }
+
+        void IAdvertisementBroadcaster.BroadcastToReceivers(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers)
+        {
+            BroadcastToReceivers(advertisement, receivers);
+        }
+        void BroadcastToReceivers(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers)
+        {
+            foreach (IAdvertisementReceiver receiver in receivers)
+            {
+                BroadcastToReceiver(advertisement, receiver);
+            }
+        }
+
+        void IAdvertisementBroadcaster.BroadcastToReceiver(IAdvertisement advertisement, IAdvertisementReceiver receiver)
+        {
+            BroadcastToReceiver(advertisement, receiver);
+        }
+        void BroadcastToReceiver(IAdvertisement advertisement, IAdvertisementReceiver receiver)
+        {
+            receiver.ReceiveAdvertisement(advertisement);
         }
 
         List<IAdvertisementReceiver> receivers = new List<IAdvertisementReceiver>();

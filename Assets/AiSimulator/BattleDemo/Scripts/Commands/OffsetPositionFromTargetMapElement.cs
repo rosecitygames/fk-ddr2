@@ -66,10 +66,13 @@ namespace RCG.Demo.BattleSimulator
             targetPosition.x += offsetX;
 
             float moveSpeed = AttributesUtil.GetMoveSpeed(agent);
+
+            YieldInstruction yieldInstruction = new WaitForEndOfFrame();
+
             bool isLocationReached = false;
             while (isLocationReached == false)
             {
-                yield return new WaitForEndOfFrame();
+                yield return yieldInstruction;
                 float targetDistance = Vector2.Distance(agent.Position, targetPosition);
                 isLocationReached = targetDistance < 0.001f;
                 if (isLocationReached == false)

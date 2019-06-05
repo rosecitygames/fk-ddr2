@@ -103,6 +103,22 @@ namespace RCG.Maps
             mapElementToHashId.Remove(mapElement);
         }
 
+        protected override List<IMapElement> GetMapElementsAtCells(List<Vector3Int> cells)
+        {
+            List<IMapElement> mapElements = new List<IMapElement>();
+
+            foreach (Vector3Int cell in cells)
+            {
+                int cellHashId = GetHashId(cell);
+                if (hashIdToMapElement.ContainsKey(cellHashId))
+                {
+                    mapElements.AddRange(hashIdToMapElement[cellHashId]);
+                }
+            }
+
+            return mapElements;
+        }
+
         protected override List<IMapElement> GetMapElementsAtCell(Vector3Int cell)
         {
             int cellHashId = GetHashId(cell);
@@ -114,6 +130,29 @@ namespace RCG.Maps
             {
                 return new List<IMapElement>();
             }
+        }
+
+        List<IMapElement> GetMapElementsInRect(Vector3Int center, int width, int height)
+        {
+            List<IMapElement> mapElements = new List<IMapElement>();
+
+            int offsetX = -Mathf.FloorToInt(width / 2);
+            int offsetY = -Mathf.FloorToInt(height / 2);
+
+            Vector3Int cell = new Vector3Int();
+
+            for (int x = 0; x < width; x++)
+            {
+                for(int y = 0; y < height; y++)
+                {
+                    cell.x = center.x + x + offsetX;
+                    cell.y = center.y + y + offsetY;
+                    List<IMapElement> cellMapElements = GetMapElementsAtCell(cell);
+                    mapElements.AddRange(cellMapElements);
+                }
+            }
+
+            return mapElements;
         }
 
         private void OnDrawGizmos()

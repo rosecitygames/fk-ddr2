@@ -193,17 +193,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e6a74c2c6a88841a1f098cea1a9e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillPercentage: 0.1
+  fillPercentage: 0.5
   datas:
   - prefab: {fileID: 7907055805225926142, guid: 9c235aafbe5c41344943204d2459ee2d,
       type: 3}
     perecentage: 0.4
   - prefab: {fileID: 8961763132666079894, guid: 5f5cc546d74f79e42a5a38828dcd6bb7,
       type: 3}
-    perecentage: 0.25
+    perecentage: 0.2
   - prefab: {fileID: 4830934026494562340, guid: de89908fe132482468627fdb9efed325,
       type: 3}
-    perecentage: 0.25
+    perecentage: 0.2
   - prefab: {fileID: 1037604833968219368, guid: 972fecf3086bf4e4a854295b4614262a,
       type: 3}
     perecentage: 0.1
