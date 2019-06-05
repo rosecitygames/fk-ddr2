@@ -6,34 +6,37 @@ namespace RCG.Maps
 {
     public abstract class AbstractMap : MonoBehaviour, IMap
     {
-        Vector3Int IMap.Size { get => Size; }
+        Vector3Int IMap.Size => Size;
         protected virtual Vector3Int Size { get; }
 
-        Vector3 IMap.CellSize { get => CellSize; }
+        Vector3 IMap.CellSize => CellSize;
         protected virtual Vector3 CellSize { get; }
 
-        Vector3Int IMap.LocalToCell(Vector3 localPosition) { return LocalToCell(localPosition); }
-        protected virtual Vector3Int LocalToCell(Vector3 localPosition) { return Vector3Int.zero; }
+        int IMap.CellCount => CellCount;
+        protected virtual int CellCount => Size.x * Size.y;
 
-        Vector3 IMap.CellToLocal(Vector3Int cellPosition) { return CellToLocal(cellPosition); }
-        protected virtual Vector3 CellToLocal(Vector3Int cellPosition) { return Vector3.zero; }
+        Vector3Int IMap.LocalToCell(Vector3 localPosition) => LocalToCell(localPosition);
+        protected virtual Vector3Int LocalToCell(Vector3 localPosition) => Vector3Int.zero;
 
-        int IMap.CellToSortingOrder(Vector3Int cellPosition) { return CellToSortingOrder(cellPosition); }
-        protected virtual int CellToSortingOrder(Vector3Int cellPosition) { return 0; }
+        Vector3 IMap.CellToLocal(Vector3Int cellPosition) => CellToLocal(cellPosition);
+        protected virtual Vector3 CellToLocal(Vector3Int cellPosition) => Vector3.zero;
 
-        void IMap.AddElement(IMapElement element) { AddElement(element); }
+        int IMap.CellToSortingOrder(Vector3Int cellPosition) => CellToSortingOrder(cellPosition);
+        protected virtual int CellToSortingOrder(Vector3Int cellPosition) => 0;
+
+        void IMap.AddElement(IMapElement element) => AddElement(element);
         protected virtual void AddElement(IMapElement element) { }
 
-        void IMap.RemoveElement(IMapElement element) { RemoveElement(element); }
+        void IMap.RemoveElement(IMapElement element) => RemoveElement(element);
         protected virtual void RemoveElement(IMapElement element) { }
 
-        List<IMapElement> IMap.GetMapElementsAtCell(Vector3Int cell) { return GetMapElementsAtCell(cell); }
-        protected virtual List<IMapElement> GetMapElementsAtCell(Vector3Int cell) { return new List<IMapElement>(); }
+        List<IMapElement> IMap.GetMapElementsAtCell(Vector3Int cell) => GetMapElementsAtCell(cell);
+        protected virtual List<IMapElement> GetMapElementsAtCell(Vector3Int cell) => new List<IMapElement>();
 
-        string IDescribable.DisplayName { get => DisplayName; }
+        string IDescribable.DisplayName => DisplayName;
         protected virtual string DisplayName { get; }
 
-        string IDescribable.Description { get => Description; }
+        string IDescribable.Description => Description;
         protected virtual string Description { get; }
     }
 }

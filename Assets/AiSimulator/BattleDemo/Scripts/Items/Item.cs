@@ -39,6 +39,5 @@ namespace RCG.Demo.BattleSimulator
             agent.SetBroadcaster(broadcaster);
             return agent;
         }
-
     }
 }

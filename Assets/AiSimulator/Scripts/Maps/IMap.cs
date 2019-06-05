@@ -8,6 +8,7 @@ namespace RCG.Maps
     {
         Vector3Int Size { get; }
         Vector3 CellSize { get; }
+        int CellCount { get; }
 
         Vector3Int LocalToCell(Vector3 localPosition);
         Vector3 CellToLocal(Vector3Int cellPosition);

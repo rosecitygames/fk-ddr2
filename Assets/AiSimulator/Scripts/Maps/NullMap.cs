@@ -6,17 +6,19 @@ namespace RCG.Maps
 {
     public class NullMap : IMap
     {
-        Vector3Int IMap.Size { get => Vector3Int.zero; }
+        Vector3Int IMap.Size => Vector3Int.zero;
 
-        Vector3 IMap.CellSize { get => Vector3.zero; }
+        Vector3 IMap.CellSize => Vector3.zero;
 
-        Vector3Int IMap.LocalToCell(Vector3 localPosition) { return Vector3Int.zero; }
-        Vector3 IMap.CellToLocal(Vector3Int cellPosition) { return Vector3.zero; }
-        int IMap.CellToSortingOrder(Vector3Int cellPosition) { return 0; }
+        int IMap.CellCount => 0;
+
+        Vector3Int IMap.LocalToCell(Vector3 localPosition) => Vector3Int.zero;
+        Vector3 IMap.CellToLocal(Vector3Int cellPosition) => Vector3.zero;
+        int IMap.CellToSortingOrder(Vector3Int cellPosition) => 0;
 
         void IMap.AddElement(IMapElement element) { }
         void IMap.RemoveElement(IMapElement element) { }
-        List<IMapElement> IMap.GetMapElementsAtCell(Vector3Int cell) { return new List<IMapElement>(); }
+        List<IMapElement> IMap.GetMapElementsAtCell(Vector3Int cell) => new List<IMapElement>();
 
         string IDescribable.DisplayName { get; }
         string IDescribable.Description { get; }
