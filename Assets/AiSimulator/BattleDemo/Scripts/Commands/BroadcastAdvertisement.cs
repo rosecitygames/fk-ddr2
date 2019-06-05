@@ -66,7 +66,7 @@ namespace RCG.Demo.BattleSimulator
 
         void CreateAndBroadcastAdvertisement()
         {
-            IAdvertisement advertisement = Advertisement.Create(advertisingMapElement.Stats, advertisingMapElement.Location, advertisingMapElement.BroadcastDistance, advertisingMapElement.GroupId);
+            IAdvertisement advertisement = Advertisement.Create(advertisingMapElement.Stats, advertisingMapElement.Map, advertisingMapElement.Location, advertisingMapElement.BroadcastDistance, advertisingMapElement.GroupId);
             advertisingMapElement.BroadcastAdvertisement(advertisement, excludeReceiver);
         }
 

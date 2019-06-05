@@ -10,15 +10,16 @@ namespace RCG.Advertisements
         protected IAdvertisement Advertisement { get; set; }
         public int Rank { get; set; }
 
-        List<IAttribute> IAttributeCollection.Attributes { get => Advertisement.Attributes; }
-        IAttribute IAttributeCollection.GetAttribute(string id) { return Advertisement.GetAttribute(id); }
-        void IAttributeCollection.AddAttribute(IAttribute attribute) { Advertisement.AddAttribute(attribute); }
-        void IAttributeCollection.RemoveAttribute(IAttribute attribute) { Advertisement.RemoveAttribute(attribute); }
-        void IAttributeCollection.Clear() { Advertisement.Clear(); }
-        IAttributeCollection IAttributeCollection.Copy() { return Advertisement.Copy(); }
-        Vector3Int ILocatable.Location { get => Advertisement.Location; }
+        List<IAttribute> IAttributeCollection.Attributes => Advertisement.Attributes;
+        IAttribute IAttributeCollection.GetAttribute(string id) => Advertisement.GetAttribute(id);
+        void IAttributeCollection.AddAttribute(IAttribute attribute) => Advertisement.AddAttribute(attribute);
+        void IAttributeCollection.RemoveAttribute(IAttribute attribute) => Advertisement.RemoveAttribute(attribute);
+        void IAttributeCollection.Clear() => Advertisement.Clear();
+        IAttributeCollection IAttributeCollection.Copy() => Advertisement.Copy();
+        IMap IAdvertisement.Map => Advertisement.Map;
+        Vector3Int ILocatable.Location => Advertisement.Location;
         int IGroupMember.GroupId { get => Advertisement.GroupId; set => Advertisement.GroupId = value; }
-        float IAdvertisement.BroadcastDistance { get => Advertisement.BroadcastDistance; }
+        float IAdvertisement.BroadcastDistance => Advertisement.BroadcastDistance;
 
         public static RankedAdvertisement Create(IAdvertisement advertisement, int rank)
         {

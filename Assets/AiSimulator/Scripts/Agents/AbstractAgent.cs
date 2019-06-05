@@ -196,11 +196,6 @@ namespace RCG.Agents
             advertiser.BroadcastAdvertisement(advertisement, excludeReceiver);
         }
 
-        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers)
-        {
-            advertiser.BroadcastAdvertisement(advertisement, receivers);
-        }
-
         void IAdvertisementReceiver.ReceiveAdvertisement(IAdvertisement advertisement)
         {
             OnAdvertisementReceived?.Invoke(advertisement);

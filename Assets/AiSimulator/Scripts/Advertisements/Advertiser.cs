@@ -38,11 +38,6 @@ namespace RCG.Advertisements
             Broadcaster.Broadcast(advertisement, excludeReceiver);
         }
 
-        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers)
-        {
-            Broadcaster.BroadcastToReceivers(advertisement, receivers);
-        }
-
         public static IAdvertiser Create(IAdvertisementBroadcaster broadcaster)
         {
             return new Advertiser

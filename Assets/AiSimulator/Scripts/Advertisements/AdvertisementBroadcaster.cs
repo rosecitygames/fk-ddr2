@@ -34,10 +34,6 @@ namespace RCG.Advertisements
             }
         }
 
-        void IAdvertisementBroadcaster.BroadcastToReceivers(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers)
-        {
-            BroadcastToReceivers(advertisement, receivers);
-        }
         void BroadcastToReceivers(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers)
         {
             foreach (IAdvertisementReceiver receiver in receivers)
@@ -46,10 +42,6 @@ namespace RCG.Advertisements
             }
         }
 
-        void IAdvertisementBroadcaster.BroadcastToReceiver(IAdvertisement advertisement, IAdvertisementReceiver receiver)
-        {
-            BroadcastToReceiver(advertisement, receiver);
-        }
         void BroadcastToReceiver(IAdvertisement advertisement, IAdvertisementReceiver receiver)
         {
             receiver.ReceiveAdvertisement(advertisement);

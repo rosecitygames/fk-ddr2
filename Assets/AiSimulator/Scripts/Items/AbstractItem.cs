@@ -188,11 +188,6 @@ namespace RCG.Items
             advertiser.BroadcastAdvertisement(advertisement, excludeReceiver);
         }
 
-        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers)
-        {
-            advertiser.BroadcastAdvertisement(advertisement, receivers);
-        }
-
         // State Machine implementations
         protected IStateMachine stateMachine = StateMachine.Create();
 

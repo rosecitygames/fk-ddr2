@@ -10,7 +10,6 @@ namespace RCG.Advertisements
         void SetBroadcaster(IAdvertisementBroadcaster broadcaster);
         void BroadcastAdvertisement(IAdvertisement advertisement);
         void BroadcastAdvertisement(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver);
-        void BroadcastAdvertisement(IAdvertisement advertisement, List<IAdvertisementReceiver> receivers);
     }
 }
 
