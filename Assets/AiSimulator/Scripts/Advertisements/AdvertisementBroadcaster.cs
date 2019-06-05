@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RCG.Maps;
 
 namespace RCG.Advertisements
 {
@@ -16,21 +17,40 @@ namespace RCG.Advertisements
         }
         protected void Broadcast(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver = null)
         {
-            foreach(IAdvertisementReceiver receiver in receivers)
+            // TODO : Need to cache cells somewhere for stationary broadcasters. Maybe ad method to advertise at list of cells.
+
+            IMap adMap = advertisement.Map;
+            Vector3Int adLocation = advertisement.Location;
+            int broadcastDistance = Mathf.RoundToInt(advertisement.BroadcastDistance);
+
+            int size = broadcastDistance * 2;
+    
+            List<Vector3Int> cells = new List<Vector3Int>();
+            int cellX, cellY;
+
+            for (int x = 0; x < size; x++)
             {
-                if (receiver != excludeReceiver)
+                for (int y = 0; y < size; y++)
                 {
-                    BroadcastToReceiverAtDistance(advertisement, receiver);
+                    cellX = (adLocation.x + x) - broadcastDistance;
+                    cellY = (adLocation.y + y) - broadcastDistance;
+
+                    if ((cellX >= -adMap.Size.x && cellX < adMap.Size.x) && (cellY >= -adMap.Size.y && cellY < adMap.Size.y))
+                    {
+                        Vector3Int cell = new Vector3Int(cellX, cellY, 0);
+                        cells.Add(cell);
+                    }  
                 }
             }
-        }
 
-        void BroadcastToReceiverAtDistance(IAdvertisement advertisement, IAdvertisementReceiver receiver)
-        {
-            float distance = Vector3.Distance(receiver.Location, advertisement.Location);
-            if (distance <= advertisement.BroadcastDistance)
+            List<IMapElement> mapElements = adMap.GetMapElementsAtCells(cells);
+            foreach(IMapElement mapElement in mapElements)
             {
-                receiver.ReceiveAdvertisement(advertisement);
+                if (receiversByMapElement.ContainsKey(mapElement))
+                {
+                    IAdvertisementReceiver receiver = receiversByMapElement[mapElement];
+                    receiver.ReceiveAdvertisement(advertisement);
+                }
             }
         }
 
@@ -47,7 +67,7 @@ namespace RCG.Advertisements
             receiver.ReceiveAdvertisement(advertisement);
         }
 
-        List<IAdvertisementReceiver> receivers = new List<IAdvertisementReceiver>();
+        Dictionary<IMapElement, IAdvertisementReceiver> receiversByMapElement = new Dictionary<IMapElement, IAdvertisementReceiver>();
 
         void IAdvertisementBroadcaster.AddReceiver(IAdvertisementReceiver receiver)
         {
@@ -55,7 +75,7 @@ namespace RCG.Advertisements
         }
         protected void AddReceiver(IAdvertisementReceiver receiver)
         {
-            receivers.Add(receiver);
+            receiversByMapElement.Add(receiver, receiver);
         }
 
         void IAdvertisementBroadcaster.RemoveReceiver(IAdvertisementReceiver receiver)
@@ -64,7 +84,7 @@ namespace RCG.Advertisements
         }
         protected void RemoveReceiver(IAdvertisementReceiver receiver)
         {
-            receivers.Remove(receiver);
+            receiversByMapElement.Remove(receiver);
         }
 
         void IAdvertisementBroadcaster.ClearReceivers()
@@ -73,14 +93,20 @@ namespace RCG.Advertisements
         }
         protected void ClearReceivers()
         {
-            receivers.Clear();
+            receiversByMapElement.Clear();
         }
 
         public static IAdvertisementBroadcaster Create(List<IAdvertisementReceiver> receivers)
         {
+            Dictionary<IMapElement, IAdvertisementReceiver> receiversByMapElement = new Dictionary<IMapElement, IAdvertisementReceiver>();
+            foreach (IAdvertisementReceiver receiver in receivers)
+            {
+                receiversByMapElement.Add(receiver, receiver);
+            }
+
             return new AdvertisementBroadcaster
             {
-                receivers = receivers
+                receiversByMapElement = receiversByMapElement
             };
         }
 
