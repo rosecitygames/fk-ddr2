@@ -47,6 +47,9 @@ namespace RCG.Demo.BattleSimulator
 
                 for(int i = 0; i < elementCount; i++)
                 {
+                    bool isMapFilled = occupiedCells.Count >= fillCellCount;
+                    if (isMapFilled) break;
+
                     GameObject mapElementGameObject = Instantiate(data.Prefab);
                     mapElementGameObject.transform.parent = transform;
                     IMapElement mapElement = mapElementGameObject.GetComponent<IMapElement>();
