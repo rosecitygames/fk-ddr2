@@ -43,9 +43,9 @@ namespace RCG.Maps
             return Grid.LocalToCell(localPosition);
         }
 
-        protected override Vector3 CellToLocal(Vector3Int cellPosition)
+        protected override Vector3 CellToLocal(Vector3Int cell)
         {
-            Vector3 localPosition = Grid.CellToLocal(cellPosition);
+            Vector3 localPosition = Grid.CellToLocal(cell);
             localPosition.x += Grid.cellSize.x * 0.5f;
             localPosition.y += Grid.cellSize.y * 0.5f;
             return localPosition;
@@ -70,6 +70,8 @@ namespace RCG.Maps
 
         int GetHashId(Vector3Int cell)
         {
+            cell.x += size.x / 2;
+            cell.y += size.y / 2;
             return (cell.x * primeX) ^ (cell.y * primeY);
         }
 

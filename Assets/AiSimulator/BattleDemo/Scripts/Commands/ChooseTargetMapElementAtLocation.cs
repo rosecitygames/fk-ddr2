@@ -22,6 +22,7 @@ namespace RCG.Demo.BattleSimulator
             agent.TargetMapElement = GetHighestRankedMapElement();
         }
 
+        // TODO : Seems like if multiple agents with the same group id reach an item, that they decide nothing was found.
         IMapElement GetHighestRankedMapElement()
         {
             int highestEnemyRank = 0;
