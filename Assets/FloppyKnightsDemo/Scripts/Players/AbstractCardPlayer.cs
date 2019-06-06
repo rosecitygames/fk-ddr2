@@ -10,45 +10,16 @@ namespace FloppyKnights.CardPlayers
 {
     public class AbstractCardPlayer : MonoBehaviour, ICardPlayer
     {
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return DisplayName;
-            }
-        }
-
+        string IDescribable.DisplayName => DisplayName;
         protected virtual string DisplayName { get; }
 
-        string IDescribable.Description
-        {
-            get
-            {
-                return Description;
-            }
-        }
-
+        string IDescribable.Description => Description;
         protected virtual string Description { get; }
 
-        int IGroupMember.GroupId
-        {
-            get
-            {
-                return GroupId;
-            }
-            set
-            {
-                GroupId = value;
-            }
-        }
-
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
         protected virtual int GroupId { get; set; }
 
-        void ITurnTaker.StartTurn()
-        {
-            StarTurn();
-        }
-
+        void ITurnTaker.StartTurn() => StarTurn();
         protected virtual void StarTurn() { }
 
         event Action<ITurnTaker> ITurnTaker.OnTurnCompleted
@@ -70,35 +41,14 @@ namespace FloppyKnights.CardPlayers
             OnTurnCompleted?.Invoke(this);
         }
 
-        ICardAgent ICardPlayer.TargetAgent
-        {
-            get
-            {
-                return TargetAgent;
-            }
-        }
-
+        ICardAgent ICardPlayer.TargetAgent => TargetAgent;
         protected ICardAgent TargetAgent { get; set; }
 
-        Vector3Int ICardPlayer.TargetLocation
-        {
-            get
-            {
-                return TargetLocation;
-            }
-        }
-
+        Vector3Int ICardPlayer.TargetLocation => TargetLocation;
         protected Vector3Int TargetLocation { get; set; }
 
-        void ICardPlayer.AddCardToDiscardDeck(ICardData cardData)
-        {
-            AddCardToDiscardDeck(cardData);
-        }
-
-        protected virtual void AddCardToDiscardDeck(ICardData cardData)
-        {
-
-        }
+        void ICardPlayer.AddCardToDiscardDeck(ICardData cardData) => AddCardToDiscardDeck(cardData);
+        protected virtual void AddCardToDiscardDeck(ICardData cardData) { }
     }
 }
 

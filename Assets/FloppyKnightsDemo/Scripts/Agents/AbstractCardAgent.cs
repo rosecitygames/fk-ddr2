@@ -102,11 +102,7 @@ namespace FloppyKnights.Agents
             map.AddElement(this);
         }
 
-        void IMapElement.AddToMap(IMap map)
-        {
-            AddToMap(map);
-        }
-
+        void IMapElement.AddToMap(IMap map) => AddToMap(map);
         protected virtual void AddToMap(IMap map)
         {
             if (map != null)
@@ -117,10 +113,7 @@ namespace FloppyKnights.Agents
             Map.AddElement(this);
         }
 
-        void IMapElement.RemoveFromMap()
-        {
-            RemoveFromMap();
-        }
+        void IMapElement.RemoveFromMap() => RemoveFromMap();
         protected virtual void RemoveFromMap()
         {
             Map.RemoveElement(this);
@@ -133,11 +126,11 @@ namespace FloppyKnights.Agents
 
         int IMapElement.InstanceId => gameObject.GetInstanceID();
 
-        int IMapElement.SortingOrder { get => SortingOrder; }
-        protected virtual int SortingOrder { get => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f); }
+        int IMapElement.SortingOrder => SortingOrder;
+        protected virtual int SortingOrder => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f);
 
-        Vector3Int ILocatable.Location { get => Location; }
-        protected virtual Vector3Int Location { get => Map.LocalToCell(Position); }
+        Vector3Int ILocatable.Location => Location;
+        protected virtual Vector3Int Location => Map.LocalToCell(Position);
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
