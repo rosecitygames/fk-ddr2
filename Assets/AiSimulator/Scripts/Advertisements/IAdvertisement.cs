@@ -1,11 +1,13 @@
 ﻿using RCG.Attributes;
 using RCG.Maps;
+using UnityEngine;
+using System.Collections.Generic;
 
 namespace RCG.Advertisements
 {
     public interface IAdvertisement : IAttributeCollection, ILocatable, IGroupMember
     {
         IMap Map { get; }
-        float BroadcastDistance { get; }
+        List<Vector3Int> BroadcastLocations { get; }
     }
 }

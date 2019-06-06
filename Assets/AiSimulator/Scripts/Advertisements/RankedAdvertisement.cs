@@ -17,9 +17,9 @@ namespace RCG.Advertisements
         void IAttributeCollection.Clear() => Advertisement.Clear();
         IAttributeCollection IAttributeCollection.Copy() => Advertisement.Copy();
         IMap IAdvertisement.Map => Advertisement.Map;
+        List<Vector3Int> IAdvertisement.BroadcastLocations => Advertisement.BroadcastLocations;
         Vector3Int ILocatable.Location => Advertisement.Location;
         int IGroupMember.GroupId { get => Advertisement.GroupId; set => Advertisement.GroupId = value; }
-        float IAdvertisement.BroadcastDistance => Advertisement.BroadcastDistance;
 
         public static RankedAdvertisement Create(IAdvertisement advertisement, int rank)
         {

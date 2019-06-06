@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Green Knight
   description: A prickly and brave knight!
-  broadcastDistance: 10
-  broadcastInterval: 0.1
+  broadcastDistance: 6
+  broadcastInterval: 0.3
   stats:
     attributes:
     - attribute: {fileID: 11400000, guid: cba0d75bc9ccb9c4995f88561fe10206, type: 2}

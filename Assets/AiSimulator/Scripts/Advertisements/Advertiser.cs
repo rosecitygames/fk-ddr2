@@ -18,21 +18,13 @@ namespace RCG.Advertisements
             Broadcaster = broadcaster ?? NullAdvertisementBroadcaster.Create();
         }
 
-        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement)
-        {
-            BroadcastAdvertisement(advertisement);
-        }
-
+        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement) => BroadcastAdvertisement(advertisement);
         protected void BroadcastAdvertisement(IAdvertisement advertisement)
         {
             Broadcaster.Broadcast(advertisement);
         }
 
-        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver)
-        {
-            BroadcastAdvertisement(advertisement, excludeReceiver);
-        }
-
+        void IAdvertiser.BroadcastAdvertisement(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver) => BroadcastAdvertisement(advertisement, excludeReceiver);
         protected void BroadcastAdvertisement(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver)
         {
             Broadcaster.Broadcast(advertisement, excludeReceiver);
