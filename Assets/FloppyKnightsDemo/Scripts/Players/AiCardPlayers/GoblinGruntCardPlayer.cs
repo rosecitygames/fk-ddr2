@@ -80,7 +80,7 @@ namespace FloppyKnights.CardPlayers
             else
             {
                 RemoveCardAgentEventHandlers();
-                AddCardToDeck(DeckSystem.DiscardDeckId, currentCardData);
+                HandDeck.MoveCardTo(currentCardData, DiscardDeck);
                 // TODO : Play next card
                 CallOnTurnCompleted(); // For now
             }
