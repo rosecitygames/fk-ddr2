@@ -11,27 +11,24 @@ namespace FloppyKnights.Cards
     {
         [SerializeField]
         string displayName = "";
-        string IDescribable.DisplayName { get => displayName; }
+        string IDescribable.DisplayName => displayName;
 
         [SerializeField]
         [TextArea]
         string description = "";
-        string IDescribable.Description { get => description; }
+        string IDescribable.Description => description;
 
         [SerializeField]
         Sprite agentSprite = null;
-        Sprite ICardData.AgentSprite{ get => agentSprite; }
+        Sprite ICardData.AgentSprite => agentSprite;
 
         [SerializeField]
         AttributeCollection stats = new AttributeCollection();
-        IAttributeCollection Stats { get => stats as IAttributeCollection; }
-        List<IAttribute> IStatsCollection.Stats { get => Stats.Attributes; }
+        IAttributeCollection Stats => stats as IAttributeCollection;
+        List<IAttribute> IStatsCollection.Stats => Stats.Attributes;
 
-        IAttribute IStatsCollection.GetStat(string id)
-        {
-            return Stats.GetAttribute(id);
-        }
-
+        IAttribute IStatsCollection.GetStat(string id) => Stats.GetAttribute(id);
+        
         [SerializeField]
         List<ScriptableCardAction> cardActions = new List<ScriptableCardAction>();
 

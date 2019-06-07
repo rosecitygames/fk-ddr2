@@ -6,7 +6,7 @@ namespace FloppyKnights.Cards
 {
     public class CardDataCollection : ICardDataCollection
     {
-        List<ICardData> ICardDataCollection.CardDatas => cardDatas;
+        List<ICardData> ICardDataCollection.CardDatas => new List<ICardData>(cardDatas);
         List<ICardData> cardDatas = new List<ICardData>();
 
         int ICardDataCollection.Count => Count;
@@ -23,11 +23,28 @@ namespace FloppyKnights.Cards
         {
             cardDatas.Add(cardData);
         }
+        void ICardDataCollection.AddCards(List<ICardData> cardDatas) => AddCards(cardDatas);
+        void AddCards(List<ICardData> cardDatas)
+        {
+            cardDatas.AddRange(cardDatas);
+        }
 
         void ICardDataCollection.RemoveCard(ICardData cardData) => RemoveCard(cardData);
         void RemoveCard(ICardData cardData)
         {
-            cardDatas.Remove(cardData);
+            if (cardDatas.Contains(cardData))
+            {
+                cardDatas.Remove(cardData);
+            }
+        }
+
+        void ICardDataCollection.RemoveCards(List<ICardData> removeCardDatas) => RemoveCards(removeCardDatas);
+        void RemoveCards(List<ICardData> removeCardDatas)
+        {
+            foreach (ICardData cardData in removeCardDatas)
+            {
+                RemoveCard(cardData);
+            }
         }
 
         void ICardDataCollection.Clear() => Clear();
@@ -63,7 +80,26 @@ namespace FloppyKnights.Cards
             {
                 RemoveCard(cardData);
                 cardDataCollection.AddCard(cardData);
-            }     
+            }
+        }
+        void ICardDataCollection.MoveAllCardsTo(ICardDataCollection cardDataCollection) => MoveAllCardsTo(cardDataCollection);
+        void MoveAllCardsTo(ICardDataCollection cardDataCollection)
+        {
+            cardDataCollection.AddCards(cardDatas);
+            Clear();
+        }
+
+        public static ICardDataCollection Create()
+        {
+            return new CardDataCollection();
+        }
+
+        public static ICardDataCollection Create(List<ICardData> cardDatas)
+        {
+            return new CardDataCollection
+            {
+                cardDatas = cardDatas
+            };
         }
     }
 }

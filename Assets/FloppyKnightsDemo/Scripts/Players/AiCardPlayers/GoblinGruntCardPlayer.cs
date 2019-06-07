@@ -80,7 +80,7 @@ namespace FloppyKnights.CardPlayers
             else
             {
                 RemoveCardAgentEventHandlers();
-                AddCardToDiscardDeck(currentCardData); // TODO : not needed for npc?
+                deckSystem.AddCardToDeck(DeckSystem.DiscardDeckId, currentCardData);
                 // TODO : Play next card
                 CallOnTurnCompleted(); // For now
             }

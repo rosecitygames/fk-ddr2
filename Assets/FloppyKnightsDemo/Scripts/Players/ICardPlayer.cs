@@ -6,11 +6,9 @@ using FloppyKnights.Cards;
 
 namespace FloppyKnights.CardPlayers
 {
-    public interface ICardPlayer : IDescribable, IGroupMember, ITurnTaker
+    public interface ICardPlayer : IDescribable, IGroupMember, ITurnTaker, IDeckSystem
     {
         ICardAgent TargetAgent { get; }
         Vector3Int TargetLocation { get; }
-
-        void AddCardToDiscardDeck(ICardData cardData);
     }
 }

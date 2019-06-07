@@ -27,7 +27,7 @@ namespace FloppyKnights.Cards
             if (isValidData)
             {
                 ICardData newCardData = (cardData as ICardData).Copy();
-                cardPlayer.AddCardToDiscardDeck(newCardData);
+                cardPlayer.AddCardToDeck(DeckSystem.DiscardDeckId, newCardData);
             }
         }
 

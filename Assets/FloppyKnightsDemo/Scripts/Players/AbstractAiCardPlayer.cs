@@ -25,9 +25,8 @@ namespace FloppyKnights.CardPlayers
             }           
         }
 
-        protected override string DisplayName { get => CardAgent.DisplayName; }
-
-        protected override string Description { get => CardAgent.Description; }
+        protected override string DisplayName => CardAgent.DisplayName;
+        protected override string Description => CardAgent.Description;
 
         [SerializeField]
         int groupId;

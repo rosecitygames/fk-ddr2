@@ -46,9 +46,23 @@ namespace FloppyKnights.CardPlayers
 
         Vector3Int ICardPlayer.TargetLocation => TargetLocation;
         protected Vector3Int TargetLocation { get; set; }
+        
+        protected IDeckSystem deckSystem = DeckSystem.Create();
 
-        void ICardPlayer.AddCardToDiscardDeck(ICardData cardData) => AddCardToDiscardDeck(cardData);
-        protected virtual void AddCardToDiscardDeck(ICardData cardData) { }
+        void IDeckSystem.AddDeck(string deckId) => deckSystem.AddDeck(deckId);
+        void IDeckSystem.AddDeck(string deckId, ICardDataCollection deck) => deckSystem.AddDeck(deckId, deck);
+        void IDeckSystem.RemoveDeck(string deckId) => deckSystem.RemoveDeck(deckId);
+        ICardDataCollection IDeckSystem.GetDeck(string deckId) => deckSystem.GetDeck(deckId);
+        int IDeckSystem.GetDeckCount(string deckId) => deckSystem.GetDeckCount(deckId);
+        void IDeckSystem.AddCardToDeck(string deckId, ICardData cardData) => deckSystem.AddCardToDeck(deckId, cardData);
+        void IDeckSystem.AddCardsToDeck(string deckId, List<ICardData> cardDatas) => deckSystem.AddCardsToDeck(deckId, cardDatas);
+        void IDeckSystem.RemoveCardFromDeck(string deckId, ICardData cardData) => deckSystem.RemoveCardFromDeck(deckId, cardData);
+        void IDeckSystem.RemoveCardsFromDeck(string deckId, List<ICardData> cardDatas) => deckSystem.RemoveCardsFromDeck(deckId, cardDatas);
+        void IDeckSystem.ClearDeck(string deckId) => deckSystem.ClearDeck(deckId);
+        bool IDeckSystem.DeckContains(string deckId, ICardData cardData) => deckSystem.DeckContains(deckId, cardData);
+        void IDeckSystem.ShuffleDeck(string deckId) => deckSystem.ShuffleDeck(deckId);
+        void IDeckSystem.MoveCardFromTo(ICardData cardData, string fromDeckId, string toDeckId) => deckSystem.MoveCardFromTo(cardData, fromDeckId, toDeckId);
+        void IDeckSystem.MoveAllCardsFromTo(string fromDeckId, string toDeckId) => deckSystem.MoveAllCardsFromTo(fromDeckId, toDeckId);
     }
 }
 
