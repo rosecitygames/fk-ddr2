@@ -82,11 +82,23 @@ namespace FloppyKnights.Cards
                 cardDataCollection.AddCard(cardData);
             }
         }
+
         void ICardDataCollection.MoveAllCardsTo(ICardDataCollection cardDataCollection) => MoveAllCardsTo(cardDataCollection);
         void MoveAllCardsTo(ICardDataCollection cardDataCollection)
         {
             cardDataCollection.AddCards(cardDatas);
             Clear();
+        }
+
+        ICardDataCollection ICardDataCollection.Copy()
+        {
+            List<ICardData> copiedCardDatas = new List<ICardData>();
+            foreach (ICardData cardData in cardDatas)
+            {
+                copiedCardDatas.Add(cardData.Copy());
+            }
+
+            return Create(copiedCardDatas);
         }
 
         public static ICardDataCollection Create()

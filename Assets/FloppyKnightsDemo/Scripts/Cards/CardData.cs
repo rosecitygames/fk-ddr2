@@ -6,6 +6,7 @@ using FloppyKnights.Agents;
 
 namespace FloppyKnights.Cards
 {
+    [System.Serializable]
     public class CardData : ICardData
     {
         string IDescribable.DisplayName => Displayname;

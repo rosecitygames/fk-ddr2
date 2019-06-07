@@ -17,6 +17,7 @@ namespace FloppyKnights.Cards
         void ICardDataCollection.Shuffle() { }
         void ICardDataCollection.MoveCardTo(ICardData cardData, ICardDataCollection cardDataCollection) { }
         void ICardDataCollection.MoveAllCardsTo(ICardDataCollection cardDataCollection) { }
+        ICardDataCollection ICardDataCollection.Copy() => Create();
 
         public static ICardDataCollection Create()
         {

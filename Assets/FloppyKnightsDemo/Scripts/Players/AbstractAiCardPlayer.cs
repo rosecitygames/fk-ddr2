@@ -9,7 +9,7 @@ using RCG.Attributes;
 namespace FloppyKnights.CardPlayers
 {
     [RequireComponent(typeof(ICardAgent))]
-    public class AbstractAiCardPlayer : AbstractCardPlayer, ICardPlayer
+    public abstract class AbstractAiCardPlayer : AbstractCardPlayer, ICardPlayer
     {
         ICardAgent cardAgent = null;
         
@@ -32,6 +32,22 @@ namespace FloppyKnights.CardPlayers
         int groupId;
         protected override int GroupId { get => groupId; set => groupId = value; }
 
+        [SerializeField]
+        ScriptableCardDataCollection initialBaseDeck = null;
+        protected ICardDataCollection InitialBaseDeck
+        {
+            get
+            {
+                if (initialBaseDeck != null)
+                {
+                    return (initialBaseDeck as ICardDataCollection).Copy();
+                }
+                else
+                {
+                    return NullCardDataCollection.Create();
+                }
+            }
+        }
     }
 }
 
