@@ -38,7 +38,6 @@ namespace FloppyKnights.Cards
             {
                 if (cardData.Id == cardId) return true;
             }
-
             return false;
         }
 
@@ -49,6 +48,15 @@ namespace FloppyKnights.Cards
                 if (cardData.Id == cardId) return cardData.Copy();
             }
             return null;
+        }
+
+        bool ICardDataCollection.HasCardWithAction(string cardActionId)
+        {
+            foreach (ICardData cardData in cardDatas)
+            {
+                if (cardData.HasCardAction(cardActionId)) return true;
+            }
+            return false;
         }
 
         ICardDataCollection ICardDataCollection.Copy()

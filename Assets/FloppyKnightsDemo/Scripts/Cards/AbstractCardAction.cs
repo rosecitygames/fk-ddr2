@@ -7,7 +7,10 @@ namespace FloppyKnights.Cards
 {
     [System.Serializable]
     public class AbstractCardAction : ICardAction
-    {     
+    {
+        string IIdable.Id => Id;
+        public string Id { get; set; }
+
         string IDescribable.DisplayName => DisplayName;
         protected string DisplayName { get => displayName; set => displayName = value; }
         [SerializeField]

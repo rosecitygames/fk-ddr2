@@ -90,6 +90,16 @@ namespace FloppyKnights.Cards
             return null;
         }
 
+        bool ICardDataCollection.HasCardWithAction(string cardActionId) => HasCardWithAction(cardActionId);
+        bool HasCardWithAction(string cardActionId)
+        {
+            foreach(ICardData cardData in cardDatas)
+            {            
+                if (cardData.HasCardAction(cardActionId)) return true;
+            }
+            return false;
+        }
+
         void ICardDataCollection.Shuffle() => Shuffle();
         void Shuffle()
         {

@@ -11,6 +11,7 @@ namespace FloppyKnights.Cards
 
         protected override ICardAction GetCardAction()
         {
+            cardAction.Id = name;
             return cardAction as ICardAction;
         }
     }
@@ -35,6 +36,7 @@ namespace FloppyKnights.Cards
         {
             return new AddCardAction
             {
+                Id = Id,
                 DisplayName = DisplayName,
                 Description = Description
             };

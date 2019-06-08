@@ -14,8 +14,8 @@ namespace FloppyKnights.Cards
         [ShowInInspector, ReadOnly]
         protected string Id { get; set; }
 
-        string IDescribable.DisplayName => Displayname;
-        protected string Displayname { get; set; }
+        string IDescribable.DisplayName => DisplayName;
+        protected string DisplayName { get; set; }
 
         string IDescribable.Description => Description;
         protected string Description { get; set; }
@@ -27,6 +27,14 @@ namespace FloppyKnights.Cards
 
         List<ICardAction> ICardActionCollection.CardActions => CardActions;
         List<ICardAction> CardActions { get; set; }
+        bool ICardActionCollection.HasCardAction(string cardActionId)
+        {
+            foreach (ICardAction cardAction in CardActions)
+            {
+                if (cardAction.Id == cardActionId) return true;
+            }
+            return false;
+        }
 
         int ICardData.Cost => Cost;
         int Cost { get; set; }
@@ -39,7 +47,7 @@ namespace FloppyKnights.Cards
             return new CardData
             {
                 Id = Id,
-                Displayname = Displayname,
+                DisplayName = DisplayName,
                 Description = Description,
                 Stats = Stats,
                 CardActions = CardActions,
@@ -53,7 +61,7 @@ namespace FloppyKnights.Cards
             return new CardData
             {
                 Id = sourceData.Id,
-                Displayname = sourceData.DisplayName,
+                DisplayName = sourceData.DisplayName,
                 Description = sourceData.Description,
                 Stats = new AttributeCollection(sourceData.Stats),
                 CardActions = sourceData.CardActions,

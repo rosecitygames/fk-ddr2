@@ -19,6 +19,7 @@ namespace FloppyKnights.Cards
 
         List<ICardAction> cardActions = new List<ICardAction>();
         List<ICardAction> ICardActionCollection.CardActions => cardActions;
+        bool ICardActionCollection.HasCardAction(string cardActionId) => false;
 
         int ICardData.Cost => 0;
         Sprite ICardData.AgentSprite => null;

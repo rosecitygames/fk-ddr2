@@ -19,6 +19,7 @@ namespace FloppyKnights.Cards
         bool ICardDataCollection.HasCard(ICardData cardData) => false;
         bool ICardDataCollection.HasCard(string cardId) => false;
         ICardData ICardDataCollection.GetCard(string cardId) => null;
+        bool ICardDataCollection.HasCardWithAction(string cardActionId) => false;
         void ICardDataCollection.Shuffle() { }
         void ICardDataCollection.MoveCardTo(ICardData cardData, ICardDataCollection cardDataCollection) { }
         void ICardDataCollection.MoveAllCardsTo(ICardDataCollection cardDataCollection) { }

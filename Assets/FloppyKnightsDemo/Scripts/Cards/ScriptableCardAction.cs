@@ -9,8 +9,10 @@ namespace FloppyKnights.Cards
     {
         protected virtual ICardAction GetCardAction() { return null; }
 
-        string IDescribable.DisplayName { get => GetCardAction().DisplayName; }
-        string IDescribable.Description { get => GetCardAction().Description; }
+        string IIdable.Id => GetCardAction().Id;
+
+        string IDescribable.DisplayName => GetCardAction().DisplayName;
+        string IDescribable.Description => GetCardAction().Description;
 
         event Action<ICardAction> ICardAction.OnActionCompleted { add { } remove { } }
 

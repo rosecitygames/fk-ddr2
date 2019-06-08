@@ -13,8 +13,9 @@ namespace FloppyKnights.Cards
         void RemoveCards(List<ICardData> cardDatas);
         void Clear();
         bool HasCard(ICardData cardData);
-        bool HasCard(string cardId);
+        bool HasCard(string cardId);       
         ICardData GetCard(string cardId);
+        bool HasCardWithAction(string cardActionId);
         void Shuffle();
         void MoveCardTo(ICardData cardData, ICardDataCollection cardDataCollection);
         void MoveAllCardsTo(ICardDataCollection cardDataCollection);

@@ -39,7 +39,8 @@ namespace FloppyKnights.Cards
         [SerializeField]
         List<ScriptableCardAction> cardActions = new List<ScriptableCardAction>();
 
-        List<ICardAction> ICardActionCollection.CardActions
+        List<ICardAction> ICardActionCollection.CardActions => CardActions;
+        List<ICardAction> CardActions
         {
             get
             {
@@ -50,6 +51,15 @@ namespace FloppyKnights.Cards
                 }
                 return cardActionsCopy;
             }
+        }
+
+        bool ICardActionCollection.HasCardAction(string cardActionId)
+        {
+            foreach(ICardAction cardAction in CardActions)
+            {
+                if (cardAction.Id == cardActionId) return true;
+            }
+            return false;
         }
 
         ICardData ICardData.Copy()
