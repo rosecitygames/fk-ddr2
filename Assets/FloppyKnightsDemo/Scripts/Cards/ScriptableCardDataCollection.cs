@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RCG.Attributes;
 
 namespace FloppyKnights.Cards
 {
@@ -10,7 +11,7 @@ namespace FloppyKnights.Cards
         [SerializeField]
         List<ScriptableCardData> cardDatas = new List<ScriptableCardData>();
         List<ICardData> ICardDataCollection.CardDatas => CardDatas;
-        List<ICardData> CardDatas
+        public List<ICardData> CardDatas
         {
             get
             {
@@ -31,6 +32,25 @@ namespace FloppyKnights.Cards
             }
         }
 
+        bool ICardDataCollection.HasCard(string cardId)
+        {
+            foreach(ICardData cardData in cardDatas)
+            {
+                if (cardData.Id == cardId) return true;
+            }
+
+            return false;
+        }
+
+        ICardData ICardDataCollection.GetCard(string cardId)
+        {
+            foreach (ICardData cardData in cardDatas)
+            {
+                if (cardData.Id == cardId) return cardData.Copy();
+            }
+            return null;
+        }
+
         ICardDataCollection ICardDataCollection.Copy()
         {
             return CardDataCollection.Create(CardDatas);
@@ -41,9 +61,12 @@ namespace FloppyKnights.Cards
         void ICardDataCollection.RemoveCard(ICardData cardData) { }
         void ICardDataCollection.RemoveCards(List<ICardData> cardDatas) { }
         void ICardDataCollection.Clear() { }
-        bool ICardDataCollection.Contains(ICardData cardData) => false;
+        bool ICardDataCollection.HasCard(ICardData cardData) => false;
         void ICardDataCollection.Shuffle() { }
         void ICardDataCollection.MoveCardTo(ICardData cardData, ICardDataCollection cardDataCollection) { }
         void ICardDataCollection.MoveAllCardsTo(ICardDataCollection cardDataCollection) { }
+
+        string IDescribable.DisplayName => "";
+        string IDescribable.Description => "";
     }
 }

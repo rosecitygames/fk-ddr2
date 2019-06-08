@@ -5,6 +5,7 @@ using UnityEngine;
 using FloppyKnights.Agents;
 using FloppyKnights.Cards;
 using RCG.Attributes;
+using Sirenix.OdinInspector;
 
 namespace FloppyKnights.CardPlayers
 {
@@ -21,6 +22,8 @@ namespace FloppyKnights.CardPlayers
 
         void ITurnTaker.StartTurn() => StarTurn();
         protected virtual void StarTurn() { }
+
+        protected virtual void EndTurn() { }
 
         event Action<ITurnTaker> ITurnTaker.OnTurnCompleted
         {
@@ -48,14 +51,45 @@ namespace FloppyKnights.CardPlayers
         protected Vector3Int TargetLocation { get; set; }
 
         ICardDataCollection ICardPlayer.BaseDeck => BaseDeck;
+        [ShowInInspector, ReadOnly]
         protected ICardDataCollection BaseDeck { get; set; }
 
         ICardDataCollection ICardPlayer.HandDeck => HandDeck;
+        [ShowInInspector, ReadOnly]
         protected ICardDataCollection HandDeck { get; set; }
 
         ICardDataCollection ICardPlayer.DiscardDeck => DiscardDeck;
+        [ShowInInspector, ReadOnly]
         protected ICardDataCollection DiscardDeck { get; set; }
 
+        protected virtual void InitDecks()
+        {
+            BaseDeck = CardDataCollection.Create("Base");
+            HandDeck = CardDataCollection.Create("Hand");
+            DiscardDeck = CardDataCollection.Create("Discard");
+        }
+
+        int ICardPlayer.Energy => Energy;
+        [ShowInInspector, ReadOnly]
+        protected virtual int Energy { get; set; }
+
+        protected virtual int BaseEnergy { get; set; }
+
+        protected virtual void ResetEnergy()
+        {
+            Energy = BaseEnergy;
+        }
+
+
+        void Awake()
+        {
+            Init();
+        }
+
+        void Init()
+        {
+            InitDecks();
+        }
     }
 }
 

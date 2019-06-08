@@ -14,5 +14,7 @@ namespace FloppyKnights.CardPlayers
         ICardDataCollection BaseDeck { get; }
         ICardDataCollection HandDeck { get; }
         ICardDataCollection DiscardDeck { get; }
+
+        int Energy { get; }   
     }
 }

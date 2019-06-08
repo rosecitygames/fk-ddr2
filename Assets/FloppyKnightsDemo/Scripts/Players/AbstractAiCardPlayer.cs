@@ -33,20 +33,38 @@ namespace FloppyKnights.CardPlayers
         protected override int GroupId { get => groupId; set => groupId = value; }
 
         [SerializeField]
+        int initialBaseEnergy = 0;
+        protected override int BaseEnergy => initialBaseEnergy;
+
+        [SerializeField]
         ScriptableCardDataCollection initialBaseDeck = null;
-        protected ICardDataCollection InitialBaseDeck
+
+        protected override void InitDecks()
         {
-            get
+            if (initialBaseDeck != null)
             {
-                if (initialBaseDeck != null)
-                {
-                    return (initialBaseDeck as ICardDataCollection).Copy();
-                }
-                else
-                {
-                    return NullCardDataCollection.Create();
-                }
+                BaseDeck = CardDataCollection.Create(initialBaseDeck.CardDatas, "Base");
             }
+            else
+            {
+                BaseDeck = NullCardDataCollection.Create();
+            }
+
+            HandDeck = CardDataCollection.Create("Hand");
+            DiscardDeck = CardDataCollection.Create("Discard");
+        }
+
+        protected override void EndTurn()
+        {
+            HandDeck.MoveAllCardsTo(DiscardDeck);
+            DiscardDeck.MoveAllCardsTo(BaseDeck);
+            CallOnTurnCompleted();
+        }
+
+        [ContextMenu("Start Turn")]
+        void TestStartTurn()
+        {
+            StarTurn();
         }
     }
 }

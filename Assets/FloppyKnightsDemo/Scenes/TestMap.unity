@@ -8227,7 +8227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
-  initialBaseDeck: {fileID: 0}
+  initialBaseEnergy: 3
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &1676180400
 GameObject:
   m_ObjectHideFlags: 0
@@ -8367,4 +8368,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 3
   initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}

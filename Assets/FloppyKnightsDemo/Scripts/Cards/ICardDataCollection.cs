@@ -1,10 +1,9 @@
-﻿using System.Collections;
+﻿using RCG.Attributes;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace FloppyKnights.Cards
 {
-    public interface ICardDataCollection
+    public interface ICardDataCollection : IDescribable
     {
         List<ICardData> CardDatas { get; }
         int Count { get; }
@@ -13,7 +12,9 @@ namespace FloppyKnights.Cards
         void RemoveCard(ICardData cardData);
         void RemoveCards(List<ICardData> cardDatas);
         void Clear();
-        bool Contains(ICardData cardData);
+        bool HasCard(ICardData cardData);
+        bool HasCard(string cardId);
+        ICardData GetCard(string cardId);
         void Shuffle();
         void MoveCardTo(ICardData cardData, ICardDataCollection cardDataCollection);
         void MoveAllCardsTo(ICardDataCollection cardDataCollection);

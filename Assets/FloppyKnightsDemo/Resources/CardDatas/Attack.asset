@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Attack
   description: Attack an enemy unit
+  cost: 1
   agentSprite: {fileID: 0}
   stats:
     attributes: []

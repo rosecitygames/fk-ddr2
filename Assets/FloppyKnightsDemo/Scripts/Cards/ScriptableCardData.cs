@@ -1,12 +1,17 @@
 ﻿using RCG.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace FloppyKnights.Cards
 {
     [CreateAssetMenu(fileName = "CardData", menuName = "Floppy Knights/Card Data")]
     public class ScriptableCardData : ScriptableObject, ICardData
     {
+        string IIdable.Id => Id;
+        [ShowInInspector, ReadOnly]
+        string Id => name;
+
         [SerializeField]
         string displayName = "";
         string IDescribable.DisplayName => displayName;
@@ -15,6 +20,10 @@ namespace FloppyKnights.Cards
         [TextArea]
         string description = "";
         string IDescribable.Description => description;
+
+        [SerializeField]
+        int cost = 0;
+        int ICardData.Cost => cost;
 
         [SerializeField]
         Sprite agentSprite = null;

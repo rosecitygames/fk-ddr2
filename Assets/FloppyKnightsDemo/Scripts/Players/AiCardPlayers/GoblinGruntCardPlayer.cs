@@ -7,53 +7,48 @@ namespace FloppyKnights.CardPlayers
 {
     public class GoblinGruntCardPlayer : AbstractAiCardPlayer
     {
-        const string move1CardDataPath = "CardDatas/Move1";
-        ICardData move1CardData = null;
-        ICardData Move1CardData
-        {
-            get
-            {
-                if (move1CardData == null)
-                {
-                    ICardData scriptableMove1CardData = Resources.Load(move1CardDataPath) as ICardData;
-                    move1CardData = scriptableMove1CardData.Copy();
-                }
-                return move1CardData;
-            }
-        }
-
         ICardData currentCardData = null;
         int currentCardActionIndex = -1;
 
         protected override void StarTurn()
         {
-
-            // Examine map
-
-            // Choose a card from deck. in this case, move 1
-            ICardData chosenCardData = Move1CardData;
-
-            // Select target agent and/or location
-            TargetAgent = CardAgent;
-            TargetLocation = GetNewLocation(1);
-
-            // If valid target and about to call on agent to do something...
-            AddCardAgentEventHandlers();
-
-            // Play a card
-            PlayCard(chosenCardData);
-
-            // or call on the agent directly (although less synergistic)
-            // CardAgent.Move(TargetLocation);    
+            ResetEnergy();
+            BaseDeck.MoveAllCardsTo(HandDeck);
+            PlayCardFromHandDeck();
         }
 
-        void PlayCard(ICardData cardData)
+        void PlayCardFromHandDeck()
         {
-            Debug.Log("Playing Card : " + cardData.DisplayName);
-
             RemoveCurrentCardDataEventHandlers();
+            HandDeck.MoveCardTo(currentCardData, DiscardDeck);
+            currentCardData = null;
 
-            currentCardData = cardData;
+            if (HandDeck.HasCard("Move1"))
+            {
+                ICardData moveCard = HandDeck.GetCard("Move1");
+                bool hasEnergyToPlayCard = GetHasEnergyToPlayCard(moveCard);
+                if (hasEnergyToPlayCard)
+                {
+                    currentCardData = moveCard;
+                    ChooseMoveCardTargets();
+                    PlayCurrentCard();
+                }
+            }
+            
+            if (currentCardData == null)
+            {
+                EndTurn();
+            }     
+        }
+
+        bool GetHasEnergyToPlayCard(ICardData cardData)
+        {
+            return Energy >= cardData.Cost;
+        }
+
+        void PlayCurrentCard()
+        {
+            Energy -= currentCardData.Cost;
             
             bool hasCardActions = currentCardData.CardActions.Count > 0;
             if (hasCardActions)
@@ -64,7 +59,7 @@ namespace FloppyKnights.CardPlayers
             }
             else
             {
-                // TODO : Play next card
+                PlayCardFromHandDeck();
             }
         }
 
@@ -80,10 +75,18 @@ namespace FloppyKnights.CardPlayers
             else
             {
                 RemoveCardAgentEventHandlers();
-                HandDeck.MoveCardTo(currentCardData, DiscardDeck);
-                // TODO : Play next card
-                CallOnTurnCompleted(); // For now
+                PlayCardFromHandDeck();        
             }
+        }
+
+        void ChooseMoveCardTargets()
+        {
+            // Select target agent and/or location
+            TargetAgent = CardAgent;
+            TargetLocation = GetNewLocation(1);
+
+            // If valid target and about to call on agent to do something...
+            AddCardAgentEventHandlers();
         }
 
         void AddCurrentCardDataEventHandlers()

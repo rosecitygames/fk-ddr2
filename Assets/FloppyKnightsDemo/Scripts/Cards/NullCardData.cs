@@ -8,17 +8,20 @@ namespace FloppyKnights.Cards
 {
     public class NullCardData : ICardData
     {
-        string IDescribable.DisplayName { get => ""; }
-        string IDescribable.Description { get => ""; }
+        string IIdable.Id => "";
+
+        string IDescribable.DisplayName => "";
+        string IDescribable.Description => "";
 
         IAttributeCollection stats = new AttributeCollection();
-        List<IAttribute> IStatsCollection.Stats { get => stats.Attributes; }
-        IAttribute IStatsCollection.GetStat(string id) { return stats.GetAttribute(id); }
+        List<IAttribute> IStatsCollection.Stats => stats.Attributes;
+        IAttribute IStatsCollection.GetStat(string id) => stats.GetAttribute(id);
 
         List<ICardAction> cardActions = new List<ICardAction>();
-        List<ICardAction> ICardActionCollection.CardActions { get => cardActions; }
+        List<ICardAction> ICardActionCollection.CardActions => cardActions;
 
-        Sprite ICardData.AgentSprite { get => null; }
+        int ICardData.Cost => 0;
+        Sprite ICardData.AgentSprite => null;
 
         ICardData ICardData.Copy() { return new NullCardData(); }
     }

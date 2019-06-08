@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using RCG.Attributes;
 using FloppyKnights.Agents;
+using Sirenix.OdinInspector;
 
 namespace FloppyKnights.Cards
 {
     [System.Serializable]
     public class CardData : ICardData
     {
+        string IIdable.Id => Id;
+        [ShowInInspector, ReadOnly]
+        protected string Id { get; set; }
+
         string IDescribable.DisplayName => Displayname;
         protected string Displayname { get; set; }
 
@@ -18,25 +23,13 @@ namespace FloppyKnights.Cards
         List<IAttribute> IStatsCollection.Stats => Stats.Attributes;
         IAttributeCollection Stats { get; set; }
 
-        IAttribute IStatsCollection.GetStat(string id)
-        {
-            return Stats.GetAttribute(id);
-        }
+        IAttribute IStatsCollection.GetStat(string id) => Stats.GetAttribute(id);
 
-        List<ICardAction> ICardActionCollection.CardActions
-        {
-            get
-            {
-                List<ICardAction> cardActionsCopy = new List<ICardAction>();
-                foreach (ICardAction cardAction in CardActions)
-                {
-                    cardActionsCopy.Add(cardAction.Copy());
-                }
-                return cardActionsCopy;
-            }
-        }
-
+        List<ICardAction> ICardActionCollection.CardActions => CardActions;
         List<ICardAction> CardActions { get; set; }
+
+        int ICardData.Cost => Cost;
+        int Cost { get; set; }
 
         Sprite ICardData.AgentSprite => AgentSprite;
         Sprite AgentSprite { get; set; }
@@ -45,10 +38,13 @@ namespace FloppyKnights.Cards
         {
             return new CardData
             {
+                Id = Id,
                 Displayname = Displayname,
                 Description = Description,
                 Stats = Stats,
-                CardActions = CardActions
+                CardActions = CardActions,
+                Cost = Cost,
+                AgentSprite = AgentSprite
             };
         }
 
@@ -56,10 +52,12 @@ namespace FloppyKnights.Cards
         {
             return new CardData
             {
+                Id = sourceData.Id,
                 Displayname = sourceData.DisplayName,
                 Description = sourceData.Description,
                 Stats = new AttributeCollection(sourceData.Stats),
                 CardActions = sourceData.CardActions,
+                Cost = sourceData.Cost,
                 AgentSprite = sourceData.AgentSprite
             };
         }

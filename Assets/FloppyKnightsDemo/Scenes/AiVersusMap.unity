@@ -405,6 +405,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &373091616
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,6 +513,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &447432976
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,6 +575,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &494642596
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,6 +716,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &553233780
 GameObject:
   m_ObjectHideFlags: 0
@@ -8728,6 +8736,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &1676180400
 GameObject:
   m_ObjectHideFlags: 0
@@ -8867,6 +8877,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &1859536613
 GameObject:
   m_ObjectHideFlags: 0
@@ -8927,6 +8939,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
 --- !u!1 &1871015188
 GameObject:
   m_ObjectHideFlags: 0
@@ -9277,3 +9291,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groupId: 2
+  initialBaseEnergy: 2
+  initialBaseDeck: {fileID: 11400000, guid: 9015558314075304989d49753ac1d656, type: 2}
