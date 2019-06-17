@@ -18,8 +18,8 @@ namespace RCG.Demo.BattleSimulator
 
         Coroutine broadcastCoroutine;
 
-        List<Vector3Int> cachedBroadcastLocations = null;
-        Vector3Int lastLocation = Vector3Int.zero;
+        List<Vector2Int> cachedBroadcastLocations = null;
+        Vector2Int lastLocation = Vector2Int.zero;
 
         protected override void OnStart()
         {
@@ -71,12 +71,12 @@ namespace RCG.Demo.BattleSimulator
 
         void CreateAndBroadcastAdvertisement()
         {
-            List<Vector3Int> broadcastLocations = GetBroadcastLocations();
+            List<Vector2Int> broadcastLocations = GetBroadcastLocations();
             IAdvertisement advertisement = Advertisement.Create(advertisingMapElement.Stats, advertisingMapElement.Map, advertisingMapElement.Location, broadcastLocations, advertisingMapElement.GroupId);
             advertisingMapElement.BroadcastAdvertisement(advertisement, excludeReceiver);
         }
 
-        List<Vector3Int> GetBroadcastLocations()
+        List<Vector2Int> GetBroadcastLocations()
         {
             bool isUsingCachedLocations = cachedBroadcastLocations != null && lastLocation == advertisingMapElement.Location;
             if (isUsingCachedLocations)
@@ -86,7 +86,7 @@ namespace RCG.Demo.BattleSimulator
 
             if (cachedBroadcastLocations == null)
             {
-                cachedBroadcastLocations = new List<Vector3Int>();
+                cachedBroadcastLocations = new List<Vector2Int>();
             }
             else
             {
@@ -94,7 +94,7 @@ namespace RCG.Demo.BattleSimulator
             }          
 
             IMap adMap = advertisingMapElement.Map;
-            Vector3Int adLocation = advertisingMapElement.Location;
+            Vector2Int adLocation = advertisingMapElement.Location;
             int broadcastDistance = Mathf.RoundToInt(advertisingMapElement.BroadcastDistance);
 
             int size = broadcastDistance * 2;
@@ -110,7 +110,7 @@ namespace RCG.Demo.BattleSimulator
 
                     if ((cellX >= -adMap.Size.x && cellX < adMap.Size.x) && (cellY >= -adMap.Size.y && cellY < adMap.Size.y))
                     {
-                        Vector3Int cell = new Vector3Int(cellX, cellY, 0);
+                        Vector2Int cell = new Vector2Int(cellX, cellY);
                         cachedBroadcastLocations.Add(cell);
                     }  
                 }

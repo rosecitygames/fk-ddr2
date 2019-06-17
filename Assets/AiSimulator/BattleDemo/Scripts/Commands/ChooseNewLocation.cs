@@ -21,12 +21,11 @@ namespace RCG.Demo.BattleSimulator
             agent.TargetLocation = GetNewLocation();
         }
 
-        Vector3Int GetNewLocation()
+        Vector2Int GetNewLocation()
         {
             int moveRadius = AttributesUtil.GetMoveRadius(agent);
-            Vector3Int location = agent.Location;
+            Vector2Int location = agent.Location;
 
-            Bounds mapBounds = new Bounds(Vector3.zero, agent.Map.Size);
             bool isInBounds = false;
 
             while(isInBounds == false)
@@ -36,7 +35,7 @@ namespace RCG.Demo.BattleSimulator
                 location.x += offset.x;
                 location.y += offset.y;
 
-                isInBounds = mapBounds.Contains(location);
+                isInBounds = agent.Map.InBounds(location);
             }
 
             return location;

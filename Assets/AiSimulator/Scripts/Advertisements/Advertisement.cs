@@ -16,11 +16,11 @@ namespace RCG.Advertisements
         void IAttributeCollection.Clear() => AttributeCollection.Clear();
         IAttributeCollection IAttributeCollection.Copy() => AttributeCollection.Copy();
 
-        Vector3Int ILocatable.Location => Location;
-        protected Vector3Int Location { get; set; }
+        Vector2Int ILocatable.Location => Location;
+        protected Vector2Int Location { get; set; }
 
-        List<Vector3Int> IAdvertisement.BroadcastLocations => BroadcastLocations;
-        protected List<Vector3Int> BroadcastLocations { get; set; }
+        List<Vector2Int> IAdvertisement.BroadcastLocations => BroadcastLocations;
+        protected List<Vector2Int> BroadcastLocations { get; set; }
 
         IMap IAdvertisement.Map => Map;
         protected IMap Map { get; set; }
@@ -28,7 +28,7 @@ namespace RCG.Advertisements
         int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
         protected int GroupId { get; set; }
   
-        public static IAdvertisement Create(List<IAttribute> attributes, IMap map, Vector3Int location, List<Vector3Int> broadcastLocations, int groupId = 0)
+        public static IAdvertisement Create(List<IAttribute> attributes, IMap map, Vector2Int location, List<Vector2Int> broadcastLocations, int groupId = 0)
         {
             Advertisement advertisement = new Advertisement
             {

@@ -11,6 +11,7 @@ namespace RCG.Maps
         IMap Map { get; set; }
         void AddToMap(IMap map);
         void RemoveFromMap();
+        bool IsOnMap { get; }
         float Distance(IMapElement otherMapElement);
         int SortingOrder { get; }
     }

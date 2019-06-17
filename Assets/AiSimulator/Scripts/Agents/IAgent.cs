@@ -15,7 +15,7 @@ namespace RCG.Agents
 
         IRankedAdvertisement TargetAdvertisement { get; set; }
         IMapElement TargetMapElement { get; set; }
-        Vector3Int TargetLocation { get; set; }
+        Vector2Int TargetLocation { get; set; }
     }
 }
 

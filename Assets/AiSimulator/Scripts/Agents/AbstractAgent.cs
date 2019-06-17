@@ -101,9 +101,19 @@ namespace RCG.Agents
             Map.RemoveElement(this);
         }
 
+        bool IMapElement.IsOnMap => IsOnMap;
+        protected bool IsOnMap
+        {
+            get
+            {
+                if (Map == null) return false;
+                return Map.GetIsElementOnMap(this);
+            }
+        }
+
         float IMapElement.Distance(IMapElement otherMapElement)
         {
-            return Vector3Int.Distance(otherMapElement.Location, Location);
+            return Vector2Int.Distance(otherMapElement.Location, Location);
         }
 
         int IMapElement.InstanceId => gameObject.GetInstanceID();
@@ -111,8 +121,8 @@ namespace RCG.Agents
         int IMapElement.SortingOrder => SortingOrder;
         protected virtual int SortingOrder => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f);
 
-        Vector3Int ILocatable.Location => Location;
-        protected virtual Vector3Int Location => Map.LocalToCell(Position);
+        Vector2Int ILocatable.Location => Location;
+        protected virtual Vector2Int Location => Map.LocalToCell(Position);
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
@@ -123,8 +133,8 @@ namespace RCG.Agents
             }
             set
             {
-                Vector3Int currentLocation = Location;
-                Vector3Int newLocation = Map.LocalToCell(value);
+                Vector2Int currentLocation = Location;
+                Vector2Int newLocation = Map.LocalToCell(value);
 
                 transform.localPosition = value;
 
@@ -219,7 +229,7 @@ namespace RCG.Agents
 
         IMapElement IAgent.TargetMapElement { get; set; }
 
-        Vector3Int IAgent.TargetLocation { get; set; }
+        Vector2Int IAgent.TargetLocation { get; set; }
 
         // Group Member implementations
         [SerializeField]

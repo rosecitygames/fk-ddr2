@@ -99,13 +99,22 @@ namespace RCG.Items
             Map.RemoveElement(this);
         }
 
+        bool IMapElement.IsOnMap
+        {
+            get
+            {
+                if (Map == null) return false;
+                return Map.GetIsElementOnMap(this);
+            }
+        }
+
         float IMapElement.Distance(IMapElement otherMapElement)
         {
             return Distance(otherMapElement);
         }
         protected virtual float Distance(IMapElement otherMapElement)
         {
-            return Vector3Int.Distance(otherMapElement.Location, Location);
+            return 0;
         }
 
         int IMapElement.InstanceId => gameObject.GetInstanceID();
@@ -113,8 +122,8 @@ namespace RCG.Items
         int IMapElement.SortingOrder => SortingOrder;
         protected virtual int SortingOrder => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f);
 
-        Vector3Int ILocatable.Location => Location;
-        protected virtual Vector3Int Location => Map.LocalToCell(Position);
+        Vector2Int ILocatable.Location => Location;
+        protected virtual Vector2Int Location => Map.LocalToCell(Position);
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
@@ -125,8 +134,8 @@ namespace RCG.Items
             }
             set
             {
-                Vector3Int currentLocation = Location;
-                Vector3Int newLocation = Map.LocalToCell(value);
+                Vector2Int currentLocation = Location;
+                Vector2Int newLocation = Map.LocalToCell(value);
 
                 transform.localPosition = value;
 

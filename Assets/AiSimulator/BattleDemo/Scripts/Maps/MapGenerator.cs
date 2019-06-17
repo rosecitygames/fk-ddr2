@@ -34,11 +34,11 @@ namespace RCG.Demo.BattleSimulator
             int fillCellCount = Mathf.FloorToInt(mapCellCount * fillPercentage);
             Debug.Log("mapCellCount = " + mapCellCount + ", fillCellCount = " + fillCellCount);
 
-            Vector3Int mapSize = map.Size;
+            Vector2Int mapSize = map.Size;
             int offsetX = -mapSize.x / 2;
             int offsetY = -mapSize.y / 2;
 
-            List<Vector3Int> occupiedCells = new List<Vector3Int>();
+            List<Vector2Int> occupiedCells = new List<Vector2Int>();
 
             foreach(MapGeneratorElementData data in datas )
             {
@@ -54,7 +54,7 @@ namespace RCG.Demo.BattleSimulator
                     mapElementGameObject.transform.parent = transform;
                     IMapElement mapElement = mapElementGameObject.GetComponent<IMapElement>();
 
-                    Vector3Int cell = new Vector3Int();
+                    Vector2Int cell = new Vector2Int();
 
                     bool isLookingForCell = true;
                     while (isLookingForCell)

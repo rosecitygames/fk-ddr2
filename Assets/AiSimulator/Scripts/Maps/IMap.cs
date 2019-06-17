@@ -6,18 +6,25 @@ namespace RCG.Maps
 {
     public interface IMap : IDescribable
     {
-        Vector3Int Size { get; }
+        Vector2Int Size { get; }
         Vector3 CellSize { get; }
         int CellCount { get; }
 
-        Vector3Int LocalToCell(Vector3 localPosition);
-        Vector3 CellToLocal(Vector3Int cellPosition);
-        int CellToSortingOrder(Vector3Int cellPosition);
+        Vector2Int LocalToCell(Vector3 localPosition);
+        Vector3 CellToLocal(Vector2Int cellPosition);
+        int CellToSortingOrder(Vector2Int cellPosition);
 
         void AddElement(IMapElement element);
         void RemoveElement(IMapElement element);
 
-        List<IMapElement> GetMapElementsAtCells(List<Vector3Int> cells);
-        List<IMapElement> GetMapElementsAtCell(Vector3Int cell);      
+        bool InBounds(Vector2Int location);
+        bool GetIsElementOnMap(IMapElement element);
+
+        List<T> GetAllMapElements<T>();
+        T GetMapElementAtCell<T>(Vector2Int cell);
+        List<T> GetMapElementsAtCell<T>(Vector2Int cell);
+        List<T> GetMapElementsAtCells<T>(List<Vector2Int> cells);
+        List<T> GetMapElementsInBounds<T>(int x, int y, int width, int height);
+        List<T> GetMapElementsInRadius<T>(Vector2Int centerCell, int radius);
     }
 }

@@ -11,7 +11,7 @@ namespace RCG.Advertisements
         void IAdvertisementBroadcaster.Broadcast(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver) => Broadcast(advertisement, excludeReceiver);
         protected void Broadcast(IAdvertisement advertisement, IAdvertisementReceiver excludeReceiver = null)
         {
-            List<IMapElement> mapElements = advertisement.Map.GetMapElementsAtCells(advertisement.BroadcastLocations);
+            List<IMapElement> mapElements = advertisement.Map.GetMapElementsAtCells<IMapElement>(advertisement.BroadcastLocations);
             foreach(IMapElement mapElement in mapElements)
             {
                 if (receiversByMapElement.ContainsKey(mapElement))

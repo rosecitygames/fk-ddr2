@@ -21,9 +21,18 @@ namespace RCG.Maps
             Map.RemoveElement(this);
         }
 
+        bool IMapElement.IsOnMap
+        {
+            get
+            {
+                if (Map == null) return false;
+                return Map.GetIsElementOnMap(this);
+            }
+        }
+
         float IMapElement.Distance(IMapElement otherMapElement)
         {
-            return Vector3Int.Distance(otherMapElement.Location, Location);
+            return Vector2Int.Distance(otherMapElement.Location, Location);
         }
 
         int IMapElement.InstanceId => InstanceId;
@@ -35,8 +44,8 @@ namespace RCG.Maps
         int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
         protected int GroupId { get; set; }
 
-        Vector3Int ILocatable.Location { get => Location; }
-        protected Vector3Int Location { get; set; }
+        Vector2Int ILocatable.Location { get => Location; }
+        protected Vector2Int Location { get; set; }
 
         string IDescribable.DisplayName { get => DisplayName; }
         protected string DisplayName { get; set; }
@@ -53,7 +62,7 @@ namespace RCG.Maps
             }
             set
             {
-                Vector3Int newLocation = Map.LocalToCell(value);
+                Vector2Int newLocation = Map.LocalToCell(value);
                 if (Location != newLocation)
                 {
                     Map.AddElement(this);

@@ -97,8 +97,8 @@ namespace RCG.Demo.BattleSimulator
                     }
                     else if (agent.TargetAdvertisement.Rank == rank)
                     {
-                        float targetAdDistance = Vector3.Distance(agent.Location, agent.TargetAdvertisement.Location);
-                        float adDistance = Vector3.Distance(agent.Location, advertisement.Location);
+                        float targetAdDistance = Vector2.Distance(agent.Location, agent.TargetAdvertisement.Location);
+                        float adDistance = Vector2.Distance(agent.Location, advertisement.Location);
                         isRankGreater = targetAdDistance > adDistance;
                     }
                 }

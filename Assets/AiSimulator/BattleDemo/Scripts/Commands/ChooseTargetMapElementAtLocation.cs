@@ -29,7 +29,7 @@ namespace RCG.Demo.BattleSimulator
             int highestItemRank = 0;
             IMapElement highestRankedMapElement = null;
 
-            List<IMapElement> mapElements = agent.Map.GetMapElementsAtCell(agent.Location);
+            List<IMapElement> mapElements = agent.Map.GetMapElementsAtCell<IMapElement>(agent.Location);
             foreach (IMapElement mapElement in mapElements)
             {
                 if (mapElement == agent) continue;

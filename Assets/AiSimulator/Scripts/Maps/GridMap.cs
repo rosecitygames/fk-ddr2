@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Maps;
-using RCG.Attributes;
+using RCG.Utils;
 
 namespace RCG.Maps
 {
@@ -31,27 +30,28 @@ namespace RCG.Maps
             }
         }
 
-
         [SerializeField]
-        Vector3Int size = new Vector3Int(10, 10, 0);
-        protected override Vector3Int Size => size;
+        Vector2Int size = new Vector2Int(10, 10);
+        protected override Vector2Int Size => size;
 
         protected override Vector3 CellSize => Grid.cellSize;
 
-        protected override Vector3Int LocalToCell(Vector3 localPosition)
+        protected override Vector2Int LocalToCell(Vector3 localPosition)
         {
-            return Grid.LocalToCell(localPosition);
+            Vector3Int gridCell = Grid.LocalToCell(localPosition);
+            return new Vector2Int(gridCell.x, gridCell.y);
         }
 
-        protected override Vector3 CellToLocal(Vector3Int cell)
+        protected override Vector3 CellToLocal(Vector2Int cell)
         {
-            Vector3 localPosition = Grid.CellToLocal(cell);
+            Vector3Int gridCell = new Vector3Int(cell.x, cell.y, 0);
+            Vector3 localPosition = Grid.CellToLocal(gridCell);
             localPosition.x += Grid.cellSize.x * 0.5f;
             localPosition.y += Grid.cellSize.y * 0.5f;
             return localPosition;
         }
 
-        protected override int CellToSortingOrder(Vector3Int cellPosition)
+        protected override int CellToSortingOrder(Vector2Int cellPosition)
         {
             return cellPosition.y * -100;
         }
@@ -64,11 +64,11 @@ namespace RCG.Maps
 
         int GetHashId(IMapElement mapElement)
         {
-            Vector3Int location = mapElement.Location;
+            Vector2Int location = mapElement.Location;
             return GetHashId(location);
         }
 
-        int GetHashId(Vector3Int cell)
+        int GetHashId(Vector2Int cell)
         {
             cell.x += size.x / 2;
             cell.y += size.y / 2;
@@ -105,11 +105,66 @@ namespace RCG.Maps
             mapElementToHashId.Remove(mapElement);
         }
 
-        protected override List<IMapElement> GetMapElementsAtCells(List<Vector3Int> cells)
+        protected override bool InBounds(Vector2Int location)
+        {
+            int maxX = Size.x / 2;
+            int minX = -maxX;
+            int maxY = Size.y / 2;
+            int minY = -maxY;
+            return location.x >= minX && location.x <= maxX && location.y >= minY && location.y <= maxY; 
+        }
+
+        protected override bool GetIsElementOnMap(IMapElement mapElement)
+        {
+            return mapElementToHashId.ContainsKey(mapElement);
+        }
+
+        protected override List<T> GetAllMapElements<T>()
+        {
+            List<IMapElement> mapElements = new List<IMapElement>(mapElementToHashId.Keys);
+            return ConvertMapElementsList<T>(mapElements);
+        }
+
+        protected override T GetMapElementAtCell<T>(Vector2Int cell)
+        {
+            List<IMapElement> mapElements = null;
+
+            int cellHashId = GetHashId(cell);
+            if (hashIdToMapElement.ContainsKey(cellHashId))
+            {
+                mapElements = hashIdToMapElement[cellHashId];
+            }
+            else
+            {
+                mapElements = new List<IMapElement>();
+            }
+
+            foreach(T typeElement in mapElements)
+            {
+                if (typeElement != null) return typeElement;
+            }
+            return default;
+        }
+
+        protected override List<T> GetMapElementsAtCell<T>(Vector2Int cell)
+        {
+            int cellHashId = GetHashId(cell);
+            if (hashIdToMapElement.ContainsKey(cellHashId))
+            {
+                List<IMapElement> mapElements = hashIdToMapElement[cellHashId];
+                return ConvertMapElementsList<T>(mapElements);
+            }
+            else
+            {
+                return new List<T>();
+            }
+        }
+
+        protected override List<T> GetMapElementsAtCells<T>(List<Vector2Int> cells)
         {
             List<IMapElement> mapElements = new List<IMapElement>();
 
-            foreach (Vector3Int cell in cells)
+            foreach (Vector2Int cell in cells)
             {
                 int cellHashId = GetHashId(cell);
                 if (hashIdToMapElement.ContainsKey(cellHashId))
@@ -118,43 +173,62 @@ namespace RCG.Maps
                 }
             }
 
-            return mapElements;
+            return ConvertMapElementsList<T>(mapElements);
         }
 
-        protected override List<IMapElement> GetMapElementsAtCell(Vector3Int cell)
+        protected override List<T> GetMapElementsInBounds<T>(int x, int y, int width, int height)
         {
-            int cellHashId = GetHashId(cell);
-            if (hashIdToMapElement.ContainsKey(cellHashId))
+            if (x < 0)
             {
-                return hashIdToMapElement[cellHashId];
+                width -= x;
+                x = 0;
             }
-            else
+
+            int maxX = x + width;
+            if (maxX >= Size.x)
             {
-                return new List<IMapElement>();
+                width = Size.x - x;
             }
-        }
 
-        List<IMapElement> GetMapElementsInRect(Vector3Int center, int width, int height)
-        {
-            List<IMapElement> mapElements = new List<IMapElement>();
-
-            int offsetX = -Mathf.FloorToInt(width / 2);
-            int offsetY = -Mathf.FloorToInt(height / 2);
-
-            Vector3Int cell = new Vector3Int();
-
-            for (int x = 0; x < width; x++)
+            if (y < 0)
             {
-                for(int y = 0; y < height; y++)
+                height -= y;
+                y = 0;
+            }
+
+            int maxY = y + height;
+            if (maxY >= Size.y)
+            {
+                height = Size.y - y;
+            }
+
+            List<Vector2Int> cells = new List<Vector2Int>();
+            for (int i = 0; i < width; i++)
+            {
+                for(int j = 0; j < height; j++)
                 {
-                    cell.x = center.x + x + offsetX;
-                    cell.y = center.y + y + offsetY;
-                    List<IMapElement> cellMapElements = GetMapElementsAtCell(cell);
-                    mapElements.AddRange(cellMapElements);
+                    Vector2Int cell = new Vector2Int(x + i, y + j);
+                    cells.Add(cell);
                 }
             }
 
-            return mapElements;
+            return GetMapElementsAtCells<T>(cells);
+        }
+
+        protected override List<T> GetMapElementsInRadius<T>(Vector2Int centerCell, int radius)
+        {
+            HashSet<Vector2Int> cells = GridUtil.GetCellsInsideRadius(Size, centerCell, radius, true);
+            return GetMapElementsAtCells<T>(new List<Vector2Int>(cells));
+        }
+
+        List<T> ConvertMapElementsList<T>(List<IMapElement> mapElements)
+        {
+            List<T> typeElements = new List<T>();
+            foreach (T typeElement in mapElements)
+            {
+                typeElements.Add(typeElement);
+            }
+            return typeElements;
         }
 
         private void OnDrawGizmos()
@@ -163,7 +237,6 @@ namespace RCG.Maps
             Vector3 bounds = GetComponent<Grid>().cellSize;
             bounds.x *= Size.x * transform.lossyScale.x;
             bounds.y *= Size.y * transform.lossyScale.y;
-            bounds.z *= Size.z * transform.lossyScale.z;
             Gizmos.DrawWireCube(transform.position, bounds);
         }
     }

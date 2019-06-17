@@ -8,6 +8,6 @@ namespace RCG.Advertisements
     public interface IAdvertisement : IAttributeCollection, ILocatable, IGroupMember
     {
         IMap Map { get; }
-        List<Vector3Int> BroadcastLocations { get; }
+        List<Vector2Int> BroadcastLocations { get; }
     }
 }
