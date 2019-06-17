@@ -16,9 +16,6 @@ namespace RCG.Paths
         };
 
         IMap map = null;
-        string impassableAttribute = "";
-        Vector2Int? impassableException = null;
-
         int IWeightedGraph<Vector2Int>.Cost(Vector2Int a, Vector2Int b) => Cost(a, b);
         int Cost(Vector2Int a, Vector2Int b) => 0;
 
@@ -30,35 +27,18 @@ namespace RCG.Paths
                 Vector2Int next = new Vector2Int(id.x + adjacentDirection.x, id.y + adjacentDirection.y);
 
                 bool isInBounds = map.InBounds(next);
-                bool isPassable = (Passable(next) || (impassableException != null && next == impassableException));
-                if (isInBounds && isPassable)
+                if (isInBounds)
                 {
                     yield return next;
                 }
             }
         }
 
-        bool Passable(Vector2Int location)
-        {
-            List<IMapElement> mapElements = map.GetMapElementsAtCell<IMapElement>(location);
-            foreach (IMapElement mapElement in mapElements)
-            {
-                if (string.IsNullOrEmpty(impassableAttribute) == false && mapElement.GetStat(impassableAttribute).Quantity > 0)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        public static IWeightedGraph<Vector2Int> Create(IMap map, string impassableAttribute = "", Vector2Int? impassableException = null)
+        public static IWeightedGraph<Vector2Int> Create(IMap map)
         {
             return new WeightedGraph
             {
-                map = map,
-                impassableAttribute = impassableAttribute,
-                impassableException = impassableException
+                map = map
             };
         }
     }
