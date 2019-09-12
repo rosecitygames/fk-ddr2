@@ -6,6 +6,6 @@ namespace RCG.Attributes
 {
     public interface IGroupMember
     {
-        int GroupId { get; set; }
+        int GroupId { get; }
     }
 }

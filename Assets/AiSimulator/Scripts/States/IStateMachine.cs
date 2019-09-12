@@ -6,6 +6,8 @@ namespace RCG.States
     {
         event Action<string> OnStateChange;
 
+        IState CurrentState { get; }
+
         IState GetState(string stateName);
         void SetState(string stateName);
         void SetState(IState state);

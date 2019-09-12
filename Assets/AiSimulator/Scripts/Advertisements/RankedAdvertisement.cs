@@ -1,5 +1,6 @@
 ﻿using RCG.Attributes;
 using RCG.Maps;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,12 +15,17 @@ namespace RCG.Advertisements
         IAttribute IAttributeCollection.GetAttribute(string id) => Advertisement.GetAttribute(id);
         void IAttributeCollection.AddAttribute(IAttribute attribute) => Advertisement.AddAttribute(attribute);
         void IAttributeCollection.RemoveAttribute(IAttribute attribute) => Advertisement.RemoveAttribute(attribute);
+        void IAttributeCollection.RemoveAttribute(string id) => Advertisement.RemoveAttribute(id);
         void IAttributeCollection.Clear() => Advertisement.Clear();
         IAttributeCollection IAttributeCollection.Copy() => Advertisement.Copy();
+
         IMap IAdvertisement.Map => Advertisement.Map;
         List<Vector2Int> IAdvertisement.BroadcastLocations => Advertisement.BroadcastLocations;
+
         Vector2Int ILocatable.Location => Advertisement.Location;
-        int IGroupMember.GroupId { get => Advertisement.GroupId; set => Advertisement.GroupId = value; }
+        event Action<Vector2Int> ILocatable.OnUpdated { add { } remove { } }
+
+        int IGroupMember.GroupId => Advertisement.GroupId;
 
         public static RankedAdvertisement Create(IAdvertisement advertisement, int rank)
         {

@@ -48,21 +48,25 @@ namespace RCG.Paths
                 }
             }
 
-            Vector2Int node = goal;
-            while (node != start)
+            bool wasGoalReached = cameFrom.ContainsKey(goal);
+
+            if (wasGoalReached)
             {
-                Path.Add(node);
-                if (cameFrom.ContainsKey(node))
+                Vector2Int node = goal;
+                while (node != start)
                 {
-                    node = cameFrom[node];
-                }
-                else
-                {
-                    break;
+                    Path.Add(node);
+                    if (cameFrom.ContainsKey(node))
+                    {
+                        node = cameFrom[node];
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
 
-            //Path.Add(start);
             Path.Reverse();
         }
 

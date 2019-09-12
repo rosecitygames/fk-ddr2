@@ -52,7 +52,18 @@ namespace RCG.Items
 
         [SerializeField]
         AttributeCollection stats = new AttributeCollection();
-        IAttributeCollection Stats { get => stats as IAttributeCollection; }
+        IAttributeCollection iStats = null;
+        IAttributeCollection Stats
+        {
+            get
+            {
+                if (iStats == null)
+                {
+                    iStats = stats;
+                }
+                return iStats;
+            }
+        }
         List<IAttribute> IStatsCollection.Stats { get => Stats.Attributes; }
         IAttribute IStatsCollection.GetStat(string id) { return Stats.GetAttribute(id); }
 
@@ -79,7 +90,7 @@ namespace RCG.Items
         {
             displayName = source.DisplayName;
             description = source.Description;
-            stats = new AttributeCollection(source.Stats);
+            iStats = AttributeCollection.Create(source.Stats);
             broadcastDistance = source.BroadcastDistance;
             broadcastInterval = source.BroadcastInterval;
         }

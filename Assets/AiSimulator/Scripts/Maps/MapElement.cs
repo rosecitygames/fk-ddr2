@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using RCG.Attributes;
@@ -11,15 +11,9 @@ namespace RCG.Maps
         IMap IMapElement.Map { get => Map; set => Map = value; }
         protected IMap Map { get; set; }
 
-        void IMapElement.AddToMap(IMap map)
-        {
-            Map.AddElement(this);
-        }
-
-        void IMapElement.RemoveFromMap()
-        {
-            Map.RemoveElement(this);
-        }
+        void IMapElement.AddToMap() => Map.AddElement(this);
+        void IMapElement.AddToMap(IMap map) => Map.AddElement(this);
+        void IMapElement.RemoveFromMap() => Map.RemoveElement(this);
 
         bool IMapElement.IsOnMap
         {
@@ -30,27 +24,32 @@ namespace RCG.Maps
             }
         }
 
-        float IMapElement.Distance(IMapElement otherMapElement)
+        float IMapElement.Distance(IMapElement otherMapElement) => Distance(otherMapElement.Location);
+        float IMapElement.Distance(Vector2Int otherLocation) => Distance(otherLocation);
+        float Distance(Vector2Int otherLocation)
         {
-            return Vector2Int.Distance(otherMapElement.Location, Location);
+            return Vector2Int.Distance(otherLocation, Location);
         }
 
         int IMapElement.InstanceId => InstanceId;
         protected int InstanceId { get; }
 
-        int IMapElement.SortingOrder { get => SortingOrder; }
+        int IMapElement.SortingOrder => SortingOrder;
         protected int SortingOrder { get; }
 
-        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
+        int IGroupMember.GroupId => GroupId;
         protected int GroupId { get; set; }
 
-        Vector2Int ILocatable.Location { get => Location; }
+        Vector2Int ILocatable.Location => Location;
         protected Vector2Int Location { get; set; }
 
-        string IDescribable.DisplayName { get => DisplayName; }
+        event Action<Vector2Int> ILocatable.OnUpdated { add { OnLocationUpdated += value; } remove { OnLocationUpdated -= value; } }
+        protected Action<Vector2Int> OnLocationUpdated;
+
+        string IDescribable.DisplayName => DisplayName;
         protected string DisplayName { get; set; }
 
-        string IDescribable.Description { get => Description; }
+        string IDescribable.Description => Description;
         protected string Description { get; set; }
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
@@ -66,6 +65,7 @@ namespace RCG.Maps
                 if (Location != newLocation)
                 {
                     Map.AddElement(this);
+                    OnLocationUpdated?.Invoke(newLocation);
                 }
             }
         }

@@ -77,11 +77,10 @@ namespace RCG.Agents
             map = GetComponentInParent<IMap>() ?? NullMap.Create();
             map.AddElement(this);
         }
+
+        void IMapElement.AddToMap() => AddToMap(Map);
         
-        void IMapElement.AddToMap(IMap map)
-        {
-            AddToMap(map);
-        }
+        void IMapElement.AddToMap(IMap map) => AddToMap(map);
         protected virtual void AddToMap(IMap map)
         {
             if (map != null)
@@ -111,10 +110,8 @@ namespace RCG.Agents
             }
         }
 
-        float IMapElement.Distance(IMapElement otherMapElement)
-        {
-            return Vector2Int.Distance(otherMapElement.Location, Location);
-        }
+        float IMapElement.Distance(IMapElement otherMapElement) => Vector2Int.Distance(otherMapElement.Location, Location);
+        float IMapElement.Distance(Vector2Int otherLocation) => Vector2Int.Distance(otherLocation, Location);
 
         int IMapElement.InstanceId => gameObject.GetInstanceID();
 
@@ -123,6 +120,13 @@ namespace RCG.Agents
 
         Vector2Int ILocatable.Location => Location;
         protected virtual Vector2Int Location => Map.LocalToCell(Position);
+
+        event Action<Vector2Int> ILocatable.OnUpdated
+        {
+            add { OnLocationUpdated += value; }
+            remove { OnLocationUpdated -= value; }
+        }
+        Action<Vector2Int> OnLocationUpdated;
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
@@ -141,6 +145,7 @@ namespace RCG.Agents
                 if (currentLocation != newLocation)
                 {
                     Map.AddElement(this);
+                    OnLocationUpdated?.Invoke(newLocation);
                 }
             }
         }
@@ -235,7 +240,7 @@ namespace RCG.Agents
         [SerializeField]
         int groupId;
         protected int GroupId { get => groupId; set => groupId = value; }
-        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
+        int IGroupMember.GroupId => GroupId;
 
         // State Machine implementations
         protected IStateMachine stateMachine = StateMachine.Create();

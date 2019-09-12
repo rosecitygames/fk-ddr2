@@ -11,7 +11,11 @@ namespace RCG.Commands
 
         protected ICommand CurrentCommand
         {
-            get { return commands[currentIndex]; }
+            get
+            {
+                if (currentIndex < 0 || currentIndex > commands.Count - 1) return NullCommand.Create();
+                return commands[currentIndex];
+            }
         }
 
         override protected void OnStart()
@@ -42,6 +46,8 @@ namespace RCG.Commands
         {
             commands.ForEach(DestroyCommand);
             commands.Clear();
+            currentIndex = 0;
+            currentLoop = 0;
         }
         protected void DestroyCommand(ICommand command)
         {

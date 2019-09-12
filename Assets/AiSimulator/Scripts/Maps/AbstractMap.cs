@@ -1,12 +1,15 @@
 ﻿using RCG.Attributes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Paths;
 
 namespace RCG.Maps
 {
     public abstract class AbstractMap : MonoBehaviour, IMap
     {
+        Transform IMap.Transform => Transform;
+        protected virtual Transform Transform => transform;
+
         Vector2Int IMap.Size => Size;
         protected virtual Vector2Int Size { get; }
 
@@ -16,11 +19,17 @@ namespace RCG.Maps
         int IMap.CellCount => CellCount;
         protected virtual int CellCount => Size.x * Size.y;
 
+        HashSet<Vector2Int> IMap.GetAllCells() => GetAllCells();
+        protected virtual HashSet<Vector2Int> GetAllCells() => new HashSet<Vector2Int>();
+
         Vector2Int IMap.LocalToCell(Vector3 localPosition) => LocalToCell(localPosition);
         protected virtual Vector2Int LocalToCell(Vector3 localPosition) => Vector2Int.zero;
 
         Vector3 IMap.CellToLocal(Vector2Int cellPosition) => CellToLocal(cellPosition);
         protected virtual Vector3 CellToLocal(Vector2Int cellPosition) => Vector3.zero;
+
+        Vector3 IMap.CellToWorld(Vector2Int cellPosition) => CellToWorld(cellPosition);
+        protected virtual Vector3 CellToWorld(Vector2Int cellPosition) => Vector3.zero;
 
         int IMap.CellToSortingOrder(Vector2Int cellPosition) => CellToSortingOrder(cellPosition);
         protected virtual int CellToSortingOrder(Vector2Int cellPosition) => 0;
@@ -30,6 +39,12 @@ namespace RCG.Maps
 
         void IMap.RemoveElement(IMapElement element) => RemoveElement(element);
         protected virtual void RemoveElement(IMapElement element) { }
+
+        event Action<IMapElement> IMap.OnElementAdded { add { OnElementAdded += value; } remove { OnElementAdded -= value; } }
+        protected Action<IMapElement> OnElementAdded;
+
+        event Action<IMapElement> IMap.OnElementRemoved { add { OnElementRemoved += value; } remove { OnElementRemoved -= value; } }
+        protected Action<IMapElement> OnElementRemoved;
 
         bool IMap.InBounds(Vector2Int location) => InBounds(location);
         protected virtual bool InBounds(Vector2Int location) => false;
@@ -52,8 +67,14 @@ namespace RCG.Maps
         List<T> IMap.GetMapElementsInBounds<T>(int x, int y, int width, int height) => GetMapElementsInBounds<T>(x, y, width, height);
         protected virtual List<T> GetMapElementsInBounds<T>(int x, int y, int width, int height) => new List<T>();
 
-        List<T> IMap.GetMapElementsInRadius<T>(Vector2Int centerCell, int radius) => GetMapElementsInRadius<T>(centerCell, radius);
-        protected virtual List<T> GetMapElementsInRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
+        List<T> IMap.GetMapElementsInsideRadius<T>(Vector2Int centerCell, int radius) => GetMapElementsInsideRadius<T>(centerCell, radius);
+        protected virtual List<T> GetMapElementsInsideRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
+
+        List<T> IMap.GetMapElementsOutsideRadius<T>(Vector2Int centerCell, int radius) => GetMapElementsOutsideRadius<T>(centerCell, radius);
+        protected virtual List<T> GetMapElementsOutsideRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
+
+        List<T> IMap.GetMapElementsOnRadius<T>(Vector2Int centerCell, int radius) => GetMapElementsOnRadius<T>(centerCell, radius);
+        protected virtual List<T> GetMapElementsOnRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
 
         string IDescribable.DisplayName => DisplayName;
         protected virtual string DisplayName { get; }

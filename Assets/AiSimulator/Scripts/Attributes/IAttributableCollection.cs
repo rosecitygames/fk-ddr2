@@ -9,6 +9,7 @@ namespace RCG.Attributes
 
         void AddAttribute(IAttribute attribute);
         void RemoveAttribute(IAttribute attribute);
+        void RemoveAttribute(string id);
         void Clear();
 
         IAttributeCollection Copy();

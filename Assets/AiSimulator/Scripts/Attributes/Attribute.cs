@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace RCG.Attributes
@@ -34,13 +33,7 @@ namespace RCG.Attributes
             }
         }
 
-        string IAttribute.Id
-        {
-            get
-            {
-                return Data.Id;
-            }
-        }
+        string IIdable.Id => Data.Id;
 
         [SerializeField]
         int quantity;
@@ -52,25 +45,61 @@ namespace RCG.Attributes
             }
             set
             {
-                quantity = value;
+                int newValue = Mathf.Clamp(value, Min, Max);
+                if (quantity != newValue)
+                {
+                    quantity = newValue;
+                    OnUpdated?.Invoke(this);
+                }
             }
         }
 
-        string IDescribable.DisplayName
+        int initialQuantity;
+
+        int IAttribute.Min { get => Min; set => Min = value; }
+        int Min
         {
             get
             {
-                return Data.DisplayName;
+                if (isOverridingMin) return overrideMin;
+                return Data.Min;
+            }
+            set
+            {
+                isOverridingMin = true;
+                overrideMin = value;
             }
         }
 
-        string IDescribable.Description
+        bool isOverridingMin = false;
+        int overrideMin = 0;
+
+        int IAttribute.Max { get => Max; set => Max = value; }
+        int Max
         {
             get
             {
-                return Data.Description;
+                if (isOverridingMax) return overrideMax;
+                if (Data.IsInitialMax) return initialQuantity;
+                return Data.Max;
+            }
+            set
+            {
+                isOverridingMax = true;
+                overrideMax = value;
             }
         }
+
+        bool isOverridingMax = false;
+        int overrideMax = 0;
+
+        bool IAttribute.IsInitialMax => Data.IsInitialMax;
+
+        string IDescribable.DisplayName => Data.DisplayName;
+        string IDescribable.Description => Data.Description;
+
+        event Action<IAttribute> IAttribute.OnUpdated { add { OnUpdated += value; } remove { OnUpdated -= value; } }
+        Action<IAttribute> OnUpdated;
 
         IAttribute IAttribute.Copy()
         {
@@ -82,6 +111,7 @@ namespace RCG.Attributes
         {
             data = source;
             this.quantity = quantity;
+            initialQuantity = quantity;
         }
 
         public Attribute() { }

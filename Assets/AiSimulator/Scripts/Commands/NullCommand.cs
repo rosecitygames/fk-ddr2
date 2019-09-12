@@ -1,6 +1,6 @@
 ﻿namespace RCG.Commands
 {
-    abstract public class NullCommand : ICommand
+    public class NullCommand : ICommand
     {
         bool ICommand.IsCompleted
         {
@@ -23,5 +23,7 @@
         void ICommand.Start() { }
         void ICommand.Stop() { }
         void ICommand.Destroy() { }
+
+        public static ICommand Create() => new NullCommand();
     }
 }

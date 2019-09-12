@@ -31,6 +31,53 @@ namespace RCG.Utils
         }
 
         public static HashSet<Vector2Int> GetCellsInsideRadius(Vector2Int gridSize, Vector2Int centerCell, int radius, bool isFilled)
+        {
+            Vector2Int offsetCenter = centerCell;
+
+            offsetCenter.x += gridSize.x / 2;
+            offsetCenter.y += gridSize.y / 2;
+
+            HashSet<Vector2Int> cells = new HashSet<Vector2Int>();
+
+            radius = Mathf.Max(0, radius);
+
+            for(int y = 0; y < radius; y++)
+            {
+                int x = radius - y;
+
+                AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, x, y);
+                AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, -x, y);
+                AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, x, -y);
+                AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, -x, -y);
+
+                if (isFilled == false || y <= 0) continue;
+
+                for(int fy = y -1; fy >= 0; fy--)
+                {
+                    AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, x, fy);
+                    AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, -x, fy);
+                    AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, x, -fy);
+                    AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, -x, -fy);
+                }
+            }
+
+            if (isFilled)
+            {
+                AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, 0, 0);
+            }
+
+            return cells;
+        }
+
+        public static HashSet<Vector2Int> GetCircleCellsOutsideRadius(Vector2Int gridSize, Vector2Int centerCell, int radius, bool isFilled)
+        {
+            HashSet<Vector2Int> gridCells = GetAllCells(gridSize);
+            HashSet<Vector2Int> circleCells = GetCircleCellsInsideRadius(gridSize, centerCell, radius, isFilled);
+            gridCells.ExceptWith(circleCells);
+            return gridCells;
+        }
+
+        public static HashSet<Vector2Int> GetCircleCellsInsideRadius(Vector2Int gridSize, Vector2Int centerCell, int radius, bool isFilled)
         {       
             Vector2Int offsetCenter = centerCell;
 
@@ -49,12 +96,12 @@ namespace RCG.Utils
                 {
                     for (int ty = y; ty > 0; ty--)
                     {
-                        AddCircleCellsToHashSet(cells, gridSize, centerCell, offsetCenter, x, ty);
+                        AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, x, ty);
                     }
                 }
                 else
                 {
-                    AddCircleCellsToHashSet(cells, gridSize, centerCell, offsetCenter, x, y);
+                    AddCellInBoundsToHashSet(cells, gridSize, centerCell, offsetCenter, x, y);
                 }
 
                 if (d < 0)
@@ -77,7 +124,7 @@ namespace RCG.Utils
             return cells;
         }
 
-        static void AddCircleCellsToHashSet(HashSet<Vector2Int> cells, Vector2Int mapSize, Vector2Int center, Vector2Int offsetCenter, int x, int y)
+        static void AddCellInBoundsToHashSet(HashSet<Vector2Int> cells, Vector2Int mapSize, Vector2Int center, Vector2Int offsetCenter, int x, int y)
         {
             if (offsetCenter.x + x >= 0 && offsetCenter.x + x <= mapSize.x - 1 && offsetCenter.y + y >= 0 && offsetCenter.y + y <= mapSize.y - 1) cells.Add(CreateCell(center.x + x, center.y + y));
             if (offsetCenter.x + x >= 0 && offsetCenter.x + x <= mapSize.x - 1 && offsetCenter.y - y >= 0 && offsetCenter.y - y <= mapSize.y - 1) cells.Add(CreateCell(center.x + x, center.y - y));

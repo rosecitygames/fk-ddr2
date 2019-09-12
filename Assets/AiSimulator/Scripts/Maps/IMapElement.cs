@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using RCG.Attributes;
 using UnityEngine;
-using RCG.Attributes;
 
 namespace RCG.Maps
 {
@@ -9,10 +7,12 @@ namespace RCG.Maps
     {
         int InstanceId { get; }
         IMap Map { get; set; }
+        void AddToMap();
         void AddToMap(IMap map);
         void RemoveFromMap();
         bool IsOnMap { get; }
         float Distance(IMapElement otherMapElement);
+        float Distance(Vector2Int otherLocation);
         int SortingOrder { get; }
     }
 }

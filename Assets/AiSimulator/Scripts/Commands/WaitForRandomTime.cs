@@ -1,6 +1,4 @@
-﻿using RCG.Agents;
-using RCG.Commands;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace RCG.Commands

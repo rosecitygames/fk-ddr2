@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 namespace RCG.Attributes
@@ -10,47 +9,36 @@ namespace RCG.Attributes
     {
         [SerializeField]
         string id = "";
-        string IAttribute.Id
-        {
-            get
-            {
-                return id;
-            }
-        }
-
-        int IAttribute.Quantity
-        {
-            get
-            {
-                return 0;
-            }
-            set { }
-        }
-
-        IAttribute IAttribute.Copy()
-        {
-            return new Attribute(this);
-        }
+        string IIdable.Id => id;
 
         [SerializeField]
         string displayName = "";
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return displayName;
-            }
-        }
+        string IDescribable.DisplayName => displayName;
 
         [SerializeField]
         [TextArea]
         string description = "";
-        string IDescribable.Description
+        string IDescribable.Description => description;
+
+        [SerializeField]
+        bool isInitialMax = false;
+        bool IAttribute.IsInitialMax => isInitialMax;
+
+        [SerializeField]
+        int min = 0;
+        int IAttribute.Min { get => min; set { } }
+
+        [SerializeField]
+        int max = 99;
+        int IAttribute.Max { get => max; set { } }
+
+        int IAttribute.Quantity { get => 0; set { } }
+
+        event Action<IAttribute> IAttribute.OnUpdated { add { } remove { } }
+
+        IAttribute IAttribute.Copy()
         {
-            get
-            {
-                return description;
-            }
+            return new Attribute(this);
         }
     }
 }

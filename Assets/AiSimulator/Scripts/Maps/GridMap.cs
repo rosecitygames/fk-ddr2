@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using RCG.Utils;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Utils;
 
 namespace RCG.Maps
 {
@@ -51,9 +50,49 @@ namespace RCG.Maps
             return localPosition;
         }
 
+        protected override Vector3 CellToWorld(Vector2Int cell)
+        {
+            Vector3Int gridCell = new Vector3Int(cell.x, cell.y, 0);
+            Vector3 worldPosition = Grid.CellToWorld(gridCell);
+            worldPosition.x += (Grid.cellSize.x * Grid.transform.localScale.x) * 0.5f;
+            worldPosition.y += (Grid.cellSize.y * Grid.transform.localScale.y) * 0.5f;
+            return worldPosition;
+        }
+
         protected override int CellToSortingOrder(Vector2Int cellPosition)
         {
-            return cellPosition.y * -100;
+            return (cellPosition.y * -100) + (cellPosition.x * -1);
+        }
+
+        HashSet<Vector2Int> allCells = null;
+        HashSet<Vector2Int> AllCells
+        {
+            get
+            {
+                if (allCells == null)
+                {
+                    allCells = new HashSet<Vector2Int>();
+
+                    int offsetX = -Size.x / 2;
+                    int offsetY = -Size.y / 2;
+
+                    for(int x = 0; x < Size.x; x++)
+                    {
+                        for(int y = 0; y < Size.y; y++)
+                        {
+                            Vector2Int cell = new Vector2Int(x + offsetX, y + offsetY);
+                            allCells.Add(cell);
+                        }
+                    }
+                }
+
+                return allCells;
+            }
+        }
+
+        protected override HashSet<Vector2Int> GetAllCells()
+        {
+            return new HashSet<Vector2Int>(AllCells);
         }
 
         private Dictionary<int, List<IMapElement>> hashIdToMapElement = new Dictionary<int, List<IMapElement>>();
@@ -93,6 +132,7 @@ namespace RCG.Maps
             }
 
             mapElementToHashId[mapElement] = cellHashId;
+            OnElementAdded?.Invoke(mapElement);
         }
 
         protected override void RemoveElement(IMapElement mapElement)
@@ -103,14 +143,15 @@ namespace RCG.Maps
             }
 
             mapElementToHashId.Remove(mapElement);
+            OnElementRemoved?.Invoke(mapElement);
         }
 
         protected override bool InBounds(Vector2Int location)
         {
-            int maxX = Size.x / 2;
-            int minX = -maxX;
-            int maxY = Size.y / 2;
-            int minY = -maxY;
+            int maxX = (Size.x / 2) - 1;
+            int minX = -maxX - 1;
+            int maxY = (Size.y / 2) - 1;
+            int minY = -maxY - 1;
             return location.x >= minX && location.x <= maxX && location.y >= minY && location.y <= maxY; 
         }
 
@@ -136,14 +177,18 @@ namespace RCG.Maps
             }
             else
             {
-                mapElements = new List<IMapElement>();
+                return default;
             }
 
-            foreach(T typeElement in mapElements)
+            List<T> convertedMapElements =  ConvertMapElementsList<T>(mapElements);
+            if (convertedMapElements.Count > 0)
             {
-                if (typeElement != null) return typeElement;
+                return convertedMapElements[0];
             }
-            return default;
+            else
+            {
+                return default;
+            }
         }
 
         protected override List<T> GetMapElementsAtCell<T>(Vector2Int cell)
@@ -215,19 +260,41 @@ namespace RCG.Maps
             return GetMapElementsAtCells<T>(cells);
         }
 
-        protected override List<T> GetMapElementsInRadius<T>(Vector2Int centerCell, int radius)
+        protected override List<T> GetMapElementsInsideRadius<T>(Vector2Int centerCell, int radius)
         {
             HashSet<Vector2Int> cells = GridUtil.GetCellsInsideRadius(Size, centerCell, radius, true);
             return GetMapElementsAtCells<T>(new List<Vector2Int>(cells));
         }
 
+        protected override List<T> GetMapElementsOutsideRadius<T>(Vector2Int centerCell, int radius)
+        {
+            HashSet<Vector2Int> cells = GridUtil.GetCellsOutsideRadius(Size, centerCell, radius, true);
+            return GetMapElementsAtCells<T>(new List<Vector2Int>(cells));
+        }
+
+        protected override List<T> GetMapElementsOnRadius<T>(Vector2Int centerCell, int radius)
+        {
+            HashSet<Vector2Int> cells = GridUtil.GetCellsInsideRadius(Size, centerCell, radius, false);
+            return GetMapElementsAtCells<T>(new List<Vector2Int>(cells));
+        }
+
         List<T> ConvertMapElementsList<T>(List<IMapElement> mapElements)
         {
+            List<IMapElement> filteredMapElements = new List<IMapElement>();
+            foreach (IMapElement mapElement in mapElements)
+            {
+                if (mapElement is T)
+                {
+                    filteredMapElements.Add(mapElement);
+                }             
+            }
+
             List<T> typeElements = new List<T>();
-            foreach (T typeElement in mapElements)
+            foreach(T typeElement in filteredMapElements)
             {
                 typeElements.Add(typeElement);
             }
+
             return typeElements;
         }
 

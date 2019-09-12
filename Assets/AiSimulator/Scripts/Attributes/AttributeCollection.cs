@@ -55,8 +55,13 @@ namespace RCG.Attributes
         void IAttributeCollection.RemoveAttribute(IAttribute value)
         {
             if (value == null) return;
+            RemoveAttribute(value.Id);
+        }
 
-            IAttribute attribute = GetAttribute(value.Id);
+        void IAttributeCollection.RemoveAttribute(string id) => RemoveAttribute(id);
+        void RemoveAttribute(string id)
+        {
+            IAttribute attribute = GetAttribute(id);
             bool hasAttribute = attribute != null;
             if (hasAttribute)
             {
@@ -79,23 +84,29 @@ namespace RCG.Attributes
             return copy;
         }
 
-        public AttributeCollection(IAttributeCollection source)
+        public static IAttributeCollection Create(IAttributeCollection source)
         {
+            AttributeCollection attributeCollection = new AttributeCollection();
             foreach (IAttribute attribute in source.Attributes)
             {
-                Collection.Add(attribute.Copy());
+                attributeCollection.Collection.Add(attribute.Copy());
             }
+            return attributeCollection;
         }
 
-        public AttributeCollection(List<IAttribute> source)
+        public static IAttributeCollection Create(List<IAttribute> source)
         {
+            AttributeCollection attributeCollection = new AttributeCollection();
             foreach (IAttribute attribute in source)
             {
-                Collection.Add(attribute.Copy());
+                attributeCollection.Collection.Add(attribute.Copy());
             }
+            return attributeCollection;
         }
 
-        public AttributeCollection() { }
-
+        public static IAttributeCollection Create()
+        {
+            return new AttributeCollection();
+        }
     }
 }

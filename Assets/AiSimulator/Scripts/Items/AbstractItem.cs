@@ -3,6 +3,7 @@ using RCG.Attributes;
 using RCG.Maps;
 using RCG.States;
 using RCG.Utils;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -48,7 +49,7 @@ namespace RCG.Items
         List<IAttribute> IStatsCollection.Stats => ItemData.Stats;
         IAttribute IStatsCollection.GetStat(string id) => ItemData.GetStat(id);
 
-        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
+        int IGroupMember.GroupId => GroupId;
         protected virtual int GroupId { get; set; }     
 
         // Map implementations
@@ -76,10 +77,8 @@ namespace RCG.Items
             map.AddElement(this);
         }
 
-        void IMapElement.AddToMap(IMap map)
-        {
-            AddToMap(map);
-        }
+        void IMapElement.AddToMap() => AddToMap(Map);
+        void IMapElement.AddToMap(IMap map) => AddToMap(map);
         protected virtual void AddToMap(IMap map)
         {
             if (map != null)
@@ -108,14 +107,11 @@ namespace RCG.Items
             }
         }
 
-        float IMapElement.Distance(IMapElement otherMapElement)
-        {
-            return Distance(otherMapElement);
-        }
-        protected virtual float Distance(IMapElement otherMapElement)
-        {
-            return 0;
-        }
+        float IMapElement.Distance(IMapElement otherMapElement) => Distance(otherMapElement);
+        protected virtual float Distance(IMapElement otherMapElement) => 0;
+
+        float IMapElement.Distance(Vector2Int otherLocation) => Distance(otherLocation);
+        protected virtual float Distance(Vector2Int otherMapElement) => 0;
 
         int IMapElement.InstanceId => gameObject.GetInstanceID();
 
@@ -124,6 +120,13 @@ namespace RCG.Items
 
         Vector2Int ILocatable.Location => Location;
         protected virtual Vector2Int Location => Map.LocalToCell(Position);
+
+        event Action<Vector2Int> ILocatable.OnUpdated
+        {
+            add { OnLocationUpdated += value; }
+            remove { OnLocationUpdated -= value; }
+        }
+        Action<Vector2Int> OnLocationUpdated;
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
@@ -142,6 +145,7 @@ namespace RCG.Items
                 if (currentLocation != newLocation)
                 {
                     Map.AddElement(this);
+                    OnLocationUpdated?.Invoke(newLocation);
                 }
             }
         }

@@ -1,18 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
 namespace RCG.Attributes
 {
     [System.Serializable]
     public class NullAttribute : IAttribute
     {
-        string IAttribute.Id { get => ""; }
-        int IAttribute.Quantity { get => 0; set { } }
-
-        IAttribute IAttribute.Copy() { return new NullAttribute(); }
-
         string IDescribable.DisplayName { get => ""; }
         string IDescribable.Description { get => ""; }
+
+        string IIdable.Id { get => ""; }
+        int IAttribute.Quantity { get => 0; set { } }
+        int IAttribute.Min { get => 0; set { } }
+        int IAttribute.Max { get => 0; set { } }
+        bool IAttribute.IsInitialMax => false;
+
+        event Action<IAttribute> IAttribute.OnUpdated { add { } remove { } }
+
+        IAttribute IAttribute.Copy() => new NullAttribute();
+
+        public static IAttribute Create() => new NullAttribute();
     }
 }

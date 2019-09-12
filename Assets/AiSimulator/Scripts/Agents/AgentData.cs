@@ -52,79 +52,63 @@ namespace RCG.Agents
 
         [SerializeField]
         AttributeCollection stats = new AttributeCollection();
+        IAttributeCollection iStats = null;
         IAttributeCollection Stats
         {
             get
             {
-                return stats as IAttributeCollection;
+                if (iStats == null)
+                {
+                    iStats = stats;
+                }
+                return iStats;
             }
         }
 
-        List<IAttribute> IStatsCollection.Stats
-        {
-            get
-            {
-                return Stats.Attributes;
-            }
-        }
-
-        IAttribute IStatsCollection.GetStat(string id)
-        {
-            return Stats.GetAttribute(id);
-        }
+        List<IAttribute> IStatsCollection.Stats => Stats.Attributes;
+        IAttribute IStatsCollection.GetStat(string id) => Stats.GetAttribute(id);
 
         [SerializeField]
         AttributeCollection desires = new AttributeCollection();
+        IAttributeCollection iDesires = null;
         IAttributeCollection Desires
         {
             get
             {
-                return desires as IAttributeCollection;
+                if (iDesires == null)
+                {
+                    iDesires = desires;
+                }
+                return iDesires;
             }
         }
 
-        List<IAttribute> IDesiresCollection.Desires
-        {
-            get
-            {
-                return Desires.Attributes;
-            }
-        }
+        List<IAttribute> IDesiresCollection.Desires => Desires.Attributes;
 
-        IAttribute IDesiresCollection.GetDesire(string id)
-        {
-            return Desires.GetAttribute(id);
-        }
+        IAttribute IDesiresCollection.GetDesire(string id) => Desires.GetAttribute(id);
 
         IAgentData IAgentData.Copy()
         {
-            return new AgentData(this);
+            return Create(this);
         }
 
         public static IAgentData Create(IAgentData source)
         {
-            if (source == null)
+            return new AgentData
             {
-                return new AgentData();
-            }
-            return new AgentData(source);
+                displayName = source.DisplayName,
+                description = source.Description,
+                iStats = AttributeCollection.Create(source.Stats),
+                iDesires = AttributeCollection.Create(source.Desires),
+                broadcastDistance = source.BroadcastDistance,
+                broadcastInterval = source.BroadcastInterval
+            };
         }
 
         public static IAgentData Create()
         {
             return new AgentData();
         }
-
-        AgentData(IAgentData source)
-        {
-            displayName = source.DisplayName;
-            description = source.Description;
-            stats = new AttributeCollection(source.Stats);
-            desires = new AttributeCollection(source.Desires);
-            broadcastDistance = source.BroadcastDistance;
-            broadcastInterval = source.BroadcastInterval;
-        }
-
-        AgentData() { }
+                
     }
 }
