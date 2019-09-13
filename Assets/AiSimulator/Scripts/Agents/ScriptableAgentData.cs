@@ -1,9 +1,9 @@
-﻿using RCG.Advertisements;
-using RCG.Attributes;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Agents
+namespace IndieDevTools.Agents
 {
     [CreateAssetMenu(fileName = "AgentData", menuName = "RCG/Agent Data")]
     public class ScriptableAgentData : ScriptableObject, IAgentData

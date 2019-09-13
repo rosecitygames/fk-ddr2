@@ -1,9 +1,9 @@
-﻿using RCG.Attributes;
-using RCG.Maps;
+﻿using IndieDevTools.Attributes;
+using IndieDevTools.Maps;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace RCG.Advertisements
+namespace IndieDevTools.Advertisements
 {
     public interface IAdvertisement : IAttributeCollection, ILocatable, IGroupMember
     {

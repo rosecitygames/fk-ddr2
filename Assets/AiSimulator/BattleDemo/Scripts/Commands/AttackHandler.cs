@@ -1,12 +1,12 @@
-﻿using RCG.Advertisements;
-using RCG.Agents;
-using RCG.Attributes;
-using RCG.Commands;
-using RCG.States;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Agents;
+using IndieDevTools.Attributes;
+using IndieDevTools.Commands;
+using IndieDevTools.States;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public class AttackHandler : AbstractCommand
     {

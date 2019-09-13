@@ -1,7 +1,7 @@
-﻿using RCG.States;
+﻿using IndieDevTools.States;
 using UnityEngine;
 
-namespace RCG.Commands
+namespace IndieDevTools.Commands
 {
     public class CallTransition : AbstractCommand
     {

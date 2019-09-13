@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RCG.Attributes
+namespace IndieDevTools.Attributes
 {
     [System.Serializable]
     public class NullAttribute : IAttribute

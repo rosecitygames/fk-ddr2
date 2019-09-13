@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace RCG.Attributes
+namespace IndieDevTools.Attributes
 {
 
     [CreateAssetMenu(fileName = "Attribute", menuName = "RCG/Attribute")]

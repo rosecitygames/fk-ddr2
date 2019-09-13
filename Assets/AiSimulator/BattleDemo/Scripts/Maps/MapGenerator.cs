@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Maps;
+using IndieDevTools.Maps;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     [RequireComponent(typeof(IMap))]
     public class MapGenerator : MonoBehaviour

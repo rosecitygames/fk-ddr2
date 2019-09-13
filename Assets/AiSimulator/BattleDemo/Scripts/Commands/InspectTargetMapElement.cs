@@ -1,10 +1,10 @@
-﻿using RCG.Agents;
-using RCG.Commands;
-using RCG.Items;
-using RCG.Maps;
+﻿using IndieDevTools.Agents;
+using IndieDevTools.Commands;
+using IndieDevTools.Items;
+using IndieDevTools.Maps;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public class InspectTargetMapElement : AbstractCommand
     {

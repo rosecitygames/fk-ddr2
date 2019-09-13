@@ -1,10 +1,10 @@
-﻿using RCG.Attributes;
-using RCG.Maps;
+﻿using IndieDevTools.Attributes;
+using IndieDevTools.Maps;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Advertisements
+namespace IndieDevTools.Advertisements
 {
     public class RankedAdvertisement : IRankedAdvertisement
     {

@@ -1,4 +1,4 @@
-﻿namespace RCG.Attributes
+﻿namespace IndieDevTools.Attributes
 {
     public interface ICopyable<T>
     {

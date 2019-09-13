@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RCG.Attributes
+namespace IndieDevTools.Attributes
 {
     public interface IAttributeCollection
     {

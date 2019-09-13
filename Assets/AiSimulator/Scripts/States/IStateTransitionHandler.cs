@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.States
+namespace IndieDevTools.States
 {
     public interface IStateTransitionHandler
     {

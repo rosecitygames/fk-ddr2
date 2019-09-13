@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RCG.States
+namespace IndieDevTools.States
 {
     public abstract class AbstractState : IState
     {

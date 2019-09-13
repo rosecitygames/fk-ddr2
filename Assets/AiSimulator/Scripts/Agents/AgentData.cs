@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Advertisements;
-using RCG.Attributes;
+using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
 
-namespace RCG.Agents
+namespace IndieDevTools.Agents
 {
     [System.Serializable]
     public class AgentData : IAgentData

@@ -1,9 +1,9 @@
-﻿using RCG.Attributes;
+﻿using IndieDevTools.Attributes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Maps
+namespace IndieDevTools.Maps
 {
     public abstract class AbstractMap : MonoBehaviour, IMap
     {

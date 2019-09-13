@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Advertisements;
-using RCG.Attributes;
+using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
 
-namespace RCG.Items
+namespace IndieDevTools.Items
 {
     [System.Serializable]
     public class ItemData : IItemData

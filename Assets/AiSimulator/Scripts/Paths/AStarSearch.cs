@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Maps;
+using IndieDevTools.Maps;
 
-namespace RCG.Paths
+namespace IndieDevTools.Paths
 {
     public class AStarSearch
     {

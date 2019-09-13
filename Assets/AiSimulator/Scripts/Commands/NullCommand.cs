@@ -1,4 +1,4 @@
-﻿namespace RCG.Commands
+﻿namespace IndieDevTools.Commands
 {
     public class NullCommand : ICommand
     {

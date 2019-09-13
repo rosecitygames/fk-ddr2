@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RCG.Attributes
+namespace IndieDevTools.Attributes
 {
     public interface IAttribute : IDescribable, IIdable
     {

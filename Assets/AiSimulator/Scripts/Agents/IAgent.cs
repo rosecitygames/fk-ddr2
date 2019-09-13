@@ -1,11 +1,11 @@
-﻿using RCG.Advertisements;
-using RCG.Attributes;
-using RCG.Maps;
-using RCG.States;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
+using IndieDevTools.Maps;
+using IndieDevTools.States;
 using System;
 using UnityEngine;
 
-namespace RCG.Agents
+namespace IndieDevTools.Agents
 {
     public interface IAgent : IAdvertisingMapElement, IAdvertisementReceiver, IStateTransitionHandler, IDesiresCollection
     {

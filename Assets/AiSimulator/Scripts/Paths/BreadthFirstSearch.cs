@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Paths
+namespace IndieDevTools.Paths
 {
     public class BreadthFirstSearch
     {

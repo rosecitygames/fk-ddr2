@@ -1,4 +1,4 @@
-﻿namespace RCG.Commands
+﻿namespace IndieDevTools.Commands
 {
     public interface ICommandEnumerator : ICommand, ICommandCollection
     {

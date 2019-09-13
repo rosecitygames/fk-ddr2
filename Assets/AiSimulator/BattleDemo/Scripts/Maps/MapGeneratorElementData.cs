@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     [System.Serializable]
     public class MapGeneratorElementData

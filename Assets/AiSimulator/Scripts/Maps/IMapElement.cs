@@ -1,7 +1,7 @@
-﻿using RCG.Attributes;
+﻿using IndieDevTools.Attributes;
 using UnityEngine;
 
-namespace RCG.Maps
+namespace IndieDevTools.Maps
 {
     public interface IMapElement : ILocatable, IPositionable, IDescribable, IStatsCollection, IGroupMember
     {

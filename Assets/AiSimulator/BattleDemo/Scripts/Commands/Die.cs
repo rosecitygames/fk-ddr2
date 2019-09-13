@@ -1,8 +1,8 @@
-﻿using RCG.Agents;
-using RCG.Commands;
+﻿using IndieDevTools.Agents;
+using IndieDevTools.Commands;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public class Die : AbstractCommand
     {

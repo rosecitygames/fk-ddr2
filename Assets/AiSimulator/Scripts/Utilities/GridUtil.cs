@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Utils
+namespace IndieDevTools.Utils
 {
     public static class GridUtil
     {

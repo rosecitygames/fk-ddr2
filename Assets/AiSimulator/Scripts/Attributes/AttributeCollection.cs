@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-namespace RCG.Attributes
+namespace IndieDevTools.Attributes
 {
     [System.Serializable]
     public class AttributeCollection : IAttributeCollection

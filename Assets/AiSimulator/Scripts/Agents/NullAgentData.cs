@@ -1,8 +1,8 @@
-﻿using RCG.Advertisements;
-using RCG.Attributes;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
 using System.Collections.Generic;
 
-namespace RCG.Agents
+namespace IndieDevTools.Agents
 {
     public class NullAgentData : IAgentData
     {

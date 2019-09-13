@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Advertisements
+namespace IndieDevTools.Advertisements
 {
     public interface IAdvertiser
     {

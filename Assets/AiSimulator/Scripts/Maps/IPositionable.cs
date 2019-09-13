@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Maps
+namespace IndieDevTools.Maps
 {
     public interface IPositionable
     {

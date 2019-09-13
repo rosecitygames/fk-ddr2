@@ -1,13 +1,13 @@
-﻿using RCG.Advertisements;
-using RCG.Attributes;
-using RCG.Maps;
-using RCG.States;
-using RCG.Utils;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
+using IndieDevTools.Maps;
+using IndieDevTools.States;
+using IndieDevTools.Utils;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Items
+namespace IndieDevTools.Items
 {
     public abstract class AbstractItem : MonoBehaviour, IItem
     {

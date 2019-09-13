@@ -1,7 +1,7 @@
-﻿using RCG.Advertisements;
-using RCG.Attributes;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
 
-namespace RCG.Agents
+namespace IndieDevTools.Agents
 {
     public interface IAgentData : IDescribable, IStatsCollection, IDesiresCollection, IAdvertisementBroadcastData
     {

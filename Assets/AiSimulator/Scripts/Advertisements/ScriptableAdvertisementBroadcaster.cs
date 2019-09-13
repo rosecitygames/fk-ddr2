@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Advertisements
+namespace IndieDevTools.Advertisements
 {
     [CreateAssetMenu(fileName = "AdvertisementBroadcaster", menuName = "RCG/Advertisement Broadcaster")]
     public class ScriptableAdvertisementBroadcaster : ScriptableObject, IAdvertisementBroadcaster

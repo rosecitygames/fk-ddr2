@@ -1,11 +1,11 @@
-﻿using RCG.Advertisements;
-using RCG.Agents;
-using RCG.Commands;
-using RCG.States;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Agents;
+using IndieDevTools.Commands;
+using IndieDevTools.States;
 using System;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public class Soldier : AbstractAgent, ISoldier
     {

@@ -1,10 +1,10 @@
-﻿using RCG.Agents;
-using RCG.Attributes;
-using RCG.Commands;
-using RCG.Utils;
+﻿using IndieDevTools.Agents;
+using IndieDevTools.Attributes;
+using IndieDevTools.Commands;
+using IndieDevTools.Utils;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public class AttackTargetMapElement : AbstractCommand
     {

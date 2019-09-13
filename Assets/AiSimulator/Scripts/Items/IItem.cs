@@ -1,8 +1,8 @@
-﻿using RCG.Advertisements;
-using RCG.Attributes;
-using RCG.States;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
+using IndieDevTools.States;
 
-namespace RCG.Items
+namespace IndieDevTools.Items
 {
     public interface IItem : IAdvertisingMapElement, IStateTransitionHandler
     {

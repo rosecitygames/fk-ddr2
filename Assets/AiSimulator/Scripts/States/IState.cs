@@ -1,4 +1,4 @@
-﻿namespace RCG.States
+﻿namespace IndieDevTools.States
 {
     public interface IState : IStateTransitionHandler
     {

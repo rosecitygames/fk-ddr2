@@ -1,11 +1,11 @@
-﻿using RCG.Agents;
-using RCG.Attributes;
-using RCG.Commands;
-using RCG.Maps;
+﻿using IndieDevTools.Agents;
+using IndieDevTools.Attributes;
+using IndieDevTools.Commands;
+using IndieDevTools.Maps;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public class ChooseTargetMapElmentAtLocation : AbstractCommand
     {

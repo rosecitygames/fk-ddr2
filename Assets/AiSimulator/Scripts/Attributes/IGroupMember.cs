@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Attributes
+namespace IndieDevTools.Attributes
 {
     public interface IGroupMember
     {

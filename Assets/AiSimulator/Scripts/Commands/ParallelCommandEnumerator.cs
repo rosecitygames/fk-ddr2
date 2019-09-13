@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace RCG.Commands
+namespace IndieDevTools.Commands
 {
     public class ParallelCommandEnumerator : AbstractCommandEnumerator
     {

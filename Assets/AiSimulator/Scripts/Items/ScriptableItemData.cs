@@ -1,9 +1,9 @@
-﻿using RCG.Advertisements;
-using RCG.Attributes;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Items
+namespace IndieDevTools.Items
 {
     [CreateAssetMenu(fileName = "ItemData", menuName = "RCG/Item Data")]
     public class ScriptableItemData : ScriptableObject, IItemData

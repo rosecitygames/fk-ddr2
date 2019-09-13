@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace RCG.Commands
+namespace IndieDevTools.Commands
 {
     public class WaitForTime : AbstractCommand
     {

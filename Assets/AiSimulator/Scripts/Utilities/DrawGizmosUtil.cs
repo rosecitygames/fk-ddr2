@@ -1,8 +1,8 @@
-﻿using RCG.Advertisements;
-using RCG.Agents;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Agents;
 using UnityEngine;
 
-namespace RCG.Utils
+namespace IndieDevTools.Utils
 {
     public static class DrawGizmosUtil
     {

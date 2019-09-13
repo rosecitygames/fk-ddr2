@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Attributes;
-using RCG.Maps;
+using IndieDevTools.Attributes;
+using IndieDevTools.Maps;
 using System;
 
-namespace RCG.Advertisements
+namespace IndieDevTools.Advertisements
 {
     public class Advertisement : IAdvertisement
     {

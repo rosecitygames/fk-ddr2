@@ -1,9 +1,9 @@
-﻿using RCG.Advertisements;
-using RCG.Items;
-using RCG.States;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Items;
+using IndieDevTools.States;
 using UnityEngine;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public class Item : AbstractItem
     {

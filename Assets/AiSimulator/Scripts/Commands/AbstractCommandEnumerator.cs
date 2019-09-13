@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Commands
+namespace IndieDevTools.Commands
 {
     public class AbstractCommandEnumerator : AbstractCommand, ICommandEnumerator
     {

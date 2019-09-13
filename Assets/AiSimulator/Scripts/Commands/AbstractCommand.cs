@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace RCG.Commands
+namespace IndieDevTools.Commands
 {
     abstract public class AbstractCommand : ICommand
     {

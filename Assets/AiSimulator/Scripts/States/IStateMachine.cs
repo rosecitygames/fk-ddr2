@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RCG.States
+namespace IndieDevTools.States
 {
     public interface IStateMachine : IStateTransitionHandler
     {

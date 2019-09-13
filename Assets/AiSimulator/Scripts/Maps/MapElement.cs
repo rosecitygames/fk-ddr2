@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Attributes;
+using IndieDevTools.Attributes;
 
-namespace RCG.Maps
+namespace IndieDevTools.Maps
 {
     public class MapElement : IMapElement
     {

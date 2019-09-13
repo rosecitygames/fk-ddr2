@@ -1,7 +1,7 @@
-﻿using RCG.Agents;
+﻿using IndieDevTools.Agents;
 using System;
 
-namespace RCG.Demo.BattleSimulator
+namespace IndieDevTools.Demo.BattleSimulator
 {
     public interface ISoldier : IAgent, IAttackReceiver
     {

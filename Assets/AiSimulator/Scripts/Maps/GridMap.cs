@@ -1,8 +1,8 @@
-﻿using RCG.Utils;
+﻿using IndieDevTools.Utils;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Maps
+namespace IndieDevTools.Maps
 {
     [RequireComponent(typeof(Grid))]
     public class GridMap : AbstractMap

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Maps;
+using IndieDevTools.Maps;
 
-namespace RCG.Advertisements
+namespace IndieDevTools.Advertisements
 {
     public class AdvertisementBroadcaster : IAdvertisementBroadcaster
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RCG.Commands
+namespace IndieDevTools.Commands
 {
     abstract public class AbstractScriptableCommand : ScriptableObject, ICommand
     {

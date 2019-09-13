@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RCG.Commands;
+using IndieDevTools.Commands;
 
-namespace RCG.States
+namespace IndieDevTools.States
 {
     public class CommandableState : AbstractState, ICommandLayerCollection
     {

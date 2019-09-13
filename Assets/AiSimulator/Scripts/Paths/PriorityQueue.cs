@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RCG.Paths
+namespace IndieDevTools.Paths
 {
     public class PriorityQueue<T>
     {
