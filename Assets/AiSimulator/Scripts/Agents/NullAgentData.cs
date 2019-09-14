@@ -1,5 +1,6 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
+using IndieDevTools.Common;
 using System.Collections.Generic;
 
 namespace IndieDevTools.Agents

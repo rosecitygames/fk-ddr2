@@ -1,4 +1,4 @@
-﻿namespace IndieDevTools.Attributes
+﻿namespace IndieDevTools.Common
 {
     public interface IDescribable 
     {

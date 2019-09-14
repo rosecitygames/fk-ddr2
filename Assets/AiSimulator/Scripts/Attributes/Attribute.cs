@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IndieDevTools.Common;
+using System;
 using UnityEngine;
 
 namespace IndieDevTools.Attributes

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace IndieDevTools.Attributes
+namespace IndieDevTools.Common
 {
     public interface IIdable
     {
