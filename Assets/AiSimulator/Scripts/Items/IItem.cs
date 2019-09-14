@@ -6,6 +6,6 @@ namespace IndieDevTools.Items
 {
     public interface IItem : IAdvertisingMapElement, IStateTransitionHandler
     {
-        IItemData ItemData { get; set; }
+        IItemData Data { get; set; }
     }
 }

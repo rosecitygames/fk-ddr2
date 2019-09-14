@@ -1,5 +1,6 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,22 +11,44 @@ namespace IndieDevTools.Agents
     {
         [SerializeField]
         string displayName = "";
+        [NonSerialized]
+        string runtimeDisplayName = "";
         string IDescribable.DisplayName
         {
             get
             {
-                return displayName;
+                if (string.IsNullOrEmpty(runtimeDisplayName))
+                {
+                    runtimeDisplayName = displayName;
+                }
+                return runtimeDisplayName;
+            }
+            
+            set
+            {
+                runtimeDisplayName = value;
             }
         }
 
         [SerializeField]
         [TextArea]
         string description = "";
+        [NonSerialized]
+        string runtimeDescription = "";
         string IDescribable.Description
         {
             get
             {
-                return description;
+                if (string.IsNullOrEmpty(runtimeDescription))
+                {
+                    runtimeDescription = description;
+                }
+                return runtimeDescription;
+            }
+
+            set
+            {
+                runtimeDescription = value;
             }
         }
 

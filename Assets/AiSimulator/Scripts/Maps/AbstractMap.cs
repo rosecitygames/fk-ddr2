@@ -76,10 +76,10 @@ namespace IndieDevTools.Maps
         List<T> IMap.GetMapElementsOnRadius<T>(Vector2Int centerCell, int radius) => GetMapElementsOnRadius<T>(centerCell, radius);
         protected virtual List<T> GetMapElementsOnRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
 
-        string IDescribable.DisplayName => DisplayName;
-        protected virtual string DisplayName { get; }
+        string IDescribable.DisplayName { get => DisplayName; set => DisplayName = value; }
+        protected virtual string DisplayName { get; set; }
 
-        string IDescribable.Description => Description;
-        protected virtual string Description { get; }
+        string IDescribable.Description { get => Description; set => Description = value; }
+        protected virtual string Description { get; set; }
     }
 }

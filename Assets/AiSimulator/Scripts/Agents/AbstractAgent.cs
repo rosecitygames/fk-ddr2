@@ -14,44 +14,44 @@ namespace IndieDevTools.Agents
         // Agent Data implementations
         [SerializeField]
         ScriptableAgentData data = null;
-        IAgentData agentData;
-        IAgentData IAgent.AgentData { get => AgentData; set => AgentData = value; }
-        protected IAgentData AgentData
+        IAgentData iData;
+        IAgentData IAgent.Data { get => Data; set => Data = value; }
+        protected IAgentData Data
         {
             get
             {
-                if (agentData == null)
-                {
-                    InitAgentData();
-                }             
-                return agentData;
+                InitData();
+                return iData;
             }
             set
             {
-                agentData = value;
+                iData = value;
             }
         }
 
-        protected virtual void InitAgentData()
+        protected virtual void InitData()
         {
-            if (data == null)
+            if (iData == null)
             {
-                agentData = new NullAgentData();
-            }
-            else
-            {
-                agentData = (data as IAgentData).Copy();
-            }
+                if (data == null)
+                {
+                    iData = new NullAgentData();
+                }
+                else
+                {
+                    iData = (data as IAgentData).Copy();
+                }
+            }  
         }
 
-        string IDescribable.DisplayName => AgentData.DisplayName;
-        string IDescribable.Description => AgentData.Description;
+        string IDescribable.DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
+        string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
 
-        List<IAttribute> IStatsCollection.Stats => AgentData.Stats;
-        IAttribute IStatsCollection.GetStat(string id) => AgentData.GetStat(id);
+        List<IAttribute> IStatsCollection.Stats => Data.Stats;
+        IAttribute IStatsCollection.GetStat(string id) => Data.GetStat(id);
 
-        List<IAttribute> IDesiresCollection.Desires => AgentData.Desires;
-        IAttribute IDesiresCollection.GetDesire(string id) => AgentData.GetDesire(id);
+        List<IAttribute> IDesiresCollection.Desires => Data.Desires;
+        IAttribute IDesiresCollection.GetDesire(string id) => Data.GetDesire(id);
 
         // Map implementations
         IMap map;
@@ -155,10 +155,10 @@ namespace IndieDevTools.Agents
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
         float IAdvertisementBroadcastData.BroadcastDistance => BroadcastDistance;
-        protected float BroadcastDistance => AgentData.BroadcastDistance;
+        protected float BroadcastDistance => Data.BroadcastDistance;
 
         float IAdvertisementBroadcastData.BroadcastInterval => BroadcastInterval;
-        protected float BroadcastInterval => AgentData.BroadcastInterval;
+        protected float BroadcastInterval => Data.BroadcastInterval;
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser
@@ -260,7 +260,7 @@ namespace IndieDevTools.Agents
 
         protected virtual void Init()
         {
-            InitAgentData();
+            InitData();
             InitAdvertiser();
             InitMap();
             InitStateMachine();

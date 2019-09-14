@@ -35,7 +35,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         public static IItem Create(GameObject gameObject, IItemData itemData, IAdvertisementBroadcaster broadcaster)
         {
             IItem agent = gameObject.AddComponent<Item>();
-            agent.ItemData = itemData;
+            agent.Data = itemData;
             agent.SetBroadcaster(broadcaster);
             return agent;
         }

@@ -31,8 +31,8 @@ namespace IndieDevTools.Maps
         List<IAttribute> IStatsCollection.Stats => MapElement.Stats;
         IAttribute IStatsCollection.GetStat(string id) => MapElement.GetStat(id);
 
-        string IDescribable.DisplayName => MapElement.DisplayName;
-        string IDescribable.Description => MapElement.Description;
+        string IDescribable.DisplayName { get => MapElement.DisplayName; set => MapElement.DisplayName = value; }
+        string IDescribable.Description { get => MapElement.Description; set => MapElement.Description = value; }
 
         IMap IMapElement.Map { get => MapElement.Map; set => MapElement.Map = value; }
         void IMapElement.AddToMap() => MapElement.AddToMap();

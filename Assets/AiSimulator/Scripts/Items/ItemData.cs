@@ -1,34 +1,22 @@
-﻿using System.Collections;
+﻿using IndieDevTools.Advertisements;
+using IndieDevTools.Attributes;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
 
 namespace IndieDevTools.Items
 {
-    [System.Serializable]
+    [Serializable]
     public class ItemData : IItemData
     {
         [SerializeField]
         string displayName = "";
-        string IDescribable.DisplayName
-        {
-            get
-            {
-                return displayName;
-            }
-        }
+        string IDescribable.DisplayName { get => displayName; set => displayName = value; }
 
         [SerializeField]
         [TextArea]
         string description = "";
-        string IDescribable.Description
-        {
-            get
-            {
-                return description;
-            }
-        }
+        string IDescribable.Description { get => description; set => description = value; }
 
         [SerializeField]
         float broadcastDistance = 0.0f;

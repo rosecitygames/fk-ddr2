@@ -95,8 +95,8 @@ namespace IndieDevTools.Attributes
 
         bool IAttribute.IsInitialMax => Data.IsInitialMax;
 
-        string IDescribable.DisplayName => Data.DisplayName;
-        string IDescribable.Description => Data.Description;
+        string IDescribable.DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
+        string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
 
         event Action<IAttribute> IAttribute.OnUpdated { add { OnUpdated += value; } remove { OnUpdated -= value; } }
         Action<IAttribute> OnUpdated;

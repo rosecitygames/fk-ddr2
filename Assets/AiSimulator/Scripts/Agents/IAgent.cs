@@ -9,7 +9,7 @@ namespace IndieDevTools.Agents
 {
     public interface IAgent : IAdvertisingMapElement, IAdvertisementReceiver, IStateTransitionHandler, IDesiresCollection
     {
-        IAgentData AgentData { get; set; }
+        IAgentData Data { get; set; }
 
         event Action<IAdvertisement> OnAdvertisementReceived;
 

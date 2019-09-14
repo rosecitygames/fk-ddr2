@@ -6,8 +6,8 @@ namespace IndieDevTools.Items
 {
     public class NullItemData : IItemData
     {
-        string IDescribable.DisplayName { get => ""; }
-        string IDescribable.Description { get => ""; }
+        string IDescribable.DisplayName { get => ""; set { } }
+        string IDescribable.Description { get => ""; set { } }
 
         AttributeCollection stats = new AttributeCollection();
         IStatsCollection statsCollection { get => stats as IStatsCollection; }

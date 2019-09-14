@@ -40,9 +40,9 @@ namespace IndieDevTools.Maps
         List<T> IMap.GetMapElementsOutsideRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
         List<T> IMap.GetMapElementsOnRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
 
-        string IDescribable.DisplayName => "";
-        string IDescribable.Description => "";
-        
+        string IDescribable.DisplayName { get => ""; set { } }
+        string IDescribable.Description { get => ""; set { } }
+
         public static IMap Create()
         {
             return new NullMap();

@@ -9,6 +9,9 @@ namespace IndieDevTools.Demo.BattleSimulator
 {
     public class MapInfoDisplayer : MonoBehaviour
     {
+        [SerializeField, Header("Info")]
+        GameObject infoContainer = null;
+
         [SerializeField]
         Image icon = null;
 
@@ -18,14 +21,18 @@ namespace IndieDevTools.Demo.BattleSimulator
         [SerializeField]
         TextMeshProUGUI description = null;
 
+        [SerializeField, Header("Instructions")]
+        GameObject instructionsContainer = null;
+
         [NonSerialized]
         IMapElement currentMapElement = null;
+        bool HasCurrentElement => currentMapElement != null;
 
         [NonSerialized]
-        Sprite currentIconSprite = null;
+        SpriteRenderer currentSpriteRenderer = null;
 
         [NonSerialized]
-        Color currentIconColor = Color.white;
+        Color currentSpriteRendererInitialColor = Color.white;
 
         void Start()
         {
@@ -50,24 +57,43 @@ namespace IndieDevTools.Demo.BattleSimulator
             RaycastHit2D hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             IMapElement mapElement = null;
+            SpriteRenderer spriteRenderer = null;
 
             if (hitInfo.transform != null)
             {
                 GameObject hitGameObject = hitInfo.transform.gameObject;
-
                 mapElement = hitGameObject.GetComponent<IMapElement>();
                 if (mapElement != null)
                 {
-                    SpriteRenderer spriteRenderer = hitGameObject.GetComponentInChildren<SpriteRenderer>();
-                    if (spriteRenderer != null)
-                    {
-                        currentIconSprite = spriteRenderer.sprite;
-                        currentIconColor = spriteRenderer.color;
-                    }
+                    spriteRenderer = hitGameObject.GetComponentInChildren<SpriteRenderer>();    
                 }
             }
 
+            SetCurrentSpriteRenderer(spriteRenderer);
             SetMapElement(mapElement);
+        }
+
+        void SetCurrentSpriteRenderer(SpriteRenderer spriteRenderer)
+        {
+            if (currentSpriteRenderer != null)
+            {
+                float alpha = currentSpriteRenderer.color.a;
+                Color color = currentSpriteRendererInitialColor;
+                color.a = alpha;
+                currentSpriteRenderer.color = color;
+                currentSpriteRenderer = null;
+            }
+
+            if (spriteRenderer == null) return;
+
+            currentSpriteRenderer = spriteRenderer;
+            currentSpriteRendererInitialColor = currentSpriteRenderer.color;
+
+            Color.RGBToHSV(currentSpriteRenderer.color, out float h, out float s, out float v);
+            v *= 0.5f;
+
+            Color darkerColor = Color.HSVToRGB(h, s, v);
+            currentSpriteRenderer.color = darkerColor;
         }
 
         void SetMapElement(IMapElement mapElement)
@@ -78,25 +104,29 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         void Draw()
         {
-            Clear();
+            if (HasCurrentElement)
+            {
+                DrawInfo();
+            }
 
-            if (currentMapElement == null) return;
+            SetContainersActive();
+        }
+
+        void DrawInfo()
+        {
+            if (HasCurrentElement == false) return;
 
             displayName.text = currentMapElement.DisplayName;
             description.text = currentMapElement.Description;
 
-            icon.sprite = currentIconSprite;
-            icon.color = currentIconColor;
-            icon.enabled = true;
+            icon.sprite = currentSpriteRenderer.sprite;
+            icon.color = currentSpriteRendererInitialColor; 
         }
 
-        void Clear()
+        void SetContainersActive()
         {
-            icon.sprite = null;
-            icon.enabled = false;
-
-            displayName.text = "";
-            description.text = "";
+            infoContainer.SetActive(HasCurrentElement);
+            instructionsContainer.SetActive(!HasCurrentElement);
         }
     }
 }

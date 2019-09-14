@@ -6,8 +6,8 @@ namespace IndieDevTools.Agents
 {
     public class NullAgentData : IAgentData
     {
-        string IDescribable.DisplayName { get => ""; }
-        string IDescribable.Description { get => ""; }
+        string IDescribable.DisplayName { get => ""; set { } }
+        string IDescribable.Description { get => ""; set { } }
 
         IAttributeCollection stats = new AttributeCollection();
         List<IAttribute> IStatsCollection.Stats { get => stats.Attributes; }

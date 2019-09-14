@@ -141,7 +141,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         public static IAgent Create(GameObject gameObject, IAgentData agentData, IAdvertisementBroadcaster broadcaster)
         {
             IAgent agent = gameObject.AddComponent<Soldier>();
-            agent.AgentData = agentData;
+            agent.Data = agentData;
             agent.SetBroadcaster(broadcaster);
             return agent;
         }

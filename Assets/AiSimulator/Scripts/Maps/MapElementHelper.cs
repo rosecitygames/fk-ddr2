@@ -10,10 +10,10 @@ namespace IndieDevTools.Maps
         GameObject gameObject;
         IMapElement mapElement;
 
-        string IDescribable.DisplayName => displayName;
+        string IDescribable.DisplayName { get => displayName; set => displayName = value; }
         string displayName = "";
 
-        string IDescribable.Description => description;
+        string IDescribable.Description { get => description; set => description = value; }
         string description = "";
 
         int IGroupMember.GroupId => groupId;

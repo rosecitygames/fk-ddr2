@@ -46,10 +46,10 @@ namespace IndieDevTools.Maps
         event Action<Vector2Int> ILocatable.OnUpdated { add { OnLocationUpdated += value; } remove { OnLocationUpdated -= value; } }
         protected Action<Vector2Int> OnLocationUpdated;
 
-        string IDescribable.DisplayName => DisplayName;
+        string IDescribable.DisplayName { get => DisplayName; set => DisplayName = value; }
         protected string DisplayName { get; set; }
 
-        string IDescribable.Description => Description;
+        string IDescribable.Description { get => Description; set => Description = value; }
         protected string Description { get; set; }
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }

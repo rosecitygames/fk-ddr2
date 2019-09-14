@@ -53,7 +53,7 @@ namespace IndieDevTools.Demo.BattleSimulator
                     GameObject mapElementGameObject = Instantiate(data.Prefab);
                     mapElementGameObject.transform.parent = transform;
                     IMapElement mapElement = mapElementGameObject.GetComponent<IMapElement>();
-
+                    mapElement.DisplayName = mapElement.DisplayName + " " + i;
                     Vector2Int cell = new Vector2Int();
 
                     bool isLookingForCell = true;

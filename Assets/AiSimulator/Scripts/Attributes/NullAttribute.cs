@@ -5,8 +5,8 @@ namespace IndieDevTools.Attributes
     [System.Serializable]
     public class NullAttribute : IAttribute
     {
-        string IDescribable.DisplayName { get => ""; }
-        string IDescribable.Description { get => ""; }
+        string IDescribable.DisplayName { get => ""; set { } }
+        string IDescribable.Description { get => ""; set { } }
 
         string IIdable.Id { get => ""; }
         int IAttribute.Quantity { get => 0; set { } }

@@ -13,41 +13,41 @@ namespace IndieDevTools.Items
     {
         [SerializeField]
         ScriptableItemData data = null;
-        IItemData itemData;
-        IItemData IItem.ItemData { get => ItemData; set => ItemData = value; }
-        protected IItemData ItemData
+        IItemData iData;
+        IItemData IItem.Data { get => Data; set => Data = value; }
+        protected IItemData Data
         {
             get
             {
-                if (itemData == null)
-                {
-                    InitItemData();
-                }
-                return itemData;
+                InitData();
+                return iData;
             }
             set
             {
-                itemData = value;
+                iData = value;
             }
         }
 
-        protected virtual void InitItemData()
+        protected virtual void InitData()
         {
-            if (data == null)
+            if (iData == null)
             {
-                itemData = new NullItemData();
-            }
-            else
-            {
-                itemData = (data as IItemData).Copy();
+                if (data == null)
+                {
+                    iData = new NullItemData();
+                }
+                else
+                {
+                    iData = (data as IItemData).Copy();
+                }
             }
         }
 
-        string IDescribable.DisplayName => ItemData.DisplayName;
-        string IDescribable.Description => ItemData.Description;
+        string IDescribable.DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
+        string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
 
-        List<IAttribute> IStatsCollection.Stats => ItemData.Stats;
-        IAttribute IStatsCollection.GetStat(string id) => ItemData.GetStat(id);
+        List<IAttribute> IStatsCollection.Stats => Data.Stats;
+        IAttribute IStatsCollection.GetStat(string id) => Data.GetStat(id);
 
         int IGroupMember.GroupId => GroupId;
         protected virtual int GroupId { get; set; }     
@@ -154,10 +154,10 @@ namespace IndieDevTools.Items
         ScriptableAdvertisementBroadcaster broadcaster = null;
 
         float IAdvertisementBroadcastData.BroadcastDistance => BroadcastDistance;
-        protected float BroadcastDistance => ItemData.BroadcastDistance;
+        protected float BroadcastDistance => Data.BroadcastDistance;
 
         float IAdvertisementBroadcastData.BroadcastInterval => BroadcastInterval;
-        protected float BroadcastInterval => ItemData.BroadcastInterval;
+        protected float BroadcastInterval => Data.BroadcastInterval;
 
         IAdvertiser advertiser = null;
         protected IAdvertiser Advertiser
@@ -219,7 +219,7 @@ namespace IndieDevTools.Items
 
         protected virtual void Init()
         {
-            InitItemData();
+            InitData();
             InitAdvertiser();
             InitMap();
             InitStateMachine();

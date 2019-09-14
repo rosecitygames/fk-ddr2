@@ -13,12 +13,46 @@ namespace IndieDevTools.Attributes
 
         [SerializeField]
         string displayName = "";
-        string IDescribable.DisplayName => displayName;
+        [NonSerialized]
+        string runtimeDisplayName = "";
+        string IDescribable.DisplayName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(runtimeDisplayName))
+                {
+                    runtimeDisplayName = displayName;
+                }
+                return runtimeDisplayName;
+            }
+
+            set
+            {
+                runtimeDisplayName = value;
+            }
+        }
 
         [SerializeField]
         [TextArea]
         string description = "";
-        string IDescribable.Description => description;
+        [NonSerialized]
+        string runtimeDescription = "";
+        string IDescribable.Description
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(runtimeDescription))
+                {
+                    runtimeDescription = description;
+                }
+                return runtimeDescription;
+            }
+
+            set
+            {
+                runtimeDescription = value;
+            }
+        }
 
         [SerializeField]
         bool isInitialMax = false;
