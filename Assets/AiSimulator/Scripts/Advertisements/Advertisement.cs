@@ -1,5 +1,4 @@
 ﻿using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 using IndieDevTools.Maps;
 using System;
 using System.Collections.Generic;
@@ -21,7 +20,7 @@ namespace IndieDevTools.Advertisements
         Vector2Int ILocatable.Location => Location;
         protected Vector2Int Location { get; set; }
 
-        event Action<Vector2Int> ILocatable.OnUpdated { add { } remove { } }
+        event Action<ILocatable> IUpdatable<ILocatable>.OnUpdated { add { } remove { } }
 
         List<Vector2Int> IAdvertisement.BroadcastLocations => BroadcastLocations;
         protected List<Vector2Int> BroadcastLocations { get; set; }

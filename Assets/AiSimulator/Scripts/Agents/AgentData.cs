@@ -1,6 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +11,36 @@ namespace IndieDevTools.Agents
     {
         [SerializeField]
         string displayName = "";
-        string IDescribable.DisplayName { get => displayName; set => displayName = value; }
+        string IDescribable.DisplayName
+        {
+            get => displayName;
+            set
+            {
+                if (displayName != value)
+                {
+                    displayName = value;
+                    OnDescribableUpdated?.Invoke(this);
+                }
+            }
+        }
 
-        [SerializeField]
-        [TextArea]
+        [SerializeField, TextArea]
         string description = "";
-        string IDescribable.Description { get => description; set => description = value; }
+        string IDescribable.Description
+        {
+            get => description;
+            set
+            {
+                if (description != value)
+                {
+                    description = value;
+                    OnDescribableUpdated?.Invoke(this);
+                }
+            }
+        }
+
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
+        Action<IDescribable> OnDescribableUpdated;
 
         [SerializeField]
         float broadcastDistance = 0.0f;

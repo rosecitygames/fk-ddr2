@@ -1,5 +1,4 @@
-﻿using IndieDevTools.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,9 +76,36 @@ namespace IndieDevTools.Maps
         protected virtual List<T> GetMapElementsOnRadius<T>(Vector2Int centerCell, int radius) => new List<T>();
 
         string IDescribable.DisplayName { get => DisplayName; set => DisplayName = value; }
-        protected virtual string DisplayName { get; set; }
+        string displayName;
+        protected virtual string DisplayName
+        {
+            get => displayName;
+            set
+            {
+                if (displayName != value)
+                {
+                    displayName = value;
+                    OnDescribableUpdated.Invoke(this);
+                }
+            }
+        }
 
         string IDescribable.Description { get => Description; set => Description = value; }
-        protected virtual string Description { get; set; }
+        string description;
+        protected virtual string Description
+        {
+            get => description;
+            set
+            {
+                if (description != value)
+                {
+                    description = value;
+                    OnDescribableUpdated.Invoke(this);
+                }
+            }
+        }
+
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
+        Action<IDescribable> OnDescribableUpdated;
     }
 }

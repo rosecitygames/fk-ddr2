@@ -1,6 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 using IndieDevTools.Maps;
 using IndieDevTools.States;
 using IndieDevTools.Utils;
@@ -46,6 +45,7 @@ namespace IndieDevTools.Items
 
         string IDescribable.DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
         string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { Data.OnUpdated += value; } remove { Data.OnUpdated -= value; } }
 
         List<IAttribute> IStatsCollection.Stats => Data.Stats;
         IAttribute IStatsCollection.GetStat(string id) => Data.GetStat(id);
@@ -122,12 +122,12 @@ namespace IndieDevTools.Items
         Vector2Int ILocatable.Location => Location;
         protected virtual Vector2Int Location => Map.LocalToCell(Position);
 
-        event Action<Vector2Int> ILocatable.OnUpdated
+        event Action<ILocatable> IUpdatable<ILocatable>.OnUpdated
         {
             add { OnLocationUpdated += value; }
             remove { OnLocationUpdated -= value; }
         }
-        Action<Vector2Int> OnLocationUpdated;
+        Action<ILocatable> OnLocationUpdated;
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         protected virtual Vector3 Position
@@ -146,7 +146,7 @@ namespace IndieDevTools.Items
                 if (currentLocation != newLocation)
                 {
                     Map.AddElement(this);
-                    OnLocationUpdated?.Invoke(newLocation);
+                    OnLocationUpdated?.Invoke(this);
                 }
             }
         }

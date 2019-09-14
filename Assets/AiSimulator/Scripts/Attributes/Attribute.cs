@@ -1,5 +1,4 @@
-﻿using IndieDevTools.Common;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace IndieDevTools.Attributes
@@ -98,8 +97,9 @@ namespace IndieDevTools.Attributes
 
         string IDescribable.DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
         string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { (Data as IDescribable).OnUpdated += value; } remove { (Data as IDescribable).OnUpdated -= value; } }
 
-        event Action<IAttribute> IAttribute.OnUpdated { add { OnUpdated += value; } remove { OnUpdated -= value; } }
+        event Action<IAttribute> IUpdatable<IAttribute>.OnUpdated { add { OnUpdated += value; } remove { OnUpdated -= value; } }
         Action<IAttribute> OnUpdated;
 
         IAttribute ICopyable<IAttribute>.Copy()

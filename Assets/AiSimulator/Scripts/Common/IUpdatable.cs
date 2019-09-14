@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace IndieDevTools.Common
+namespace IndieDevTools
 {
-    public interface IUpdatable
+    public interface IUpdatable<T>
     {
-        event Action OnUpdated;
+        event Action<T> OnUpdated;
     }
 }

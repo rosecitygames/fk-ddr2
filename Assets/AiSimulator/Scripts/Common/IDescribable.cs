@@ -1,6 +1,6 @@
-﻿namespace IndieDevTools.Common
+﻿namespace IndieDevTools
 {
-    public interface IDescribable
+    public interface IDescribable : IUpdatable<IDescribable>
     {
         string DisplayName { get; set; }
         string Description { get; set; }

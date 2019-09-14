@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using System;
+
 namespace IndieDevTools.Maps
 {
-    public interface ILocatable
+    public interface ILocatable : IUpdatable<ILocatable>
     {
         Vector2Int Location { get; }
-        event Action<Vector2Int> OnUpdated;
     }
 }

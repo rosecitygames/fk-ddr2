@@ -1,6 +1,4 @@
-﻿using IndieDevTools.Attributes;
-using IndieDevTools.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +41,7 @@ namespace IndieDevTools.Maps
 
         string IDescribable.DisplayName { get => ""; set { } }
         string IDescribable.Description { get => ""; set { } }
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { } remove { } }
 
         public static IMap Create()
         {

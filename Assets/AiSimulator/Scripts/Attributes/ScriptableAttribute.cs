@@ -1,5 +1,4 @@
-﻿using IndieDevTools.Common;
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace IndieDevTools.Attributes
@@ -29,12 +28,15 @@ namespace IndieDevTools.Attributes
 
             set
             {
-                runtimeDisplayName = value;
+                if (runtimeDisplayName != value)
+                {
+                    runtimeDisplayName = value;
+                    OnDescribableUpdated.Invoke(this);
+                }
             }
         }
 
-        [SerializeField]
-        [TextArea]
+        [SerializeField, TextArea]
         string description = "";
         [NonSerialized]
         string runtimeDescription = "";
@@ -51,9 +53,16 @@ namespace IndieDevTools.Attributes
 
             set
             {
-                runtimeDescription = value;
+                if (runtimeDescription != value)
+                {
+                    runtimeDescription = value;
+                    OnDescribableUpdated.Invoke(this);
+                }
             }
         }
+
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
+        Action<IDescribable> OnDescribableUpdated;
 
         [SerializeField]
         bool isInitialMax = false;
@@ -69,7 +78,7 @@ namespace IndieDevTools.Attributes
 
         int IAttribute.Quantity { get => 0; set { } }
 
-        event Action<IAttribute> IAttribute.OnUpdated { add { } remove { } }
+        event Action<IAttribute> IUpdatable<IAttribute>.OnUpdated { add { } remove { } }
 
         IAttribute ICopyable<IAttribute>.Copy()
         {

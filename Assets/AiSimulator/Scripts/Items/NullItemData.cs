@@ -1,6 +1,6 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
-using IndieDevTools.Common;
+using System;
 using System.Collections.Generic;
 
 namespace IndieDevTools.Items
@@ -9,6 +9,7 @@ namespace IndieDevTools.Items
     {
         string IDescribable.DisplayName { get => ""; set { } }
         string IDescribable.Description { get => ""; set { } }
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { } remove { } }
 
         AttributeCollection stats = new AttributeCollection();
         IStatsCollection statsCollection { get => stats as IStatsCollection; }

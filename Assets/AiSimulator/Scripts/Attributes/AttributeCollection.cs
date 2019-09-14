@@ -1,5 +1,4 @@
-﻿using IndieDevTools.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace IndieDevTools.Attributes

@@ -1,6 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 
 namespace IndieDevTools.Agents
 {

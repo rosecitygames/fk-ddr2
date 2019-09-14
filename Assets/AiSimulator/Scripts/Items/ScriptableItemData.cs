@@ -1,6 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,12 +26,15 @@ namespace IndieDevTools.Items
 
             set
             {
-                runtimeDisplayName = value;
+                if (runtimeDisplayName != value)
+                {
+                    runtimeDisplayName = value;
+                    OnDescribableUpdated.Invoke(this);
+                }
             }
         }
 
-        [SerializeField]
-        [TextArea]
+        [SerializeField, TextArea]
         string description = "";
         [NonSerialized]
         string runtimeDescription = "";
@@ -49,9 +51,16 @@ namespace IndieDevTools.Items
 
             set
             {
-                runtimeDescription = value;
+                if (runtimeDescription != value)
+                {
+                    runtimeDescription = value;
+                    OnDescribableUpdated.Invoke(this);
+                }
             }
         }
+
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
+        Action<IDescribable> OnDescribableUpdated;
 
         [SerializeField]
         float broadcastDistance = 0.0f;

@@ -1,5 +1,4 @@
 ﻿using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +33,7 @@ namespace IndieDevTools.Maps
 
         string IDescribable.DisplayName { get => MapElement.DisplayName; set => MapElement.DisplayName = value; }
         string IDescribable.Description { get => MapElement.Description; set => MapElement.Description = value; }
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { (MapElement as IDescribable).OnUpdated += value; } remove { (MapElement as IDescribable).OnUpdated -= value; } }
 
         IMap IMapElement.Map { get => MapElement.Map; set => MapElement.Map = value; }
         void IMapElement.AddToMap() => MapElement.AddToMap();
@@ -46,7 +46,7 @@ namespace IndieDevTools.Maps
         int IMapElement.SortingOrder =>  MapElement.SortingOrder;
 
         Vector2Int ILocatable.Location => MapElement.Location;
-        event Action<Vector2Int> ILocatable.OnUpdated { add { MapElement.OnUpdated += value; } remove { MapElement.OnUpdated -= value; } }
+        event Action<ILocatable> IUpdatable<ILocatable>.OnUpdated { add { (MapElement as ILocatable).OnUpdated += value; } remove { (MapElement as ILocatable).OnUpdated -= value; } }
 
         Vector3 IPositionable.Position { get => MapElement.Position; set => MapElement.Position = value; }
     }

@@ -1,5 +1,4 @@
-﻿using IndieDevTools.Common;
-using System;
+﻿using System;
 
 namespace IndieDevTools.Attributes
 {
@@ -8,6 +7,7 @@ namespace IndieDevTools.Attributes
     {
         string IDescribable.DisplayName { get => ""; set { } }
         string IDescribable.Description { get => ""; set { } }
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { } remove { } }
 
         string IIdable.Id { get => ""; }
         int IAttribute.Quantity { get => 0; set { } }
@@ -15,7 +15,7 @@ namespace IndieDevTools.Attributes
         int IAttribute.Max { get => 0; set { } }
         bool IAttribute.IsInitialMax => false;
 
-        event Action<IAttribute> IAttribute.OnUpdated { add { } remove { } }
+        event Action<IAttribute> IUpdatable<IAttribute>.OnUpdated { add { } remove { } }
 
         IAttribute ICopyable<IAttribute>.Copy() => new NullAttribute();
 

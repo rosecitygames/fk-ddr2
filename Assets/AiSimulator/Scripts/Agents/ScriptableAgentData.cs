@@ -1,6 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,6 +51,9 @@ namespace IndieDevTools.Agents
                 runtimeDescription = value;
             }
         }
+
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
+        Action<IDescribable> OnDescribableUpdated;
 
         [SerializeField]
         float broadcastDistance = 0.0f;

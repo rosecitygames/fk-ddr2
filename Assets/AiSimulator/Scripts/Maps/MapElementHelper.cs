@@ -1,5 +1,4 @@
 ﻿using IndieDevTools.Attributes;
-using IndieDevTools.Common;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +10,36 @@ namespace IndieDevTools.Maps
         GameObject gameObject;
         IMapElement mapElement;
 
-        string IDescribable.DisplayName { get => displayName; set => displayName = value; }
+        string IDescribable.DisplayName
+        {
+            get => displayName;
+            set
+            {
+                if (displayName != value)
+                {
+                    displayName = value;
+                    OnDescribableUpdated?.Invoke(this);
+                }
+            }
+        }
         string displayName = "";
 
-        string IDescribable.Description { get => description; set => description = value; }
+        string IDescribable.Description
+        {
+            get => description;
+            set
+            {
+                if (description != value)
+                {
+                    description = value;
+                    OnDescribableUpdated?.Invoke(this);
+                }
+            }
+        }
         string description = "";
+
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
+        Action<IDescribable> OnDescribableUpdated;
 
         int IGroupMember.GroupId => groupId;
         int groupId = 0;
@@ -111,8 +135,8 @@ namespace IndieDevTools.Maps
         Vector2Int ILocatable.Location => Location;
         Vector2Int Location => Map.LocalToCell(Position);
 
-        event Action<Vector2Int> ILocatable.OnUpdated { add { OnLocationUpdated += value; } remove { OnLocationUpdated -= value; } }
-        Action<Vector2Int> OnLocationUpdated;
+        event Action<ILocatable> IUpdatable<ILocatable>.OnUpdated { add { OnLocationUpdated += value; } remove { OnLocationUpdated -= value; } }
+        Action<ILocatable> OnLocationUpdated;
 
         Vector3 IPositionable.Position { get => Position; set => Position = value; }
         Vector3 Position
@@ -132,7 +156,7 @@ namespace IndieDevTools.Maps
                 if (currentLocation != newLocation)
                 {
                     Map.AddElement(mapElement);
-                    OnLocationUpdated?.Invoke(newLocation);
+                    OnLocationUpdated?.Invoke(this);
                 }
             }
         }
