@@ -4,8 +4,5 @@ using IndieDevTools.Common;
 
 namespace IndieDevTools.Items
 {
-    public interface IItemData : IDescribable, IStatsCollection, IAdvertisementBroadcastData
-    {
-        IItemData Copy();
-    }
+    public interface IItemData : ICopyable<IItemData>, IDescribable, IStatsCollection, IAdvertisementBroadcastData { }
 }

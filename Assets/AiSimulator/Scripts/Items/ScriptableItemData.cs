@@ -79,7 +79,7 @@ namespace IndieDevTools.Items
         List<IAttribute> IStatsCollection.Stats { get => Stats.Attributes; }
         IAttribute IStatsCollection.GetStat(string id) { return Stats.GetAttribute(id); }
 
-        IItemData IItemData.Copy()
+        IItemData ICopyable<IItemData>.Copy()
         {
             return ItemData.Create(this);
         }

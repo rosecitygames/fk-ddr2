@@ -1,9 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using IndieDevTools.Attributes;
+﻿using IndieDevTools.Attributes;
+using IndieDevTools.Common;
 using IndieDevTools.Maps;
 using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace IndieDevTools.Advertisements
 {
@@ -16,7 +16,7 @@ namespace IndieDevTools.Advertisements
         void IAttributeCollection.RemoveAttribute(IAttribute attribute) => Attributes.RemoveAttribute(attribute);
         void IAttributeCollection.RemoveAttribute(string id) => Attributes.RemoveAttribute(id);
         void IAttributeCollection.Clear() => Attributes.Clear();
-        IAttributeCollection IAttributeCollection.Copy() => Attributes.Copy();
+        IAttributeCollection ICopyable<IAttributeCollection>.Copy() => Attributes.Copy();
 
         Vector2Int ILocatable.Location => Location;
         protected Vector2Int Location { get; set; }

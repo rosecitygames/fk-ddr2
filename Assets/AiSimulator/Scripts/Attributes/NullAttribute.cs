@@ -17,7 +17,7 @@ namespace IndieDevTools.Attributes
 
         event Action<IAttribute> IAttribute.OnUpdated { add { } remove { } }
 
-        IAttribute IAttribute.Copy() => new NullAttribute();
+        IAttribute ICopyable<IAttribute>.Copy() => new NullAttribute();
 
         public static IAttribute Create() => new NullAttribute();
     }

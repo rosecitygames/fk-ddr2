@@ -1,4 +1,4 @@
-﻿namespace IndieDevTools.Common
+﻿namespace IndieDevTools.Common  
 {
     public interface ICopyable<T>
     {

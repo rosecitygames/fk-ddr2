@@ -17,6 +17,6 @@ namespace IndieDevTools.Items
         float IAdvertisementBroadcastData.BroadcastDistance { get => 0; }
         float IAdvertisementBroadcastData.BroadcastInterval { get => 0; }
 
-        IItemData IItemData.Copy() { return new NullItemData(); }
+        IItemData ICopyable<IItemData>.Copy() { return new NullItemData(); }
     }
 }

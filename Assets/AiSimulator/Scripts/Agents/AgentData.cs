@@ -76,7 +76,7 @@ namespace IndieDevTools.Agents
 
         IAttribute IDesiresCollection.GetDesire(string id) => Desires.GetAttribute(id);
 
-        IAgentData IAgentData.Copy()
+        IAgentData ICopyable<IAgentData>.Copy()
         {
             return Create(this);
         }

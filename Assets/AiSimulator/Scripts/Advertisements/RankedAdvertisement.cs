@@ -1,4 +1,5 @@
 ﻿using IndieDevTools.Attributes;
+using IndieDevTools.Common;
 using IndieDevTools.Maps;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace IndieDevTools.Advertisements
         void IAttributeCollection.RemoveAttribute(IAttribute attribute) => Advertisement.RemoveAttribute(attribute);
         void IAttributeCollection.RemoveAttribute(string id) => Advertisement.RemoveAttribute(id);
         void IAttributeCollection.Clear() => Advertisement.Clear();
-        IAttributeCollection IAttributeCollection.Copy() => Advertisement.Copy();
+        IAttributeCollection ICopyable<IAttributeCollection>.Copy() => Advertisement.Copy();
 
         IMap IAdvertisement.Map => Advertisement.Map;
         List<Vector2Int> IAdvertisement.BroadcastLocations => Advertisement.BroadcastLocations;

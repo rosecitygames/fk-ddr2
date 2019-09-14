@@ -4,8 +4,5 @@ using IndieDevTools.Common;
 
 namespace IndieDevTools.Agents
 {
-    public interface IAgentData : IDescribable, IStatsCollection, IDesiresCollection, IAdvertisementBroadcastData
-    {
-        IAgentData Copy();
-    }
+    public interface IAgentData : ICopyable<IAgentData>, IDescribable, IStatsCollection, IDesiresCollection, IAdvertisementBroadcastData { }
 }

@@ -102,7 +102,7 @@ namespace IndieDevTools.Attributes
         event Action<IAttribute> IAttribute.OnUpdated { add { OnUpdated += value; } remove { OnUpdated -= value; } }
         Action<IAttribute> OnUpdated;
 
-        IAttribute IAttribute.Copy()
+        IAttribute ICopyable<IAttribute>.Copy()
         {
             IAttribute copy = new Attribute(this, quantity);
             return copy;

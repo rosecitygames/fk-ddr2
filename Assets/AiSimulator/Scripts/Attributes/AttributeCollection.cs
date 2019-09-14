@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using IndieDevTools.Common;
+using System.Collections.Generic;
 using UnityEngine;
+
 namespace IndieDevTools.Attributes
 {
     [System.Serializable]
@@ -74,7 +76,7 @@ namespace IndieDevTools.Attributes
             Collection.Clear();
         }
 
-        IAttributeCollection IAttributeCollection.Copy()
+        IAttributeCollection ICopyable<IAttributeCollection>.Copy()
         {
             IAttributeCollection copy = new AttributeCollection();
             foreach(IAttribute attribute in Collection)

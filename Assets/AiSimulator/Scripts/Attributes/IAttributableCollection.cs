@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using IndieDevTools.Common;
+using System.Collections.Generic;
 
 namespace IndieDevTools.Attributes
 {
-    public interface IAttributeCollection
+    public interface IAttributeCollection : ICopyable<IAttributeCollection>
     {
         List<IAttribute> Attributes { get; }
         IAttribute GetAttribute(string id);
@@ -11,7 +12,5 @@ namespace IndieDevTools.Attributes
         void RemoveAttribute(IAttribute attribute);
         void RemoveAttribute(string id);
         void Clear();
-
-        IAttributeCollection Copy();
     }
 }

@@ -71,7 +71,7 @@ namespace IndieDevTools.Attributes
 
         event Action<IAttribute> IAttribute.OnUpdated { add { } remove { } }
 
-        IAttribute IAttribute.Copy()
+        IAttribute ICopyable<IAttribute>.Copy()
         {
             return new Attribute(this);
         }

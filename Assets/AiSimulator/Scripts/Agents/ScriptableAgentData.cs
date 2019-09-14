@@ -119,7 +119,7 @@ namespace IndieDevTools.Agents
             return Desires.GetAttribute(id);
         }    
 
-        IAgentData IAgentData.Copy()
+        IAgentData ICopyable<IAgentData>.Copy()
         {
             return AgentData.Create(this);
         }

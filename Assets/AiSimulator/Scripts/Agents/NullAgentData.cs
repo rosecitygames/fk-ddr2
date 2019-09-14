@@ -21,6 +21,6 @@ namespace IndieDevTools.Agents
         float IAdvertisementBroadcastData.BroadcastDistance { get => 0; }
         float IAdvertisementBroadcastData.BroadcastInterval { get => 0; }
 
-        IAgentData IAgentData.Copy() { return new NullAgentData(); }
+        IAgentData ICopyable<IAgentData>.Copy() { return new NullAgentData(); }
     }
 }
