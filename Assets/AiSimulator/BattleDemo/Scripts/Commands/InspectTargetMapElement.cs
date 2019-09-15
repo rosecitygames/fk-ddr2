@@ -2,7 +2,6 @@
 using IndieDevTools.Commands;
 using IndieDevTools.Items;
 using IndieDevTools.Maps;
-using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
@@ -33,7 +32,7 @@ namespace IndieDevTools.Demo.BattleSimulator
                 bool isEnemy = GetIsEnemy(targetMapElement);
                 if (isEnemy)
                 {
-                    Debug.Log(agent + " found enemy " + targetMapElement);
+                    agent.Description = "Found enemy " + targetMapElement.DisplayName;
                     agent.HandleTransition(enemyFoundTransition);
                 }
                 else
@@ -41,7 +40,7 @@ namespace IndieDevTools.Demo.BattleSimulator
                     bool isItem = GetIsItem(targetMapElement);
                     if (isItem)
                     {
-                        Debug.Log(agent + " found some " + targetMapElement);
+                        agent.Description = "Found item " + targetMapElement.DisplayName;
                         agent.HandleTransition(itemFoundTransition);
                     }
                     else

@@ -48,6 +48,7 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: a118f5f6885ce10419e2bf94468c553f, type: 2}
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
   groupId: 1
+  displayName: Miner
 --- !u!61 &1824161228415888089
 BoxCollider2D:
   m_ObjectHideFlags: 0

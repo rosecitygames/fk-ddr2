@@ -37,7 +37,7 @@ namespace IndieDevTools.Maps
         int IMapElement.SortingOrder => SortingOrder;
         protected int SortingOrder { get; }
 
-        int IGroupMember.GroupId => GroupId;
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
         protected int GroupId { get; set; }
 
         Vector2Int ILocatable.Location => Location;

@@ -44,7 +44,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             {
                 int elementCount = Mathf.FloorToInt(data.Percentage * fillCellCount);
                 Debug.Log("Generating " + elementCount + " " + data.Prefab.name);
-
+                
                 for(int i = 0; i < elementCount; i++)
                 {
                     bool isMapFilled = occupiedCells.Count >= fillCellCount;

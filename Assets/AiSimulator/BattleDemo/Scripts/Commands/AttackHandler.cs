@@ -41,13 +41,15 @@ namespace IndieDevTools.Demo.BattleSimulator
             soldier.OnAttackReceived -= HandleAttack;
         }
 
-        void HandleAttack(IAgent attackAgent)
+        void HandleAttack(IAgent attackingAgent)
         {
-            soldier.TargetMapElement = attackAgent;
+            attackingAgent.Description = "Attacking " + soldier.DisplayName;
+
+            soldier.TargetMapElement = attackingAgent;
 
             int health = AttributesUtil.GetHealth(soldier);
 
-            int attackStrength = AttributesUtil.GetRandomAttackStrength(attackAgent);
+            int attackStrength = AttributesUtil.GetRandomAttackStrength(attackingAgent);
             int defenseStrength = AttributesUtil.GetRandomDefenseStrength(soldier);
 
             int healthDecrement = attackStrength - defenseStrength;
@@ -57,13 +59,15 @@ namespace IndieDevTools.Demo.BattleSimulator
                 AttributesUtil.SetHealth(soldier, health);
             }
 
-            Debug.Log(attackAgent + " attacks " + soldier + "!" + " attackStrength = "+attackStrength+", defenseStrength = "+defenseStrength+", remaining health = " + health);
+
             if (health <= 0)
             {
+                soldier.Description = "Killed by " + attackingAgent.DisplayName;
                 soldier.HandleTransition(onDeathTransition);
             }
             else
             {
+                soldier.Description = "Attacked by " + attackingAgent.DisplayName;// + "\nattackStrength = "+attackStrength+", defenseStrength = "+defenseStrength+", remaining health = " + health;
                 soldier.HandleTransition(onAttackedTransition);
             }
         }

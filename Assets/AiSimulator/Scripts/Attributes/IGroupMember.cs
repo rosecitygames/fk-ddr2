@@ -6,6 +6,6 @@ namespace IndieDevTools.Attributes
 {
     public interface IGroupMember
     {
-        int GroupId { get; }
+        int GroupId { get; set; }
     }
 }

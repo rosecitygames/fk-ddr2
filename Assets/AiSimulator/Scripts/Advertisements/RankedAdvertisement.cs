@@ -25,7 +25,7 @@ namespace IndieDevTools.Advertisements
         Vector2Int ILocatable.Location => Advertisement.Location;
         event Action<ILocatable> IUpdatable<ILocatable>.OnUpdated { add { } remove { } }
 
-        int IGroupMember.GroupId => Advertisement.GroupId;
+        int IGroupMember.GroupId { get => Advertisement.GroupId; set => Advertisement.GroupId = value; }
 
         public static RankedAdvertisement Create(IAdvertisement advertisement, int rank)
         {

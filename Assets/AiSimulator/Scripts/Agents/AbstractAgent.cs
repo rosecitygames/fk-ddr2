@@ -44,8 +44,12 @@ namespace IndieDevTools.Agents
             }  
         }
 
-        string IDescribable.DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
-        string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
+        string IDescribable.DisplayName { get => DisplayName; set => DisplayName = value; }
+        protected virtual string DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
+
+        string IDescribable.Description { get => Description; set => Description = value; }
+        protected virtual string Description { get => Data.Description; set => Data.Description = value; }
+
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { Data.OnUpdated += value; } remove { Data.OnUpdated -= value; } }
 
         List<IAttribute> IStatsCollection.Stats => Data.Stats;
@@ -241,7 +245,7 @@ namespace IndieDevTools.Agents
         [SerializeField]
         int groupId;
         protected int GroupId { get => groupId; set => groupId = value; }
-        int IGroupMember.GroupId => GroupId;
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
 
         // State Machine implementations
         protected IStateMachine stateMachine = StateMachine.Create();

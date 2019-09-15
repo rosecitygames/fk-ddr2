@@ -9,6 +9,10 @@ namespace IndieDevTools.Demo.BattleSimulator
 {
     public class Soldier : AbstractAgent, ISoldier
     {
+        [SerializeField]
+        string displayName = "";
+        protected override string DisplayName { get => displayName; set => displayName = value; }
+
         protected override void Init()
         {
             base.Init();

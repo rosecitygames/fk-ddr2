@@ -26,7 +26,7 @@ namespace IndieDevTools.Maps
             }
         }
 
-        int IGroupMember.GroupId => MapElement.GroupId;
+        int IGroupMember.GroupId { get => MapElement.GroupId; set => MapElement.GroupId = value; }
 
         List<IAttribute> IStatsCollection.Stats => MapElement.Stats;
         IAttribute IStatsCollection.GetStat(string id) => MapElement.GetStat(id);

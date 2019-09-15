@@ -41,7 +41,7 @@ namespace IndieDevTools.Maps
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
         Action<IDescribable> OnDescribableUpdated;
 
-        int IGroupMember.GroupId => groupId;
+        int IGroupMember.GroupId { get => groupId; set => groupId = value; }
         int groupId = 0;
 
         List<IAttribute> IStatsCollection.Stats => stats.Stats;

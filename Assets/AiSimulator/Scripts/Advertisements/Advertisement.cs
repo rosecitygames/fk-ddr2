@@ -28,7 +28,7 @@ namespace IndieDevTools.Advertisements
         IMap IAdvertisement.Map => Map;
         protected IMap Map { get; set; }
 
-        int IGroupMember.GroupId => GroupId;
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
         protected int GroupId { get; set; }
   
         public static IAdvertisement Create(List<IAttribute> attributes, IMap map, Vector2Int location, List<Vector2Int> broadcastLocations, int groupId = 0)

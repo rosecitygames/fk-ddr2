@@ -50,8 +50,11 @@ namespace IndieDevTools.Items
         List<IAttribute> IStatsCollection.Stats => Data.Stats;
         IAttribute IStatsCollection.GetStat(string id) => Data.GetStat(id);
 
-        int IGroupMember.GroupId => GroupId;
-        protected virtual int GroupId { get; set; }     
+        // Group Member implementations
+        [SerializeField]
+        int groupId;
+        protected int GroupId { get => groupId; set => groupId = value; }
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
 
         // Map implementations
         IMap map;

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a80bee6d49c794ca6cf808d4e97463, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
-  displayName: Green Knight
-  description: A prickly and brave knight!
+  displayName: Knight
+  description: A brave knight!
   broadcastDistance: 6
   broadcastInterval: 0.3
   stats:

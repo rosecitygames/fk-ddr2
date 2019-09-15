@@ -12,7 +12,8 @@ namespace IndieDevTools.Demo.BattleSimulator
         {
             if (agent.TargetMapElement != null)
             {
-                Debug.Log(agent.DisplayName + " picking up " + agent.TargetMapElement.DisplayName);
+                agent.TargetMapElement.Description = "Picked up by " + agent.DisplayName;
+                agent.Description = "Picked up " + agent.TargetMapElement.DisplayName;
                 agent.TargetMapElement.RemoveFromMap();
                 agent.TargetMapElement = null;
             }

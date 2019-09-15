@@ -1,8 +1,5 @@
 ﻿using IndieDevTools.Agents;
-using IndieDevTools.Attributes;
 using IndieDevTools.Commands;
-using IndieDevTools.Utils;
-using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {

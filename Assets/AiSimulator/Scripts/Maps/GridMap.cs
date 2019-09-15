@@ -7,15 +7,6 @@ namespace IndieDevTools.Maps
     [RequireComponent(typeof(Grid))]
     public class GridMap : AbstractMap
     {
-        [SerializeField]
-        string displayName = "";
-        protected override string DisplayName => displayName;
-
-        [SerializeField]
-        [TextArea]
-        string description = "";
-        protected override string Description => description;
-
         Grid grid;
         Grid Grid
         {

@@ -44,6 +44,11 @@ namespace IndieDevTools.Demo.BattleSimulator
             DetectMouseClick();
         }
 
+        void OnDestroy()
+        {
+            RemoveMapElementEventHandlers();
+        }
+
         void DetectMouseClick()
         {
             if (Input.GetMouseButtonDown(0))
@@ -79,7 +84,11 @@ namespace IndieDevTools.Demo.BattleSimulator
             {
                 float alpha = currentSpriteRenderer.color.a;
                 Color color = currentSpriteRendererInitialColor;
-                color.a = alpha;
+                if (alpha < color.a)
+                {
+                    color.a = alpha;
+                }
+                
                 currentSpriteRenderer.color = color;
                 currentSpriteRenderer = null;
             }
@@ -98,7 +107,27 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         void SetMapElement(IMapElement mapElement)
         {
+            RemoveMapElementEventHandlers();
             currentMapElement = mapElement;
+            AddMapElementEventHandlers();
+            Draw();
+        }
+
+        void AddMapElementEventHandlers()
+        {
+            RemoveMapElementEventHandlers();
+            if (currentMapElement == null) return;
+            (currentMapElement as IDescribable).OnUpdated += CurrentMapElement_OnUpdated;
+        }
+
+        void RemoveMapElementEventHandlers()
+        {
+            if (currentMapElement == null) return;
+            (currentMapElement as IDescribable).OnUpdated -= CurrentMapElement_OnUpdated;
+        }
+
+        private void CurrentMapElement_OnUpdated(IDescribable obj)
+        {
             Draw();
         }
 
