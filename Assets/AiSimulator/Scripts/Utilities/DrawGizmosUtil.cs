@@ -18,7 +18,7 @@ namespace IndieDevTools.Utils
         {
             Color gizmoColor = baseColor;
 
-            gizmoColor.a = baseColor.a * 0.1f;
+            gizmoColor.a = baseColor.a * 0.05f;
             Gizmos.color = gizmoColor;
             Gizmos.DrawSphere(position, broadcastDistance);
         }

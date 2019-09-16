@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: agent
   displayName: Agent
-  description: 
+  description: An agent on the map
+  isInitialMax: 0
+  min: 0
+  max: 99
