@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace IndieDevTools.Advertisements
 {
-    [CreateAssetMenu(fileName = "AdvertisementBroadcaster", menuName = "RCG/Advertisement Broadcaster")]
+    [CreateAssetMenu(fileName = "AdvertisementBroadcaster", menuName = "IndieDevTools/Advertisement Broadcaster")]
     public class ScriptableAdvertisementBroadcaster : ScriptableObject, IAdvertisementBroadcaster
     {
         [System.NonSerialized]
