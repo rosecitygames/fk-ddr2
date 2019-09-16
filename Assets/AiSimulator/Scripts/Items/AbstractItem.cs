@@ -59,6 +59,7 @@ namespace IndieDevTools.Items
         ITrait IStatsCollection.GetStat(string id) => Data.GetStat(id);
 
         // Map Element implementations
+        [NonSerialized]
         IMapElement mapElement = null;
         IMapElement MapElement
         {

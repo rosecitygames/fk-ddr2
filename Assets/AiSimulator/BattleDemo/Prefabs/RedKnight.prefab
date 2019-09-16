@@ -126,9 +126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 1e3dc81709430114b855965dba4fdcff, type: 2}
-  broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
   groupId: 3
+  broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
   displayName: Red Knight
+  gizmoColor: {r: 1, g: 0.048927307, b: 0, a: 1}
 --- !u!61 &-8679186605019297492
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -131,7 +131,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             base.RemoveFromMap();
             StopAllCoroutines();
 
-            isDrawingGizmos = false;
+            isRuntimeDrawingGizmos = false;
 
             SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             if (spriteRenderer != null)

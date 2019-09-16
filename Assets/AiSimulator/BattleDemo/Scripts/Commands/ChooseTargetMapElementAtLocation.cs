@@ -22,7 +22,6 @@ namespace IndieDevTools.Demo.BattleSimulator
             agent.TargetMapElement = GetHighestRankedMapElement();
         }
 
-        // TODO : Seems like if multiple agents with the same group id reach an item, that they decide nothing was found.
         IMapElement GetHighestRankedMapElement()
         {
             int highestEnemyRank = 0;
@@ -34,14 +33,18 @@ namespace IndieDevTools.Demo.BattleSimulator
             {
                 if (mapElement == agent) continue;
 
-                bool isEnemy = GetIsEnemy(mapElement);
-                if (isEnemy)
+                bool isAttackable = GetIsAttackable(mapElement);
+                if (isAttackable)
                 {
-                    int enemyRank = GetEnemyRank(mapElement);
-                    if (enemyRank > highestEnemyRank)
+                    bool isEnemy = GetIsEnemy(mapElement);
+                    if (isEnemy)
                     {
-                        highestEnemyRank = enemyRank;
-                        highestRankedMapElement = mapElement;
+                        int enemyRank = GetEnemyRank(mapElement);
+                        if (enemyRank > highestEnemyRank)
+                        {
+                            highestEnemyRank = enemyRank;
+                            highestRankedMapElement = mapElement;
+                        }
                     }
                 }
                 else if (highestEnemyRank == 0)
@@ -58,10 +61,14 @@ namespace IndieDevTools.Demo.BattleSimulator
             return highestRankedMapElement;
         }
 
+        bool GetIsAttackable (IMapElement mapElement)
+        {
+            return mapElement is IAttackReceiver;
+        }
+
         bool GetIsEnemy(IMapElement mapElement)
         {
-            bool isAttackable = (mapElement as IAttackReceiver) != null;
-            return (isAttackable && mapElement.GroupId != agent.GroupId);
+            return mapElement.GroupId != agent.GroupId;
         }
 
         int GetEnemyRank(IMapElement agentElement)

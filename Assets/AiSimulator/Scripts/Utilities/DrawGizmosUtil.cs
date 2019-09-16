@@ -9,7 +9,7 @@ namespace IndieDevTools.Utils
         public static void DrawTargetLocationLine(IAgent agent, Color color)
         {
             Vector3 position = agent.Position;
-            Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetLocation);
+            Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetAdvertisement.Location);
             Gizmos.color = color;
             Gizmos.DrawLine(position, targetPosition);
         }
@@ -26,8 +26,6 @@ namespace IndieDevTools.Utils
         public static void DrawBroadcastDistanceWireSphere(Vector3 position, float broadcastDistance, Color baseColor)
         {
             Color gizmoColor = baseColor;
-
-            gizmoColor.a = baseColor.a * 0.2f;
             Gizmos.color = gizmoColor;
             Gizmos.DrawWireSphere(position, broadcastDistance);
         }

@@ -88,7 +88,7 @@ namespace IndieDevTools.Agents
         ITrait IDesiresCollection.GetDesire(string id) => Desires.GetTrait(id);
 
         IAgentData ICopyable<IAgentData>.Copy() => Create(this);
-
+        
         public static IAgentData Create(IAgentData source)
         {
             return new AgentData

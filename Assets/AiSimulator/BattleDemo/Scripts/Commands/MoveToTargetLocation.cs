@@ -47,7 +47,6 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         IEnumerator Move()
         {
-            Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetLocation);
             float moveSpeed = AttributesUtil.GetMoveSpeed(agent);
 
             YieldInstruction yieldInstruction = new WaitForEndOfFrame();
@@ -57,6 +56,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             {
                 yield return yieldInstruction;
 
+                Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetLocation);
                 float targetDistance = Vector2.Distance(agent.Position, targetPosition);
 
                 isLocationReached = targetDistance < 0.001f;

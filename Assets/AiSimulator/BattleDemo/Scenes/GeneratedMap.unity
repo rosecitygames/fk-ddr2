@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50e6a74c2c6a88841a1f098cea1a9e86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillPercentage: 0.3
+  fillPercentage: 0.5
   datas:
   - prefab: {fileID: 7907055805225926142, guid: 9c235aafbe5c41344943204d2459ee2d,
       type: 3}

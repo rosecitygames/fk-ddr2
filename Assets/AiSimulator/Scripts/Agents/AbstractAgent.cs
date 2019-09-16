@@ -67,8 +67,9 @@ namespace IndieDevTools.Agents
         ITrait IDesiresCollection.GetDesire(string id) => Data.GetDesire(id);
 
         // Map Element implementations
+        [NonSerialized]
         IMapElement mapElement = null;
-        IMapElement MapElement
+        protected IMapElement MapElement
         {
             get
             {
@@ -250,11 +251,18 @@ namespace IndieDevTools.Agents
             }
         }
 
-        protected bool isDrawingGizmos = true;
+        [SerializeField]
+        bool isDrawingGizmos = true;
+
+        [SerializeField]
+        Color gizmoColor = Color.green;
+
+        protected bool isRuntimeDrawingGizmos = true;
 
         void OnDrawGizmos()
         {
             if (isDrawingGizmos == false) return;
+            if (isRuntimeDrawingGizmos == false) return;
 
             IAgent agent = this as IAgent;
             if (agent.TargetAdvertisement != null)
@@ -262,20 +270,21 @@ namespace IndieDevTools.Agents
                 DrawGizmosUtil.DrawTargetLocationLine(this, Color.blue);
             }
 
-            if (data != null && MapElement.Map != null)
+            if (Data != null && MapElement.Map != null)
             {
-                float broadcastDistance = (data as IAgentData).BroadcastDistance * MapElement.Map.CellSize.x;
-                DrawGizmosUtil.DrawBroadcastDistanceSphere(MapElement.Position, broadcastDistance, Color.green);
+                float broadcastDistance = Data.BroadcastDistance * MapElement.Map.CellSize.x;
+                DrawGizmosUtil.DrawBroadcastDistanceSphere(MapElement.Position, broadcastDistance, gizmoColor);
             }
         }
 
         void OnDrawGizmosSelected()
         {
-            if (data != null && MapElement.Map != null)
-            {
-                float broadcastDistance = (data as IAgentData).BroadcastDistance * MapElement.Map.CellSize.x;
-                DrawGizmosUtil.DrawBroadcastDistanceWireSphere(MapElement.Position, broadcastDistance, Color.green);
-            }
+            if (isDrawingGizmos == false) return;
+            if (isRuntimeDrawingGizmos == false) return;
+            if (Data == null || MapElement.Map == null) return;
+
+            float broadcastDistance = Data.BroadcastDistance * MapElement.Map.CellSize.x;
+            DrawGizmosUtil.DrawBroadcastDistanceWireSphere(MapElement.Position, broadcastDistance, gizmoColor);
         }
     }
 }
