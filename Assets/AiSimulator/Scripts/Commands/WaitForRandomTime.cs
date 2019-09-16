@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// A generic command that waits for a random amount of time until completed.
+    /// </summary>
     public class WaitForRandomTime : AbstractCommand
     {
         MonoBehaviour monoBehaviour;

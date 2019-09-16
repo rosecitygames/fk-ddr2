@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// An implementation of ICommand that is used to create shareable command objects in the editor.
+    /// </summary>
     abstract public class AbstractScriptableCommand : ScriptableObject, ICommand
     {
         protected bool isCompleted;

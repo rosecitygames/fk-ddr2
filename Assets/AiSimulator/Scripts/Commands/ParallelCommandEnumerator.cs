@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// An extension of the abstract command enumerator that plays through
+    /// commands in parallel. All commands in the collection run at the same time
+    /// until all are completed.
+    /// </summary>
     public class ParallelCommandEnumerator : AbstractCommandEnumerator
     {
         override protected void OnStart()

@@ -2,9 +2,15 @@
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// A class that is used to create a layer collection of serial commands.
+    /// Very similar to an animation timeline with multiple layers and the frames are commands.
+    /// It can also be loosely thought of as a two dimensional array off commands.
+    /// Note, the command player is also a command itself. So, this can be used for interesting
+    /// nested behaviours.
+    /// </summary>
     public class CommandPlayer : AbstractCommand, ICommandPlayer
     {
-
         private ICommandEnumerator parallelCommandEnumerator;
         private ICommandEnumerator ParallelCommandEnumerator
         {

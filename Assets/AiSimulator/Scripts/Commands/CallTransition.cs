@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// A command that calls for a transition on a transition handler (usually a state machine).
+    /// </summary>
     public class CallTransition : AbstractCommand
     {
         IStateTransitionHandler handler = null;

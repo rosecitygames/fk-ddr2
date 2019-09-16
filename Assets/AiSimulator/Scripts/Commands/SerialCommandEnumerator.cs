@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// An extension of the abstract command enumerator that iterates
+    /// through its collection of commands in a serial fashion (one after the other)
+    /// until all commands are completed.
+    /// </summary>
     public class SerialCommandEnumerator : AbstractCommandEnumerator
     {
 

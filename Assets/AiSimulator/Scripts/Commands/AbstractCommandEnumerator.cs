@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// An abstract enumerator for iterating over a collection of commands.
+    /// </summary>
     public class AbstractCommandEnumerator : AbstractCommand, ICommandEnumerator
     {
         protected List<ICommand> commands = new List<ICommand>();

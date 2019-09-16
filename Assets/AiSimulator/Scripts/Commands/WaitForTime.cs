@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// A generic command that waits for x time until completed.
+    /// </summary>
     public class WaitForTime : AbstractCommand
     {
         MonoBehaviour monoBehaviour;

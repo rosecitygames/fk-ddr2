@@ -1,5 +1,8 @@
 ﻿namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// A null implementation of a command.
+    /// </summary>
     public class NullCommand : ICommand
     {
         bool ICommand.IsCompleted

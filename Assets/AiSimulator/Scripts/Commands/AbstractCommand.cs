@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace IndieDevTools.Commands
+﻿namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// A base implementation of an ICommand. At their core, commands
+    /// are simply objects that can start, complete, and stop doing something.
+    /// </summary>
     abstract public class AbstractCommand : ICommand
     {
         protected bool isCompleted;

@@ -1,5 +1,8 @@
 ﻿namespace IndieDevTools.Commands
 {
+    /// <summary>
+    /// A null implementation of a command enumerator.
+    /// </summary>
     public class NullCommandEnumerator : ICommandEnumerator
     {
         ICommandEnumerator parent = null;
