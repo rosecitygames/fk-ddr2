@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Advertisements
 {
+    /// <summary>
+    /// An interface for implementing classes to broadcast advertisements.
+    /// </summary>
     public interface IAdvertiser
     {
         IAdvertisementBroadcaster GetBroadcaster();

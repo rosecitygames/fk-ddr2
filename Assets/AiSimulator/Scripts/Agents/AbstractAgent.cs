@@ -9,6 +9,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Agents
 {
+    /// <summary>
+    /// An abstract map element that advertises its stat traits, seeks out desired traits, and can change states.
+    /// </summary>
     public abstract class AbstractAgent : MonoBehaviour, IAgent
     {
         protected const int sortingOrderOffset = 1000;

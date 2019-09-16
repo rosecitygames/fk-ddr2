@@ -5,6 +5,9 @@ using IndieDevTools.Maps;
 
 namespace IndieDevTools.Advertisements
 {
+    /// <summary>
+    /// A class used to broadcast advertisements.
+    /// </summary>
     public class AdvertisementBroadcaster : IAdvertisementBroadcaster
     {
         void IAdvertisementBroadcaster.Broadcast(IAdvertisement advertisement) => Broadcast(advertisement);

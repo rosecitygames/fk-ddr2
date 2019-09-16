@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Advertisements
 {
+    /// <summary>
+    /// A null implementation of the advertisement broadcaster interface.
+    /// </summary>
     public class NullAdvertisementBroadcaster : IAdvertisementBroadcaster
     {
         void IAdvertisementBroadcaster.Broadcast(IAdvertisement advertisement) { }

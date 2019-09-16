@@ -2,6 +2,9 @@
 
 namespace IndieDevTools.Traits
 {
+    /// <summary>
+    /// A null implementation of a trait.
+    /// </summary>
     [Serializable]
     public class NullTrait : ITrait
     {

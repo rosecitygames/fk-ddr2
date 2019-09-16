@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Advertisements
 {
+    /// <summary>
+    /// An advertisement with a rank property.
+    /// </summary>
     public class RankedAdvertisement : IRankedAdvertisement
     {
         protected IAdvertisement Advertisement { get; set; }
@@ -13,8 +16,8 @@ namespace IndieDevTools.Advertisements
 
         List<ITrait> ITraitCollection.Traits => Advertisement.Traits;
         ITrait ITraitCollection.GetTrait(string id) => Advertisement.GetTrait(id);
-        void ITraitCollection.AddTrait(ITrait attribute) => Advertisement.AddTrait(attribute);
-        void ITraitCollection.RemoveTrait(ITrait attribute) => Advertisement.RemoveTrait(attribute);
+        void ITraitCollection.AddTrait(ITrait trait) => Advertisement.AddTrait(trait);
+        void ITraitCollection.RemoveTrait(ITrait trait) => Advertisement.RemoveTrait(trait);
         void ITraitCollection.RemoveTrait(string id) => Advertisement.RemoveTrait(id);
         void ITraitCollection.Clear() => Advertisement.Clear();
         ITraitCollection ICopyable<ITraitCollection>.Copy() => Advertisement.Copy();

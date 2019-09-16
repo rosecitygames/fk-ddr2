@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace IndieDevTools.Traits
 {
-
+    /// <summary>
+    /// 
+    /// </summary>
     [CreateAssetMenu(fileName = "Trait", menuName = "IndieDevTools/Trait")]
     public class ScriptableTrait : ScriptableObject, ITrait
     {
-        [SerializeField]
-        string id = "";
-        string IIdable.Id => id;
+        string IIdable.Id => name;
 
         [SerializeField]
         string displayName = "";

@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Agents
 {
+    /// <summary>
+    /// Data used by agents. Contains various properties for descriptions, advertisement broadcasting, and traits.
+    /// </summary>
     [Serializable]
     public class AgentData : IAgentData
     {

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Advertisements
 {
+    /// <summary>
+    /// An advertisement broadcaster that can be shared across multiple objects.
+    /// </summary>
     [CreateAssetMenu(fileName = "AdvertisementBroadcaster", menuName = "IndieDevTools/Advertisement Broadcaster")]
     public class ScriptableAdvertisementBroadcaster : ScriptableObject, IAdvertisementBroadcaster
     {

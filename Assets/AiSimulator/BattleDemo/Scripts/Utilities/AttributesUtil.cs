@@ -15,7 +15,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const float minMoveSpeed = 0.0f;
         const float maxMoveSpeed = 0.05f;
 
-        const string speedAttributeId = "speed";
+        const string speedAttributeId = "Speed";
 
         public static float GetMoveSpeed(IStatsCollection statsCollection)
         {
@@ -38,7 +38,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         }
 
         // Move Radius
-        const string moveRadiusAttributeId = "moveRadius";
+        const string moveRadiusAttributeId = "MoveRadius";
         public static int GetMoveRadius(IStatsCollection statsCollection)
         {
             ITrait attribute = statsCollection.GetStat(moveRadiusAttributeId);
@@ -54,7 +54,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const int maxAttackStrength = 10;
         const int defaultAttackStrength = 0;
 
-        const string attackStrengthAttributeId = "attack";
+        const string attackStrengthAttributeId = "Attack";
         public static int GetAttackStrength(IStatsCollection statsCollection)
         {
             ITrait attribute = statsCollection.GetStat(attackStrengthAttributeId);
@@ -76,7 +76,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const int maxDefenseStrength = 10;
         const int defaultDefenseStrength = 0;
 
-        const string defenseStrengthAttributeId = "defense";
+        const string defenseStrengthAttributeId = "Defense";
         public static int GetDefenseStrength(IStatsCollection statsCollection)
         {
             ITrait attribute = statsCollection.GetStat(defenseStrengthAttributeId);
@@ -94,7 +94,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         }
 
         // Health
-        const string healthAttributeId = "health";
+        const string healthAttributeId = "Health";
         public static int GetHealth(IStatsCollection statsCollection)
         {
             ITrait attribute = statsCollection.GetStat(healthAttributeId);

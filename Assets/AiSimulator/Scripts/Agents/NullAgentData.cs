@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace IndieDevTools.Agents
 {
+    /// <summary>
+    /// A null implementation of agent data.
+    /// </summary>
     public class NullAgentData : IAgentData
     {
         string IDescribable.DisplayName { get => ""; set { } }

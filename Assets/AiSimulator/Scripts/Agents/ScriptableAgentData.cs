@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Agents
 {
+    /// <summary>
+    /// Allows agents to be setup with a shared data object in the editor.
+    /// Note, runtime changes to the data do not effect the serialized data.
+    /// </summary>
     [CreateAssetMenu(fileName = "AgentData", menuName = "IndieDevTools/Agent Data")]
     public class ScriptableAgentData : ScriptableObject, IAgentData
     {

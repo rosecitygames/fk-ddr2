@@ -6,16 +6,19 @@ using UnityEngine;
 
 namespace IndieDevTools.Advertisements
 {
+    /// <summary>
+    /// A class used by advertisement broadcasters to announce that a collection of traits are at a location.
+    /// </summary>
     public class Advertisement : IAdvertisement
     {
-        protected ITraitCollection Attributes { get; set; }
-        List<ITrait> ITraitCollection.Traits => Attributes.Traits;
-        ITrait ITraitCollection.GetTrait(string id) => Attributes.GetTrait(id);
-        void ITraitCollection.AddTrait(ITrait attribute) => Attributes.AddTrait(attribute);
-        void ITraitCollection.RemoveTrait(ITrait attribute) => Attributes.RemoveTrait(attribute);
-        void ITraitCollection.RemoveTrait(string id) => Attributes.RemoveTrait(id);
-        void ITraitCollection.Clear() => Attributes.Clear();
-        ITraitCollection ICopyable<ITraitCollection>.Copy() => Attributes.Copy();
+        protected ITraitCollection Traits { get; set; }
+        List<ITrait> ITraitCollection.Traits => Traits.Traits;
+        ITrait ITraitCollection.GetTrait(string id) => Traits.GetTrait(id);
+        void ITraitCollection.AddTrait(ITrait trait) => Traits.AddTrait(trait);
+        void ITraitCollection.RemoveTrait(ITrait trait) => Traits.RemoveTrait(trait);
+        void ITraitCollection.RemoveTrait(string id) => Traits.RemoveTrait(id);
+        void ITraitCollection.Clear() => Traits.Clear();
+        ITraitCollection ICopyable<ITraitCollection>.Copy() => Traits.Copy();
 
         Vector2Int ILocatable.Location => Location;
         protected Vector2Int Location { get; set; }
@@ -35,7 +38,7 @@ namespace IndieDevTools.Advertisements
         {
             Advertisement advertisement = new Advertisement
             {
-                Attributes = TraitCollection.Create(attributes),
+                Traits = TraitCollection.Create(attributes),
                 Map = map,
                 Location = location,
                 BroadcastLocations = broadcastLocations,

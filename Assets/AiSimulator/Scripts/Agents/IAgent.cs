@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Agents
 {
+    /// <summary>
+    /// An interface for agents that contains agent data, target properties, and an advertisement received event.
+    /// </summary>
     public interface IAgent : IAdvertisingMapElement, IAdvertisementReceiver, IStateTransitionHandler, IDesiresCollection
     {
         IAgentData Data { get; set; }
