@@ -11,6 +11,8 @@ namespace IndieDevTools.Agents
 {
     public abstract class AbstractAgent : MonoBehaviour, IAgent
     {
+        protected const int sortingOrderOffset = 1000;
+
         // Agent Data implementations
         [SerializeField]
         ScriptableAgentData data = null;
@@ -44,6 +46,12 @@ namespace IndieDevTools.Agents
             }  
         }
 
+        // Group Member implementations
+        [SerializeField]
+        int groupId;
+        protected int GroupId { get => groupId; set => groupId = value; }
+        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
+
         string IDescribable.DisplayName { get => DisplayName; set => DisplayName = value; }
         protected virtual string DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
 
@@ -58,102 +66,57 @@ namespace IndieDevTools.Agents
         List<ITrait> IDesiresCollection.Desires => Data.Desires;
         ITrait IDesiresCollection.GetDesire(string id) => Data.GetDesire(id);
 
-        // Map implementations
-        IMap map;
-        IMap IMapElement.Map { get => Map; set => Map = value; }
-        protected IMap Map
+        // Map Element implementations
+        IMapElement mapElement = null;
+        IMapElement MapElement
         {
             get
             {
-                if (map == null)
-                {
-                    InitMap();
-                }
-                return map;
-            }
-            set
-            {
-                map = value;
+                InitMapElement();
+                return mapElement;
             }
         }
 
-        protected virtual void InitMap()
+        void InitMapElement()
         {
-            map = GetComponentInParent<IMap>() ?? NullMap.Create();
-            map.AddElement(this);
+            if (mapElement == null)
+            {
+                mapElement = Maps.MapElement.Create(gameObject, this, sortingOrderOffset);
+                mapElement.AddToMap();
+            }
         }
 
-        void IMapElement.AddToMap() => AddToMap(Map);
-        
+        IMap IMapElement.Map { get => MapElement.Map; set => MapElement.Map = value; }
+
+        void IMapElement.AddToMap() => AddToMap();
+        protected virtual void AddToMap() => MapElement.AddToMap();
+
         void IMapElement.AddToMap(IMap map) => AddToMap(map);
-        protected virtual void AddToMap(IMap map)
-        {
-            if (map != null)
-            {
-                Map.RemoveElement(this);
-            }
-            this.map = map;
-            Map.AddElement(this);
-        }
+        protected virtual void AddToMap(IMap map) => MapElement.AddToMap(map);
 
-        void IMapElement.RemoveFromMap()
-        {
-            RemoveFromMap();
-        }
-        protected virtual void RemoveFromMap()
-        {
-            Map.RemoveElement(this);
-        }
+        void IMapElement.RemoveFromMap() => RemoveFromMap();
+        protected virtual void RemoveFromMap() => MapElement.RemoveFromMap();
 
         bool IMapElement.IsOnMap => IsOnMap;
-        protected bool IsOnMap
-        {
-            get
-            {
-                if (Map == null) return false;
-                return Map.GetIsElementOnMap(this);
-            }
-        }
+        protected virtual bool IsOnMap => MapElement.IsOnMap;
 
-        float IMapElement.Distance(IMapElement otherMapElement) => Vector2Int.Distance(otherMapElement.Location, Location);
-        float IMapElement.Distance(Vector2Int otherLocation) => Vector2Int.Distance(otherLocation, Location);
+        float IMapElement.Distance(IMapElement otherMapElement) => MapElement.Distance(otherMapElement);
+        float IMapElement.Distance(Vector2Int otherLocation) => MapElement.Distance(otherLocation);
 
-        int IMapElement.InstanceId => gameObject.GetInstanceID();
+        int IMapElement.InstanceId => MapElement.InstanceId;
 
         int IMapElement.SortingOrder => SortingOrder;
-        protected virtual int SortingOrder => Mathf.RoundToInt(Position.y * Map.CellSize.y * -100.0f);
+        protected virtual int SortingOrder => MapElement.SortingOrder;
 
-        Vector2Int ILocatable.Location => Location;
-        protected virtual Vector2Int Location => Map.LocalToCell(Position);
+        Vector2Int ILocatable.Location => MapElement.Location;
 
         event Action<ILocatable> IUpdatable<ILocatable>.OnUpdated
         {
-            add { OnLocationUpdated += value; }
-            remove { OnLocationUpdated -= value; }
+            add { (MapElement as IUpdatable<ILocatable>).OnUpdated += value; }
+            remove { (MapElement as IUpdatable<ILocatable>).OnUpdated -= value; }
         }
-        Action<ILocatable> OnLocationUpdated;
 
-        Vector3 IPositionable.Position { get => Position; set => Position = value; }
-        protected virtual Vector3 Position
-        {
-            get
-            {
-                return transform.localPosition;
-            }
-            set
-            {
-                Vector2Int currentLocation = Location;
-                Vector2Int newLocation = Map.LocalToCell(value);
-
-                transform.localPosition = value;
-
-                if (currentLocation != newLocation)
-                {
-                    Map.AddElement(this);
-                    OnLocationUpdated?.Invoke(this);
-                }
-            }
-        }
+        Vector3 IPositionable.Position { get => MapElement.Position; set => MapElement.Position = value; }
 
         // Broadcaster & Advertiser implementations
         [SerializeField]
@@ -241,12 +204,6 @@ namespace IndieDevTools.Agents
 
         Vector2Int IAgent.TargetLocation { get; set; }
 
-        // Group Member implementations
-        [SerializeField]
-        int groupId;
-        protected int GroupId { get => groupId; set => groupId = value; }
-        int IGroupMember.GroupId { get => GroupId; set => GroupId = value; }
-
         // State Machine implementations
         protected IStateMachine stateMachine = StateMachine.Create();
 
@@ -267,7 +224,7 @@ namespace IndieDevTools.Agents
         {
             InitData();
             InitAdvertiser();
-            InitMap();
+            InitMapElement();
             InitStateMachine();
         }
 
@@ -279,7 +236,7 @@ namespace IndieDevTools.Agents
 
         protected virtual void Cleanup()
         {
-            RemoveFromMap();
+            MapElement.RemoveFromMap();
 
             IAdvertisementBroadcaster advertisementBroadcaster = Advertiser.GetBroadcaster();
             if (advertisementBroadcaster != null)
@@ -305,19 +262,19 @@ namespace IndieDevTools.Agents
                 DrawGizmosUtil.DrawTargetLocationLine(this, Color.blue);
             }
 
-            if (data != null && Map != null)
+            if (data != null && MapElement.Map != null)
             {
-                float broadcastDistance = (data as IAgentData).BroadcastDistance * Map.CellSize.x;
-                DrawGizmosUtil.DrawBroadcastDistanceSphere(Position, broadcastDistance, Color.green);
+                float broadcastDistance = (data as IAgentData).BroadcastDistance * MapElement.Map.CellSize.x;
+                DrawGizmosUtil.DrawBroadcastDistanceSphere(MapElement.Position, broadcastDistance, Color.green);
             }
         }
 
         void OnDrawGizmosSelected()
         {
-            if (data != null && Map != null)
+            if (data != null && MapElement.Map != null)
             {
-                float broadcastDistance = (data as IAgentData).BroadcastDistance * Map.CellSize.x;
-                DrawGizmosUtil.DrawBroadcastDistanceWireSphere(Position, broadcastDistance, Color.green);
+                float broadcastDistance = (data as IAgentData).BroadcastDistance * MapElement.Map.CellSize.x;
+                DrawGizmosUtil.DrawBroadcastDistanceWireSphere(MapElement.Position, broadcastDistance, Color.green);
             }
         }
     }

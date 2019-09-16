@@ -21,7 +21,7 @@ namespace IndieDevTools.Maps
         {
             if (mapElement == null)
             {
-                mapElement = MapElementHelper.Create(gameObject, this);
+                mapElement = Maps.MapElement.Create(gameObject, this);
                 mapElement.AddToMap();
             }
         }

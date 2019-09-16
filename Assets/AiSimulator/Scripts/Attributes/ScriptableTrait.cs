@@ -4,7 +4,7 @@ using UnityEngine;
 namespace IndieDevTools.Traits
 {
 
-    [CreateAssetMenu(fileName = "Trait", menuName = "InidieDevTools/Trait")]
+    [CreateAssetMenu(fileName = "Trait", menuName = "IndieDevTools/Trait")]
     public class ScriptableTrait : ScriptableObject, ITrait
     {
         [SerializeField]
