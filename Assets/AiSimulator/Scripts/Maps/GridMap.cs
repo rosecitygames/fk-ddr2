@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Maps
 {
+    /// <summary>
+    /// An abstract map extension that works with Unity Grids
+    /// </summary>
     [RequireComponent(typeof(Grid))]
     public class GridMap : AbstractMap
     {

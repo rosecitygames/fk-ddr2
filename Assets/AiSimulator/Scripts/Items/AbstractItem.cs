@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Items
 {
+    /// <summary>
+    /// An abstract map element that advertises its stat traits and can change states.
+    /// Note, the key difference from agents is that items don't seek desires.
+    /// </summary>
     public abstract class AbstractItem : MonoBehaviour, IItem
     {
         protected const int sortingOrderOffset = 1000;

@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Maps
 {
+    /// <summary>
+    /// Implementation for an element that resides on a map.
+    /// </summary>
     public class MapElement : IMapElement
     {
         GameObject gameObject;

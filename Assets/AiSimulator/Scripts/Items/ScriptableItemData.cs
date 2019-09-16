@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Items
 {
+    /// <summary>
+    /// Allows items to be setup with a shared data object in the editor.
+    /// Note, runtime changes to the data do not effect the serialized data.
+    /// </summary>
     [CreateAssetMenu(fileName = "ItemData", menuName = "IndieDevTools/Item Data")]
     public class ScriptableItemData : ScriptableObject, IItemData
     {

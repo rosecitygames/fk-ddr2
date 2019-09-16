@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace IndieDevTools
+﻿namespace IndieDevTools
 {
+    /// <summary>
+    /// An interface for an object with an id.
+    /// </summary>
     public interface IIdable
     {
         string Id { get; }

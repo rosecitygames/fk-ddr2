@@ -7,7 +7,8 @@ namespace IndieDevTools.Commands
     /// <summary>
     /// An extension of the abstract command enumerator that plays through
     /// commands in parallel. All commands in the collection run at the same time
-    /// until all are completed.
+    /// until all are completed. Note, that not all commands necessarily complete.
+    /// So, in those cases, the enumerator will never complete (which can be desirable).
     /// </summary>
     public class ParallelCommandEnumerator : AbstractCommandEnumerator
     {

@@ -4,6 +4,11 @@ using UnityEngine;
 
 namespace IndieDevTools.Maps
 {
+    /// <summary>
+    /// An interface for a 2D map that included various properties and helper methods.
+    /// Note, a 2D map does not necessarily need to be a grid. It could be collection
+    /// of node cells or anythings else you can imagine.
+    /// </summary>
     public interface IMap : IDescribable
     {
         Transform Transform { get; }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Maps
 {
+    /// <summary>
+    /// A null implementation of a map.
+    /// </summary>
     public class NullMap : IMap
     {
         Transform IMap.Transform => null;

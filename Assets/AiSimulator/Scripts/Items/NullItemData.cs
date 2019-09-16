@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace IndieDevTools.Items
 {
+    /// <summary>
+    /// A null implementation of item data.
+    /// </summary>
     public class NullItemData : IItemData
     {
         string IDescribable.DisplayName { get => ""; set { } }

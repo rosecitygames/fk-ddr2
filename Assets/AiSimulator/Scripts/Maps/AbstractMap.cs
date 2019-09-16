@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Maps
 {
+    /// <summary>
+    /// An abstract map implementation that primarily bridges
+    /// interface implemenations to protected methods and properties.
+    /// </summary>
     public abstract class AbstractMap : MonoBehaviour, IMap
     {
         Transform IMap.Transform => Transform;

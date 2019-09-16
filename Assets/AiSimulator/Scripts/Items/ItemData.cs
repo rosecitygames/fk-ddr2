@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Items
 {
+    /// <summary>
+    /// The data used by items to describe them and their stat traits.
+    /// </summary>
     [Serializable]
     public class ItemData : IItemData
     {

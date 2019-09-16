@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Maps
 {
+    /// <summary>
+    /// Interface for an item that is on a map.
+    /// </summary>
     public interface IMapElement : ILocatable, IPositionable, IDescribable, IStatsCollection, IGroupMember
     {
         int InstanceId { get; }

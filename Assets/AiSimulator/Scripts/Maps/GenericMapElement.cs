@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Maps
 {
+    /// <summary>
+    /// A simple map element implementation.
+    /// </summary>
     public class GenericMapElement : MonoBehaviour, IMapElement
     {
         IMapElement mapElement = null;
