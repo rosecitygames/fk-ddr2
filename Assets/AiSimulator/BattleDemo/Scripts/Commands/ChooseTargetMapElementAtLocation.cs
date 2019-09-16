@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Agents;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using IndieDevTools.Commands;
 using IndieDevTools.Maps;
 using System.Collections.Generic;
@@ -71,13 +71,13 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         int GetItemRank(IMapElement itemElement)
         {
-            List<IAttribute> desires = agent.Desires;
-            List<IAttribute> stats = itemElement.Stats;
+            List<ITrait> desires = agent.Desires;
+            List<ITrait> stats = itemElement.Stats;
 
             int rank = 0;
-            foreach (IAttribute stat in stats)
+            foreach (ITrait stat in stats)
             {
-                foreach (IAttribute desire in desires)
+                foreach (ITrait desire in desires)
                 {
                     if (stat.Id == desire.Id)
                     {

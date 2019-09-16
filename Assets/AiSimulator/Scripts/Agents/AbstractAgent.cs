@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using IndieDevTools.Maps;
 using IndieDevTools.States;
 using IndieDevTools.Utils;
@@ -52,11 +52,11 @@ namespace IndieDevTools.Agents
 
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { Data.OnUpdated += value; } remove { Data.OnUpdated -= value; } }
 
-        List<IAttribute> IStatsCollection.Stats => Data.Stats;
-        IAttribute IStatsCollection.GetStat(string id) => Data.GetStat(id);
+        List<ITrait> IStatsCollection.Stats => Data.Stats;
+        ITrait IStatsCollection.GetStat(string id) => Data.GetStat(id);
 
-        List<IAttribute> IDesiresCollection.Desires => Data.Desires;
-        IAttribute IDesiresCollection.GetDesire(string id) => Data.GetDesire(id);
+        List<ITrait> IDesiresCollection.Desires => Data.Desires;
+        ITrait IDesiresCollection.GetDesire(string id) => Data.GetDesire(id);
 
         // Map implementations
         IMap map;

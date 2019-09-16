@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace IndieDevTools.Attributes
+namespace IndieDevTools.Traits
 {
     public interface IStatsCollection
     {
-        List<IAttribute> Stats { get; }
-        IAttribute GetStat(string id);
+        List<ITrait> Stats { get; }
+        ITrait GetStat(string id);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Agents;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using IndieDevTools.Commands;
 using System.Collections;
 using UnityEngine;

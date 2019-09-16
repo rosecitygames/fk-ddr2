@@ -1,4 +1,4 @@
-﻿using IndieDevTools.Attributes;
+﻿using IndieDevTools.Traits;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,8 +28,8 @@ namespace IndieDevTools.Maps
 
         int IGroupMember.GroupId { get => MapElement.GroupId; set => MapElement.GroupId = value; }
 
-        List<IAttribute> IStatsCollection.Stats => MapElement.Stats;
-        IAttribute IStatsCollection.GetStat(string id) => MapElement.GetStat(id);
+        List<ITrait> IStatsCollection.Stats => MapElement.Stats;
+        ITrait IStatsCollection.GetStat(string id) => MapElement.GetStat(id);
 
         string IDescribable.DisplayName { get => MapElement.DisplayName; set => MapElement.DisplayName = value; }
         string IDescribable.Description { get => MapElement.Description; set => MapElement.Description = value; }

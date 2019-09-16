@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,28 +44,16 @@ namespace IndieDevTools.Agents
 
         [SerializeField]
         float broadcastDistance = 0.0f;
-        float IAdvertisementBroadcastData.BroadcastDistance
-        {
-            get
-            {
-                return broadcastDistance;
-            }
-        }
+        float IAdvertisementBroadcastData.BroadcastDistance => broadcastDistance;
 
         [SerializeField]
         float broadcastInterval = 0.0f;
-        float IAdvertisementBroadcastData.BroadcastInterval
-        {
-            get
-            {
-                return broadcastInterval;
-            }
-        }
+        float IAdvertisementBroadcastData.BroadcastInterval => broadcastInterval;
 
         [SerializeField]
-        AttributeCollection stats = new AttributeCollection();
-        IAttributeCollection iStats = null;
-        IAttributeCollection Stats
+        TraitCollection stats = new TraitCollection();
+        ITraitCollection iStats = null;
+        ITraitCollection Stats
         {
             get
             {
@@ -77,13 +65,13 @@ namespace IndieDevTools.Agents
             }
         }
 
-        List<IAttribute> IStatsCollection.Stats => Stats.Attributes;
-        IAttribute IStatsCollection.GetStat(string id) => Stats.GetAttribute(id);
+        List<ITrait> IStatsCollection.Stats => Stats.Traits;
+        ITrait IStatsCollection.GetStat(string id) => Stats.GetTrait(id);
 
         [SerializeField]
-        AttributeCollection desires = new AttributeCollection();
-        IAttributeCollection iDesires = null;
-        IAttributeCollection Desires
+        TraitCollection desires = new TraitCollection();
+        ITraitCollection iDesires = null;
+        ITraitCollection Desires
         {
             get
             {
@@ -95,14 +83,11 @@ namespace IndieDevTools.Agents
             }
         }
 
-        List<IAttribute> IDesiresCollection.Desires => Desires.Attributes;
+        List<ITrait> IDesiresCollection.Desires => Desires.Traits;
 
-        IAttribute IDesiresCollection.GetDesire(string id) => Desires.GetAttribute(id);
+        ITrait IDesiresCollection.GetDesire(string id) => Desires.GetTrait(id);
 
-        IAgentData ICopyable<IAgentData>.Copy()
-        {
-            return Create(this);
-        }
+        IAgentData ICopyable<IAgentData>.Copy() => Create(this);
 
         public static IAgentData Create(IAgentData source)
         {
@@ -110,17 +95,13 @@ namespace IndieDevTools.Agents
             {
                 displayName = source.DisplayName,
                 description = source.Description,
-                iStats = AttributeCollection.Create(source.Stats),
-                iDesires = AttributeCollection.Create(source.Desires),
+                iStats = TraitCollection.Create(source.Stats),
+                iDesires = TraitCollection.Create(source.Desires),
                 broadcastDistance = source.BroadcastDistance,
                 broadcastInterval = source.BroadcastInterval
             };
         }
 
-        public static IAgentData Create()
-        {
-            return new AgentData();
-        }
-                
+        public static IAgentData Create() => new AgentData();
     }
 }

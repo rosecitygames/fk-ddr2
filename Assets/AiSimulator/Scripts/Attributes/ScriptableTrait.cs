@@ -1,11 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-namespace IndieDevTools.Attributes
+namespace IndieDevTools.Traits
 {
 
-    [CreateAssetMenu(fileName = "Attribute", menuName = "RCG/Attribute")]
-    public class ScriptableAttribute : ScriptableObject, IAttribute
+    [CreateAssetMenu(fileName = "Trait", menuName = "InidieDevTools/Trait")]
+    public class ScriptableTrait : ScriptableObject, ITrait
     {
         [SerializeField]
         string id = "";
@@ -66,23 +66,23 @@ namespace IndieDevTools.Attributes
 
         [SerializeField]
         bool isInitialMax = false;
-        bool IAttribute.IsInitialMax => isInitialMax;
+        bool ITrait.IsInitialMax => isInitialMax;
 
         [SerializeField]
         int min = 0;
-        int IAttribute.Min { get => min; set { } }
+        int ITrait.Min { get => min; set { } }
 
         [SerializeField]
         int max = 99;
-        int IAttribute.Max { get => max; set { } }
+        int ITrait.Max { get => max; set { } }
 
-        int IAttribute.Quantity { get => 0; set { } }
+        int ITrait.Quantity { get => 0; set { } }
 
-        event Action<IAttribute> IUpdatable<IAttribute>.OnUpdated { add { } remove { } }
+        event Action<ITrait> IUpdatable<ITrait>.OnUpdated { add { } remove { } }
 
-        IAttribute ICopyable<IAttribute>.Copy()
+        ITrait ICopyable<ITrait>.Copy()
         {
-            return new Attribute(this);
+            return new Trait(this);
         }
     }
 }

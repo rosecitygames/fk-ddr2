@@ -1,15 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-namespace IndieDevTools.Attributes
+namespace IndieDevTools.Traits
 {
-    [System.Serializable]
-    public class Attribute : IAttribute
+    [Serializable]
+    public class Trait : ITrait
     {
         [SerializeField]
-        ScriptableAttribute attribute = null;
-        IAttribute data;
-        IAttribute Data
+        ScriptableTrait trait = null;
+        ITrait data;
+        ITrait Data
         {
             get
             {
@@ -22,13 +22,13 @@ namespace IndieDevTools.Attributes
         {
             if (data == null)
             {
-                if (attribute == null)
+                if (trait == null)
                 {
-                    data = new NullAttribute();
+                    data = new NullTrait();
                 }
                 else
                 {
-                    data = attribute;
+                    data = trait;
                 }
             }
         }
@@ -37,7 +37,7 @@ namespace IndieDevTools.Attributes
 
         [SerializeField]
         int quantity;
-        int IAttribute.Quantity
+        int ITrait.Quantity
         {
             get
             {
@@ -56,7 +56,7 @@ namespace IndieDevTools.Attributes
 
         int initialQuantity;
 
-        int IAttribute.Min { get => Min; set => Min = value; }
+        int ITrait.Min { get => Min; set => Min = value; }
         int Min
         {
             get
@@ -74,7 +74,7 @@ namespace IndieDevTools.Attributes
         bool isOverridingMin = false;
         int overrideMin = 0;
 
-        int IAttribute.Max { get => Max; set => Max = value; }
+        int ITrait.Max { get => Max; set => Max = value; }
         int Max
         {
             get
@@ -93,28 +93,28 @@ namespace IndieDevTools.Attributes
         bool isOverridingMax = false;
         int overrideMax = 0;
 
-        bool IAttribute.IsInitialMax => Data.IsInitialMax;
+        bool ITrait.IsInitialMax => Data.IsInitialMax;
 
         string IDescribable.DisplayName { get => Data.DisplayName; set => Data.DisplayName = value; }
         string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { (Data as IDescribable).OnUpdated += value; } remove { (Data as IDescribable).OnUpdated -= value; } }
 
-        event Action<IAttribute> IUpdatable<IAttribute>.OnUpdated { add { OnUpdated += value; } remove { OnUpdated -= value; } }
-        Action<IAttribute> OnUpdated;
+        event Action<ITrait> IUpdatable<ITrait>.OnUpdated { add { OnUpdated += value; } remove { OnUpdated -= value; } }
+        Action<ITrait> OnUpdated;
 
-        IAttribute ICopyable<IAttribute>.Copy()
+        ITrait ICopyable<ITrait>.Copy()
         {
-            IAttribute copy = new Attribute(this, quantity);
+            ITrait copy = new Trait(this, quantity);
             return copy;
         }
 
-        public Attribute (IAttribute source, int quantity = 0)
+        public Trait (ITrait source, int quantity = 0)
         {
             data = source;
             this.quantity = quantity;
             initialQuantity = quantity;
         }
 
-        public Attribute() { }
+        public Trait() { }
     }
 }

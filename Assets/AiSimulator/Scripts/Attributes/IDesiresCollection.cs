@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace IndieDevTools.Attributes
+namespace IndieDevTools.Traits
 {
     public interface IDesiresCollection
     {
-        List<IAttribute> Desires { get; }
-        IAttribute GetDesire(string id);
+        List<ITrait> Desires { get; }
+        ITrait GetDesire(string id);
     }
 }

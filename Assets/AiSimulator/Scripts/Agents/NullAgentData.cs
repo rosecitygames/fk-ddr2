@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using System;
 using System.Collections.Generic;
 
@@ -11,17 +11,19 @@ namespace IndieDevTools.Agents
         string IDescribable.Description { get => ""; set { } }
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { } remove { } }
 
-        IAttributeCollection stats = new AttributeCollection();
-        List<IAttribute> IStatsCollection.Stats { get => stats.Attributes; }
-        IAttribute IStatsCollection.GetStat(string id) { return stats.GetAttribute(id); }
+        ITraitCollection stats = new TraitCollection();
+        List<ITrait> IStatsCollection.Stats { get => stats.Traits; }
+        ITrait IStatsCollection.GetStat(string id) { return stats.GetTrait(id); }
 
-        IAttributeCollection desires = new AttributeCollection();
-        List<IAttribute> IDesiresCollection.Desires { get => desires.Attributes; }
-        IAttribute IDesiresCollection.GetDesire(string id) { return desires.GetAttribute(id); }
+        ITraitCollection desires = new TraitCollection();
+        List<ITrait> IDesiresCollection.Desires { get => desires.Traits; }
+        ITrait IDesiresCollection.GetDesire(string id) { return desires.GetTrait(id); }
 
         float IAdvertisementBroadcastData.BroadcastDistance { get => 0; }
         float IAdvertisementBroadcastData.BroadcastInterval { get => 0; }
 
         IAgentData ICopyable<IAgentData>.Copy() { return new NullAgentData(); }
+
+        public static IAgentData Create() => new NullAgentData();
     }
 }

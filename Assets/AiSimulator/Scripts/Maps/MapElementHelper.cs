@@ -1,4 +1,4 @@
-﻿using IndieDevTools.Attributes;
+﻿using IndieDevTools.Traits;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,15 +44,15 @@ namespace IndieDevTools.Maps
         int IGroupMember.GroupId { get => groupId; set => groupId = value; }
         int groupId = 0;
 
-        List<IAttribute> IStatsCollection.Stats => stats.Stats;
-        IAttribute IStatsCollection.GetStat(string id) => stats.GetStat(id);       
+        List<ITrait> IStatsCollection.Stats => stats.Stats;
+        ITrait IStatsCollection.GetStat(string id) => stats.GetStat(id);       
         IStatsCollection Stats
         {
             get
             {
                 if (stats == null)
                 {
-                    stats = AttributeCollection.Create() as IStatsCollection;
+                    stats = TraitCollection.Create() as IStatsCollection;
                 }
                 return stats;
             }

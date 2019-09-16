@@ -1,6 +1,6 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Agents;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using IndieDevTools.Commands;
 using IndieDevTools.States;
 using System.Collections.Generic;
@@ -62,13 +62,13 @@ namespace IndieDevTools.Demo.BattleSimulator
         {
             if (advertisement.GroupId == agent.GroupId) return 0;
 
-            List<IAttribute> desires = agent.Desires;
-            List<IAttribute> ads = advertisement.Attributes;
+            List<ITrait> desires = agent.Desires;
+            List<ITrait> ads = advertisement.Traits;
 
             int rank = 0;
-            foreach (IAttribute attribute in ads)
+            foreach (ITrait attribute in ads)
             {
-                foreach (IAttribute desire in desires)
+                foreach (ITrait desire in desires)
                 {
                     if (attribute.Id == desire.Id)
                     {

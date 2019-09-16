@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,9 +63,9 @@ namespace IndieDevTools.Items
         }
 
         [SerializeField]
-        AttributeCollection stats = new AttributeCollection();
-        IAttributeCollection iStats = null;
-        IAttributeCollection Stats
+        TraitCollection stats = new TraitCollection();
+        ITraitCollection iStats = null;
+        ITraitCollection Stats
         {
             get
             {
@@ -76,8 +76,8 @@ namespace IndieDevTools.Items
                 return iStats;
             }
         }
-        List<IAttribute> IStatsCollection.Stats { get => Stats.Attributes; }
-        IAttribute IStatsCollection.GetStat(string id) { return Stats.GetAttribute(id); }
+        List<ITrait> IStatsCollection.Stats { get => Stats.Traits; }
+        ITrait IStatsCollection.GetStat(string id) { return Stats.GetTrait(id); }
 
         IItemData ICopyable<IItemData>.Copy()
         {
@@ -102,7 +102,7 @@ namespace IndieDevTools.Items
         {
             displayName = source.DisplayName;
             description = source.Description;
-            iStats = AttributeCollection.Create(source.Stats);
+            iStats = TraitCollection.Create(source.Stats);
             broadcastDistance = source.BroadcastDistance;
             broadcastInterval = source.BroadcastInterval;
         }

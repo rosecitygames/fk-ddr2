@@ -1,129 +1,65 @@
 ﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace IndieDevTools.Agents
 {
-    [CreateAssetMenu(fileName = "AgentData", menuName = "RCG/Agent Data")]
+    [CreateAssetMenu(fileName = "AgentData", menuName = "IndieDevTools/Agent Data")]
     public class ScriptableAgentData : ScriptableObject, IAgentData
     {
         [SerializeField]
-        string displayName = "";
-        [NonSerialized]
-        string runtimeDisplayName = "";
+        AgentData data = null;
+        IAgentData runtimeData = null;
+        IAgentData RuntimeData
+        {
+            get
+            {
+                if (runtimeData == null)
+                {
+                    if (data == null)
+                    {
+                        runtimeData = NullAgentData.Create();
+                    }
+                    else
+                    {
+                        runtimeData = (data as IAgentData).Copy();
+                    }
+                }
+
+                return runtimeData;
+            }
+        }
+
         string IDescribable.DisplayName
         {
-            get
-            {
-                if (string.IsNullOrEmpty(runtimeDisplayName))
-                {
-                    runtimeDisplayName = displayName;
-                }
-                return runtimeDisplayName;
-            }
-            
-            set
-            {
-                runtimeDisplayName = value;
-            }
+            get => RuntimeData.DisplayName;
+            set => RuntimeData.DisplayName = value;
         }
 
-        [SerializeField]
-        [TextArea]
-        string description = "";
-        [NonSerialized]
-        string runtimeDescription = "";
         string IDescribable.Description
         {
-            get
-            {
-                if (string.IsNullOrEmpty(runtimeDescription))
-                {
-                    runtimeDescription = description;
-                }
-                return runtimeDescription;
-            }
-
-            set
-            {
-                runtimeDescription = value;
-            }
+            get => RuntimeData.Description;
+            set => RuntimeData.Description = value;
         }
 
-        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
-        Action<IDescribable> OnDescribableUpdated;
-
-        [SerializeField]
-        float broadcastDistance = 0.0f;
-        float IAdvertisementBroadcastData.BroadcastDistance
+        event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated
         {
-            get
-            {
-                return broadcastDistance;
-            }
+            add { (RuntimeData as IDescribable).OnUpdated += value; }
+            remove { (RuntimeData as IDescribable).OnUpdated -= value; }
         }
 
-        [SerializeField]
-        float broadcastInterval = 0.0f;
-        float IAdvertisementBroadcastData.BroadcastInterval
-        {
-            get
-            {
-                return broadcastInterval;
-            }
-        }
+        float IAdvertisementBroadcastData.BroadcastDistance => RuntimeData.BroadcastDistance;
 
-        [SerializeField]
-        AttributeCollection stats = new AttributeCollection();
-        IAttributeCollection Stats
-        {
-            get
-            {
-                return stats as IAttributeCollection;
-            }
-        }
+        float IAdvertisementBroadcastData.BroadcastInterval => RuntimeData.BroadcastInterval;
 
-        List<IAttribute> IStatsCollection.Stats
-        {
-            get
-            {
-                return Stats.Attributes;
-            }
-        }
+        List<ITrait> IStatsCollection.Stats => RuntimeData.Stats;
+        ITrait IStatsCollection.GetStat(string id) => RuntimeData.GetStat(id);
 
-        IAttribute IStatsCollection.GetStat(string id)
-        {
-            return Stats.GetAttribute(id);
-        }
+        List<ITrait> IDesiresCollection.Desires => RuntimeData.Desires;
+        ITrait IDesiresCollection.GetDesire(string id) => RuntimeData.GetDesire(id);
 
-        [SerializeField]
-        AttributeCollection desires = new AttributeCollection();
-        IAttributeCollection Desires
-        {
-            get
-            {
-                return desires as IAttributeCollection;
-            }
-        }
-
-        List<IAttribute> IDesiresCollection.Desires
-        {
-            get
-            {
-                return Desires.Attributes;
-            }
-        }
-
-        IAttribute IDesiresCollection.GetDesire(string id)
-        {
-            return Desires.GetAttribute(id);
-        }    
-
-        IAgentData ICopyable<IAgentData>.Copy()
-        {
-            return AgentData.Create(this);
-        }
+        IAgentData ICopyable<IAgentData>.Copy() => RuntimeData.Copy();
     }
 }

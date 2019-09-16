@@ -1,4 +1,4 @@
-﻿using IndieDevTools.Attributes;
+﻿using IndieDevTools.Traits;
 using UnityEngine;
 
 namespace IndieDevTools.Maps

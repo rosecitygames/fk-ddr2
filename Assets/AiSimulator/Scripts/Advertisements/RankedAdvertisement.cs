@@ -1,4 +1,4 @@
-﻿using IndieDevTools.Attributes;
+﻿using IndieDevTools.Traits;
 using IndieDevTools.Maps;
 using System;
 using System.Collections.Generic;
@@ -11,13 +11,13 @@ namespace IndieDevTools.Advertisements
         protected IAdvertisement Advertisement { get; set; }
         public int Rank { get; set; }
 
-        List<IAttribute> IAttributeCollection.Attributes => Advertisement.Attributes;
-        IAttribute IAttributeCollection.GetAttribute(string id) => Advertisement.GetAttribute(id);
-        void IAttributeCollection.AddAttribute(IAttribute attribute) => Advertisement.AddAttribute(attribute);
-        void IAttributeCollection.RemoveAttribute(IAttribute attribute) => Advertisement.RemoveAttribute(attribute);
-        void IAttributeCollection.RemoveAttribute(string id) => Advertisement.RemoveAttribute(id);
-        void IAttributeCollection.Clear() => Advertisement.Clear();
-        IAttributeCollection ICopyable<IAttributeCollection>.Copy() => Advertisement.Copy();
+        List<ITrait> ITraitCollection.Traits => Advertisement.Traits;
+        ITrait ITraitCollection.GetTrait(string id) => Advertisement.GetTrait(id);
+        void ITraitCollection.AddTrait(ITrait attribute) => Advertisement.AddTrait(attribute);
+        void ITraitCollection.RemoveTrait(ITrait attribute) => Advertisement.RemoveTrait(attribute);
+        void ITraitCollection.RemoveTrait(string id) => Advertisement.RemoveTrait(id);
+        void ITraitCollection.Clear() => Advertisement.Clear();
+        ITraitCollection ICopyable<ITraitCollection>.Copy() => Advertisement.Copy();
 
         IMap IAdvertisement.Map => Advertisement.Map;
         List<Vector2Int> IAdvertisement.BroadcastLocations => Advertisement.BroadcastLocations;

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
@@ -29,7 +29,7 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         static float GetSpeed(IStatsCollection statsCollection)
         {
-            IAttribute attribute = statsCollection.GetStat(speedAttributeId);
+            ITrait attribute = statsCollection.GetStat(speedAttributeId);
             if (attribute == null)
             {
                 return defaultSpeed;
@@ -41,7 +41,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const string moveRadiusAttributeId = "moveRadius";
         public static int GetMoveRadius(IStatsCollection statsCollection)
         {
-            IAttribute attribute = statsCollection.GetStat(moveRadiusAttributeId);
+            ITrait attribute = statsCollection.GetStat(moveRadiusAttributeId);
             if (attribute == null)
             {
                 return 0;
@@ -57,7 +57,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const string attackStrengthAttributeId = "attack";
         public static int GetAttackStrength(IStatsCollection statsCollection)
         {
-            IAttribute attribute = statsCollection.GetStat(attackStrengthAttributeId);
+            ITrait attribute = statsCollection.GetStat(attackStrengthAttributeId);
             if (attribute == null)
             {
                 return defaultAttackStrength;
@@ -79,7 +79,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const string defenseStrengthAttributeId = "defense";
         public static int GetDefenseStrength(IStatsCollection statsCollection)
         {
-            IAttribute attribute = statsCollection.GetStat(defenseStrengthAttributeId);
+            ITrait attribute = statsCollection.GetStat(defenseStrengthAttributeId);
             if (attribute == null)
             {
                 return defaultDefenseStrength;
@@ -97,7 +97,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const string healthAttributeId = "health";
         public static int GetHealth(IStatsCollection statsCollection)
         {
-            IAttribute attribute = statsCollection.GetStat(healthAttributeId);
+            ITrait attribute = statsCollection.GetStat(healthAttributeId);
             if (attribute == null)
             {
                 return 0;
@@ -107,7 +107,7 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         public static void SetHealth(IStatsCollection statsCollection, int quantity)
         {
-            IAttribute attribute = statsCollection.GetStat(healthAttributeId);
+            ITrait attribute = statsCollection.GetStat(healthAttributeId);
             if (attribute != null)
             {
                 attribute.Quantity = quantity;

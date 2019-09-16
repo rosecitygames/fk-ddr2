@@ -1,4 +1,4 @@
-﻿using IndieDevTools.Attributes;
+﻿using IndieDevTools.Traits;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -97,13 +97,13 @@ namespace IndieDevTools.Maps
             }
         }
 
-        List<IAttribute> IStatsCollection.Stats { get => Stats.Attributes; }
-        IAttributeCollection Stats { get => stats as IAttributeCollection; }
-        protected AttributeCollection stats = new AttributeCollection();
+        List<ITrait> IStatsCollection.Stats { get => Stats.Traits; }
+        ITraitCollection Stats { get => stats as ITraitCollection; }
+        protected TraitCollection stats = new TraitCollection();
 
-        IAttribute IStatsCollection.GetStat(string id)
+        ITrait IStatsCollection.GetStat(string id)
         {
-            return Stats.GetAttribute(id);
+            return Stats.GetTrait(id);
         }
 
     }

@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using IndieDevTools.Maps;
 using IndieDevTools.States;
 using IndieDevTools.Utils;
@@ -47,8 +47,8 @@ namespace IndieDevTools.Items
         string IDescribable.Description { get => Data.Description; set => Data.Description = value; }
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { Data.OnUpdated += value; } remove { Data.OnUpdated -= value; } }
 
-        List<IAttribute> IStatsCollection.Stats => Data.Stats;
-        IAttribute IStatsCollection.GetStat(string id) => Data.GetStat(id);
+        List<ITrait> IStatsCollection.Stats => Data.Stats;
+        ITrait IStatsCollection.GetStat(string id) => Data.GetStat(id);
 
         // Group Member implementations
         [SerializeField]

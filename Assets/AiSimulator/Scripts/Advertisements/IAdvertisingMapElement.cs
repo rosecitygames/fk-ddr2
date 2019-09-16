@@ -1,5 +1,5 @@
 ﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using IndieDevTools.Maps;
 using IndieDevTools.States;
 using System;

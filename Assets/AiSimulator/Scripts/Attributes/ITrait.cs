@@ -1,6 +1,6 @@
-﻿namespace IndieDevTools.Attributes
+﻿namespace IndieDevTools.Traits
 {
-    public interface IAttribute : ICopyable<IAttribute>, IUpdatable<IAttribute>, IDescribable, IIdable
+    public interface ITrait : ICopyable<ITrait>, IUpdatable<ITrait>, IDescribable, IIdable
     {
         int Quantity { get; set; }
         int Min { get; set; }

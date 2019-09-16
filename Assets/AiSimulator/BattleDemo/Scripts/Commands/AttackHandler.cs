@@ -1,6 +1,6 @@
 ﻿using IndieDevTools.Advertisements;
 using IndieDevTools.Agents;
-using IndieDevTools.Attributes;
+using IndieDevTools.Traits;
 using IndieDevTools.Commands;
 using IndieDevTools.States;
 using System.Collections.Generic;
