@@ -203,13 +203,34 @@ namespace IndieDevTools.Items
             }
         }
 
+        [SerializeField]
+        bool isDrawingGizmos = true;
+
+        [SerializeField]
+        Color gizmoColor = Color.yellow;
+
+        protected bool isRuntimeDrawingGizmos = true;
+
         void OnDrawGizmos()
         {
+            if (isDrawingGizmos == false) return;
+            if (isRuntimeDrawingGizmos == false) return;
+
             if (data != null && MapElement.Map != null)
             {
                 float broadcastDistance = (data as IItemData).BroadcastDistance * 0.2f;
-                DrawGizmosUtil.DrawBroadcastDistanceSphere(MapElement.Position, broadcastDistance, Color.yellow);
+                DrawGizmosUtil.DrawBroadcastDistanceSphere(MapElement.Position, broadcastDistance, gizmoColor);
             }
+        }
+
+        void OnDrawGizmosSelected()
+        {
+            if (isDrawingGizmos == false) return;
+            if (isRuntimeDrawingGizmos == false) return;
+            if (data == null || MapElement.Map == null) return;
+
+            float broadcastDistance = (data as IItemData).BroadcastDistance * MapElement.Map.CellSize.x;
+            DrawGizmosUtil.DrawBroadcastDistanceWireSphere(MapElement.Position, broadcastDistance, gizmoColor);
         }
 
     }

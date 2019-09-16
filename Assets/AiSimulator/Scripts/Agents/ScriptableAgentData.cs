@@ -16,6 +16,9 @@ namespace IndieDevTools.Agents
         {
             get
             {
+#if UNITY_EDITOR
+                if (UnityEditor.EditorApplication.isPlaying == false) return data;
+#endif
                 if (runtimeData == null)
                 {
                     if (data == null)

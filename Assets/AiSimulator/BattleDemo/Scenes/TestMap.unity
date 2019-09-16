@@ -408,6 +408,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &124120338
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -924,6 +926,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &187118784
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1101,6 +1105,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &306574123
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1224,6 +1230,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &381860737
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1432,6 +1440,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &384774611
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1697,6 +1707,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &624968515
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1820,6 +1832,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &637829530
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1943,6 +1957,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &637999867
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2244,6 +2260,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &803737690
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2451,6 +2469,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &853946323
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2574,6 +2594,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &888450451
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2697,6 +2719,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &900402260
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2820,6 +2844,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &949641024
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3022,6 +3048,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &1104368630
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3181,6 +3209,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &1148382913
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3377,6 +3407,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &1178220586
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7479,6 +7511,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: 4f113282ac6d53d4e982885349f7a0dc, type: 2}
   groupId: 0
   broadcaster: {fileID: 11400000, guid: f9103e39ee2b2624f8c96d8421813ac3, type: 2}
+  isDrawingGizmos: 1
+  gizmoColor: {r: 1, g: 0.74509805, b: 0, a: 1}
 --- !u!61 &1619399237
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8301,6 +8335,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7907055805225926143, guid: 9c235aafbe5c41344943204d2459ee2d,
+        type: 3}
+      propertyPath: gizmoColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7907055805225926143, guid: 9c235aafbe5c41344943204d2459ee2d,
+        type: 3}
+      propertyPath: gizmoColor.g
+      value: 0.74509805
       objectReference: {fileID: 0}
     - target: {fileID: 7907055805225926136, guid: 9c235aafbe5c41344943204d2459ee2d,
         type: 3}

@@ -270,9 +270,9 @@ namespace IndieDevTools.Agents
                 DrawGizmosUtil.DrawTargetLocationLine(this, Color.blue);
             }
 
-            if (Data != null && MapElement.Map != null)
+            if (data != null && MapElement.Map != null)
             {
-                float broadcastDistance = Data.BroadcastDistance * MapElement.Map.CellSize.x;
+                float broadcastDistance = (data as IAgentData).BroadcastDistance * MapElement.Map.CellSize.x;
                 DrawGizmosUtil.DrawBroadcastDistanceSphere(MapElement.Position, broadcastDistance, gizmoColor);
             }
         }
@@ -281,9 +281,9 @@ namespace IndieDevTools.Agents
         {
             if (isDrawingGizmos == false) return;
             if (isRuntimeDrawingGizmos == false) return;
-            if (Data == null || MapElement.Map == null) return;
+            if (data == null || MapElement.Map == null) return;
 
-            float broadcastDistance = Data.BroadcastDistance * MapElement.Map.CellSize.x;
+            float broadcastDistance = (data as IAgentData).BroadcastDistance * MapElement.Map.CellSize.x;
             DrawGizmosUtil.DrawBroadcastDistanceWireSphere(MapElement.Position, broadcastDistance, gizmoColor);
         }
     }
