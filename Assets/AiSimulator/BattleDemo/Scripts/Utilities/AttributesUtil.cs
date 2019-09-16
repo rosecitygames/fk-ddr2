@@ -113,6 +113,5 @@ namespace IndieDevTools.Demo.BattleSimulator
                 attribute.Quantity = quantity;
             }
         }
-
     }
 }

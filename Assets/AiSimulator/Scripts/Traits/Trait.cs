@@ -3,6 +3,11 @@ using UnityEngine;
 
 namespace IndieDevTools.Traits
 {
+    /// <summary>
+    /// A class used to define traits with unique quantities.
+    /// The scriptable object property is used for shared property referencing of the trait.
+    /// Note, quantity changes at runtime DO effect serialization. So, this class is ideal for save data.
+    /// </summary>
     [Serializable]
     public class Trait : ITrait
     {
@@ -104,17 +109,17 @@ namespace IndieDevTools.Traits
 
         ITrait ICopyable<ITrait>.Copy()
         {
-            ITrait copy = new Trait(this, quantity);
-            return copy;
+            return Trait.Create(this, quantity);
         }
 
-        public Trait (ITrait source, int quantity = 0)
+        public static ITrait Create(ITrait source, int quantity = 0)
         {
-            data = source;
-            this.quantity = quantity;
-            initialQuantity = quantity;
+            return new Trait()
+            {
+                data = source,
+                quantity = quantity,
+                initialQuantity = quantity
+            };
         }
-
-        public Trait() { }
     }
 }

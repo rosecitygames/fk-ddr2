@@ -4,7 +4,9 @@ using UnityEngine;
 namespace IndieDevTools.Traits
 {
     /// <summary>
-    /// 
+    /// A scriptable trait that can be shared across various objects.
+    /// Note, trait quantity is not implemented and any runtime changes
+    /// do not effect the serialized data.
     /// </summary>
     [CreateAssetMenu(fileName = "Trait", menuName = "IndieDevTools/Trait")]
     public class ScriptableTrait : ScriptableObject, ITrait
@@ -82,7 +84,7 @@ namespace IndieDevTools.Traits
 
         ITrait ICopyable<ITrait>.Copy()
         {
-            return new Trait(this);
+            return Trait.Create(this);
         }
     }
 }

@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Traits
 {
+    /// <summary>
+    /// A collection of traits that includes implemenation of several helper methods
+    /// for altering the list.
+    /// </summary>
     [Serializable]
     public class TraitCollection : ITraitCollection
     {
