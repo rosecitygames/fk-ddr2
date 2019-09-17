@@ -5,6 +5,9 @@ using IndieDevTools.Maps;
 
 namespace IndieDevTools.Paths
 {
+    /// <summary>
+    /// A graph used for traversing across weighted objects on a map.
+    /// </summary>
     public class WeightedGraph : IWeightedGraph<Vector2Int>
     {
         static readonly Vector2Int[] adjacentDirections = new[]

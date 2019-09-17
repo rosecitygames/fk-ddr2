@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace IndieDevTools.Paths
 {
+    /// <summary>
+    /// A simple breatfh first search implementation.
+    /// </summary>
     public class BreadthFirstSearch
     {
         static void Search<T>(Graph<T> graph, T start)

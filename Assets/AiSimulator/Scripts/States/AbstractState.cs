@@ -2,6 +2,9 @@
 
 namespace IndieDevTools.States
 {
+    /// <summary>
+    /// An abstract state with implementations for handling transitions via delegation to a state machine reference.
+    /// </summary>
     public abstract class AbstractState : IState
     {
         protected string stateName;

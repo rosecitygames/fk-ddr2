@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using IndieDevTools.Commands;
+﻿using IndieDevTools.Commands;
 
 namespace IndieDevTools.States
 {
+    /// <summary>
+    /// A state with a command player.
+    /// </summary>
     public class CommandableState : AbstractState, ICommandLayerCollection
     {
         CommandPlayer commandPlayer;

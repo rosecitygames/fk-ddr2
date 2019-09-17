@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace IndieDevTools.States
 {
+    /// <summary>
+    /// An object that manages a collection of states and ensures
+    /// that only a single state is active at a time.
+    /// </summary>
     public class StateMachine : IStateMachine
     {
         public event Action<string> OnStateChange;

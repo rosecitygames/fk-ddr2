@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace IndieDevTools.Paths
 {
+    /// <summary>
+    /// A generic priority queue.
+    /// </summary>
     public class PriorityQueue<T>
     {
         List<Tuple<T, double>> elements = new List<Tuple<T, double>>();

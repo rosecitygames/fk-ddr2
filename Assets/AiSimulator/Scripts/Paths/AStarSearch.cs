@@ -5,6 +5,9 @@ using IndieDevTools.Maps;
 
 namespace IndieDevTools.Paths
 {
+    /// <summary>
+    /// An implementation of the A* pathfinding algorithm that uses a weighted graph.
+    /// </summary>
     public class AStarSearch
     {
         Dictionary<Vector2Int, Vector2Int> cameFrom = new Dictionary<Vector2Int, Vector2Int>();

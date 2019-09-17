@@ -1,5 +1,8 @@
 ﻿namespace IndieDevTools.States
 {
+    /// <summary>
+    /// Interface for entering and exit a state and handling transitions.
+    /// </summary>
     public interface IState : IStateTransitionHandler
     {
         string StateName { get; }
