@@ -9,27 +9,16 @@ namespace IndieDevTools.Commands
     /// </summary>
     abstract public class AbstractScriptableCommand : ScriptableObject, ICommand
     {
+        bool ICommand.IsCompleted => isCompleted;
         protected bool isCompleted;
-        bool ICommand.IsCompleted
-        {
-            get
-            {
-                return isCompleted;
-            }
-        }
 
-        protected ICommandEnumerator parent = NullCommandEnumerator.Create();
+        
         ICommandEnumerator ICommand.Parent
         {
-            get
-            {
-                return parent;
-            }
-            set
-            {
-                parent = value;
-            }
+            get => parent;
+            set => parent = value;
         }
+        protected ICommandEnumerator parent = NullCommandEnumerator.Create();
 
         void ICommand.Start()
         {

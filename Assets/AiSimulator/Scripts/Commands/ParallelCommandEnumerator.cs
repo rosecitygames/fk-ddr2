@@ -14,7 +14,7 @@ namespace IndieDevTools.Commands
     {
         override protected void OnStart()
         {
-            currentLoop = 0;
+            CurrentLoop = 0;
             isCompleted = false;
             isActive = true;
             commands.ForEach(StartCommand);
@@ -55,13 +55,13 @@ namespace IndieDevTools.Commands
                     bool isAllCommandsCompleted = commands.TrueForAll(GetIsCommandCompleted);
                     if (isAllCommandsCompleted)
                     {
-                        bool isLoopsRemaining = currentLoop < loopCount - 1;
-                        bool isInfiniteLooping = loopCount < 0;
+                        bool isLoopsRemaining = CurrentLoop < LoopCount - 1;
+                        bool isInfiniteLooping = LoopCount < 0;
                         if (isLoopsRemaining || isInfiniteLooping)
                         {
-                            int nextLoop = currentLoop + 1;
+                            int nextLoop = CurrentLoop + 1;
                             OnStart();
-                            currentLoop = nextLoop;
+                            CurrentLoop = nextLoop;
                         }
                         else
                         {

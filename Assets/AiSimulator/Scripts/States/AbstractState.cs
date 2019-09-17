@@ -8,16 +8,13 @@ namespace IndieDevTools.States
     public abstract class AbstractState : IState
     {
         protected string stateName;
-        public virtual string StateName
-        {
-            get { return stateName; }
-        }
+        public virtual string StateName => stateName;
 
         protected IStateMachine stateMachine;
         public virtual IStateMachine StateMachine
         {
-            get { return stateMachine; }
-            set { stateMachine = value; }
+            get => stateMachine;
+            set => stateMachine = value;
         }
 
         protected Dictionary<string, string> transitionNamesToStateNames = new Dictionary<string, string>();
@@ -72,6 +69,5 @@ namespace IndieDevTools.States
         public virtual void ExitState() { }
 
         public virtual void Destroy() { }
-
     }
 }

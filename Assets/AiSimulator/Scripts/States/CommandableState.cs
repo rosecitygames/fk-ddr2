@@ -3,7 +3,9 @@
 namespace IndieDevTools.States
 {
     /// <summary>
-    /// A state with a command player.
+    /// A state with a command player. Various commands can be added
+    /// to the command player's loopable queue. Multiple queues can run
+    /// in parrallel by assigning them to a layer.
     /// </summary>
     public class CommandableState : AbstractState, ICommandLayerCollection
     {

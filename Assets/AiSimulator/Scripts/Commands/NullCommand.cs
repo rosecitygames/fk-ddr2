@@ -5,23 +5,10 @@
     /// </summary>
     public class NullCommand : ICommand
     {
-        bool ICommand.IsCompleted
-        {
-            get
-            {
-                return true;
-            }
-        }
+        bool ICommand.IsCompleted => true;
 
         protected ICommandEnumerator parent = NullCommandEnumerator.Create();
-        ICommandEnumerator ICommand.Parent
-        {
-            get
-            {
-                return parent;
-            }
-            set { }
-        }
+        ICommandEnumerator ICommand.Parent { get => parent; set { } }
 
         void ICommand.Start() { }
         void ICommand.Stop() { }

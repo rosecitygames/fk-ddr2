@@ -26,7 +26,7 @@ namespace IndieDevTools.Commands
         override protected void OnStart()
         {
             currentIndex = 0;
-            currentLoop = 0;
+            CurrentLoop = 0;
             isCompleted = false;
             isActive = true;
 
@@ -52,7 +52,7 @@ namespace IndieDevTools.Commands
             commands.ForEach(DestroyCommand);
             commands.Clear();
             currentIndex = 0;
-            currentLoop = 0;
+            CurrentLoop = 0;
         }
         protected void DestroyCommand(ICommand command)
         {
@@ -70,8 +70,8 @@ namespace IndieDevTools.Commands
         protected void StartNextCommand()
         {
             bool isCommandsRemaining = currentIndex < CommandsCount - 1;
-            bool isLoopsRemaining = currentLoop < loopCount;
-            bool isInfiniteLooping = loopCount < 0;
+            bool isLoopsRemaining = CurrentLoop < LoopCount;
+            bool isInfiniteLooping = LoopCount < 0;
 
             if (isCommandsRemaining)
             {
@@ -80,9 +80,9 @@ namespace IndieDevTools.Commands
             }
             else if (isLoopsRemaining || isInfiniteLooping)
             {
-                int nextLoop = currentLoop + 1;
+                int nextLoop = CurrentLoop + 1;
                 OnStart();
-                currentLoop = nextLoop;
+                CurrentLoop = nextLoop;
             }
             else
             {

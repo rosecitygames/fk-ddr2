@@ -3,9 +3,12 @@
 namespace IndieDevTools.Commands
 {
     /// <summary>
-    /// A class that is used to create a layer collection of serial commands.
-    /// Very similar to an animation timeline with multiple layers and the frames are commands.
+    /// A class that is used to create a loopable queue of commands. Optionally, multiple
+    /// queues can be run in parrallel by assigning commands to a queue layer.
+    /// 
+    /// Very similar to an animation timeline with multiple layers where the frames are commands.
     /// It can also be loosely thought of as a two dimensional array off commands.
+    /// 
     /// Note, the command player is also a command itself. So, this can be used for interesting
     /// nested behaviours.
     /// </summary>
@@ -26,35 +29,21 @@ namespace IndieDevTools.Commands
         }
 
         protected List<ICommandEnumerator> layers = new List<ICommandEnumerator>();
-
-        protected int loopCount;
+       
         int ICommandEnumerator.LoopCount
         {
-            get { return loopCount; }
-            set { loopCount = value; }
+            get => loopCount;
+            set => loopCount = value;
         }
+        protected int loopCount;
 
+        int ICommandEnumerator.CurrentLoop => currentLoop;
         protected int currentLoop = 0;
-        int ICommandEnumerator.CurrentLoop
-        {
-            get { return currentLoop; }
-        }
 
-        public int LayersCount
-        {
-            get { return layers.Count; }
-        }
+        public int LayersCount => layers.Count;
 
-        void ICommandCollection.AddCommand(ICommand command)
-        {
-            AddCommand(command, -1);
-        }
-
-        void ICommandLayerCollection.AddCommand(ICommand command, int layer)
-        {
-            AddCommand(command, layer);
-        }
-
+        void ICommandCollection.AddCommand(ICommand command) => AddCommand(command, -1);
+        void ICommandLayerCollection.AddCommand(ICommand command, int layer) => AddCommand(command, layer);
         void AddCommand(ICommand command, int layerIndex)
         {
             if (layerIndex < 0)
@@ -152,11 +141,7 @@ namespace IndieDevTools.Commands
             return (layerIndex >= 0 && layerIndex < layers.Count);
         }
 
-        public ICommandEnumerator CreateLayer()
-        {
-            ICommandEnumerator layer = CreateLayer(0);
-            return layer;
-        }
+        public ICommandEnumerator CreateLayer() => CreateLayer(0);
         public ICommandEnumerator CreateLayer(int loopCount)
         {
             ICommandEnumerator layer = new SerialCommandEnumerator();
