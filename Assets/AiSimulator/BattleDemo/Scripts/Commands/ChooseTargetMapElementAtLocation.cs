@@ -7,6 +7,13 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that ranks map elements at the agent's
+    /// location. Ranking is determined by the agent's desires
+    /// and comparing those to the map element stats. In this
+    /// command, attackable map elements are given priority over
+    /// non-attackable map elements.
+    /// </summary>
     public class ChooseTargetMapElmentAtLocation : AbstractCommand
     {
         IAgent agent = null;

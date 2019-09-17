@@ -5,6 +5,11 @@ using IndieDevTools.Maps;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A component that instantiates map element prefabs onto a map.
+    /// Instantiation counts are determine by the generator's fill
+    /// percentage multiplied by the element's odds percentage.
+    /// </summary>
     [RequireComponent(typeof(IMap))]
     public class MapGenerator : MonoBehaviour
     {

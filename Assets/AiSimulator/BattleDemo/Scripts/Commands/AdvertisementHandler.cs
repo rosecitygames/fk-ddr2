@@ -8,6 +8,12 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that handles incoming advertisements received by agents.
+    /// If advertisement is desired then its set as the agents target.
+    /// If an agent target already exists, then switch to a new target if
+    /// the incoming advertisement ranks higher.
+    /// </summary>
     public class AdvertisementHandler : AbstractCommand
     {
         IAgent agent = null;

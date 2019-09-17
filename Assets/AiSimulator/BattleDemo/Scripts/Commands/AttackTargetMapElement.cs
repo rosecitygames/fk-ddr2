@@ -3,6 +3,10 @@ using IndieDevTools.Commands;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that attacks an agent's target map element if that
+    /// map element can receieve attacks.
+    /// </summary>
     public class AttackTargetMapElement : AbstractCommand
     {
         IAgent agent = null;
@@ -30,7 +34,7 @@ namespace IndieDevTools.Demo.BattleSimulator
                 return;
             }
 
-            int targetHealth = AttributesUtil.GetHealth(agent.TargetMapElement);
+            int targetHealth = TraitsUtil.GetHealth(agent.TargetMapElement);
             if (targetHealth <= 0)
             {
                 CallTargetKilledTransition();

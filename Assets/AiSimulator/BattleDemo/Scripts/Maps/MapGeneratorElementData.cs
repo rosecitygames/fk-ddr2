@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A serialized data class that couples a prefab
+    /// with an odds percentage.
+    /// </summary>
     [System.Serializable]
     public class MapGeneratorElementData
     {

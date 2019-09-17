@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that removes a given agent's target map element
+    /// from the map. If the demo was expanded to include agent
+    /// inventories, then this would als be a good place to add
+    /// the item it the agent's inventory.
+    /// </summary>
     public class PickupItem : AbstractCommand
     {
         IAgent agent = null;

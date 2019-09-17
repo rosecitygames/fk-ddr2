@@ -1,11 +1,13 @@
 ﻿using IndieDevTools.Agents;
-using IndieDevTools.Traits;
 using IndieDevTools.Commands;
-using System.Collections;
 using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that chooses a new location target within
+    /// an agent's move radius.
+    /// </summary>
     public class ChooseNewLocation : AbstractCommand
     {
         IAgent agent;
@@ -23,7 +25,7 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         Vector2Int GetNewLocation()
         {
-            int moveRadius = AttributesUtil.GetMoveRadius(agent);
+            int moveRadius = TraitsUtil.GetMoveRadius(agent);
             Vector2Int location = agent.Location;
 
             bool isInBounds = false;

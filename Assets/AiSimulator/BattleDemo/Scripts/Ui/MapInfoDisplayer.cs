@@ -7,6 +7,9 @@ using TMPro;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A component that shows a clicked map element's name and updated descriptions.
+    /// </summary>
     public class MapInfoDisplayer : MonoBehaviour
     {
         [SerializeField, Header("Info")]
@@ -78,6 +81,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             SetMapElement(mapElement);
         }
 
+        // Highlights the given sprite renderer by making it darker.
         void SetCurrentSpriteRenderer(SpriteRenderer spriteRenderer)
         {
             if (currentSpriteRenderer != null)

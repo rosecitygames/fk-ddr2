@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A concrete implementation of an item that uses a command to
+    /// broadcast advertisements to listening agents within its broadcast radius.
+    /// </summary>
     public class Item : AbstractItem
     {
         protected override void Init()

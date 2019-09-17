@@ -260,12 +260,12 @@ namespace IndieDevTools.Agents
         [SerializeField]
         Color gizmoColor = Color.green;
 
-        protected bool isRuntimeDrawingGizmos = true;
+        protected bool isDrawingRuntimeGizmos = true;
 
         void OnDrawGizmos()
         {
             if (isDrawingGizmos == false) return;
-            if (isRuntimeDrawingGizmos == false) return;
+            if (isDrawingRuntimeGizmos == false) return;
 
             IAgent agent = this as IAgent;
             if (agent.TargetAdvertisement != null)
@@ -283,7 +283,7 @@ namespace IndieDevTools.Agents
         void OnDrawGizmosSelected()
         {
             if (isDrawingGizmos == false) return;
-            if (isRuntimeDrawingGizmos == false) return;
+            if (isDrawingRuntimeGizmos == false) return;
             if (data == null || MapElement.Map == null) return;
 
             float broadcastDistance = (data as IAgentData).BroadcastDistance * MapElement.Map.CellSize.x;

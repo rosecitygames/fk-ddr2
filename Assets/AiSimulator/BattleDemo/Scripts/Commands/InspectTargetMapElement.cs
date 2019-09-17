@@ -5,6 +5,11 @@ using IndieDevTools.Maps;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that looks at map elements at a given agent's
+    /// location and calls a transition depending on the type
+    /// of element found.
+    /// </summary>
     public class InspectTargetMapElement : AbstractCommand
     {
         IAgent agent = null;
@@ -12,8 +17,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         string enemyFoundTransition = "";
         string itemFoundTransition = "";
         string nothingFoundTransition = "";
-        
-
+  
         protected override void OnStart()
         {
             agent.TargetAdvertisement = null;

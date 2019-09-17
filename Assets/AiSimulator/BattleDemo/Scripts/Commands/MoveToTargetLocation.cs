@@ -6,6 +6,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that moves a given agent to its target location
+    /// over time at a speed determined by its speed trait.
+    /// </summary>
     public class MoveToTargetLocation : AbstractCommand
     {
         IAgent agent;
@@ -47,7 +51,7 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         IEnumerator Move()
         {
-            float moveSpeed = AttributesUtil.GetMoveSpeed(agent);
+            float moveSpeed = TraitsUtil.GetMoveSpeed(agent);
 
             YieldInstruction yieldInstruction = new WaitForEndOfFrame();
 

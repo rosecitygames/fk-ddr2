@@ -8,6 +8,12 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that handles incoming attacks on an agent by comparing
+    /// attack strength and defensive strength. Depending on the result,
+    /// a relevent transition will be called. If defense is less than the
+    /// attack strength agent, then health trait is reduced. 
+    /// </summary>
     public class AttackHandler : AbstractCommand
     {
         ISoldier soldier = null;
@@ -47,16 +53,16 @@ namespace IndieDevTools.Demo.BattleSimulator
 
             soldier.TargetMapElement = attackingAgent;
 
-            int health = AttributesUtil.GetHealth(soldier);
+            int health = TraitsUtil.GetHealth(soldier);
 
-            int attackStrength = AttributesUtil.GetRandomAttackStrength(attackingAgent);
-            int defenseStrength = AttributesUtil.GetRandomDefenseStrength(soldier);
+            int attackStrength = TraitsUtil.GetRandomAttackStrength(attackingAgent);
+            int defenseStrength = TraitsUtil.GetRandomDefenseStrength(soldier);
 
             int healthDecrement = attackStrength - defenseStrength;
             if (healthDecrement > 0)
             {          
                 health -= healthDecrement;
-                AttributesUtil.SetHealth(soldier, health);
+                TraitsUtil.SetHealth(soldier, health);
             }
 
 

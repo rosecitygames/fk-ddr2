@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that simply removes a given agent
+    /// from its map.
+    /// </summary>
     public class Die : AbstractCommand
     {
         IAgent agent = null;

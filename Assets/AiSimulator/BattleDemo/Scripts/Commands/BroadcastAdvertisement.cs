@@ -9,6 +9,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that repeatedly broadcasts a map element's stats to all cell locations
+    /// within a given distance.
+    /// </summary>
     public class BroadcastAdvertisement : AbstractCommand
     {
         IAdvertisingMapElement advertisingMapElement = null;

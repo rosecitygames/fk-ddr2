@@ -7,6 +7,10 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// Concrete implementation of ISoldier. In particular,
+    /// the setup of the command based state machine.
+    /// </summary>
     public class Soldier : AbstractAgent, ISoldier
     {
         [SerializeField]
@@ -23,6 +27,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             }
         }
 
+        // Command layer consts used for making the state machine setup more readable
         const int CommandLayer0 = 0;
         const int CommandLayer1 = 1;
         const int CommandLayer2 = 2;
@@ -30,7 +35,7 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         protected override void InitStateMachine()
         {
-            // State objects
+            // Commandable state objects
             CommandableState wanderState = CommandableState.Create("Wander");
             stateMachine.AddState(wanderState);
 
@@ -63,7 +68,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             wanderState.AddCommand(ChooseNewLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(MoveToTargetLocation.Create(this), CommandLayer0);
             wanderState.AddCommand(WaitForRandomTime.Create(this, 0.25f, 0.5f), CommandLayer0);
-            wanderState.SetLayerLoopCount(CommandLayer0, -1);
+            wanderState.SetLayerLoopCount(CommandLayer0, -1); // Instead of just stopping, layers can be assigned a number of lopps. -1 is infinite looping.
             wanderState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
             wanderState.AddCommand(AdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer2);
             wanderState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer3);
@@ -131,7 +136,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             base.RemoveFromMap();
             StopAllCoroutines();
 
-            isRuntimeDrawingGizmos = false;
+            isDrawingRuntimeGizmos = false;
 
             SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             if (spriteRenderer != null)

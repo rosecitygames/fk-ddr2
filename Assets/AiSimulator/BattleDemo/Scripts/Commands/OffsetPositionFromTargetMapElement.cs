@@ -6,6 +6,13 @@ using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
+    /// <summary>
+    /// A command that moves a given agent to an offsetted
+    /// position of its target map element location. For example,
+    /// this is used when agents are in a battle so that they stand
+    /// on each side of a map cell to prevent them from overlapping
+    /// in the same position.
+    /// </summary>
     public class OffsetPositionFromTargetMapElement : AbstractCommand
     {
         IAgent agent;
@@ -65,7 +72,7 @@ namespace IndieDevTools.Demo.BattleSimulator
 
             targetPosition.x += offsetX;
 
-            float moveSpeed = AttributesUtil.GetMoveSpeed(agent);
+            float moveSpeed = TraitsUtil.GetMoveSpeed(agent);
 
             YieldInstruction yieldInstruction = new WaitForEndOfFrame();
 

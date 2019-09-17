@@ -5,7 +5,11 @@ using IndieDevTools.Traits;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
-    public static class AttributesUtil
+    /// <summary>
+    /// A utility class for getting and setting various traits used in the battle simulator demo.
+    /// Note, const strings for trait ids match the trait filenames.
+    /// </summary>
+    public static class TraitsUtil
     {
         // Move Speed
         const float minSpeed = 0.0f;
@@ -15,7 +19,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const float minMoveSpeed = 0.0f;
         const float maxMoveSpeed = 0.05f;
 
-        const string speedAttributeId = "Speed";
+        const string speedTraitId = "Speed";
 
         public static float GetMoveSpeed(IStatsCollection statsCollection)
         {
@@ -29,24 +33,24 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         static float GetSpeed(IStatsCollection statsCollection)
         {
-            ITrait attribute = statsCollection.GetStat(speedAttributeId);
-            if (attribute == null)
+            ITrait trait = statsCollection.GetStat(speedTraitId);
+            if (trait == null)
             {
                 return defaultSpeed;
             }
-            return Mathf.Clamp(attribute.Quantity * 1.0f, minSpeed, maxSpeed);
+            return Mathf.Clamp(trait.Quantity * 1.0f, minSpeed, maxSpeed);
         }
 
         // Move Radius
-        const string moveRadiusAttributeId = "MoveRadius";
+        const string moveRadiusTraitId = "MoveRadius";
         public static int GetMoveRadius(IStatsCollection statsCollection)
         {
-            ITrait attribute = statsCollection.GetStat(moveRadiusAttributeId);
-            if (attribute == null)
+            ITrait trait = statsCollection.GetStat(moveRadiusTraitId);
+            if (trait == null)
             {
                 return 0;
             }
-            return attribute.Quantity;
+            return trait.Quantity;
         }
 
         // Attack Strength
@@ -54,15 +58,15 @@ namespace IndieDevTools.Demo.BattleSimulator
         const int maxAttackStrength = 10;
         const int defaultAttackStrength = 0;
 
-        const string attackStrengthAttributeId = "Attack";
+        const string attackStrengthTraitId = "Attack";
         public static int GetAttackStrength(IStatsCollection statsCollection)
         {
-            ITrait attribute = statsCollection.GetStat(attackStrengthAttributeId);
-            if (attribute == null)
+            ITrait trait = statsCollection.GetStat(attackStrengthTraitId);
+            if (trait == null)
             {
                 return defaultAttackStrength;
             }
-            return Mathf.Clamp(attribute.Quantity, minAttackStrength, maxAttackStrength);
+            return Mathf.Clamp(trait.Quantity, minAttackStrength, maxAttackStrength);
         }
 
         public static int GetRandomAttackStrength(IStatsCollection statsCollection)
@@ -76,15 +80,15 @@ namespace IndieDevTools.Demo.BattleSimulator
         const int maxDefenseStrength = 10;
         const int defaultDefenseStrength = 0;
 
-        const string defenseStrengthAttributeId = "Defense";
+        const string defenseStrengthTraitId = "Defense";
         public static int GetDefenseStrength(IStatsCollection statsCollection)
         {
-            ITrait attribute = statsCollection.GetStat(defenseStrengthAttributeId);
-            if (attribute == null)
+            ITrait trait = statsCollection.GetStat(defenseStrengthTraitId);
+            if (trait == null)
             {
                 return defaultDefenseStrength;
             }
-            return Mathf.Clamp(attribute.Quantity, minDefenseStrength, maxDefenseStrength);
+            return Mathf.Clamp(trait.Quantity, minDefenseStrength, maxDefenseStrength);
         }
 
         public static int GetRandomDefenseStrength(IStatsCollection statsCollection)
@@ -94,23 +98,23 @@ namespace IndieDevTools.Demo.BattleSimulator
         }
 
         // Health
-        const string healthAttributeId = "Health";
+        const string healthTraitId = "Health";
         public static int GetHealth(IStatsCollection statsCollection)
         {
-            ITrait attribute = statsCollection.GetStat(healthAttributeId);
-            if (attribute == null)
+            ITrait trait = statsCollection.GetStat(healthTraitId);
+            if (trait == null)
             {
                 return 0;
             }
-            return attribute.Quantity;
+            return trait.Quantity;
         }
 
         public static void SetHealth(IStatsCollection statsCollection, int quantity)
         {
-            ITrait attribute = statsCollection.GetStat(healthAttributeId);
-            if (attribute != null)
+            ITrait trait = statsCollection.GetStat(healthTraitId);
+            if (trait != null)
             {
-                attribute.Quantity = quantity;
+                trait.Quantity = quantity;
             }
         }
     }
