@@ -1,12 +1,17 @@
-﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Agents;
+﻿using IndieDevTools.Agents;
 using UnityEngine;
 
 namespace IndieDevTools.Utils
 {
+    /// <summary>
+    /// A untility class for drawing various gizmos.
+    /// </summary>
     public static class DrawGizmosUtil
     {
-        public static void DrawTargetLocationLine(IAgent agent, Color color)
+        /// <summary>
+        /// Draws a gizmo line from an agent's position to its target advertisement position.
+        /// </summary>
+        public static void DrawTargetAdvertisementLocationLine(IAgent agent, Color color)
         {
             Vector3 position = agent.Position;
             Vector3 targetPosition = agent.Map.CellToLocal(agent.TargetAdvertisement.Location);
@@ -14,6 +19,9 @@ namespace IndieDevTools.Utils
             Gizmos.DrawLine(position, targetPosition);
         }
 
+        /// <summary>
+        /// Draws a solid gizmo sphere with a radius equal to a broadcast distance.
+        /// </summary>
         public static void DrawBroadcastDistanceSphere(Vector3 position, float broadcastDistance, Color baseColor)
         {
             Color gizmoColor = baseColor;
@@ -23,6 +31,9 @@ namespace IndieDevTools.Utils
             Gizmos.DrawSphere(position, broadcastDistance);
         }
 
+        /// <summary>
+        /// Draws a wireframe gizmo sphere with a radius equal to a broadcast distance.
+        /// </summary>
         public static void DrawBroadcastDistanceWireSphere(Vector3 position, float broadcastDistance, Color baseColor)
         {
             Color gizmoColor = baseColor;

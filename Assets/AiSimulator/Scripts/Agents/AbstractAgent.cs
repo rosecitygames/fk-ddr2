@@ -270,7 +270,7 @@ namespace IndieDevTools.Agents
             IAgent agent = this as IAgent;
             if (agent.TargetAdvertisement != null)
             {
-                DrawGizmosUtil.DrawTargetLocationLine(this, Color.blue);
+                DrawGizmosUtil.DrawTargetAdvertisementLocationLine(this, Color.blue);
             }
 
             if (data != null && MapElement.Map != null)
