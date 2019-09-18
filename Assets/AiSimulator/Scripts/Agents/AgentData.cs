@@ -12,7 +12,7 @@ namespace IndieDevTools.Agents
     [Serializable]
     public class AgentData : IAgentData
     {
-        [SerializeField]
+        [SerializeField, Tooltip("The displayed name for this trait")]
         string displayName = "";
         string IDescribable.DisplayName
         {
@@ -27,7 +27,7 @@ namespace IndieDevTools.Agents
             }
         }
 
-        [SerializeField, TextArea]
+        [SerializeField, TextArea, Tooltip("A description of this trait")]
         string description = "";
         string IDescribable.Description
         {
@@ -45,15 +45,15 @@ namespace IndieDevTools.Agents
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
         Action<IDescribable> OnDescribableUpdated;
 
-        [SerializeField]
+        [SerializeField, Tooltip("How far the agent will broadcast advertisements about its traits")]
         float broadcastDistance = 0.0f;
         float IAdvertisementBroadcastData.BroadcastDistance => broadcastDistance;
 
-        [SerializeField]
+        [SerializeField, Tooltip("How often the agent will broadcast advertisements about its traits")]
         float broadcastInterval = 0.0f;
         float IAdvertisementBroadcastData.BroadcastInterval => broadcastInterval;
 
-        [SerializeField]
+        [SerializeField, Tooltip("A collection of traits about this agent")]
         TraitCollection stats = new TraitCollection();
         ITraitCollection iStats = null;
         ITraitCollection Stats
@@ -71,7 +71,7 @@ namespace IndieDevTools.Agents
         List<ITrait> IStatsCollection.Stats => Stats.Traits;
         ITrait IStatsCollection.GetStat(string id) => Stats.GetTrait(id);
 
-        [SerializeField]
+        [SerializeField, Tooltip("A collection of traits this agent desires")]
         TraitCollection desires = new TraitCollection();
         ITraitCollection iDesires = null;
         ITraitCollection Desires

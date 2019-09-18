@@ -13,7 +13,7 @@ namespace IndieDevTools.Traits
     {
         string IIdable.Id => name;
 
-        [SerializeField]
+        [SerializeField, Tooltip("The displayed name for this trait")]
         string displayName = "";
         [NonSerialized]
         string runtimeDisplayName = "";
@@ -38,7 +38,7 @@ namespace IndieDevTools.Traits
             }
         }
 
-        [SerializeField, TextArea]
+        [SerializeField, TextArea, Tooltip("A description of this trait")]
         string description = "";
         [NonSerialized]
         string runtimeDescription = "";
@@ -66,15 +66,15 @@ namespace IndieDevTools.Traits
         event Action<IDescribable> IUpdatable<IDescribable>.OnUpdated { add { OnDescribableUpdated += value; } remove { OnDescribableUpdated -= value; } }
         Action<IDescribable> OnDescribableUpdated;
 
-        [SerializeField]
+        [SerializeField, Tooltip("Whether or not the initial value set is the max value")]
         bool isInitialMax = false;
         bool ITrait.IsInitialMax => isInitialMax;
 
-        [SerializeField]
+        [SerializeField, Tooltip("The minimum quanitity value for this trait")]
         int min = 0;
         int ITrait.Min { get => min; set { } }
 
-        [SerializeField]
+        [SerializeField, Tooltip("The maximum quanitity value for this trait")]
         int max = 99;
         int ITrait.Max { get => max; set { } }
 
