@@ -16,7 +16,7 @@ namespace IndieDevTools.Agents
     {
         protected const int sortingOrderOffset = 1000;
 
-        // Agent Data implementations
+        // IAgentData implementations
         [SerializeField]
         ScriptableAgentData data = null;
         IAgentData iData;
@@ -69,9 +69,7 @@ namespace IndieDevTools.Agents
         List<ITrait> IDesiresCollection.Desires => Data.Desires;
         ITrait IDesiresCollection.GetDesire(string id) => Data.GetDesire(id);
 
-        // Map Element implementations
-        [NonSerialized]
-        IMapElement mapElement = null;
+        // IMapElement implementations
         protected IMapElement MapElement
         {
             get
@@ -80,12 +78,14 @@ namespace IndieDevTools.Agents
                 return mapElement;
             }
         }
+        [NonSerialized]
+        IMapElement mapElement = null;
 
-        void InitMapElement()
+        protected void InitMapElement()
         {
             if (mapElement == null)
             {
-                mapElement = Maps.MapElement.Create(gameObject, this, sortingOrderOffset);
+                mapElement = Maps.MapElementHelper.Create(gameObject, this, sortingOrderOffset);
                 mapElement.AddToMap();
             }
         }
@@ -104,15 +104,20 @@ namespace IndieDevTools.Agents
         bool IMapElement.IsOnMap => IsOnMap;
         protected virtual bool IsOnMap => MapElement.IsOnMap;
 
-        float IMapElement.Distance(IMapElement otherMapElement) => MapElement.Distance(otherMapElement);
-        float IMapElement.Distance(Vector2Int otherLocation) => MapElement.Distance(otherLocation);
+        float IMapElement.Distance(IMapElement otherMapElement) => Distance(otherMapElement);
+        protected virtual float Distance(IMapElement otherMapElement) => MapElement.Distance(otherMapElement);
+
+        float IMapElement.Distance(Vector2Int otherLocation) => Distance(otherLocation);
+        protected virtual float Distance(Vector2Int otherLocation) => MapElement.Distance(otherLocation);
 
         int IMapElement.InstanceId => MapElement.InstanceId;
 
         int IMapElement.SortingOrder => SortingOrder;
         protected virtual int SortingOrder => MapElement.SortingOrder;
 
-        Vector2Int ILocatable.Location => MapElement.Location;
+        // ILocatable implementations
+        Vector2Int ILocatable.Location => Location;
+        protected virtual Vector2Int Location => MapElement.Location;
 
         event Action<ILocatable> IUpdatable<ILocatable>.OnUpdated
         {
@@ -120,12 +125,11 @@ namespace IndieDevTools.Agents
             remove { (MapElement as IUpdatable<ILocatable>).OnUpdated -= value; }
         }
 
-        Vector3 IPositionable.Position { get => MapElement.Position; set => MapElement.Position = value; }
+        // IPositionable implementations
+        Vector3 IPositionable.Position { get => Position; set => Position = value; }
+        protected virtual Vector3 Position { get => MapElement.Position; set => MapElement.Position = value; }
 
-        // Broadcaster & Advertiser implementations
-        [SerializeField]
-        ScriptableAdvertisementBroadcaster broadcaster = null;
-
+        // IAdvertisementBroadcastData implementations
         float IAdvertisementBroadcastData.BroadcastDistance => BroadcastDistance;
         protected float BroadcastDistance => Data.BroadcastDistance;
 
@@ -155,6 +159,9 @@ namespace IndieDevTools.Agents
             advertiser = Advertisements.Advertiser.Create(broadcaster);
         }
 
+        [SerializeField]
+        ScriptableAdvertisementBroadcaster broadcaster = null;
+
         void InitBroadcaster()
         {
             if (broadcaster != null)
@@ -163,6 +170,7 @@ namespace IndieDevTools.Agents
             }
         }
 
+        // IAdvertiser implementations
         IAdvertisementBroadcaster IAdvertiser.GetBroadcaster()
         {
             return advertiser.GetBroadcaster();
@@ -183,6 +191,7 @@ namespace IndieDevTools.Agents
             advertiser.BroadcastAdvertisement(advertisement, excludeReceiver);
         }
 
+        // IAdvertisementReceiver implementations
         void IAdvertisementReceiver.ReceiveAdvertisement(IAdvertisement advertisement)
         {
             OnAdvertisementReceived?.Invoke(advertisement);
@@ -202,6 +211,7 @@ namespace IndieDevTools.Agents
 
         Action<IAdvertisement> OnAdvertisementReceived;
 
+        // IAgent implementations
         IRankedAdvertisement IAgent.TargetAdvertisement { get; set; }
 
         IMapElement IAgent.TargetMapElement { get; set; }
@@ -213,16 +223,14 @@ namespace IndieDevTools.Agents
 
         protected virtual void InitStateMachine() { }
 
-        void IStateTransitionHandler.HandleTransition(string transitionName)
+        void IStateTransitionHandler.HandleTransition(string transitionName) => HandleTransition(transitionName);
+        protected void HandleTransition(string transitionName)
         {
             stateMachine.HandleTransition(transitionName);
         }
 
         // Initialization
-        void Start()
-        {
-            Init();
-        }
+        void Start() => Init();
 
         protected virtual void Init()
         {
@@ -233,10 +241,7 @@ namespace IndieDevTools.Agents
         }
 
         // Cleanup
-        void OnDestroy()
-        {
-            Cleanup();
-        }
+        void OnDestroy() => Cleanup();
 
         protected virtual void Cleanup()
         {

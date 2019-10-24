@@ -20,24 +20,72 @@ namespace IndieDevTools.Demo.BattleSimulator
 
         void SetTargetLocation()
         {
-            agent.TargetLocation = GetNewLocation();
+            bool isAgentInBounds = agent.Map.InBounds(agent.Location);
+            if (isAgentInBounds)
+            {
+                agent.TargetLocation = GetNewLocationInMoveRadius();
+            }
+            else
+            {
+                agent.TargetLocation = GetNearestLocationInBounds();
+            }
         }
 
-        Vector2Int GetNewLocation()
+        const int maxTryCount = 100;
+
+        Vector2Int GetNewLocationInMoveRadius()
         {
             int moveRadius = TraitsUtil.GetMoveRadius(agent);
-            Vector2Int location = agent.Location;
+            Vector2Int location = Vector2Int.zero;
 
-            bool isInBounds = false;
+            bool isFoundLocation = false;
+            int tryCount = 0;
 
-            while(isInBounds == false)
+            while(isFoundLocation == false && tryCount++ < maxTryCount)
             {
                 Vector2Int offset = Vector2Int.RoundToInt(Random.insideUnitCircle * moveRadius);
                 location = agent.Location;
                 location.x += offset.x;
                 location.y += offset.y;
 
-                isInBounds = agent.Map.InBounds(location);
+                isFoundLocation = agent.Map.InBounds(location);
+            }
+
+            if (tryCount > maxTryCount)
+            {
+                return agent.Location;
+            }
+
+            return location;
+        }
+
+        Vector2Int GetNearestLocationInBounds()
+        {
+            Vector2Int mapSize = agent.Map.Size;
+
+            int leftBound = -mapSize.x / 2;
+            int rightBound = mapSize.x / 2;
+            int topBound = -mapSize.y / 2;
+            int bottomBound = mapSize.y / 2;
+
+            Vector2Int location = agent.Location;
+
+            if (location.x < leftBound)
+            {
+                location.x = leftBound;
+            }
+            else if (location.x > rightBound)
+            {
+                location.x = rightBound;
+            }
+
+            if (location.y < topBound)
+            {
+                location.y = topBound;
+            }
+            else if (location.y > bottomBound)
+            {
+                location.y = bottomBound;
             }
 
             return location;

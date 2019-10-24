@@ -17,9 +17,9 @@ namespace IndieDevTools.Demo.BattleSimulator
         const float defaultSpeed = 1.0f;
 
         const float minMoveSpeed = 0.0f;
-        const float maxMoveSpeed = 0.05f;
+        const float maxMoveSpeed = 0.1f;
 
-        const string speedTraitId = "Speed";
+        public const string speedTraitId = "Speed";
 
         public static float GetMoveSpeed(IStatsCollection statsCollection)
         {
@@ -42,7 +42,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         }
 
         // Move Radius
-        const string moveRadiusTraitId = "MoveRadius";
+        public const string moveRadiusTraitId = "MoveRadius";
         public static int GetMoveRadius(IStatsCollection statsCollection)
         {
             ITrait trait = statsCollection.GetStat(moveRadiusTraitId);
@@ -58,7 +58,7 @@ namespace IndieDevTools.Demo.BattleSimulator
         const int maxAttackStrength = 10;
         const int defaultAttackStrength = 0;
 
-        const string attackStrengthTraitId = "Attack";
+        public const string attackStrengthTraitId = "Attack";
         public static int GetAttackStrength(IStatsCollection statsCollection)
         {
             ITrait trait = statsCollection.GetStat(attackStrengthTraitId);
@@ -75,12 +75,21 @@ namespace IndieDevTools.Demo.BattleSimulator
             return Mathf.RoundToInt(Random.Range(minAttackStrength, attackStrength));
         }
 
+        public static void SetAttackStrength(IStatsCollection statsCollection, int quantity)
+        {
+            ITrait trait = statsCollection.GetStat(attackStrengthTraitId);
+            if (trait != null)
+            {
+                trait.Quantity = quantity;
+            }
+        }
+
         // Defense Strength
         const int minDefenseStrength = 0;
         const int maxDefenseStrength = 10;
         const int defaultDefenseStrength = 0;
 
-        const string defenseStrengthTraitId = "Defense";
+        public const string defenseStrengthTraitId = "Defense";
         public static int GetDefenseStrength(IStatsCollection statsCollection)
         {
             ITrait trait = statsCollection.GetStat(defenseStrengthTraitId);
@@ -97,8 +106,17 @@ namespace IndieDevTools.Demo.BattleSimulator
             return Mathf.RoundToInt(Random.Range(minDefenseStrength, defenseStrength));
         }
 
+        public static void SetDefenseStrength(IStatsCollection statsCollection, int quantity)
+        {
+            ITrait trait = statsCollection.GetStat(defenseStrengthTraitId);
+            if (trait != null)
+            {
+                trait.Quantity = quantity;
+            }
+        }
+
         // Health
-        const string healthTraitId = "Health";
+        public const string healthTraitId = "Health";
         public static int GetHealth(IStatsCollection statsCollection)
         {
             ITrait trait = statsCollection.GetStat(healthTraitId);
@@ -112,6 +130,27 @@ namespace IndieDevTools.Demo.BattleSimulator
         public static void SetHealth(IStatsCollection statsCollection, int quantity)
         {
             ITrait trait = statsCollection.GetStat(healthTraitId);
+            if (trait != null)
+            {
+                trait.Quantity = quantity;
+            }
+        }
+
+        // Size
+        public const string sizeTraitId = "Size";
+        public static int GetSize(IStatsCollection statsCollection)
+        {
+            ITrait trait = statsCollection.GetStat(sizeTraitId);
+            if (trait == null)
+            {
+                return 0;
+            }
+            return trait.Quantity;
+        }
+
+        public static void SetSize(IStatsCollection statsCollection, int quantity)
+        {
+            ITrait trait = statsCollection.GetStat(sizeTraitId);
             if (trait != null)
             {
                 trait.Quantity = quantity;

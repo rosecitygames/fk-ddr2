@@ -1,10 +1,5 @@
-﻿using IndieDevTools.Advertisements;
-using IndieDevTools.Agents;
-using IndieDevTools.Traits;
+﻿using IndieDevTools.Agents;
 using IndieDevTools.Commands;
-using IndieDevTools.States;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace IndieDevTools.Demo.BattleSimulator
 {
@@ -16,7 +11,8 @@ namespace IndieDevTools.Demo.BattleSimulator
     /// </summary>
     public class AttackHandler : AbstractCommand
     {
-        ISoldier soldier = null;
+        IAgent agent = null;
+        IAttackReceiver attackReceiver = null;
 
         string onAttackedTransition;
         string onDeathTransition;
@@ -39,50 +35,53 @@ namespace IndieDevTools.Demo.BattleSimulator
         void AddEventHandler()
         {
             RemoveEventHandler();
-            soldier.OnAttackReceived += HandleAttack;
+            attackReceiver.OnAttackReceived += HandleAttack;
         }
 
         void RemoveEventHandler()
         {
-            soldier.OnAttackReceived -= HandleAttack;
+            attackReceiver.OnAttackReceived -= HandleAttack;
         }
 
         void HandleAttack(IAgent attackingAgent)
         {
-            attackingAgent.Description = "Attacking " + soldier.DisplayName;
+            attackingAgent.Description = "(HP: " + TraitsUtil.GetHealth(attackingAgent) + ") Attacking " + agent.DisplayName;
 
-            soldier.TargetMapElement = attackingAgent;
+            agent.TargetMapElement = attackingAgent;
 
-            int health = TraitsUtil.GetHealth(soldier);
+            int health = TraitsUtil.GetHealth(agent);
 
             int attackStrength = TraitsUtil.GetRandomAttackStrength(attackingAgent);
-            int defenseStrength = TraitsUtil.GetRandomDefenseStrength(soldier);
+            int defenseStrength = TraitsUtil.GetRandomDefenseStrength(agent);
 
             int healthDecrement = attackStrength - defenseStrength;
             if (healthDecrement > 0)
             {          
                 health -= healthDecrement;
-                TraitsUtil.SetHealth(soldier, health);
+                TraitsUtil.SetHealth(agent, health);
             }
 
 
             if (health <= 0)
             {
-                soldier.Description = "Killed by " + attackingAgent.DisplayName;
-                soldier.HandleTransition(onDeathTransition);
+                agent.Description = "Killed by " + attackingAgent.DisplayName;
+                agent.HandleTransition(onDeathTransition);
             }
             else
             {
-                soldier.Description = "Attacked by " + attackingAgent.DisplayName;// + "\nattackStrength = "+attackStrength+", defenseStrength = "+defenseStrength+", remaining health = " + health;
-                soldier.HandleTransition(onAttackedTransition);
+                agent.Description = "(HP: "+health+") Attacked by " + attackingAgent.DisplayName;// + "\nattackStrength = "+attackStrength+", defenseStrength = "+defenseStrength+", remaining health = " + health;
+                agent.HandleTransition(onAttackedTransition);
             }
+
+            //Debug.Log("HandleAttack health = " + health+", "+ agent.Description);
         }
        
-        public static ICommand Create(ISoldier soldier, string onAttackedTransition = "", string onDeathTransition = "")
+        public static ICommand Create(IAgent agent, IAttackReceiver attackReceiver, string onAttackedTransition = "", string onDeathTransition = "")
         {
             return new AttackHandler
             {
-                soldier = soldier,
+                agent = agent,
+                attackReceiver = attackReceiver,
                 onAttackedTransition = onAttackedTransition,
                 onDeathTransition = onDeathTransition
             };

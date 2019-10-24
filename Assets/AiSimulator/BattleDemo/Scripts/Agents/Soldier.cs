@@ -71,7 +71,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             wanderState.SetLayerLoopCount(CommandLayer0, -1); // Instead of just stopping, layers can be assigned a number of lopps. -1 is infinite looping.
             wanderState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
             wanderState.AddCommand(AdvertisementHandler.Create(this, onTargetFoundTransition), CommandLayer2);
-            wanderState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer3);
+            wanderState.AddCommand(AttackHandler.Create(this, this, onAttackedTransition, onDeathTransition), CommandLayer3);
             
             // Inspect Target Location State
             inspectTargetLocationState.AddTransition(onEnemeyFoundTransition, attackEnemyState);
@@ -85,7 +85,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             inspectTargetLocationState.AddCommand(InspectTargetMapElement.Create(this, onEnemeyFoundTransition, onItemFoundTransition, onNothingFoundTransition), CommandLayer0);
             inspectTargetLocationState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
             inspectTargetLocationState.AddCommand(AdvertisementHandler.Create(this), CommandLayer2);
-            inspectTargetLocationState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer3);
+            inspectTargetLocationState.AddCommand(AttackHandler.Create(this, this, onAttackedTransition, onDeathTransition), CommandLayer3);
 
             // Attack Enemey state
             attackEnemyState.AddTransition(onEnemyKilledTransition, wanderState);
@@ -95,7 +95,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             attackEnemyState.AddCommand(WaitForRandomTime.Create(this, 0.5f, 0.75f), CommandLayer0);
             attackEnemyState.SetLayerLoopCount(CommandLayer0, -1);
             attackEnemyState.AddCommand(BroadcastAdvertisement.Create(this), CommandLayer1);
-            attackEnemyState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer2);
+            attackEnemyState.AddCommand(AttackHandler.Create(this, this, onAttackedTransition, onDeathTransition), CommandLayer2);
 
             // Death state
             deathState.AddCommand(Die.Create(this));
@@ -107,7 +107,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             pickupItemState.AddCommand(PickupItem.Create(this));
             pickupItemState.AddCommand(WaitForRandomTime.Create(this, 0.5f, 0.1f), CommandLayer0);
             pickupItemState.AddCommand(CallTransition.Create(this, onPickupCompleted), CommandLayer0);
-            pickupItemState.AddCommand(AttackHandler.Create(this, onAttackedTransition, onDeathTransition), CommandLayer1);
+            pickupItemState.AddCommand(AttackHandler.Create(this, this, onAttackedTransition, onDeathTransition), CommandLayer1);
 
             stateMachine.SetState(wanderState);
         }
@@ -117,7 +117,7 @@ namespace IndieDevTools.Demo.BattleSimulator
             OnAttackReceived?.Invoke(attackingAgent);
         }
 
-        event Action<IAgent> ISoldier.OnAttackReceived
+        event Action<IAgent> IAttackReceiver.OnAttackReceived
         {
             add
             {
