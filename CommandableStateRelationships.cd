@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IndieDevTools.States.CommandableState" Collapsed="true">
+    <Position X="6.75" Y="6" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAACAQAAAgAQAABAAEAAQBIAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\States\CommandableState.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CommandPlayer" />
+    </ShowAsAssociation>
+    <Lollipop Position="1.412" />
+  </Class>
+  <Class Name="IndieDevTools.States.AbstractState" Collapsed="true">
+    <Position X="4.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCAAICAAACAAAAAAAAEAAAQAABAAAIAAAIAAAEAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\States\AbstractState.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="IndieDevTools.Commands.ICommandPlayer" Collapsed="true">
+    <Position X="9" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Commands\ICommandPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.States.IStateMachine" Collapsed="true">
+    <Position X="1.75" Y="5" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAABEAAAAAAAABAAAAAACAAAABAAAAAAAAAAAQACAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\States\IStateMachine.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentState" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="IndieDevTools.Commands.ICommandLayerCollection">
+    <Position X="6.75" Y="4" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAACAQAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Commands\ICommandLayerCollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Commands.ICommand" Collapsed="true">
+    <Position X="11.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAQAAAAABAABAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Commands\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Commands.ICommandEnumerator" Collapsed="true">
+    <Position X="11.75" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAABAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Commands\ICommandEnumerator.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Commands.ICommandCollection" Collapsed="true">
+    <Position X="13" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAACAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Commands\ICommandCollection.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.States.IState" Collapsed="true">
+    <Position X="4.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAEAAAQAABAAAIAAAIAAAEAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\States\IState.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.States.IStateTransitionHandler" Collapsed="true">
+    <Position X="2.25" Y="3" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\States\IStateTransitionHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

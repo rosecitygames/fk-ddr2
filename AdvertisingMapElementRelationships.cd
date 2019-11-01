@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="IndieDevTools.Agents.IAgent" Collapsed="true">
+    <Position X="5" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAQAAAAAAAAAAAAAAAAAAAAAEAAAARAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Agents\IAgent.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Items.IItem" Collapsed="true">
+    <Position X="7.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Items\IItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Advertisements.IAdvertisingMapElement" Collapsed="true">
+    <Position X="5.75" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Advertisements\IAdvertisingMapElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Maps.IMapElement" Collapsed="true">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABBAAAAAAAAAAAAAAAQIAAABAgAAAAAAAQAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Maps\IMapElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Advertisements.IAdvertiser" Collapsed="true">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAABEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Advertisements\IAdvertiser.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Advertisements.IAdvertisementBroadcastData" Collapsed="true">
+    <Position X="7" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Advertisements\IAdvertisementBroadcastData.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IndieDevTools.Advertisements.IAdvertisementReceiver" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\AiSimulator\Scripts\Advertisements\IAdvertisementReceiver.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
