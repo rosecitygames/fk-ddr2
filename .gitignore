@@ -23,6 +23,7 @@ ExportedObj/
 *.booproj
 *.svd
 *.vs
+*.cd
 
 # Vim
 *.sw?
